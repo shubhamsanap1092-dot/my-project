@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SITS Pune - Professional Portal</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+    :root {
+        --primary: #0f172a; --secondary: #334155; --brand: #2563eb; --brand-light: #eff6ff;
+        --success: #10b981; --success-bg: #ecfdf5; --danger: #ef4444; --danger-bg: #fef2f2;
+        --warning: #f59e0b; --warning-bg: #fffbeb; --sidebar-width: 260px;
+        --bg-body: #f1f5f9; --card-bg: #ffffff; --border: #e2e8f0; --text-main: #0f172a; --text-muted: #64748b;
+    }
+    body.dark {
+        --bg-body: #0f172a; --card-bg: #1e293b; --border: #334155; --text-main: #f8fafc;
+        --text-muted: #94a3b8; --brand-light: #1e3a8a; --success-bg: #064e3b; --danger-bg: #450a0a; --warning-bg: #451a03;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body { background: var(--bg-body); color: var(--text-main); height: 100vh; margin: 0; display: flex; overflow: hidden; font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    /* --- NEW LANDING PAGE CSS --- */
+    #landingPage {
+        position: fixed; inset: 0; background: #ffffff; z-index: 20000; overflow-y: auto; display: block;
+    }
+    .landing-nav {
+        display: flex; justify-content: space-between; align-items: center; padding: 15px 5%;
+        background: rgba(255,255,255,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0;
+    }
+    .brand-box { display: flex; align-items: center; gap: 15px; }
+    .brand-box img { height: 50px; }
+    .brand-text h2 { font-size: 18px; margin: 0; color: var(--primary); font-weight: 800; }
+    .brand-text p { font-size: 12px; margin: 0; color: var(--text-muted); }
+    
+    .hero-section {
+        padding: 100px 5%; text-align: center; background: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
+    }
+    .hero-section h1 { font-size: 42px; color: var(--primary); margin-bottom: 20px; font-weight: 800; }
+    .hero-section p { font-size: 18px; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; line-height: 1.6; }
+    
+    .features-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 80px 5%; background: white;
+    }
+    .feature-item {
+        padding: 30px; border-radius: 16px; background: #f8fafc; border: 1px solid var(--border); text-align: center; transition: 0.3s;
+    }
+    .feature-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .feature-icon {
+        width: 60px; height: 60px; background: var(--brand-light); color: var(--brand); border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 20px;
+    }
+
+    /* UI ELEMENTS */
+    .btn { padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; font-size: 14px; }
+    .btn-lg { padding: 14px 35px; font-size: 16px; border-radius: 50px; }
+    .btn-p { background: var(--brand); color: white; }
+    .btn-s { background: var(--success); color: white; }
+    .btn-w { background: #2563eb; color: white; }
+    .btn-e { background: #16a34a; color: white; }
+    .btn-d { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger); }
+    .btn-dark { background: #334155; color: white; }
+    
+    /* LOGIN & LAYOUT */
+    #authScreen { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.9); z-index: 9999; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+    .login-card { background: white; width: 400px; padding: 40px; border-radius: 24px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+    .login-input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; background: #f8fafc; color: #333; }
+    
+    aside { width: var(--sidebar-width); background: var(--card-bg); display: flex; flex-direction: column; border-right: 1px solid var(--border); transition: transform 0.3s ease; }
+    .sidebar-header { padding: 25px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 15px; }
+    #navLinks { padding: 15px; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+    .nav-link { padding: 12px; border-radius: 8px; display: flex; align-items: center; gap: 12px; color: var(--text-muted); cursor: pointer; font-weight: 600; }
+    .nav-link:hover, .nav-link.active { background: var(--brand-light); color: var(--brand); }
+    
+    main { flex: 1; padding: 30px; overflow-y: auto; position: relative; width: 100%; }
+    .page { display: none; animation: fadeIn 0.4s; }
+    .page.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .card { background: var(--card-bg); border-radius: 16px; padding: 20px; border: 1px solid var(--border); margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .welcome-card { background: linear-gradient(120deg, var(--brand) 0%, #1e40af 100%); color: white; border: none; padding: 30px; display: flex; align-items: center; justify-content: space-between; }
+    .grid-forms { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    
+    input, select, textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); outline: none; }
+    
+    .table-container { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; color: var(--text-main); }
+    th { background: var(--bg-body); padding: 12px; text-align: left; color: var(--text-muted); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td { padding: 12px; border-bottom: 1px solid var(--border); }
+    
+    .tag { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+    .tag-p { background: var(--success-bg); color: #10b981; }
+    .tag-a { background: var(--danger-bg); color: #ef4444; }
+    .tag-pend { background: var(--warning-bg); color: #f59e0b; }
+    
+    /* MOBILE HEADER & MENU */
+    #mobileHeader { display: none; padding: 15px; background: var(--card-bg); border-bottom: 1px solid var(--border); align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 99; }
+    .mobile-menu-btn { font-size: 20px; cursor: pointer; color: var(--primary); background: none; border: none; }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; backdrop-filter: blur(2px); }
+
+    /* TIMETABLE & CHARTS */
+    .tt-wrapper { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    .tt-table th, .tt-table td { border: 1px solid var(--border); padding: 0; min-width: 100px; height: 50px; text-align: center; position: relative; }
+    .tt-table input { border: none; background: transparent; width: 100%; height: 100%; text-align: center; }
+    .del-btn { position: absolute; top: -8px; right: -8px; width: 16px; height: 16px; background: var(--danger); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; opacity: 0; }
+    .tt-table th:hover .del-btn, .tt-table td:hover .del-btn { opacity: 1; }
+    .pie-chart { width: 100px; height: 100px; border-radius: 50%; background: conic-gradient(var(--brand) var(--p), var(--bg-body) 0); display: flex; align-items: center; justify-content: center; }
+    .pie-chart::after { content: attr(data-val); position: absolute; background: var(--card-bg); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; color: var(--text-main); }
+
+    /* MODAL */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 15px; }
+    .modal-content { background: var(--card-bg); width: 100%; max-width: 900px; padding: 25px; border-radius: 20px; position: relative; max-height: 85vh; overflow-y: auto; }
+    .close-modal { position: absolute; right: 20px; top: 15px; font-size: 24px; cursor: pointer; color: var(--text-muted); z-index: 10; }
+
+    /* --- MOBILE MEDIA QUERIES --- */
+    @media (max-width: 768px) {
+        body { flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        /* Sidebar becomes a drawer */
+        aside { position: fixed; inset: 0; width: 280px; z-index: 200; transform: translateX(-100%); box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+        aside.active { transform: translateX(0); }
+        .sidebar-overlay.active { display: block; }
+        
+        #mobileHeader { display: flex; }
+        main { padding: 15px; width: 100%; overflow-y: auto; height: 100%; }
+        
+        /* Grid Adjustments */
+        .grid-forms { grid-template-columns: 1fr; gap: 15px; }
+        
+        /* Text Adjustments */
+        .hero-section { padding: 60px 20px; }
+        .hero-section h1 { font-size: 28px; }
+        .hero-section p { font-size: 14px; }
+        .landing-nav { padding: 10px 20px; }
+        .features-grid { padding: 40px 20px; gap: 20px; }
+        
+        /* Card & Modal Adjustments */
+        .card { padding: 15px; }
+        .login-card { width: 100%; padding: 25px; }
+        .welcome-card { flex-direction: column; text-align: center; gap: 15px; }
+        
+        /* Hide Desktop Elements */
+        .no-mobile { display: none !important; }
+        
+        /* Header Logo Fix */
+        .dashboard-header-img { width: 40px !important; height: 40px !important; }
+        .dashboard-header-title { font-size: 16px !important; }
+        .dashboard-header-sub { font-size: 12px !important; }
+    }
+
+    /* --- PROFESSIONAL PRINT CSS --- */
+    @media print {
+        @page { size: A4 landscape; margin: 5mm; }
+        body { background: white; color: black; -webkit-print-color-adjust: exact; }
+        body * { visibility: hidden; }
+        #printableArea, #printableArea * { visibility: visible; }
+        #printableArea { position: absolute; left: 0; top: 0; width: 100%; height: 100%; padding: 10px; }
+        .no-print, .close-modal, .btn, .modal-content::-webkit-scrollbar, #mobileHeader, .mobile-menu-btn { display: none !important; }
+        .modal { position: absolute; background: white; inset: 0; display: block !important; }
+        .modal-content { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; overflow: visible; }
+        
+        .print-header-wrapper { display: flex; align-items: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 15px; gap: 20px; }
+        .print-logo { width: 80px; height: 80px; object-fit: contain; }
+        .print-title { flex: 1; text-align: center; }
+        .print-title h2 { margin: 0; font-size: 22px; text-transform: uppercase; letter-spacing: 1px; }
+        .print-title p { margin: 5px 0 0; font-size: 12px; color: #444; }
+        .print-meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; border: 1px solid #000; padding: 8px; margin-bottom: 15px; font-size: 11px; background: #f8f8f8; }
+        .meta-item strong { display: block; font-size: 10px; text-transform: uppercase; color: #555; }
+
+        .table-container { border: none; overflow: visible; }
+        #ledgerTable { width: 100%; border-collapse: collapse; font-size: 10px; }
+        #ledgerTable th, #ledgerTable td { border: 1px solid #000 !important; padding: 2px; text-align: center; color: #000; }
+        #ledgerTable th { background-color: #eee !important; font-weight: bold; }
+        #ledgerTable td:nth-child(2) { text-align: left; padding-left: 5px; min-width: 150px; }
+    }
+    </style>
+</head>
+<body>
+
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<div id="landingPage">
+    <nav class="landing-nav">
+        <div class="brand-box">
+            <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" alt="SITS Logo">
+            <div class="brand-text">
+                <h2>SITS, PUNE</h2>
+                <p>Sinhgad Institute of Technology and Science</p>
+            </div>
+        </div>
+        <button class="btn btn-p" onclick="showLoginModal()">Portal Login</button>
+    </nav>
+
+    <header class="hero-section">
+        <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" style="width: 120px; margin-bottom: 30px;">
+        <h1>Sinhgad Institute of Technology and Science</h1>
+        <p>Narhe, Pune - 411041<br>Premier Engineering Education & Research Institute</p>
+        <button class="btn btn-p btn-lg" onclick="showLoginModal()">Access Dashboard <i class="fa fa-arrow-right"></i></button>
+    </header>
+
+    <div class="features-grid">
+        <div class="feature-item">
+            <div class="feature-icon"><i class="fa fa-user-graduate"></i></div>
+            <h3>Student Portal</h3>
+            <p>Access results, attendance, and academic resources seamlessly.</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon"><i class="fa fa-chalkboard-teacher"></i></div>
+            <h3>Faculty Hub</h3>
+            <p>Manage attendance, marks, and timetables efficiently.</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon"><i class="fa fa-university"></i></div>
+            <h3>Administration</h3>
+            <p>Centralized control for academic years, branches, and notices.</p>
+        </div>
+    </div>
+    
+    <footer style="text-align: center; padding: 40px; background: var(--primary); color: white; margin-top: 50px;">
+        <p>&copy; 2024 Sinhgad Institute of Technology and Science. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<div id="authScreen">
+    <div class="login-card">
+        <div style="text-align: right; margin-bottom: -20px;"><button class="btn btn-outline" onclick="closeLoginModal()" style="border:none; background:transparent; font-size:20px;">&times;</button></div>
+        <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" style="width:80px; border-radius:50%; margin-bottom:15px;">
+        <h2 style="color:#0f172a; margin:0;">Welcome Back</h2>
+        <p style="color:#64748b; font-size:13px; margin-bottom:25px;">Sign in to continue to SITS Portal</p>
+        <input type="text" class="login-input" id="loginID" placeholder="ID (admin@sits.com / Phone)" required>
+        <input type="password" class="login-input" id="loginPass" placeholder="Password (admin / 1234 / parent)" required>
+        <button class="login-btn btn btn-p" style="width:100%" onclick="handleLogin()">Login Securely</button>
+        <div style="margin-top:20px; font-size:11px; color:#94a3b8;">Developed by <strong>Shubham Sanap</strong></div>
+    </div>
+</div>
+
+<aside id="sidebar" style="display:none">
+    <div class="sidebar-header">
+        <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" style="width:40px; border-radius:6px;">
+        <div><h3 style="margin:0; font-size:16px;">SITS Pune</h3><span style="font-size:10px; color:var(--text-muted);">Academic Portal</span></div>
+    </div>
+    <div id="navLinks"></div>
+    <div style="padding:20px; margin-top:auto; border-top:1px solid var(--border);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <span style="font-size:12px; font-weight:600;">Dark Mode</span>
+            <i class="fa fa-moon" style="cursor:pointer; color:var(--text-muted);" onclick="toggleTheme()"></i>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:32px; height:32px; background:var(--brand); border-radius:50%; color:white; display:flex; align-items:center; justify-content:center;" id="sideAvatar">U</div>
+            <div style="flex:1;"><div id="sideName" style="font-size:13px; font-weight:700;">User</div><div id="sideRole" style="font-size:10px; color:var(--text-muted);">Role</div></div>
+            <i class="fa fa-sign-out-alt" style="color:var(--danger); cursor:pointer;" onclick="location.reload()"></i>
+        </div>
+    </div>
+</aside>
+
+<main id="mainContent" style="display:none">
+    
+    <div id="mobileHeader">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()"><i class="fa fa-bars"></i></button>
+        <div style="font-weight:700; color:var(--primary);">SITS Portal</div>
+        <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" style="width:30px; border-radius:4px;">
+    </div>
+
+    <div style="margin-bottom: 30px; display: flex; align-items: center; gap: 20px; border-bottom: 1px solid var(--border); padding-bottom: 20px;" class="no-mobile">
+        <img class="dashboard-header-img" src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" style="width: 60px; height: 60px;">
+        <div>
+            <h1 class="dashboard-header-title" style="margin: 0; font-size: 24px; color: var(--primary);">Sinhgad Institute of Technology and Science</h1>
+            <p class="dashboard-header-sub" style="margin: 5px 0 0; color: var(--text-muted);">Narhe, Pune - 411041</p>
+        </div>
+    </div>
+
+    <div id="noticeWidget" class="card" style="display:none; border-left: 4px solid var(--warning); background: var(--warning-bg);">
+        <h4 style="margin:0 0 5px 0;"><i class="fa fa-bullhorn" style="color:var(--warning)"></i> Latest Announcement</h4>
+        <p id="noticeText" style="margin:0; font-size:13px; color:#854d0e;"></p>
+        <small id="noticeDate" style="color:#a16207; font-size:10px; display:block; margin-top:5px;"></small>
+    </div>
+
+    <div id="adminPage" class="page">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+            <h2><i class="fa fa-cogs"></i> Admin Control</h2>
+            <div style="display:flex; gap:10px;">
+                <button class="btn btn-dark" onclick="openTimetableModal()"><i class="fa fa-edit"></i> <span class="no-mobile">Manage </span>Timetable</button>
+                <button class="btn btn-p" onclick="openModal('noticeModal')"><i class="fa fa-bullhorn"></i> <span class="no-mobile">Post </span>Notice</button>
+            </div>
+        </div>
+        <div class="grid-forms" style="margin-bottom:20px;">
+            <div class="card"><h3>Leave Requests</h3><div class="table-container" style="max-height:200px;"><table id="adminLeaveTable"></table></div></div>
+            <div class="card">
+                <h3>Configuration</h3>
+                <div class="grid-forms">
+                    <div><label>Year</label><select id="aYear" onchange="handleYearChange('aYear','aBranch')"><option value="1ST YEAR">1st Year</option><option value="2ND YEAR">2nd Year</option><option value="3RD YEAR">3rd Year</option><option value="4TH YEAR">4th Year</option></select></div>
+                    <div><label>Branch</label><select id="aBranch" onchange="refreshAdminView()"></select></div>
+                    <div><label>Div</label><select id="aDiv" onchange="refreshAdminView()"></select></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div style="display:flex; justify-content:space-between;"><h3>Student Registry</h3><button class="btn btn-s" onclick="openModal('addStudentModal')"><i class="fa fa-plus"></i> New</button></div>
+            <div class="table-container" style="max-height:500px;"><table id="adminStudentTable"></table></div>
+        </div>
+    </div>
+
+    <div id="teacherPage" class="page">
+        <div style="display:flex; justify-content:space-between; margin-bottom:20px;"><h2><i class="fa fa-chalkboard-teacher"></i> Faculty <span class="no-mobile">Dashboard</span></h2><div id="clockDisplay" style="font-weight:700; color:var(--brand);"></div></div>
+        <div class="grid-forms" style="margin-bottom:20px;">
+            <div class="card" onclick="openAttendanceModal()" style="cursor:pointer; text-align:center;"><i class="fa fa-user-check" style="font-size:30px; color:var(--brand);"></i><h3>Attendance</h3></div>
+            <div class="card" onclick="openMarksModal()" style="cursor:pointer; text-align:center;"><i class="fa fa-chart-bar" style="font-size:30px; color:var(--success);"></i><h3>Marks</h3></div>
+            <div class="card" onclick="openModal('lmsModal')" style="cursor:pointer; text-align:center;"><i class="fa fa-cloud-upload-alt" style="font-size:30px; color:var(--warning);"></i><h3>LMS</h3></div>
+            <div class="card" onclick="openTimetableModal()" style="cursor:pointer; text-align:center;"><i class="fa fa-calendar-day" style="font-size:30px; color:#6366f1;"></i><h3>Schedule</h3></div>
+        </div>
+        <div class="card">
+            <h4><i class="fa fa-filter"></i> Class Selection</h4>
+            <div class="grid-forms">
+                <select id="tYear" onchange="handleYearChange('tYear','tBranch')"><option value="1ST YEAR">1st Year</option><option value="2ND YEAR">2nd Year</option><option value="3RD YEAR">3rd Year</option><option value="4TH YEAR">4th Year</option></select>
+                <select id="tBranch"></select>
+                <select id="tDiv"></select>
+                <select id="tSub"></select>
+            </div>
+        </div>
+        <div class="card"><h3>Pending Leaves</h3><div class="table-container"><table id="teacherLeaveTable"></table></div></div>
+    </div>
+
+    <div id="studentPage" class="page">
+        <div class="card welcome-card">
+            <div>
+                <h1 id="stWelcome" style="margin:0;">Hello!</h1>
+                <p id="stDetails" style="margin:5px 0 0; opacity:0.9;">Loading...</p>
+            </div>
+            <span id="stFeeBadge" class="tag"></span>
+        </div>
+        <div class="grid-forms">
+            <div class="card">
+                <div style="display:flex; justify-content:space-between;"><h3>Attendance</h3><div class="pie-chart" id="stAttChart" style="--p:0deg;" data-val="0%"></div></div>
+                <div class="table-container" style="max-height:200px;"><table id="stAttTable"></table></div>
+            </div>
+            <div class="card"><h3>Actions</h3><button class="btn btn-p" style="width:100%; margin-bottom:10px;" onclick="openTimetableModal()">Timetable</button><button class="btn btn-s" style="width:100%" onclick="openModal('applyLeaveModal')">Apply Leave</button><div style="margin-top:10px;" id="stLeaveStatus"></div></div>
+        </div>
+        <div class="card"><h3>Results</h3><div class="table-container"><table id="stGradesTable"></table></div></div>
+    </div>
+</main>
+
+<div id="attModal" class="modal" style="display:none; flex-direction:column;">
+    <div class="modal-content">
+        <span class="close-modal no-print" onclick="closeModal('attModal')">&times;</span>
+        <h2 class="no-print">Mark Attendance & Ledger</h2>
+        
+        <div class="grid-forms no-print" style="margin-bottom:20px;">
+            <input type="date" id="attDate">
+            <input type="text" id="absentRolls" placeholder="Absent Roll Nos (e.g. 1, 5, 12)">
+            <button class="btn btn-p" onclick="saveAttendance()">Save</button>
+        </div>
+        <div style="display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap;" class="no-print">
+            <div style="flex:1;">
+                <label style="font-size:12px;">Filter Month</label>
+                <select id="viewMonth" onchange="renderAttendanceLedger()">
+                    <option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option>
+                    <option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option>
+                    <option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option>
+                </select>
+            </div>
+            <div style="display:flex; align-items:flex-end; gap:5px;">
+                <button class="btn btn-e" onclick="exportToExcel('ledgerTable', 'Attendance_Ledger')"><i class="fa fa-file-excel"></i> Excel</button>
+                <button class="btn btn-s" onclick="window.print()"><i class="fa fa-print"></i> Print A4</button>
+            </div>
+        </div>
+
+        <div id="printableArea">
+            <div class="print-header-wrapper">
+                <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" class="print-logo">
+                <div class="print-title">
+                    <h2>Sinhgad Institute of Technology and Science</h2>
+                    <p>Narhe, Pune - 411041 | Academic Attendance Record</p>
+                </div>
+            </div>
+            
+            <div class="print-meta-grid">
+                <div class="meta-item"><strong>Department/Branch</strong><span id="pBranch">IT</span></div>
+                <div class="meta-item"><strong>Academic Year</strong><span id="pYear">2023-24</span></div>
+                <div class="meta-item"><strong>Division</strong><span id="pDiv">Div-1</span></div>
+                <div class="meta-item"><strong>Subject</strong><span id="pSub">Maths</span></div>
+                <div class="meta-item"><strong>Month</strong><span id="pMonth">January</span></div>
+                <div class="meta-item"><strong>Faculty</strong><span id="pFac">Prof. User</span></div>
+                <div class="meta-item"><strong>Generated On</strong><span id="pDate"></span></div>
+            </div>
+
+            <div class="table-container">
+                <table id="ledgerTable"></table>
+            </div>
+        </div>
+        </div>
+</div>
+
+<div id="marksModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('marksModal')">&times;</span><h2>Marks Entry</h2><div class="grid-forms"><input type="text" id="newExamCol" placeholder="Exam Name"><button class="btn btn-p" onclick="addExamColumn()">Add Col</button><button class="btn btn-s" onclick="commitMarks()">Save</button><button class="btn btn-e" onclick="exportToExcel('marksDataTable','Marks')">Excel</button></div><div class="table-container"><table id="marksDataTable"><thead></thead><tbody></tbody></table></div></div></div>
+
+<div id="timetableModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('timetableModal')">&times;</span><div style="display:flex; justify-content:space-between;"><h2>Weekly Timetable</h2><div id="ttAdminControls" style="display:none; gap:10px;"><button class="btn btn-dark" onclick="addTtRow()">+ Row</button><button class="btn btn-dark" onclick="addTtCol()">+ Col</button><button class="btn btn-s" onclick="saveTimetable()">Save</button></div></div><div class="tt-wrapper"><table class="tt-table" id="ttTable"></table></div></div></div>
+
+<div id="applyLeaveModal" class="modal"><div class="modal-content" style="max-width:500px;"><span class="close-modal" onclick="closeModal('applyLeaveModal')">&times;</span><h2>Request Leave</h2><div class="grid-forms"><input type="text" id="leaveReason" placeholder="Reason"><input type="date" id="leaveDate"><button class="btn btn-p" onclick="submitLeave()">Submit</button></div></div></div>
+
+<div id="noticeModal" class="modal"><div class="modal-content" style="max-width:500px;"><span class="close-modal" onclick="closeModal('noticeModal')">&times;</span><h2>Post Notice</h2><textarea id="noticeContent" rows="5"></textarea><button class="btn btn-p" style="margin-top:10px; width:100%" onclick="postNotice()">Publish</button></div></div>
+
+<div id="addStudentModal" class="modal"><div class="modal-content" style="max-width:500px;"><span class="close-modal" onclick="closeModal('addStudentModal')">&times;</span><h2>Add Student</h2><div class="grid-forms"><input type="text" id="newStName" placeholder="Name"><input type="text" id="newStPhone" placeholder="Phone"><input type="text" id="newStRoll" placeholder="Roll"><select id="newStFee"><option value="Pending">Pending</option><option value="Paid">Paid</option></select><button class="btn btn-p" onclick="saveNewStudent()">Register</button></div></div></div>
+
+<div id="lmsModal" class="modal"><div class="modal-content" style="max-width:600px;"><span class="close-modal" onclick="closeModal('lmsModal')">&times;</span><h2>Upload Resource</h2><div class="grid-forms"><select id="lmsType"><option>Notes</option><option>Assignment</option></select><input type="text" id="lmsTitle" placeholder="Title"><input type="file" id="lmsFile"><button class="btn btn-p" onclick="uploadLms()">Upload</button></div></div></div>
+
+<script>
+    // --- DATA & INIT ---
+    // FULL STUDENT DATA RESTORED
+    const INITIAL_STUDENTS = [
+        { n: "BHALERAO PAVAN DINKARAPPA",   p: "9325530650", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "1" },
+        { n: "BORKAR DNYANESHWARI TANHAJI", p: "7666103944", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "2" },
+        { n: "SHETKAR DNYANESH RAMCHANDRA", p: "8888216966", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "3" },
+        { n: "NARWADE SHRADDHA VILAS",      p: "9423756624", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "4" },
+        { n: "KADAM YASH RAJENDRA", p: "7387932865", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "5" },
+        { n: "KADAM SHRADDHA SADANAND", p: "8459430473", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "6" },
+        { n: "TILVE VEDANT MAHESH", p: "7038580411", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "7" },
+        { n: "BHAGAT RUTUJA PRAVIN", p: "9552737716", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "8" },
+        { n: "HIRE PRIYANKA RUSHINDAR", p: "9527592219", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "1" },
+        { n: "RATHOD VIKAS RAJARAM", p: "8767459645", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "2" },
+        { n: "JADHAV DHANANJAY NAVNATH", p: "8669054022", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "3" },
+        { n: "WALUNJ ASHISH YASHWANT", p: "9850116884", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "4" },
+        { n: "KSHIRSAGAR VEDIKA BAJRANG", p: "9226395502", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "5" },
+        { n: "KOTHIMBIRE GIRISH CHANDRASHEKHAR", p: "9322002382", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "6" },
+        { n: "DESAI VIRAJ BAJIRAO", p: "8983687233", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "7" },
+        { n: "GODASE ARYAN RAJENDRA", p: "9359384639", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "8" },
+        { n: "JAGADALE SNEHAL BHAURAO", p: "7757062613", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "9" },
+        { n: "SHIRSAT RITESH RAJKUMAR", p: "8459952126", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "10" },
+        { n: "MAGDUM ANUSHKA SHARAD", p: "7385991130", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "11" },
+        { n: "SIDDHI SANTOSH RALE", p: "8080763639", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "12" },
+        { n: "GAIKWAD PRIYANKA PRAMOD", p: "8624095285", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "13" },
+        { n: "WAGHMARE SANIKA BHAUSAHEB", p: "9021988498", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "14" },
+        { n: "JAGTAP SAMIKSHA ASHOK", p: "9850035016", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "15" },
+        { n: "SAVKARE RESHMA DILIP", p: "9322083371", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "16" },
+        { n: "ASOLE AMIT RAJESH", p: "8855862396", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "17" },
+        { n: "CHONDHIKAR CHINMAY SHAMSUNDER", p: "7385378585", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "18" },
+        { n: "PATTEWAR VARAD VINOD", p: "7058068161", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "19" },
+        { n: "PANDIT NEEL PARAG", p: "7028567607", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "20" },
+        { n: "APURVA BALAJI INGOLE", p: "9307540076", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "21" },
+        { n: "MOHITE HARSHVARDHAN RUPESH", p: "9356975916", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "22" },
+        { n: "GARJE SHREYASH GANESH", p: "9284638745", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "23" },
+        { n: "DISHA GOPALSINGH BISEN", p: "7559442449", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "24" },
+        { n: "KULKARNI SAI YOGESH", p: "9371052722", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "25" },
+        { n: "SHINDE MOHINI SHIVRAJ", p: "8999195748", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "26" },
+        { n: "KHUSHI KISHOR JADHAV", p: "9529135018", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "27" },
+        { n: "ANDHALE VEDANT AJINATH", p: "8999989455", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "28" },
+        { n: "KAWALE ANKIT VINOD", p: "7517086168", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "29" },
+        { n: "KERE PRAGATI RSH", p: "9322346905", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "30" },
+        { n: "NAGARGOJE JAYWANT RAVINDRA", p: "7249604536", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "31" },
+        { n: "DURGE MRUNALI VIKRAM", p: "9422631120", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "32" },
+        { n: "KAMBLE PIYUSH SAUDAGAR", p: "9423360436", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "33" },
+        { n: "WALUNJ DNYANESHWARI DIPAK", p: "7387932865", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "34" },
+        { n: "SHIVTARE ABHAY SOMNATH", p: "9209383809", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "35" },
+        { n: "DANGE PIYUSH TANSEN", p: "9158095213", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "36" },
+        { n: "SURAJ NANASAHEB LEKURWALE", p: "9175316526", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "37" },
+        { n: "ANKUSH KALIDAS CHAUDHAR", p: "9209428980", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "38" },
+        { n: "PAWAR NAYAN SHASHIKANT", p: "9284490848", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "39" },
+        { n: "JADHAV SAHYOG DNYANESHWAR", p: "9309462326", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "40" },
+        { n: "ATHAWALE SHRADDHA ASHOKRAO", p: "9322935065", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "41" },
+        { n: "MADHURI SANTOSH JAGADALE", p: "7498208986", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "42" },
+        { n: "KALE PRANAV MUKINDA", p: "9552551627", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "43" },
+        { n: "FAISAL MOHAMMAD SHAIKH", p: "9359532762", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "44" },
+        { n: "HARSHAL BALAJI ITKAR", p: "7498939884", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "45" },
+        { n: "NANNAWARE ADITYA VINOD", p: "9309573979", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "46" },
+        { n: "SUPEKAR PARNAVI RAJENDRA", p: "7720904534", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "47" },
+        { n: "HARSHDEEP SUDHIR KAMBLE", p: "9322773865", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "48" },
+        { n: "AKUSKAR VEDANT CHANDRAKANT", p: "9022160313", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "49" },
+        { n: "OM GAUTAM BHUSARE", p: "7624010227", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "50" },
+        { n: "NANDINI VINAYAK PATIL", p: "9021298625", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "1" },
+        { n: "SHUBHAM SHIVAJI THOMBARE", p: "8446182826", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "2" },
+        { n: "UMBRATKAR MAITHILI SANTOSH", p: "9307652252", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "3" },
+        { n: "PATIL SUMIT SHIVDAS", p: "9021643536", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "4" },
+        { n: "ASHITOSH SHARAD SAID", p: "9284148679", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "5" },
+        { n: "SHRAVANI VINAYAK SHALGAR", p: "9503532509", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "6" },
+        { n: "GAIKWAD HARISH DIPAK", p: "8799921294", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "7" },
+        { n: "GADADE TANISHKA MALHARI", p: "9309018103", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "8" },
+        { n: "PATHAN NOOR AFSHA SER", p: "7350203285", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "9" },
+        { n: "GANGAWARE PRATHMESH DNYANOBA", p: "9421627071", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "10" },
+        { n: "KATHAR GAYATRI SURESH", p: "8459858728", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "11" },
+        { n: "KOLHE ANJALI ARJUN", p: "8483876110", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "12" },
+        { n: "AVDHUT DATTATRAY SANGALE", p: "9309767193", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "13" },
+        { n: "GAVADE AMBIKA SANTOSH", p: "9850800545", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "14" },
+        { n: "SURYAWANSHI ADESH RAJU", p: "9028523238", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "15" },
+        { n: "VEDANT DEVIDAS RAUT", p: "9607484739", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "16" },
+        { n: "BHOJANE CHAITALI SANJAY", p: "8087709373", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "17" },
+        { n: "SHENDE SIDDHI UMESH", p: "8149267009", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "18" },
+        { n: "PIMPALGAVE BAJRANG SHIVAJI", p: "8459430473", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "19" },
+        { n: "CHAVAN AJAY RAJARAM", p: "8010757631", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "20" },
+        { n: "CHADOKAR RISHIKA YOGESH", p: "9699945991", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "21" },
+        { n: "TEJAS NANDKUMAR RATHOD", p: "9359798864", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "22" },
+        { n: "PRANAV CHHAGAN GAIKWAD", p: "8197775751", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "23" },
+        { n: "UTTARWAR KAUSTUBH VIJAY", p: "7972564543", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "24" },
+        { n: "GHODKE SHIVAM SATISH", p: "7972624725", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "25" },
+        { n: "AMRUTA DATTATRAY SAPKAL", p: "9579827176", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "26" },
+        { n: "KHEDKAR ARJUN HARIBHAU", p: "8459613354", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "27" },
+        { n: "KASHISH KAILASRAO INGOLE", p: "9588687208", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "28" },
+        { n: "AHIRE SNEHA JIVAN", p: "8261843398", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "29" },
+        { n: "KALE SHUBHAM SANDIP", p: "9172584416", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "30" },
+        { n: "DHAWARE ADITYA RAVI", p: "9665486558", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "31" },
+        { n: "KSHITIJ DIPAK PATIL", p: "9322472321", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "32" },
+        { n: "THEURKAR ANUSHKA VIJAY", p: "7038682544", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "33" },
+        { n: "VISHWAJEET CHANDRAKANT YEKAL", p: "9322810381", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "34" },
+        { n: "HARDE VIKAS KAILAS", p: "9579058226", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "35" },
+        { n: "MANJARE AJINKYA BHAGWAN", p: "8788321934", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "36" },
+        { n: "WAVARE SAMIKSHA SUNIL", p: "8999014939", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "37" },
+        { n: "MULLA JISHAN AMIN", p: "9011546472", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "38" },
+        { n: "TORANGI SAMARTH NAGANATH", p: "8237846080", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "39" },
+        { n: "VISHWAJEET VINOD BAN", p: "9404043956", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "40" },
+        { n: "BAVISKAR GANESH MAHENDRA", p: "7770039708", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "41" },
+        { n: "GUNJAL AJINKYA ANGAD", p: "9699537376", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "42" },
+        { n: "KALBANDE SANKET GAJANAN", p: "9325764542", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "43" },
+        { n: "YANDOLE NAMRATA TULASHIDAS", p: "8208873763", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "44" },
+        { n: "DAHALE MRUDULA MAHESH", p: "9373480242", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "45" },
+        { n: "KOTLAPURE SUMIT SHASHIKANT", p: "7219387660", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "46" },
+        { n: "BHOSALE HARSHADA HARIDAS", p: "7498864781", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "47" },
+        { n: "SHIVAM BADRINATH PARJANE", p: "8262822371", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "48" },
+        { n: "PATIL SAKSHI JITENDRA", p: "9370848370", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "1" },
+        { n: "JANHAVI BHUSHAN MAZIRE", p: "9834490200", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "2" },
+        { n: "MANISHA HIRAND BOGATI", p: "9921349513", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "3" },
+        { n: "CHIDE VEDANTI RAJU", p: "8308190976", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "4" },
+        { n: "OM BALU GHADAGE", p: "7219876418", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "5" },
+        { n: "SATPUTE OMKAR ROHIDAS", p: "9226792005", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "6" },
+        { n: "GURAV SNEHA RAJU", p: "8668367630", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "7" },
+        { n: "JADHAV PRAGATI PRASHANT", p: "9834089178", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "8" },
+        { n: "GANDHI YUG SACHIN", p: "9284064014", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "9" },
+        { n: "KADAM SHRUTIKA DIPAK", p: "8788765330", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "10" },
+        { n: "JADHAV ADITYA SURESH", p: "7499935954", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "11" },
+        { n: "SANSKRUTI BABURAO JIVANE", p: "8669007145", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "12" },
+        { n: "PATVEKAR NOMAN MOHMMAD", p: "8459430473", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "13" },
+        { n: "MEGHANA MAHENDRA KUDAGI", p: "9673124013", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "14" },
+        { n: "PACHPUTE PURVA ANIL", p: "8263042144", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "15" },
+        { n: "GHATAGE SAI SHEEV", p: "9175936216", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "16" },
+        { n: "GANGAWANE APOORVA SANJAY", p: "9322083400", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "17" },
+        { n: "NALAWADE SRUSHTI MANOJKUMAR", p: "8983495178", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "18" },
+        { n: "KHATAL SHANTANU PRAVIN", p: "9699150096", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "19" },
+        { n: "RATHOD GANESH RAJKUMAR", p: "9370909296", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "20" },
+        { n: "SIDDHI BANDU MARNE", p: "7385300981", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "21" },
+        { n: "GUJAR VEDANT PRAVIN", p: "9284226737", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "22" },
+        { n: "MESHRAM SHRUTI SUNIL", p: "8552891293", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "23" },
+        { n: "KADAM PRUTHVIRAJ RAMRATAN", p: "8010521259", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "24" },
+        { n: "WAGH BHUMIKA SATISH", p: "9890889702", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "25" },
+        { n: "SHREYASH ARJUN WADTILE", p: "9518312889", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "26" },
+        { n: "FEDRAM AJIT GANGAPRASAD", p: "8530887984", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "27" },
+        { n: "THAKRE ADITYA AJAYKUMAR", p: "7666863588", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "28" },
+        { n: "SAMARTH ANAND BADAVE", p: "9561147611", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "29" },
+        { n: "LABADE PRANJAL NANDKISHOR", p: "7498281703", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "30" },
+        { n: "DAFE YASH DNYANESHWAR", p: "8080530852", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "31" },
+        { n: "SURYAVANSHI SUPRIYA SOPANRAO", p: "8010450231", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "32" },
+        { n: "DHAMMAPAL SAWATAHARI KAMBLE", p: "7498121934", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "33" },
+        { n: "SATVA ROHIDAS SURNAR", p: "8767369456", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "34" },
+        { n: "DERE ADITYA SATISH", p: "8149859289", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "35" },
+        { n: "SIRSATH ADITYA MOKINDA", p: "8975871413", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "36" },
+        { n: "ASHLESHA VITTHAL SHEJWAL", p: "8830160259", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "37" },
+        { n: "NAJAN DINESH ASHOK", p: "7757014615", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "38" },
+        { n: "ABHANG YASH VAIBHAV", p: "8517810770", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "39" },
+        { n: "ATHARV PRAKASH GOTE", p: "8055977385", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "40" },
+        { n: "VIVEK VIJAY GUPTA", p: "8830896331", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "41" },
+        { n: "SHINDE PRANAV BHAULAL", p: "9529509580", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "42" },
+        { n: "TARANGE ROHAN SATISH", p: "8767945330", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "43" },
+        { n: "SHUBHAM KASAHEB GAIKWAD", p: "9529373599", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "44" },
+        { n: "SAKKARGI SHRADDHA SURENDRANATH", p: "8421259761", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "45" },
+        { n: "PATIL NIKITA RAVINDRA", p: "8263019208", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "46" },
+        { n: "AWARI SHREYASH VIJAY", p: "8857071220", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "47" },
+        { n: "SHAIKH SIRAJ MAULA", p: "8600335089", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "48" },
+        { n: "SONKAWADE RUDRAKSH PRADEEP", p: "7757920935", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "49" },
+        { n: "SHRAVANI ARUN KARPE", p: "7499048679", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "50" },
+        { n: "CHANDELE MANSI DNYANESHWAR", p: "9307344652", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "51" },
+        { n: "DOKE SANSKRUTI ANAND", p: "7745044792", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "52" },
+        { n: "DEVIKA SUNIL SONAR", p: "9579882656", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "53" },
+        { n: "JADHAV MAYUR BANYABA", p: "8600413161", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "54" },
+        { n: "PANDIT AARNAV PARAG", p: "7775092617", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "1" },
+        { n: "KADAM RUDRAKSHI ASHOKRAO", p: "8208402311", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "2" },
+        { n: "GADHAVE AKSHAY VIKAS", p: "9373879462", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "3" },
+        { n: "DADAS DIGVIJAY ARJUN", p: "9623800526", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "4" },
+        { n: "JAGTAP ANKITA AMRUT", p: "7798166701", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "5" },
+        { n: "SAMAKSH SACHIN KUNDEN", p: "7620621873", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "6" },
+        { n: "KHADE ABHISHEK VITTHAL", p: "8459901486", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "7" },
+        { n: "SHINDE SANKET SACHIN", p: "9834359142", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "8" },
+        { n: "PRABHU SAKSHI GANESH", p: "9172798682", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "9" },
+        { n: "PATIL GAYATRI NIVRUTTI", p: "9021990764", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "10" },
+        { n: "NARAWADE HARSHAD EKNATH", p: "9423756624", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "11" },
+        { n: "KOLHE ANKITA ARJUN", p: "8530630416", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "12" },
+        { n: "AUTI HARSHAL SAMPAT", p: "7721983549", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "13" },
+        { n: "SHINDE AARYA VIJAY", p: "9422746426", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "14" },
+        { n: "JAGDALE TEJASWI BHAGWANT", p: "7709844959", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "15" },
+        { n: "PALIWAL VIRAG HITENDRA", p: "7775035401", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "16" },
+        { n: "MALI VAISHNAVI MANGESH", p: "9699684461", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "17" },
+        { n: "WARKAD RUPESH RAVISHANKAR", p: "7038400956", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "18" },
+        { n: "WAYKAR POONAM ARJUN", p: "9850116884", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "19" },
+        { n: "CHAVAN VISHESH PRAVIN", p: "9405941974", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "20" },
+        { n: "SANAP SHUBHAM SURESH", p: "7020212737", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "21" },
+        { n: "PATIL SHASHANK KAILAS", p: "8485020583", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "22" },
+        { n: "KAMBLE RUTUJA TUKARAM", p: "8766499208", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "23" },
+        { n: "PATIL MANISH SUNIL", p: "9659369134", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "24" },
+        { n: "BHUJBAL KARAN SANDIP", p: "9579876157", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "25" },
+        { n: "JARWAL PRATHSH MANGALSING", p: "9270568789", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "26" },
+        { n: "MUTHA SHRAVANI RAJENDRA", p: "7249660175", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "27" },
+        { n: "KAIKADI VIDHI NARESH", p: "7391966783", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "28" },
+        { n: "MAHADIK SHRADDHA SANTOSH", p: "7066155698", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "29" },
+        { n: "RATHOD SUMIT PARAMDAS", p: "9322890439", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "30" },
+        { n: "HINGMIRE SURAJ SANJAY", p: "7821006681", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "31" },
+        { n: "BADE PRASAD SHIVAJI", p: "9021068462", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "32" },
+        { n: "RATHOD ABHIJEET PRATAP", p: "9112931491", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "33" },
+        { n: "SHINGARE SANSKAR SANTOSH", p: "9404486027", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "34" },
+        { n: "SARATE JAYDEEP LAXMAN", p: "9028101704", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "35" },
+        { n: "KURMELKAR CHAITANYA", p: "9356459370", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "36" },
+        { n: "JADHAV VAIBHAV SANJAY", p: "7387052489", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "37" },
+        { n: "TARALKAR VEDANT RAJU", p: "8180070531", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "38" },
+        { n: "SHEDAGE MANASI SANJAY", p: "7276705929", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "39" },
+        { n: "SHEWALE SAI PRABHAKAR", p: "7219293094", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "40" },
+        { n: "SARGAM NAINISHA KAILASH", p: "7559498157", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "41" },
+        { n: "NANGRE YADNESH ATUL", p: "9209504381", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "42" },
+        { n: "POLE VIRAJ PANJABRAO", p: "7749388483", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "43" },
+        { n: "KOLI ABHISHEK DATTATRAY", p: "7972338005", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "44" },
+        { n: "GONGE KIRAN MADHUKAR", p: "9921351789", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "45" },
+        { n: "BULE VIVEK ROHIDAS", p: "9021252479", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "46" },
+        { n: "SHAIKH ALFIYA AFSAR", p: "9699502507", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "47" },
+        { n: "KADAM HARSHAL SATISH", p: "7249203860", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "48" },
+        { n: "BISEN OMKAR SHAILENDRASINGH", p: "8668811817", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "49" },
+        { n: "ULHARE SIDDHI SANTOSH", p: "9518322788", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "50" },
+        { n: "KONDE DEVENDRA SANTOSH", p: "7249796495", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "51" },
+        { n: "BORIKAR SWARAJ RAJKUMAR", p: "7822969867", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "52" },
+        { n: "PARTE SHLOKA SACHIN", p: "8484936998", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "53" },
+        { n: "BIDKAR VEDANT KIRANKUMAR", p: "9822020123", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "54" },
+        { n: "ADAGALE GAURAV SUNIL", p: "8624015033", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "55" },
+        { n: "MANKUMBARE SNEHAL SANTOSH", p: "9373190868", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "1" },
+        { n: "MANKAR PRANAV GANESH", p: "7249772167", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "2" },
+        { n: "KOTHALKAR MAYUR DIPAK", p: "8237103283", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "3" },
+        { n: "CHIKANE PRERANA PUNDLIK", p: "8379914535", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "4" },
+        { n: "SHIRSAT RAM NARAYAN", p: "9657123132", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "5" },
+        { n: "KURHADE DIKSHA SUNIL", p: "7620724241", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "6" },
+        { n: "POHAKAR SAHIL NIVRUTTI", p: "9373898211", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "7" },
+        { n: "AGLAWE MAYUR RAJU", p: "9359145599", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "8" },
+        { n: "SHETE SIDDHESH KIRAN", p: "9689893852", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "9" },
+        { n: "PUNDKARE SAMRUDDHI MOHAN", p: "9766388624", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "10" },
+        { n: "SUTAR SIDDHESH VINOD", p: "9270571010", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "11" },
+        { n: "PATIL SANGRAM SUNIL", p: "7758982501", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "12" },
+        { n: "NARAWADE HARSHAD EKNATH", p: "9423756624", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "13" },
+        { n: "KOTGIRE ADITYA DNYANESHWAR", p: "9075190075", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "14" },
+        { n: "DEVKAMBLE SAINATH RAMCHANDRA", p: "8830420637", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "15" },
+        { n: "PAWAR SHRAVANI SUDHIR", p: "7350044978", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "16" },
+        { n: "KHAIRNAR SHRUTI BHAGWAN", p: "9270107487", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "17" },
+        { n: "PADWAL RIDDHI PRAMOD", p: "8830369950", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "18" },
+        { n: "BANSODE ADITYA AAMSHIDA", p: "8767826524", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "19" },
+        { n: "CHOLE VAISHNAVI RAMKISHAN", p: "8975482815", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "20" },
+        { n: "GOSAVI RAJASHRI JAGADISH", p: "9028460344", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "21" },
+        { n: "EKAD SHUBHAM SANTOSH", p: "9307202644", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "22" },
+        { n: "SHELAKE SHRADDHA SUNIL", p: "8459952126", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "23" },
+        { n: "RODE RUSHIKESH ANIL", p: "8080157873", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "24" },
+        { n: "NAGRE ADIRAJ NANDKISHOR", p: "8412806189", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "25" },
+        { n: "SONAWANE PURVA PRAMOD", p: "9168017133", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "26" },
+        { n: "PARDESHI SHIVANI SANTOSH", p: "9145337517", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "27" },
+        { n: "NATVE SAKSHI SATYAJEET", p: "9764550626", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "28" },
+        { n: "SHARMA MAHEK DHARMENDRA", p: "8007796123", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "29" },
+        { n: "HAJARE POOJA SHIVSHANKAR", p: "9511680795", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "30" },
+        { n: "PATIL HIMAKSHI RAGHUNATH", p: "9172316717", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "31" },
+        { n: "HOLKAR YASH RAHUL", p: "9127976889", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "32" },
+        { n: "NALKAR KRUSHNA RAJENDRA", p: "8263810910", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "33" },
+        { n: "BARGE AVISHKAR JALINDAR", p: "9890688270", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "34" },
+        { n: "THAKRE NISARG JITENDRA", p: "8421171399", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "35" },
+        { n: "BORIKAR GAYATRI HARISHCHANDRA", p: "9960077710", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "36" },
+        { n: "ADHAV SHREYASH YASHWANT", p: "9021694460", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "37" },
+        { n: "NER JAYESH DEVIDAS", p: "9421501581", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "38" },
+        { n: "KSHIRSAGAR PRATIKSHA RAVINDRA", p: "7709955909", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "39" },
+        { n: "KAKAD SOJWAL PRADIP", p: "8999454967", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "40" },
+        { n: "JAGTAP DISHA KAILAS", p: "9657395131", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "41" },
+        { n: "DHAKANE SUHAS SHRIDHAR", p: "9021112484", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "42" },
+        { n: "CHAURPAGAR SAJAG RAJESH", p: "9923020181", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "43" },
+        { n: "BHANDARKAVATHEKAR PARAG P.", p: "9028272351", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "44" },
+        { n: "GARAD SANKET BHAGWAN", p: "7972036173", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "45" },
+        { n: "ADANE KAIWALYA SUDHIR", p: "8421515154", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "46" },
+        { n: "JAYBHAYE SAURABH RSH", p: "7666050224", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "1" },
+        { n: "LANJEWAR ARYA MOHAN", p: "9604025955", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "2" },
+        { n: "PATHADE BHAKTI", p: "9921746205", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "3" },
+        { n: "DAUNDKAR DAKSH TUSHAR", p: "7517000512", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "4" },
+        { n: "KARALE TANUJA MANOHAR", p: "9404283149", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "5" },
+        { n: "GAWADE HARSHIT DHANAJI", p: "9850800545", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "6" },
+        { n: "SANAP SHUBHAM MARUTI", p: "9022365118", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "7" },
+        { n: "DEOTALE DIVYANJALI DILIP", p: "7559344292", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "8" },
+        { n: "TAJNE VEDANT LOMESHWAR", p: "7030580411", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "9" },
+        { n: "JAMDAR AISHWARYA SHANKAR", p: "7620927365", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "10" },
+        { n: "BHAGAT POOJA SANTOSH", p: "7020197680", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "11" },
+        { n: "YADAV OM RAGHUNATH", p: "8482997550", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "12" },
+        { n: "AKHARE SAYALI SHYAM", p: "9209673278", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "13" },
+        { n: "PINJARI ANUSHKA SHANKAR", p: "7558796598", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "14" },
+        { n: "LABADE RUSHIKESH LAXMAN", p: "8080027979", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "15" },
+        { n: "MALI PRERANA RAKESH", p: "9511279466", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "16" },
+        { n: "JOGALE ADITYA ANIL", p: "7757004081", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "17" },
+        { n: "BHOI PIYUSH SUNIL", p: "7058569492", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "18" },
+        { n: "YEDAKE SANJOG SIDDHESHWAR", p: "9579907393", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "19" },
+        { n: "KAMAT KUNAL", p: "9834858043", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "20" },
+        { n: "POMAN AAKASH MANOHAR", p: "8459430473", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "21" },
+        { n: "DHAMDHERE ARPITA GORAKSH", p: "9359310078", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "22" },
+        { n: "KOTHEKAR SIDDHI NITINRAO", p: "8237103283", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "23" },
+        { n: "BAGAD BHUMISHA RAJENDRA", p: "8080550288", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "24" },
+        { n: "KAROD RANI ASHOK", p: "7423557718", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "25" },
+        { n: "KAMBLE UDAYADITYA RAJU", p: "7038357310", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "26" },
+        { n: "ZADE ADITYA RAVINDRA", p: "7558350459", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "27" },
+        { n: "AVHAD DIVYA DHANRAJ", p: "7020706184", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "28" },
+        { n: "SHINGADE ROHINI VINOD", p: "7387663696", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "29" },
+        { n: "MIRGALE SHRUTI AMOL", p: "9699544163", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "30" },
+        { n: "KADAJI VAISHNAVI MARUTI", p: "9373046912", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "31" },
+        { n: "PATIL VIVEK YOGESH", p: "8830896331", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "32" },
+        { n: "AWARI SAYALI RAHUL", p: "9284025916", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "33" },
+        { n: "NAWALE PRADIP BHAUSAHEB", p: "8459080947", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "34" },
+        { n: "WANGE SNEHAL BHAGWAT", p: "9022745885", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "35" },
+        { n: "GEND PRERANA SANTOSH", p: "8010688878", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "36" },
+        { n: "BICCHEWAR TANVI VIJAY", p: "9766105779", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "37" },
+        { n: "KAPSE SAHIL SOMNATH", p: "8421941671", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "38" },
+        { n: "SANGLE RAHUL DNYANDEV", p: "8261832036", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "39" },
+        { n: "DINGARE DHRUVAA SACHIN", p: "9403289912", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "40" },
+        { n: "KAKAD SAMARTH GAJANAN", p: "7972060729", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "41" },
+        { n: "DARADE SIDDHARTH SANTOSH", p: "7276048371", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "42" },
+        { n: "CHALAK RUTURAJ JANAK", p: "9860270311", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "43" },
+        { n: "NAKHATE AKSHAY DAJIBA", p: "8668299498", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "44" },
+        { n: "JAGTAP ANJANA VIJAY", p: "7057289040", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "45" },
+        { n: "LONKAR ANSHUL BABAN", p: "7020536263", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "46" },
+        { n: "SONAWANE ANUSHKA DEEPAK", p: "9209270130", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "47" },
+        { n: "KHADTARE SHUBHAM NAVANATH", p: "9922396059", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "48" },
+        { n: "KARANDE YASHRAJ VIKRAM", p: "7248976643", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "49" },
+        { n: "SAKKARGI PIYUSH VASUDEO", p: "8856897812", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "50" },
+        { n: "RUPWATE SARTHAK SUDHIR", p: "7499806406", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "51" },
+        { n: "SAWANT ROSHAN RAHUL", p: "8999575150", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "52" },
+        { n: "CHOUDHARI ONKAR BABAN", p: "7378852677", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "53" },
+        { n: "SHIRASKAR KALYANI SUNIL", p: "9172680735", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "1" },
+        { n: "MULLA RIHAN RIYAJ", p: "9421123136", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "2" },
+        { n: "YADAV APARNA VIDYADHAR", p: "5049328617", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "3" },
+        { n: "SAI GANESH MALI", p: "9699793509", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "4" },
+        { n: "LOLE PRANALI SOPAN", p: "8208919554", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "5" },
+        { n: "MATE DNYANESHWARI RAVINDRA", p: "8421596076", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "6" },
+        { n: "PHATANGARE SHRADDHA VASANT", p: "9209516121", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "7" },
+        { n: "GAIKWAD ADESH GOKUL", p: "7887661529", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "8" },
+        { n: "NAGAWADE SAKSHI NITIN", p: "9325708643", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "9" },
+        { n: "MARKUNDE VISHAL JANKIRAM", p: "9307047923", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "10" },
+        { n: "KADAM PRUTHVIRAJ ASHOK", p: "9322927137", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "11" },
+        { n: "NAKADE SAMRUDDHI SURENDRA", p: "9307868844", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "12" },
+        { n: "SAHANE PURVA BHAGAWAT", p: "9552737716", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "13" },
+        { n: "MAHAMUNI SUMEDHA DHANANJAY", p: "9699925745", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "14" },
+        { n: "ZITE TEJAS BHAUSAHEB", p: "7441161645", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "15" },
+        { n: "BAIRAGI AJINKYA SUDHIR", p: "7493558779", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "16" },
+        { n: "MAHALPURE SHRUTI RAVINDRA", p: "9730186799", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "17" },
+        { n: "KAKADE PRATHMESH ASHOK", p: "9370937319", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "18" },
+        { n: "DHANARIYA HARSHAL RUPARAM", p: "8788837041", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "19" },
+        { n: "MOOLYA SAMRUDDHI SURESH", p: "9637314059", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "20" },
+        { n: "SABALE PRASANNA RAJENDRA", p: "7276103914", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "21" },
+        { n: "WAGH RAGINI VAIBHAV", p: "9657709472", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "22" },
+        { n: "ABDURREHMAN SAAD", p: "8317536576", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "23" },
+        { n: "GIR PARTH SANJAY", p: "7666361887", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "24" },
+        { n: "GANORKAR TUSHAR SHYAM", p: "9284725481", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "25" },
+        { n: "SHIRBHATE VAISHNAV SURESH", p: "8767898565", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "26" },
+        { n: "SARVADE SHIVAM GANESH", p: "9284105320", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "27" },
+        { n: "KALYANE RAJ MAHADEV", p: "9529430217", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "28" },
+        { n: "THORAT PRERANA JAGDISH", p: "9158278583", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "29" },
+        { n: "UBALE KSHITIJA NIVAS", p: "8261020095", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "30" },
+        { n: "DEVARE NITIN RAJENDRA", p: "7820943032", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "31" },
+        { n: "BHALERAO TARAN PRABHUDAS", p: "9356636924", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "32" },
+        { n: "GHATKAR SAMARTH RAJENDRA", p: "7559269014", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "33" },
+        { n: "YEWALE GAURI RAJENDRA", p: "8010039789", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "34" },
+        { n: "VARAT ADITYA RAMHARI", p: "9405455987", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "35" },
+        { n: "MALI MANOJ SHIVAJI", p: "8483059204", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "36" },
+        { n: "KASHID AVISHKAR RSH", p: "7083726025", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "37" },
+        { n: "PALKHEDE SAI VIJAY", p: "8623071548", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "38" },
+        { n: "DEOTALE DIVYANI DEEPAK", p: "7559344292", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "39" },
+        { n: "ATOLE RAJVARDHAN KAMLAKAR", p: "9021027314", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "40" },
+        { n: "CHAVAN DAKSH VINAY", p: "8421117144", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "41" },
+        { n: "CHOURE RITESH VIJAY", p: "9356395128", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "42" },
+        { n: "EKBOTE SNEHAL SHRINIVAS", p: "8263095932", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "43" },
+        { n: "BIRADAR RUDRAYANI SANTOSH", p: "9422114544", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "44" },
+        { n: "VIBHUTE SAKSHI SANJAY", p: "7507708204", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "45" },
+        { n: "PALKHEDE SHRADDHA VIJAY", p: "9326735683", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "46" },
+        { n: "PATIL CHAITANYA UDAYSINH", p: "7499550553", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "47" },
+        { n: "BAGAL CHAITANYA AVINASH", p: "9921902408", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "48" },
+        { n: "MUNDE MAHESH LAHUDAS", p: "7756935824", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "49" },
+        { n: "TARU ADITYA RAJENDRA", p: "9699456246", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "50" },
+        { n: "SHINDE ARYAN ANIL", p: "8625903817", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "51" },
+        { n: "MORE ROHIT DINESH", p: "9561228499", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "52" }
+    ]; 
+
+    const INITIAL_GRID = [ ["Time", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], ["10:00", "M", "P", "B", "M", "B", "P"], ["11:00", "P", "M", "M", "B", "P", "P"], ["12:00", "L", "L", "L", "L", "L", "L"], ["01:00", "LA", "LB", "LC", "LD", "LE", "S"] ];
+
+    const DB = {
+        students: JSON.parse(localStorage.getItem('sits_v33_std')) || INITIAL_STUDENTS,
+        records: JSON.parse(localStorage.getItem('sits_v33_rec')) || [],
+        leaves: JSON.parse(localStorage.getItem('sits_v33_lev')) || [],
+        notices: JSON.parse(localStorage.getItem('sits_v33_not')) || [],
+        grid: JSON.parse(localStorage.getItem('sits_v33_grid')) || INITIAL_GRID,
+        lms: JSON.parse(localStorage.getItem('sits_v33_lms')) || [],
+        divisions: ["Div-1","Div-2","Div-3","Div-4","Div-5","Div-6","Div-7","Div-8"],
+        subjects: ["Engineering Maths 1", "Physics", "Programming", "Chemistry", "Graphics", "BXE", "Mechanics", "Electrical", "Engineering Maths 2"]
+    };
+
+    function saveDB() {
+        localStorage.setItem('sits_v33_std', JSON.stringify(DB.students));
+        localStorage.setItem('sits_v33_rec', JSON.stringify(DB.records));
+        localStorage.setItem('sits_v33_lev', JSON.stringify(DB.leaves));
+        localStorage.setItem('sits_v33_not', JSON.stringify(DB.notices));
+        localStorage.setItem('sits_v33_grid', JSON.stringify(DB.grid));
+        localStorage.setItem('sits_v33_lms', JSON.stringify(DB.lms));
+    }
+
+    let activeUser = null;
+    let markCols = ["UT-1"];
+
+    // MOBILE SIDEBAR TOGGLE
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.querySelector('.sidebar-overlay');
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+
+    // NEW FUNCTIONS FOR LANDING PAGE
+    function showLoginModal() {
+        document.getElementById('authScreen').style.display = 'flex';
+    }
+    function closeLoginModal() {
+        document.getElementById('authScreen').style.display = 'none';
+    }
+
+    function handleLogin() {
+        const id = document.getElementById('loginID').value.trim();
+        const pass = document.getElementById('loginPass').value.trim();
+        let success = false;
+
+        if(id==="admin@sits.com" && pass==="admin") { activeUser = {role:"ADMIN", n:"Admin"}; success = true; }
+        else if(id==="teacher@sits.com" && pass==="1234") { activeUser = {role:"TEACHER", n:"Faculty Member"}; success = true; }
+        else {
+            const st = DB.students.find(s => s.p === id || `P-${s.p}` === id);
+            if(st && (pass==="1234" || pass==="parent")) { activeUser = {...st, role: pass==="parent"?"PARENT":"STUDENT"}; success = true; }
+        }
+
+        if(success) {
+            loadDashboard();
+        } else {
+            alert("Invalid Credentials");
+        }
+    }
+
+    function loadDashboard() {
+        document.getElementById('landingPage').style.display = 'none'; // Hide Landing Page
+        document.getElementById('authScreen').style.display = 'none';  // Hide Login Modal
+        document.getElementById('sidebar').style.display = 'flex';
+        document.getElementById('mainContent').style.display = 'block';
+        
+        document.getElementById('sideName').innerText = activeUser.n;
+        document.getElementById('sideRole').innerText = activeUser.role;
+        document.getElementById('sideAvatar').innerText = activeUser.n.charAt(0);
+        
+        if(DB.notices.length) {
+            document.getElementById('noticeWidget').style.display = 'block';
+            document.getElementById('noticeText').innerText = DB.notices[0].txt;
+            document.getElementById('noticeDate').innerText = DB.notices[0].date;
+        }
+
+        const nav = document.getElementById('navLinks');
+        nav.innerHTML = "";
+        if(activeUser.role === "ADMIN") {
+            nav.innerHTML += `<div class="nav-link active" onclick="showPage('admin'); toggleSidebar()"><i class="fa fa-cogs"></i> Admin Control</div>`;
+            handleYearChange('aYear', 'aBranch'); refreshAdminView(); renderLeaveRequests('adminLeaveTable'); showPage('admin');
+        } else if(activeUser.role === "TEACHER") {
+            nav.innerHTML += `<div class="nav-link active" onclick="showPage('teacher'); toggleSidebar()"><i class="fa fa-chalkboard-teacher"></i> Faculty Dashboard</div>`;
+            handleYearChange('tYear', 'tBranch'); updateClock(); renderLeaveRequests('teacherLeaveTable'); showPage('teacher');
+        } else {
+            nav.innerHTML += `<div class="nav-link active" onclick="showPage('student'); toggleSidebar()"><i class="fa fa-user-graduate"></i> Student Portal</div>`;
+            document.getElementById('stWelcome').innerText = `Welcome, ${activeUser.n.split(' ')[0]}`;
+            document.getElementById('stDetails').innerText = `${activeUser.y} | ${activeUser.b} | Roll: ${activeUser.r}`;
+            document.getElementById('stFeeBadge').innerText = activeUser.fee === 'Paid' ? 'Fees Paid' : 'Fees Pending';
+            document.getElementById('stFeeBadge').className = activeUser.fee === 'Paid' ? 'tag tag-p' : 'tag tag-pend';
+            renderStudentStats(); showPage('student');
+        }
+    }
+
+    function showPage(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id + 'Page').classList.add('active'); }
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function toggleTheme() { document.body.classList.toggle('dark'); }
+    function updateClock() { document.getElementById('clockDisplay').innerText = new Date().toLocaleTimeString(); setTimeout(updateClock, 1000); }
+
+    // --- TIMETABLE ---
+    function openTimetableModal() {
+        const isAdmin = activeUser.role === 'ADMIN';
+        document.getElementById('ttAdminControls').style.display = isAdmin ? 'flex' : 'none';
+        renderTimetable(isAdmin); openModal('timetableModal');
+    }
+    function renderTimetable(editable) {
+        const table = document.getElementById('ttTable'); table.innerHTML = "";
+        DB.grid.forEach((row, rIndex) => {
+            const tr = document.createElement('tr');
+            row.forEach((cellData, cIndex) => {
+                const cell = rIndex === 0 ? document.createElement('th') : document.createElement('td');
+                if(editable) {
+                    const input = document.createElement('input'); input.value = cellData;
+                    input.onchange = (e) => DB.grid[rIndex][cIndex] = e.target.value;
+                    cell.appendChild(input);
+                    if(rIndex===0 && cIndex>0) { const btn=document.createElement('div'); btn.className='del-btn'; btn.innerText='✕'; btn.onclick=()=>removeTtCol(cIndex); cell.appendChild(btn); }
+                    if(cIndex===0 && rIndex>0) { const btn=document.createElement('div'); btn.className='del-btn'; btn.innerText='✕'; btn.onclick=()=>removeTtRow(rIndex); cell.appendChild(btn); }
+                } else {
+                    cell.innerText = cellData;
+                    if(cellData==="LUNCH") { cell.style.background="#f1f5f9"; cell.style.color="#94a3b8"; cell.style.fontWeight="bold"; }
+                }
+                tr.appendChild(cell);
+            });
+            table.appendChild(tr);
+        });
+    }
+    function addTtRow() { DB.grid.push(new Array(DB.grid[0].length).fill("")); renderTimetable(true); }
+    function addTtCol() { DB.grid.forEach(row => row.push("")); renderTimetable(true); }
+    function removeTtRow(idx) { if(confirm("Del Row?")) { DB.grid.splice(idx,1); renderTimetable(true); } }
+    function removeTtCol(idx) { if(confirm("Del Col?")) { DB.grid.forEach(row => row.splice(idx,1)); renderTimetable(true); } }
+    function saveTimetable() { saveDB(); alert("Saved"); closeModal('timetableModal'); }
+
+    // --- ADMIN ---
+    function handleYearChange(yId, bId) {
+        const y = document.getElementById(yId).value;
+        const b = document.getElementById(bId);
+        b.innerHTML = (y==="1ST YEAR" ? ["COMBINE"] : ["IT","CS","ENTC","MECH","CIVIL"]).map(x => `<option>${x}</option>`).join('');
+        document.getElementById(yId==='aYear'?'aDiv':'tDiv').innerHTML = DB.divisions.map(d => `<option>${d}</option>`).join('');
+        if(yId !== 'aYear') document.getElementById('tSub').innerHTML = DB.subjects.map(s => `<option>${s}</option>`).join('');
+        if(yId === 'aYear') refreshAdminView();
+    }
+    function refreshAdminView() {
+        const y = document.getElementById('aYear').value, b = document.getElementById('aBranch').value, d = document.getElementById('aDiv').value;
+        const list = DB.students.filter(s => s.y===y && s.b===b && s.d===d).sort((x,z) => x.r - z.r);
+        document.getElementById('adminStudentTable').innerHTML = `<thead><tr><th>Roll</th><th>Name</th><th>Fees</th><th>X</th></tr></thead><tbody>` + 
+        list.map(s => `<tr><td>${s.r}</td><td>${s.n}<br><small>${s.p}</small></td><td><span class="tag ${s.fee==='Paid'?'tag-p':'tag-pend'}">${s.fee||'Pending'}</span></td><td><button class="btn btn-d" onclick="delStudent('${s.p}')">X</button></td></tr>`).join('') + "</tbody>";
+    }
+    function saveNewStudent() {
+        const n = document.getElementById('newStName').value, p = document.getElementById('newStPhone').value, r = document.getElementById('newStRoll').value;
+        if(n && p && r) {
+            DB.students.push({ n, p, r, y: document.getElementById('aYear').value, b: document.getElementById('aBranch').value, d: document.getElementById('aDiv').value, fee: document.getElementById('newStFee').value });
+            saveDB(); refreshAdminView(); closeModal('addStudentModal');
+        }
+    }
+    function delStudent(p) { if(confirm("Delete?")) { DB.students = DB.students.filter(s => s.p !== p); saveDB(); refreshAdminView(); } }
+
+    // --- ATTENDANCE (PROFESSIONAL PRINT LOGIC) ---
+    function openAttendanceModal() { document.getElementById('attDate').valueAsDate = new Date(); renderAttendanceLedger(); openModal('attModal'); }
+    
+    function saveAttendance() {
+        const d = document.getElementById('tDiv').value, s = document.getElementById('tSub').value, dt = document.getElementById('attDate').value;
+        const abs = document.getElementById('absentRolls').value.split(',').map(x=>x.trim());
+        DB.records.push({ type: 'ATT', div: d, sub: s, date: dt, abs: abs });
+        saveDB(); renderAttendanceLedger(); alert("Saved");
+    }
+
+    function renderAttendanceLedger() {
+        const div = document.getElementById('tDiv').value;
+        const sub = document.getElementById('tSub').value;
+        const branch = document.getElementById('tBranch').value;
+        const year = document.getElementById('tYear').value;
+        const mIdx = parseInt(document.getElementById('viewMonth').value);
+        const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        
+        document.getElementById('pYear').innerText = year;
+        document.getElementById('pBranch').innerText = branch;
+        document.getElementById('pDiv').innerText = div;
+        document.getElementById('pSub').innerText = sub;
+        document.getElementById('pMonth').innerText = months[mIdx];
+        document.getElementById('pDate').innerText = new Date().toLocaleDateString();
+        document.getElementById('pFac').innerText = activeUser ? activeUser.n : "Faculty";
+
+        const currentYear = new Date().getFullYear();
+        const daysInMonth = new Date(currentYear, mIdx + 1, 0).getDate();
+        const list = DB.students.filter(s => s.d === div).sort((a,b)=>a.r-b.r);
+        
+        let html = `<thead><tr><th style="width:30px">R</th><th>Student Name</th>`;
+        for(let i=1; i<=daysInMonth; i++) html += `<th style="font-size:9px; width:20px;">${i}</th>`;
+        html += `<th>%</th></tr></thead><tbody>`;
+        
+        list.forEach(st => {
+            let p=0, t=0;
+            html += `<tr><td>${st.r}</td><td>${st.n}</td>`;
+            for(let i=1; i<=daysInMonth; i++) {
+                const rec = DB.records.find(r => {
+                    if(r.type!=='ATT' || r.div!==div) return false;
+                    const parts = r.date.split('-'); 
+                    return parseInt(parts[1])-1 === mIdx && parseInt(parts[2]) === i;
+                });
+                if(rec) { t++; if(rec.abs.includes(st.r)) { html+=`<td style="color:red;font-weight:bold">A</td>`; } else { p++; html+=`<td>P</td>`; } }
+                else html += `<td></td>`;
+            }
+            html += `<td>${t?Math.round((p/t)*100):0}%</td></tr>`;
+        });
+        document.getElementById('ledgerTable').innerHTML = html + "</tbody>";
+    }
+
+    function exportToExcel(tid, name) { const wb = XLSX.utils.table_to_book(document.getElementById(tid), {sheet: "Sheet1"}); XLSX.writeFile(wb, `${name}.xlsx`); }
+
+    // --- OTHER ---
+    function openMarksModal() {
+        const d = document.getElementById('tDiv').value, list = DB.students.filter(s => s.d === d);
+        let h = `<tr><th>Roll</th><th>Name</th>${markCols.map(c=>`<th>${c}</th>`).join('')}</tr>`;
+        let b = list.map(st => `<tr><td>${st.r}</td><td>${st.n}</td>` + markCols.map(c => `<td><input class="marks-inp" data-r="${st.r}" data-c="${c}" value="${DB.records.find(r=>r.type==='MRK'&&r.roll===st.r&&r.col===c)?.val||""}" style="width:50px"></td>`).join('') + `</tr>`).join('');
+        document.getElementById('marksDataTable').innerHTML = `<thead>${h}</thead><tbody>${b}</tbody>`; openModal('marksModal');
+    }
+    function commitMarks() { document.querySelectorAll('.marks-inp').forEach(i => { if(i.value) DB.records.push({type:'MRK', roll:i.dataset.r, col:i.dataset.c, val:i.value, sub:document.getElementById('tSub').value}); }); saveDB(); alert("Saved"); closeModal('marksModal'); }
+    function addExamColumn() { if(document.getElementById('newExamCol').value) { markCols.push(document.getElementById('newExamCol').value); openMarksModal(); } }
+
+    function submitLeave() { DB.leaves.push({ roll: activeUser.r, name: activeUser.n, div: activeUser.d, reason: document.getElementById('leaveReason').value, date: document.getElementById('leaveDate').value, status: 'Pending' }); saveDB(); alert("Sent"); closeModal('applyLeaveModal'); renderStudentStats(); }
+    function renderLeaveRequests(tid) {
+        const list = activeUser.role === 'TEACHER' ? DB.leaves.filter(l => l.div === document.getElementById('tDiv').value) : DB.leaves;
+        document.getElementById(tid).innerHTML = `<thead><tr><th>Name</th><th>Reason</th><th>Status</th><th>Act</th></tr></thead><tbody>` + list.map((l,i) => `<tr><td>${l.name}</td><td>${l.reason}</td><td>${l.status}</td><td>${l.status==='Pending'?`<button onclick="updateLeave(${i},'Approved')">✔</button>`:''}</td></tr>`).join('') + `</tbody>`;
+    }
+    function updateLeave(idx,s) { DB.leaves[idx].status = s; saveDB(); renderLeaveRequests('adminLeaveTable'); renderLeaveRequests('teacherLeaveTable'); }
+    
+    function renderStudentStats() {
+        const myAtt = DB.records.filter(r => r.type==='ATT' && r.div===activeUser.d);
+        let p=0, t=0; myAtt.forEach(r => { t++; if(!r.abs.includes(activeUser.r)) p++; });
+        const pct = t>0 ? Math.round((p/t)*100) : 0;
+        document.getElementById('stAttChart').style.setProperty('--p', `${pct * 3.6}deg`);
+        document.getElementById('stAttChart').setAttribute('data-val', `${pct}%`);
+        document.getElementById('stAttTable').innerHTML = myAtt.map(r => `<tr><td>${r.date}</td><td>${r.sub}</td><td>${r.abs.includes(activeUser.r)?'A':'P'}</td></tr>`).join('');
+    }
+
+    function postNotice() { const txt = document.getElementById('noticeContent').value; if(txt) { DB.notices.unshift({ txt, date: new Date().toLocaleDateString() }); saveDB(); alert("Published"); location.reload(); } }
+    function uploadLms() { DB.lms.push({ title: document.getElementById('lmsTitle').value, type: document.getElementById('lmsType').value, div: document.getElementById('tDiv').value }); saveDB(); alert("Uploaded"); closeModal('lmsModal'); }
+
+</script>
+</body>
+</html>
