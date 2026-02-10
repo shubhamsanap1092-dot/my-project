@@ -1,0 +1,2645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SITS Pune - Attendance Portal</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+   <style>
+    :root {
+        --primary-dark: #0f172a;
+        --secondary-dark: #1e293b;
+        --accent: #3b82f6;
+        --accent-glow: rgba(59, 130, 246, 0.5);
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.5);
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        --sidebar-width: 280px;
+    }
+
+    body.dark {
+        --glass-bg: rgba(15, 23, 42, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --text-main: #f1f5f9;
+        --text-muted: #94a3b8;
+        --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+    }
+
+    body {
+        background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+        color: var(--text-main);
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        overflow: hidden;
+        font-family: 'Outfit', sans-serif;
+        transition: background 0.5s ease;
+    }
+
+    body.dark {
+        background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
+    @keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.95) translateY(20px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .btn {
+        padding: 12px 24px;
+        border-radius: 12px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 14px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .btn::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(255,255,255,0.2);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+        z-index: -1;
+    }
+
+    .btn:hover::after { 
+        transform: scaleX(1); 
+        transform-origin: left; 
+    }
+    .btn:active { transform: scale(0.96); }
+
+    .btn-p { 
+        background: linear-gradient(135deg, #3b82f6, #2563eb); 
+        color: white; 
+        box-shadow: 0 4px 15px var(--accent-glow); 
+    }
+    .btn-s { 
+        background: linear-gradient(135deg, #10b981, #059669); 
+        color: white; 
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); 
+    }
+    .btn-w { 
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
+        color: white; 
+    }
+    .btn-e { 
+        background: #16a34a; 
+        color: white; 
+    }
+    .btn-d { 
+        background: rgba(239, 68, 68, 0.1); 
+        color: var(--danger); 
+        border: 1px solid var(--danger); 
+    }
+    .btn-dark { 
+        background: #334155; 
+        color: white; 
+    }
+
+    #authScreen {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.8);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(15px);
+        perspective: 1000px;
+    }
+
+    .login-card {
+        background: rgba(255, 255, 255, 0.9);
+        width: 420px;
+        padding: 50px;
+        border-radius: 30px;
+        text-align: center;
+        box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.5);
+        border: 1px solid rgba(255,255,255,0.4);
+        transform-style: preserve-3d;
+        animation: fadeInScale 0.6s ease-out;
+    }
+
+    body.dark .login-card { background: rgba(30, 41, 59, 0.9); border-color: rgba(255,255,255,0.05); }
+
+    .login-input {
+        width: 100%;
+        padding: 16px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        border: 2px solid transparent;
+        background: rgba(0,0,0,0.05);
+        color: var(--text-main);
+        font-size: 15px;
+        transition: 0.3s;
+        font-family: inherit;
+    }
+
+    body.dark .login-input { 
+        background: rgba(255,255,255,0.05); 
+        color: white; 
+    }
+    .login-input:focus { 
+        border-color: var(--accent); 
+        background: white; 
+        box-shadow: 0 0 0 4px var(--accent-glow); 
+        transform: translateY(-2px);
+    }
+
+    aside {
+        width: var(--sidebar-width);
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--glass-border);
+        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        z-index: 50;
+    }
+
+    .sidebar-header {
+        padding: 30px 25px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
+    }
+
+    #navLinks {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .nav-link {
+        padding: 16px 20px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover { 
+        background: rgba(59, 130, 246, 0.1); 
+        color: var(--accent); 
+        transform: translateX(5px); 
+    }
+    .nav-link.active { 
+        background: var(--accent); 
+        color: white; 
+        box-shadow: 0 10px 20px -5px var(--accent-glow); 
+    }
+
+    main {
+        flex: 1;
+        padding: 40px;
+        overflow-y: auto;
+        width: 100%;
+        scroll-behavior: smooth;
+    }
+
+    .page { 
+        display: none; 
+        animation: fadeInScale 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    }
+    .page.active { 
+        display: block; 
+    }
+
+    .dashboard-header {
+        background: linear-gradient(120deg, #2563eb, #7c3aed, #db2777);
+        background-size: 200% 200%;
+        animation: gradientShift 6s ease infinite;
+        color: white;
+        padding: 40px;
+        border-radius: 24px;
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.4);
+        position: relative;
+        overflow: hidden;
+        transform: translateZ(0);
+    }
+
+    .dashboard-header::before {
+        content: '';
+        position: absolute;
+        top: -50%; 
+        left: -50%; 
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+        animation: float 10s infinite ease-in-out;
+        pointer-events: none;
+    }
+
+    .dh-logo {
+        width: 90px;
+        height: 90px;
+        object-fit: contain;
+        background: rgba(255,255,255,0.9);
+        border-radius: 20px;
+        padding: 8px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        transform: rotate(-5deg);
+        transition: transform 0.3s;
+    }
+
+    .dashboard-header:hover .dh-logo { 
+        transform: rotate(0deg) scale(1.1); 
+    }
+    .dh-text h1 { 
+        margin: 0; 
+        font-size: 28px; 
+        font-weight: 800; 
+        letter-spacing: -0.5px; 
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2); 
+    }
+    .dh-text h2 { 
+        margin: 5px 0 0; 
+        font-size: 14px; 
+        opacity: 0.9; 
+        font-weight: 500; 
+        text-transform: uppercase; 
+        letter-spacing: 2px; 
+    }
+    
+    .dh-welcome {
+        margin-top: 15px;
+        font-size: 14px;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 6px 16px;
+        border-radius: 50px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .card {
+        background: var(--glass-bg);
+        border-radius: 24px;
+        padding: 25px;
+        border: 1px solid var(--glass-border);
+        margin-bottom: 25px;
+        box-shadow: var(--card-shadow);
+        backdrop-filter: blur(10px);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s;
+        transform-style: preserve-3d;
+    }
+
+    .card:hover { 
+        transform: translateY(-8px) scale(1.01);
+         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2); 
+         z-index: 10; 
+         border-color: var(--accent); }
+
+    .grid-forms {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border-radius: 12px;
+        border: 1px solid var(--glass-border);
+        background: rgba(255,255,255,0.5);
+        color: var(--text-main);
+        transition: 0.3s;
+        font-family: inherit;
+    }
+
+    body.dark input, body.dark select, body.dark textarea { 
+        background: rgba(0,0,0,0.3); 
+        border-color: rgba(255,255,255,0.1); 
+    }
+    input:focus, select:focus, textarea:focus { 
+        background: white; 
+        border-color: var(--accent); 
+        box-shadow: 0 0 0 3px var(--accent-glow); 
+    }
+
+    .table-container {
+        overflow-x: auto;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.3);
+        border: 1px solid var(--glass-border);
+    }
+
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        font-size: 14px; 
+        color: var(--text-main); 
+    }
+    th { 
+        background: rgba(0,0,0,0.03); 
+        padding: 15px; 
+        text-align: left; 
+        color: var(--text-muted); 
+        font-weight: 600; 
+        white-space: nowrap;
+    }
+    td { 
+        padding: 15px; 
+        border-bottom: 1px solid rgba(0,0,0,0.05); 
+        transition: background 0.2s; 
+    }
+    tr:hover td { 
+        background: rgba(59, 130, 246, 0.05); 
+    }
+
+    .tag { 
+        padding: 6px 12px; 
+        border-radius: 20px; 
+        font-size: 11px; 
+        font-weight: 700; 
+        text-transform: uppercase; 
+        letter-spacing: 0.5px; 
+    }
+    .tag-p { 
+        background: rgba(16, 185, 129, 0.15); 
+        color: #10b981; 
+    }
+    .tag-a { 
+        background: rgba(239, 68, 68, 0.15); 
+        color: #ef4444; 
+    }
+    .tag-pend { 
+        background: rgba(245, 158, 11, 0.15); 
+        color: #f59e0b; 
+    }
+
+    .pie-chart {
+        width: 70px; 
+        height: 70px; 
+        border-radius: 50%;
+        background: conic-gradient(var(--accent) var(--p), rgba(0,0,0,0.1) 0);
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        font-size: 12px; 
+        font-weight: 700; 
+        color: var(--text-main);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        position: relative;
+    }
+    .pie-chart::after {
+        content: attr(data-val);
+        width: 54px; 
+        height: 54px; 
+        background: var(--glass-bg);
+        border-radius: 50%; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    #mobileHeader {
+        display: none;
+        padding: 15px 20px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(15px);
+        border-bottom: 1px solid var(--glass-border);
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+    }
+
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+        backdrop-filter: blur(5px);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .sidebar-overlay.active { 
+        display: block; 
+        opacity: 1; 
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .modal[style*="display: flex"] { 
+        opacity: 1; 
+    }
+
+    .modal-content {
+        background: var(--glass-bg);
+        width: 100%;
+        max-width: 900px;
+        padding: 30px;
+        border-radius: 24px;
+        position: relative;
+        max-height: 85vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        border: 1px solid rgba(255,255,255,0.2);
+        animation: fadeInScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    body.dark .modal-content { 
+        background: #1e293b; 
+        color: white; 
+    }
+
+    .close-modal {
+        position: absolute; 
+        right: 25px; 
+        top: 20px;
+        font-size: 24px; 
+        cursor: pointer; 
+        color: var(--text-muted);
+        transition: 0.2s; 
+        width: 32px; 
+        height: 32px;
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        border-radius: 50%; 
+        background: rgba(0,0,0,0.05);
+    }
+    .close-modal:hover { 
+        background: var(--danger); 
+        color: white; 
+        transform: rotate(90deg); 
+    }
+
+    .file-upload-box {
+        border: 2px dashed var(--glass-border);
+        padding: 30px;
+        text-align: center;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.2);
+        transition: 0.3s;
+        cursor: pointer;
+    }
+    .file-upload-box:hover { 
+        border-color: var(--accent);
+        background: rgba(59, 130, 246, 0.1); 
+        transform: translateY(-2px); 
+    }
+
+    @media (max-width: 768px) {
+        body { 
+            flex-direction: column; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
+        aside { 
+            position: fixed; 
+            inset: 0;
+            width: 280px; 
+            z-index: 200; 
+            transform: translateX(-100%); 
+            box-shadow: 10px 0 30px rgba(0,0,0,0.2); 
+        }
+        aside.active { 
+            transform: translateX(0); 
+        }
+        #mobileHeader { 
+            display: flex; 
+        }
+        main { 
+            padding: 20px; 
+            width: 100%; 
+            overflow-y: auto; 
+            height: 100%; 
+            padding-bottom: 80px; 
+        }
+        .dashboard-header { 
+            flex-direction: column; 
+            text-align: center; 
+            gap: 20px; 
+            padding: 30px 20px; 
+        }
+        .dh-text h1 { 
+            font-size: 22px; 
+        }
+        .grid-forms { 
+            grid-template-columns: 1fr; 
+            gap: 20px; 
+        }
+        .login-card { 
+            width: 90%; 
+            padding: 30px; 
+        }
+    }
+
+    @media print {
+        @page { 
+            size: A4 landscape; 
+            margin: 5mm; 
+        }
+        body { 
+            background: white; 
+            color: black; 
+            -webkit-print-color-adjust: exact; print-color-adjust: exact; 
+        }
+        body * { 
+            visibility: hidden; 
+        }
+        
+        .no-print, .close-modal, .btn, .modal-content::-webkit-scrollbar, 
+        #mobileHeader, .mobile-menu-btn, .sidebar-overlay,
+        #sidebar, #authScreen, #guideModal, .modal { 
+            display: none !important; 
+        }
+
+        body.printing-att #attModal {
+            display: block !important; 
+            visibility: visible; 
+            position: absolute; 
+            inset: 0; 
+            background: white; 
+            padding: 0;
+        }
+        body.printing-marks #marksModal {
+            display: block !important; 
+            visibility: visible; 
+            position: absolute; 
+            inset: 0; 
+            background: white; 
+            padding: 0;
+        }
+
+        .modal-content {
+            box-shadow: none; 
+            border: none; 
+            width: 100%; 
+            max-width: 100%; 
+            padding: 0; 
+            margin: 0; 
+            background: white; 
+            visibility: visible; 
+            overflow: visible;
+        }
+
+        .printable-content, .printable-content * { visibility: visible; }
+        
+        .print-header { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative; 
+            margin-bottom: 10px; 
+            padding-bottom: 15px; 
+            border-bottom: 2px solid #000; 
+        }
+        .print-logo {
+            position: absolute;
+            left: 0; 
+            top: 0; 
+            width: 90px; 
+            height: 90px; 
+            object-fit: contain; 
+        }
+        .print-text { 
+            text-align: center; 
+            width: 100%; 
+        }
+        .print-text h1 { 
+            font-size: 24px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            margin: 0 0 5px 0; 
+            color: black; 
+            font-family: Arial, sans-serif; 
+            letter-spacing: 0.5px; 
+        }
+        .print-text p { 
+            font-size: 16px; 
+            margin: 0; 
+            color: black; 
+            font-weight: 400; 
+        }
+
+        .print-meta-list { 
+            margin-bottom: 20px; 
+            font-size: 14px; 
+            color: black; 
+            font-family: Arial, sans-serif; 
+        }
+        .print-meta-row { 
+            margin-bottom: 5px; 
+            display: flex; 
+        }
+        .print-label { 
+            font-weight: 900; 
+            width: 150px; 
+            font-size: 15px; 
+        }
+        .print-value { 
+            font-weight: 400; 
+            font-size: 15px; 
+        }
+
+        .print-table-wrapper { 
+            width: 100%; 
+            border: none; 
+        }
+        .print-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            font-size: 11px; 
+            font-family: Arial, sans-serif; 
+        }
+        .print-table th, .print-table td { 
+            border: 1px solid #000 !important; 
+            padding: 4px 2px; 
+            text-align: center; 
+            color: black; 
+            vertical-align: middle; 
+        }
+        .print-table th { 
+            background-color: #f0f0f0 !important; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+        }
+        .print-table tr { 
+            page-break-inside: avoid; 
+        }
+        .print-table td:nth-child(2) { 
+            text-align: left; 
+            padding-left: 5px; 
+            font-weight: 600; 
+        }
+    }
+</style>
+</head>
+<body>
+
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <div id="authScreen">
+        <div class="login-card">
+            <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" 
+            style="width:110px; 
+            border-radius:50%; 
+            margin-bottom:25px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+            border: 4px solid white;">
+            <h2 style="
+            color:var(--text-main); 
+            margin:0; 
+            font-size: 
+            26px; font-weight: 800;">Welcome Back</h2>
+            <p style="color:var(--text-muted); 
+            font-size:15px; 
+            margin-bottom:35px;">Sign in to SITS Attendance Portal</p>
+            <input type="text" 
+            class="login-input" 
+            id="loginID"
+            placeholder="Email or Phone Number" required>
+            <input type="password" 
+            class="login-input" 
+            id="loginPass" 
+            placeholder="Password" required>
+            <button 
+            class="btn btn-p" 
+            style="width:100%; 
+            padding:14px; 
+            font-size: 16px; 
+            margin-top: 10px;" 
+            onclick="handleLogin()">Login Securely</button>
+            <div style="margin-top:30px; 
+            font-size:12px; 
+            color:var(--text-muted);">
+                SITS Pune Attendance System<br>
+                <span style="background: rgba(59, 130, 246, 0.1); 
+                color: var(--accent); 
+                padding: 4px 10px; 
+                border-radius: 12px; 
+                -weight: 600;"
+                >Developed by Shubham Sanap</span>
+            </div>
+        </div>
+    </div>
+
+    <aside id="sidebar" 
+    style="display:none">
+        <div class="sidebar-header">
+            <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" 
+            style="
+            width:45px; 
+            border-radius:10px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <div>
+                <h3 style="
+                margin:0; 
+                font-size:18px; 
+                font-weight: 700;">SITS Pune</h3>
+                <span style="
+                font-size:11px; 
+                color:var(--text-muted); 
+                font-weight: 500;">Academic Portal</span>
+            </div>
+        </div>
+        <div id="navLinks"></div>
+        <div style="padding: 0 20px;">
+            <button class="btn btn-w" 
+            style="width:100%; 
+            justify-content:flex-start; 
+            margin-top:10px;" 
+            onclick="openModal('guideModal')">
+                <i class="fa fa-question-circle"></i> Help Guide
+            </button>
+        </div>
+        <div style="padding:25px; 
+        margin-top:auto; 
+        border-top:1px solid var(--glass-border);">
+            <div style="
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            margin-bottom:20px;">
+                <span style="font-size:13px; 
+                font-weight:600; 
+                color: var(--text-muted);">Dark Mode</span>
+
+                <div onclick="toggleTheme()" 
+                style="
+                width: 44px; 
+                height: 24px; 
+                background: #cbd5e1; 
+                border-radius: 20px; 
+                position: relative; 
+                cursor: pointer; 
+                transition: 0.3s;">
+
+                    <div style="
+                        width: 18px; 
+                        height: 18px; 
+                        background: white; 
+                        border-radius: 50%; 
+                        position: absolute; 
+                        top: 3px; 
+                        left: 3px; 
+                        transition: 0.3s;"></div>
+                </div>
+            </div>
+            <div style="
+            display:flex; 
+            align-items:center;
+             gap:12px; 
+             background: rgba(0,0,0,0.03); 
+             padding: 10px; 
+             border-radius: 12px;">
+                <div style="
+                    width:38px; 
+                    height:38px; 
+                    background:linear-gradient(135deg, #3b82f6, #2563eb); 
+                    border-radius:50%; 
+                    color:white; 
+                    display:flex; 
+                    align-items:center; 
+                    justify-content:center; 
+                    font-weight: 700;" 
+                    id="sideAvatar">U</div>
+                <div style="flex:1;">
+                    <div id="sideName" 
+                    style="font-size:14px; font-weight:700;">User</div>
+                    <div id="sideRole" 
+                    style="font-size:11px; color:var(--text-muted);">Role</div>
+                </div>
+                <i class="fa fa-power-off" 
+                style="color:var(--danger); cursor:pointer; font-size: 16px; padding: 5px;" 
+                onclick="location.reload()"></i>
+            </div>
+        </div>
+    </aside>
+
+    <main id="mainContent" style="display:none">
+
+        <div id="mobileHeader">
+            <button class="mobile-menu-btn" 
+            style="
+                background:none; 
+                border:none; 
+                font-size:20px; 
+                color:var(--text-main);" 
+                onclick="toggleSidebar()">
+                
+                <i class="fa fa-bars"></i>
+            </button>
+            <div style="font-weight:700; 
+            color:var(--primary-dark); 
+            font-size: 18px;">SITS Portal</div>
+            <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" 
+            style="width:35px; border-radius:8px;">
+        </div>
+
+        <div class="dashboard-header">
+            <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" 
+            class="dh-logo">
+            <div class="dh-text">
+                <h1>Sinhgad Institute of Technology and Science</h1>
+                <h2>Narhe, Pune - 411041</h2>
+                <div class="dh-welcome">
+                    <i class="fa fa-user-circle" 
+                    style="margin-right: 8px;">
+                </i> Welcome back, <span 
+                id="dashName" 
+                style="font-weight: 700; 
+                margin-left: 4px;">User</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="noticeWidget" 
+        class="card" 
+        style="display:none; 
+        border-left: 5px solid var(--warning); 
+        background: linear-gradient(to right, rgba(245, 158, 11, 0.1), 
+        transparent);">
+            <h4 style="
+            margin:0 0 8px 0; 
+            display:flex; 
+            align-items:center; 
+            gap: 8px; 
+            color: #b45309;">
+                <i class="fa fa-bullhorn">
+                </i> Latest Announcement
+            </h4>
+            <p id="noticeText" 
+            style="
+            margin:0; 
+            font-size:14px; 
+            color:#92400e; 
+            font-weight: 500;"></p>
+            <small id="noticeDate" 
+            style="color:#b45309; 
+            font-size:11px; 
+            display:block; 
+            margin-top:8px; 
+            opacity: 0.8;">
+            </small>
+        </div>
+
+        <div id="adminPage" 
+        class="page">
+            <div style="
+                display:flex; 
+                justify-content:space-between; 
+                align-items:center; 
+                margin-bottom:25px; 
+                flex-wrap:wrap; 
+                gap:15px;">
+                <h2 style="
+                    font-size: 24px; 
+                    color: var(--text-main);">
+                    <i class="fa fa-cogs" 
+                    style="
+                    color: var(--accent); 
+                    margin-right: 10px;">
+                </i> Admin Control
+                </h2>
+                <div style="display:flex; gap:12px;">
+                    <button class="btn btn-dark" onclick="openTimetableModal()">
+                        <i class="fa fa-edit"></i> Manage Timetable
+                    </button>
+                    <button class="btn btn-p" 
+                    onclick="openModal('noticeModal')">
+                        <i class="fa fa-bullhorn"></i> Post Notice
+                    </button>
+                </div>
+            </div>
+            <div class="grid-forms" 
+            style="margin-bottom:25px;">
+                <div class="card">
+                    <h3 style="margin-top:0;">Leave Requests</h3>
+                    <div class="table-container" 
+                    style="max-height:220px;">
+                        <table id="adminLeaveTable"></table>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-top:0;">Configuration</h3>
+                    <div class="grid-forms" 
+                    style="gap: 15px;">
+                        <div>
+                            <label>Year</label>
+                            <select id="aYear" 
+                            onchange="handleYearChange('aYear','aBranch')">
+                                <option value="1ST YEAR">1st Year</option>
+                                <option value="2ND YEAR">2nd Year</option>
+                                <option value="3RD YEAR">3rd Year</option>
+                                <option value="4TH YEAR">4th Year</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Branch</label>
+                            <select id="aBranch" 
+                            onchange="refreshAdminView()">
+                        </select>
+                        </div>
+                        <div>
+                            <label>Div</label>
+                            <select id="aDiv" 
+                            onchange="refreshAdminView()">
+                        </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div style="
+                    display:flex; 
+                    justify-content:space-between; 
+                    align-items:center; 
+                    margin-bottom: 15px;">
+                    <h3>Student Registry</h3>
+                    <button class="btn btn-s" 
+                    onclick="openModal('addStudentModal')">
+                        <i class="fa fa-plus"></i> New Student
+                    </button>
+                </div>
+                <div class="table-container" 
+                style="max-height:500px;">
+                    <table id="adminStudentTable"></table>
+                </div>
+            </div>
+        </div>
+
+        <div id="teacherPage" class="page">
+            <div style="
+                display:flex; 
+                justify-content:space-between; 
+                align-items:center; 
+                margin-bottom:30px;">
+                <h2 style="font-size: 24px; margin:0;">
+                    <i class="fa fa-chalkboard-teacher" 
+                    style="color: var(--accent); 
+                    margin-right: 10px;"></i> Faculty Dashboard
+                </h2>
+                <div id="clockDisplay" style="
+                font-weight:800; 
+                color:var(--accent); 
+                font-size: 20px; 
+                background: rgba(59, 130, 246, 0.1); 
+                padding: 8px 16px; 
+                border-radius: 12px;"></div>
+            </div>
+            <div class="grid-forms" style="
+            margin-bottom:30px; 
+            grid-template-columns: 
+            repeat(auto-fit, minmax(180px, 1fr));">
+                <div class="card" 
+                onclick="openAttendanceModal()" 
+                style="cursor:pointer; 
+                text-align:center; 
+                display:flex; 
+                flex-direction:column; 
+                align-items:center; 
+                justify-content:center; 
+                min-height:160px;">
+                    <div style="
+                        width:60px; 
+                        height:60px; 
+                        background:rgba(59,130,246,0.1); 
+                        border-radius:50%; 
+                        display:flex; 
+                        align-items:center; 
+                        justify-content:center; 
+                        margin-bottom:15px;">
+                        <i class="fa fa-user-check" 
+                        style="font-size:28px; color:var(--accent);"></i>
+                    </div>
+                    <h3 style="margin:0; font-size:16px;">Attendance</h3>
+                </div>
+                <div class="card" 
+                onclick="openMarksModal()" 
+                style="cursor:pointer; 
+                text-align:center; 
+                display:flex; 
+                flex-direction:column; 
+                align-items:center; 
+                justify-content:center; 
+                min-height:160px;">
+                    <div style="width:60px; 
+                    height:60px; 
+                    background:rgba(16,185,129,0.1); 
+                    border-radius:50%; 
+                    display:flex; 
+                    align-items:center; 
+                    justify-content:center; 
+                    margin-bottom:15px;">
+                        <i class="fa fa-chart-bar" 
+                        style="font-size:28px; color:var(--success);"></i>
+                    </div>
+                    <h3 style="margin:0; font-size:16px;">Marks Entry</h3>
+                </div>
+                <div class="card" 
+                onclick="openModal('lmsModal')" 
+                style="cursor:pointer; 
+                text-align:center; 
+                display:flex; 
+                flex-direction:column; 
+                align-items:center; 
+                justify-content:center; 
+                min-height:160px;">
+                    <div style="width:60px; 
+                    height:60px; 
+                    background:rgba(245,158,11,0.1); 
+                    border-radius:50%; 
+                    display:flex; 
+                    align-items:center; 
+                    justify-content:center; 
+                    margin-bottom:15px;">
+                        <i class="fa fa-cloud-upload-alt" 
+                        style="font-size:28px; color:var(--warning);"></i>
+                    </div>
+                    <h3 style="margin:0; font-size:16px;">LMS Upload</h3>
+                </div>
+                <div class="card" 
+                onclick="openTimetableModal()" 
+                style="cursor:pointer; 
+                text-align:center; 
+                display:flex; 
+                flex-direction:column; 
+                align-items:center; 
+                justify-content:center; 
+                min-height:160px;">
+                    <div style="width:60px; 
+                    height:60px; 
+                    background:rgba(99,102,241,0.1); 
+                    border-radius:50%; 
+                    display:flex; 
+                    align-items:center; 
+                    justify-content:center;
+                    margin-bottom:15px;">
+                        <i class="fa fa-calendar-day" 
+                        style="font-size:28px; color:#6366f1;"></i>
+                    </div>
+                    <h3 style="margin:0; font-size:16px;">Schedule</h3>
+                </div>
+            </div>
+            <div class="card">
+                <h4 style="margin-top:0; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px; margin-bottom: 15px;">
+                    <i class="fa fa-filter"></i> Class Selection
+                </h4>
+                <div class="grid-forms">
+                    <select id="tYear" onchange="handleYearChange('tYear','tBranch')">
+                        <option value="1ST YEAR">1st Year</option>
+                        <option value="2ND YEAR">2nd Year</option>
+                        <option value="3RD YEAR">3rd Year</option>
+                        <option value="4TH YEAR">4th Year</option>
+                    </select>
+                    <select id="tBranch"></select>
+                    <select id="tDiv"></select>
+                    <select id="tSub"></select>
+                </div>
+            </div>
+            <div class="card">
+                <h3 style="margin-top:0;">Pending Leaves</h3>
+                <div class="table-container">
+                    <table id="teacherLeaveTable"></table>
+                </div>
+            </div>
+        </div>
+
+        <div id="studentPage" 
+        class="page">
+            <div style="margin-bottom: 25px; display: flex; align-items: center; gap: 15px;">
+                <span id="stFeeBadge" 
+                class="tag" 
+                style="font-size: 14px; padding: 8px 16px;"></span>
+                <div style="height: 40px; border-left: 2px solid var(--glass-border);"></div>
+                <p id="stDetails" style="margin:0; color:var(--text-muted); font-size:15px; font-weight: 500;">Loading...</p>
+            </div>
+            <div class="grid-forms">
+                <div class="card">
+                    <div style="display:flex; justify-content:space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="margin:0;">Attendance</h3>
+                        <div class="pie-chart" 
+                        id="stAttChart" s
+                        tyle="--p:0deg;" 
+                        data-val="0%"></div>
+                    </div>
+                    <div class="table-container" 
+                    style="max-height:220px;">
+                        <table id="stAttTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-top:0;">Quick Actions</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="btn btn-p" 
+                        style="width:100%;" 
+                        onclick="openTimetableModal()">
+                            <i class="fa fa-calendar-alt"></i> View Timetable
+                        </button>
+                        <button class="btn btn-s" 
+                        style="width:100%" 
+                        onclick="openModal('applyLeaveModal')">
+                            <i class="fa fa-paper-plane"></i> Apply Leave
+                        </button>
+                    </div>
+                    <div style="margin-top:15px; text-align: center; font-weight: 500;" id="stLeaveStatus"></div>
+                </div>
+            </div>
+            <div class="grid-forms" 
+            style="margin-top:25px;">
+                <div class="card">
+                    <h3 style="margin-top:0;">Exam Marks</h3>
+                    <div class="table-container">
+                        <table id="stGradesTable">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Exam</th>
+                                    <th>Marks</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-top:0;">LMS Resources</h3>
+                    <div class="table-container" style="max-height: 220px;">
+                        <table id="stLmsTable">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="attModal" class="modal" 
+    style="display:none; flex-direction:column;">
+        <div class="modal-content">
+            <span class="close-modal no-print" 
+            onclick="closeModal('attModal')">&times;</span>
+            <h2 class="no-print" 
+            style="margin-top:0;">Mark Attendance & Ledger</h2>
+            <div class="grid-forms no-print" 
+            style="margin-bottom:25px; padding-bottom: 20px; border-bottom: 1px solid var(--glass-border);">
+                <input type="date" 
+                id="attDate">
+                <input type="text" 
+                id="absentRolls" 
+                placeholder="Absent Roll Nos (e.g. 1, 5, 12)">
+                <button class="btn btn-p" 
+                onclick="saveAttendance()">Save Attendance</button>
+            </div>
+            <div style="display:flex; gap:15px; margin-bottom:15px; flex-wrap:wrap; align-items: flex-end;" class="no-print">
+                <div style="flex:1;">
+                    <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Filter Month</label>
+                    <select id="viewMonth" onchange="renderAttendanceLedger()">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                    </select>
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn btn-e" 
+                    onclick="exportToExcel('ledgerTable', 'Attendance_Ledger')">
+                        <i class="fa fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn btn-s" 
+                    onclick="printAttendance()">
+                        <i class="fa fa-print"></i> Print
+                    </button>
+                </div>
+            </div>
+
+            <div id="printableArea" class="printable-content">
+                <div class="print-header">
+                    <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" 
+                    class="print-logo">
+                    <div class="print-text">
+                        <h1>Sinhgad Institute of Technology and Science</h1>
+                        <p>Narhe, Pune - 411041 | Academic Attendance Record</p>
+                    </div>
+                </div>
+                <div class="print-meta-list">
+                    <div class="print-meta-row">
+                        <span class="print-label">Department</span>
+                        <span class="print-value" id="pBranch">IT</span>
+                    </div>
+                    <div class="print-meta-row">
+                        <span class="print-label">Year</span>
+                        <span class="print-value" id="pYear">2023-24</span>
+                    </div>
+                    <div class="print-meta-row">
+                        <span class="print-label">Div</span>
+                        <span class="print-value" id="pDiv">Div-1</span>
+                    </div>
+                    <div class="print-meta-row">
+                        <span class="print-label">Subject</span>
+                        <span class="print-value" id="pSub">Maths</span>
+                    </div>
+                    <div class="print-meta-row">
+                        <span class="print-label">Month</span>
+                        <span class="print-value" id="pMonth">January</span>
+                    </div>
+                    <div class="print-meta-row">
+                        <span class="print-label">Faculty</span>
+                        <span class="print-value" id="pFac">Prof. User</span>
+                    </div>
+                    <div class="print-meta-row">
+                        <span class="print-label">Date</span>
+                        <span class="print-value" id="pDate"></span>
+                    </div>
+                </div>
+                <div class="print-table-wrapper">
+                    <table id="ledgerTable" class="print-table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="marksModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal no-print" 
+            onclick="closeModal('marksModal')">&times;</span>
+            <h2 class="no-print" 
+            style="margin-top:0;">Marks Entry</h2>
+            <div class="grid-forms no-print" 
+            style="margin-bottom: 20px;">
+                <input type="text" 
+                id="newExamCol" 
+                placeholder="Exam Name (e.g., UT-2)">
+                <button class="btn btn-p" 
+                onclick="addExamColumn()">Add Column</button>
+                <button class="btn btn-s" 
+                onclick="commitMarks()">Save All</button>
+                <button class="btn btn-e" 
+                onclick="exportToExcel('marksDataTable','Marks')">Excel</button>
+                <button class="btn btn-dark" 
+                onclick="printMarks()">
+                    <i class="fa fa-print"></i> Print
+                </button>
+            </div>
+            <div class="table-container no-print">
+                <table id="marksDataTable">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div id="printableAreaMarks" class="printable-content" style="display:none;">
+                <div class="print-header">
+                    <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" class="print-logo">
+                    <div class="print-text">
+                        <h1>Sinhgad Institute of Technology and Science</h1>
+                        <p>Narhe, Pune - 411041 | Academic Marks Record</p>
+                    </div>
+                </div>
+                <div class="print-meta-list">
+                    <div class="print-meta-row">
+                        <span class="print-label">Department</span>
+                        <span class="print-value" id="mBranch">IT</span>
+                    </div>
+                    <div class="print-meta-row">
+                        <span class="print-label">Year</span>
+                        <span class="print-value" id="mYear">2023-24</span>
+                    </div>
+                    <div class="print-meta-row">
+                        <span class="print-label">Div</span>
+                        <span class="print-value" id="mDiv">Div-1</span>
+                    </div>
+                    <div class="print-meta-row"><span class="print-label">Subject</span>
+                        <span class="print-value" id="mSub">Maths</span>
+                    </div>
+                    <div class="print-meta-row"><span class="print-label">Faculty</span>
+                        <span class="print-value" id="mFac">Prof. User</span>
+                    </div>
+                    <div class="print-meta-row"><span class="print-label">Date</span>
+                        <span class="print-value" id="mDate"></span>
+                    </div>
+                </div>
+                <div class="print-table-wrapper">
+                    <table id="printMarksTable" class="print-table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="timetableModal" 
+    class="modal">
+        <div class="modal-content">
+            <span class="close-modal" 
+            onclick="closeModal('timetableModal')">&times;</span>
+            <div style="display:flex; justify-content:space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin:0;">Weekly Timetable</h2>
+                <div id="ttAdminControls" 
+                style="display:none; gap:10px;">
+                    <button class="btn btn-dark" 
+                    onclick="addTtRow()">+ Row</button>
+                    <button class="btn btn-dark" 
+                    onclick="addTtCol()">+ Col</button>
+                    <button class="btn btn-s" 
+                    onclick="saveTimetable()">Save Changes</button>
+                </div>
+            </div>
+            <div class="tt-wrapper" 
+            style="overflow-x:auto;">
+                <table class="tt-table" 
+                id="ttTable" border="1" 
+                style="width:100%; text-align:center;"></table>
+            </div>
+        </div>
+    </div>
+
+    <div id="applyLeaveModal" 
+    class="modal">
+        <div class="modal-content" 
+        style="max-width:500px;">
+            <span class="close-modal"
+             onclick="closeModal('applyLeaveModal')">&times;</span>
+            <h2 style="margin-top:0;">Request Leave</h2>
+            <div class="grid-forms"
+            style="display: flex; flex-direction: column;">
+                <input type="text" 
+                id="leaveReason" 
+                placeholder="Reason for leave">
+                <input type="date" 
+                id="leaveDate">
+                <button class="btn btn-p" 
+                onclick="submitLeave()">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="noticeModal" class="modal">
+        <div class="modal-content" 
+        style="max-width:500px;">
+            <span class="close-modal" 
+            onclick="closeModal('noticeModal')">&times;</span>
+            <h2 style="margin-top:0;">Post Notice</h2>
+            <textarea id="noticeContent" 
+            rows="5" 
+            placeholder="Enter announcement text here..."></textarea>
+            <button class="btn btn-p" 
+            style="margin-top:15px; width:100%" 
+            onclick="postNotice()">Publish Notice</button>
+        </div>
+    </div>
+
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content" 
+        style="max-width:500px;">
+            <span class="close-modal" 
+            onclick="closeModal('addStudentModal')">&times;</span>
+            <h2 style="margin-top:0;">Add Student</h2>
+            <div class="grid-forms" 
+            style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="text" 
+                id="newStName" 
+                placeholder="Full Name">
+                <input type="text" 
+                id="newStPhone" 
+                placeholder="Phone Number">
+                <input type="text" 
+                id="newStRoll" 
+                placeholder="Roll Number">
+                <select id="newStFee">
+                    <option value="Pending">Fees Pending</option>
+                    <option value="Paid">Fees Paid</option>
+                </select>
+                <button class="btn btn-p" onclick="saveNewStudent()">Register Student</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lmsModal" class="modal">
+        <div class="modal-content" 
+        style="max-width:600px;">
+            <span class="close-modal" 
+            onclick="closeModal('lmsModal')">&times;</span>
+            <h2 style="margin-top:0;">Upload Resource</h2>
+            <div class="grid-forms" 
+            style="display: flex; flex-direction: column; gap: 15px;">
+                <select id="lmsType">
+                    <option>Notes</option>
+                    <option>Assignment</option>
+                    <option>Notice</option>
+                </select>
+                <input type="text" id="lmsTitle" 
+                placeholder="Title/Description">
+                <input type="text" id="lmsLink" 
+                placeholder="Paste File Link (e.g. Drive URL)">
+                <div style="text-align: center; color: var(--text-muted); font-size: 13px; font-weight: 500;">- OR -</div>
+                <div class="file-upload-box">
+                    <i class="fa fa-cloud-upload-alt" 
+                    style="font-size: 32px; color: var(--accent); margin-bottom: 10px;"></i>
+                    <br>
+                    <input type="file" id="lmsFileLocal" 
+                    style="width: 100%; margin-top: 10px;">
+                    <br>
+                    <small style="color: var(--text-muted);">Choose a file from your PC</small>
+                </div>
+                <button class="btn btn-p" onclick="uploadLms()">Upload Resource</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="guideModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <span class="close-modal" onclick="closeModal('guideModal')">&times;</span>
+            <div style="border-bottom: 1px solid var(--glass-border); margin-bottom: 20px; padding-bottom: 15px;">
+                <h2 style="margin:0;">
+                    <i class="fa fa-life-ring" style="color:var(--accent)"></i> User Guide & Help
+                </h2>
+                <p style="margin:5px 0 0; color:var(--text-muted); font-size:14px;">Select a topic below to learn how to use the portal.</p>
+            </div>
+            <div style="display:flex; gap:12px; margin-bottom:25px; overflow-x:auto; padding-bottom:5px;">
+                <button class="btn btn-dark" onclick="switchGuide('g-gen')">General</button>
+                <button class="btn btn-p" onclick="switchGuide('g-att')">Attendance</button>
+                <button class="btn btn-s" onclick="switchGuide('g-mrk')">Marks</button>
+                <button class="btn btn-w" onclick="switchGuide('g-tt')">Timetable</button>
+            </div>
+            <div id="g-gen" class="guide-tab" style="animation: fadeInScale 0.3s;">
+                <h3 style="color:var(--accent); margin-top:0;">Getting Started</h3>
+                <ul style="line-height:1.8; font-size:15px; color:var(--text-main);">
+                    <li><strong>Login:</strong> Use your Email (Faculty) or Phone Number (Students) to log in.</li>
+                    <li><strong>Sidebar:</strong> Access different modules using the menu on the left.</li>
+                    <li><strong>Dark Mode:</strong> Toggle the moon icon <i class="fa fa-moon">
+\                    </i> in the sidebar to switch themes.</li>
+                    <li><strong>Logout:</strong> Click the <i class="fa fa-power-off">
+                    </i> icon to exit securely.</li>
+                </ul>
+            </div>
+            <div id="g-att" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
+                <h3 style="color:var(--success); margin-top:0;">Marking Attendance</h3>
+                <ul style="line-height:1.8; font-size:15px; color:var(--text-main);">
+                    <li><strong>Step 1:</strong> Go to the Faculty Dashboard and click "Attendance".</li>
+                    <li><strong>Step 2:</strong> Select the Date.</li>
+                    <li><strong>Step 3:</strong> Enter the **Roll Numbers** of absent students (separated by commas, e.g., "1, 5, 12").</li>
+                    <li><strong>Step 4:</strong> Click "Save". The system automatically calculates percentages.</li>
+                    <li><strong>Export:</strong> You can print the monthly ledger or download it as Excel.</li>
+                </ul>
+            </div>
+            <div id="g-mrk" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
+                <h3 style="color:var(--accent); margin-top:0;">Managing Marks</h3>
+                <ul style="line-height:1.8; font-size:15px; color:var(--text-main);">
+                    <li><strong>Add Exam:</strong> Type an exam name (e.g., "Unit Test 1") and click "Add Col".</li>
+                    <li><strong>Enter Data:</strong> Fill in the marks for each student in the table.</li>
+                    <li><strong>Save:</strong> Click "Save" to store the marks in the database.</li>
+                    <li><strong>Excel:</strong> Click "Excel" to download the result sheet.</li>
+                </ul>
+            </div>
+            <div id="g-tt" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
+                <h3 style="color:#6366f1; margin-top:0;">Timetable Management</h3>
+                <ul style="line-height:1.8; font-size:15px; color:var(--text-main);">
+                    <li><strong>View:</strong> Everyone can view the weekly schedule.</li>
+                    <li><strong>Edit (Admin Only):</strong>
+                        <ul>
+                            <li>Click <strong>+ Row</strong> to add a new time slot.</li>
+                            <li>Click <strong>+ Col</strong> to add a new day/column.</li>
+                            <li>Type directly into the cells to update subjects.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div style="margin-top:25px; text-align:right; border-top:1px solid var(--glass-border); padding-top:15px;">
+                <button class="btn btn-d" onclick="closeModal('guideModal')">Close Guide</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    // 1. DATA INITIALIZATION
+    const INITIAL_STUDENTS = [
+         { n: "BHALERAO PAVAN DINKARAPPA",   p: "9325530650", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "1" },
+        { n: "BORKAR DNYANESHWARI TANHAJI", p: "7666103944", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "2" },
+        { n: "SHETKAR DNYANESH RAMCHANDRA", p: "8888216966", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "3" },
+        { n: "NARWADE SHRADDHA VILAS",      p: "9423756624", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "4" },
+        { n: "KADAM YASH RAJENDRA", p: "7387932865", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "5" },
+        { n: "KADAM SHRADDHA SADANAND", p: "8459430473", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "6" },
+        { n: "TILVE VEDANT MAHESH", p: "7038580411", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "7" },
+        { n: "BHAGAT RUTUJA PRAVIN", p: "9552737716", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "8" },
+        { n: "HIRE PRIYANKA RUSHINDAR", p: "9527592219", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "1" },
+        { n: "RATHOD VIKAS RAJARAM", p: "8767459645", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "2" },
+        { n: "JADHAV DHANANJAY NAVNATH", p: "8669054022", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "3" },
+        { n: "WALUNJ ASHISH YASHWANT", p: "9850116884", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "4" },
+        { n: "KSHIRSAGAR VEDIKA BAJRANG", p: "9226395502", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "5" },
+        { n: "KOTHIMBIRE GIRISH CHANDRASHEKHAR", p: "9322002382", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "6" },
+        { n: "DESAI VIRAJ BAJIRAO", p: "8983687233", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "7" },
+        { n: "GODASE ARYAN RAJENDRA", p: "9359384639", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "8" },
+        { n: "JAGADALE SNEHAL BHAURAO", p: "7757062613", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "9" },
+        { n: "SHIRSAT RITESH RAJKUMAR", p: "8459952126", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "10" },
+        { n: "MAGDUM ANUSHKA SHARAD", p: "7385991130", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "11" },
+        { n: "SIDDHI SANTOSH RALE", p: "8080763639", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "12" },
+        { n: "GAIKWAD PRIYANKA PRAMOD", p: "8624095285", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "13" },
+        { n: "WAGHMARE SANIKA BHAUSAHEB", p: "9021988498", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "14" },
+        { n: "JAGTAP SAMIKSHA ASHOK", p: "9850035016", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "15" },
+        { n: "SAVKARE RESHMA DILIP", p: "9322083371", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "16" },
+        { n: "ASOLE AMIT RAJESH", p: "8855862396", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "17" },
+        { n: "CHONDHIKAR CHINMAY SHAMSUNDER", p: "7385378585", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "18" },
+        { n: "PATTEWAR VARAD VINOD", p: "7058068161", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "19" },
+        { n: "PANDIT NEEL PARAG", p: "7028567607", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "20" },
+        { n: "APURVA BALAJI INGOLE", p: "9307540076", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "21" },
+        { n: "MOHITE HARSHVARDHAN RUPESH", p: "9356975916", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "22" },
+        { n: "GARJE SHREYASH GANESH", p: "9284638745", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "23" },
+        { n: "DISHA GOPALSINGH BISEN", p: "7559442449", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "24" },
+        { n: "KULKARNI SAI YOGESH", p: "9371052722", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "25" },
+        { n: "SHINDE MOHINI SHIVRAJ", p: "8999195748", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "26" },
+        { n: "KHUSHI KISHOR JADHAV", p: "9529135018", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "27" },
+        { n: "ANDHALE VEDANT AJINATH", p: "8999989455", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "28" },
+        { n: "KAWALE ANKIT VINOD", p: "7517086168", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "29" },
+        { n: "KERE PRAGATI RSH", p: "9322346905", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "30" },
+        { n: "NAGARGOJE JAYWANT RAVINDRA", p: "7249604536", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "31" },
+        { n: "DURGE MRUNALI VIKRAM", p: "9422631120", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "32" },
+        { n: "KAMBLE PIYUSH SAUDAGAR", p: "9423360436", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "33" },
+        { n: "WALUNJ DNYANESHWARI DIPAK", p: "7387932865", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "34" },
+        { n: "SHIVTARE ABHAY SOMNATH", p: "9209383809", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "35" },
+        { n: "DANGE PIYUSH TANSEN", p: "9158095213", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "36" },
+        { n: "SURAJ NANASAHEB LEKURWALE", p: "9175316526", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "37" },
+        { n: "ANKUSH KALIDAS CHAUDHAR", p: "9209428980", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "38" },
+        { n: "PAWAR NAYAN SHASHIKANT", p: "9284490848", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "39" },
+        { n: "JADHAV SAHYOG DNYANESHWAR", p: "9309462326", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "40" },
+        { n: "ATHAWALE SHRADDHA ASHOKRAO", p: "9322935065", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "41" },
+        { n: "MADHURI SANTOSH JAGADALE", p: "7498208986", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "42" },
+        { n: "KALE PRANAV MUKINDA", p: "9552551627", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "43" },
+        { n: "FAISAL MOHAMMAD SHAIKH", p: "9359532762", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "44" },
+        { n: "HARSHAL BALAJI ITKAR", p: "7498939884", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "45" },
+        { n: "NANNAWARE ADITYA VINOD", p: "9309573979", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "46" },
+        { n: "SUPEKAR PARNAVI RAJENDRA", p: "7720904534", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "47" },
+        { n: "HARSHDEEP SUDHIR KAMBLE", p: "9322773865", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "48" },
+        { n: "AKUSKAR VEDANT CHANDRAKANT", p: "9022160313", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "49" },
+        { n: "OM GAUTAM BHUSARE", p: "7624010227", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "50" },
+        { n: "NANDINI VINAYAK PATIL", p: "9021298625", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "1" },
+        { n: "SHUBHAM SHIVAJI THOMBARE", p: "8446182826", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "2" },
+        { n: "UMBRATKAR MAITHILI SANTOSH", p: "9307652252", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "3" },
+        { n: "PATIL SUMIT SHIVDAS", p: "9021643536", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "4" },
+        { n: "ASHITOSH SHARAD SAID", p: "9284148679", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "5" },
+        { n: "SHRAVANI VINAYAK SHALGAR", p: "9503532509", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "6" },
+        { n: "GAIKWAD HARISH DIPAK", p: "8799921294", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "7" },
+        { n: "GADADE TANISHKA MALHARI", p: "9309018103", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "8" },
+        { n: "PATHAN NOOR AFSHA SER", p: "7350203285", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "9" },
+        { n: "GANGAWARE PRATHMESH DNYANOBA", p: "9421627071", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "10" },
+        { n: "KATHAR GAYATRI SURESH", p: "8459858728", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "11" },
+        { n: "KOLHE ANJALI ARJUN", p: "8483876110", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "12" },
+        { n: "AVDHUT DATTATRAY SANGALE", p: "9309767193", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "13" },
+        { n: "GAVADE AMBIKA SANTOSH", p: "9850800545", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "14" },
+        { n: "SURYAWANSHI ADESH RAJU", p: "9028523238", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "15" },
+        { n: "VEDANT DEVIDAS RAUT", p: "9607484739", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "16" },
+        { n: "BHOJANE CHAITALI SANJAY", p: "8087709373", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "17" },
+        { n: "SHENDE SIDDHI UMESH", p: "8149267009", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "18" },
+        { n: "PIMPALGAVE BAJRANG SHIVAJI", p: "8459430473", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "19" },
+        { n: "CHAVAN AJAY RAJARAM", p: "8010757631", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "20" },
+        { n: "CHADOKAR RISHIKA YOGESH", p: "9699945991", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "21" },
+        { n: "TEJAS NANDKUMAR RATHOD", p: "9359798864", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "22" },
+        { n: "PRANAV CHHAGAN GAIKWAD", p: "8197775751", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "23" },
+        { n: "UTTARWAR KAUSTUBH VIJAY", p: "7972564543", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "24" },
+        { n: "GHODKE SHIVAM SATISH", p: "7972624725", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "25" },
+        { n: "AMRUTA DATTATRAY SAPKAL", p: "9579827176", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "26" },
+        { n: "KHEDKAR ARJUN HARIBHAU", p: "8459613354", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "27" },
+        { n: "KASHISH KAILASRAO INGOLE", p: "9588687208", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "28" },
+        { n: "AHIRE SNEHA JIVAN", p: "8261843398", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "29" },
+        { n: "KALE SHUBHAM SANDIP", p: "9172584416", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "30" },
+        { n: "DHAWARE ADITYA RAVI", p: "9665486558", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "31" },
+        { n: "KSHITIJ DIPAK PATIL", p: "9322472321", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "32" },
+        { n: "THEURKAR ANUSHKA VIJAY", p: "7038682544", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "33" },
+        { n: "VISHWAJEET CHANDRAKANT YEKAL", p: "9322810381", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "34" },
+        { n: "HARDE VIKAS KAILAS", p: "9579058226", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "35" },
+        { n: "MANJARE AJINKYA BHAGWAN", p: "8788321934", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "36" },
+        { n: "WAVARE SAMIKSHA SUNIL", p: "8999014939", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "37" },
+        { n: "MULLA JISHAN AMIN", p: "9011546472", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "38" },
+        { n: "TORANGI SAMARTH NAGANATH", p: "8237846080", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "39" },
+        { n: "VISHWAJEET VINOD BAN", p: "9404043956", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "40" },
+        { n: "BAVISKAR GANESH MAHENDRA", p: "7770039708", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "41" },
+        { n: "GUNJAL AJINKYA ANGAD", p: "9699537376", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "42" },
+        { n: "KALBANDE SANKET GAJANAN", p: "9325764542", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "43" },
+        { n: "YANDOLE NAMRATA TULASHIDAS", p: "8208873763", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "44" },
+        { n: "DAHALE MRUDULA MAHESH", p: "9373480242", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "45" },
+        { n: "KOTLAPURE SUMIT SHASHIKANT", p: "7219387660", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "46" },
+        { n: "BHOSALE HARSHADA HARIDAS", p: "7498864781", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "47" },
+        { n: "SHIVAM BADRINATH PARJANE", p: "8262822371", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "48" },
+        { n: "PATIL SAKSHI JITENDRA", p: "9370848370", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "1" },
+        { n: "JANHAVI BHUSHAN MAZIRE", p: "9834490200", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "2" },
+        { n: "MANISHA HIRAND BOGATI", p: "9921349513", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "3" },
+        { n: "CHIDE VEDANTI RAJU", p: "8308190976", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "4" },
+        { n: "OM BALU GHADAGE", p: "7219876418", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "5" },
+        { n: "SATPUTE OMKAR ROHIDAS", p: "9226792005", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "6" },
+        { n: "GURAV SNEHA RAJU", p: "8668367630", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "7" },
+        { n: "JADHAV PRAGATI PRASHANT", p: "9834089178", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "8" },
+        { n: "GANDHI YUG SACHIN", p: "9284064014", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "9" },
+        { n: "KADAM SHRUTIKA DIPAK", p: "8788765330", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "10" },
+        { n: "JADHAV ADITYA SURESH", p: "7499935954", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "11" },
+        { n: "SANSKRUTI BABURAO JIVANE", p: "8669007145", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "12" },
+        { n: "PATVEKAR NOMAN MOHMMAD", p: "8459430473", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "13" },
+        { n: "MEGHANA MAHENDRA KUDAGI", p: "9673124013", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "14" },
+        { n: "PACHPUTE PURVA ANIL", p: "8263042144", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "15" },
+        { n: "GHATAGE SAI SHEEV", p: "9175936216", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "16" },
+        { n: "GANGAWANE APOORVA SANJAY", p: "9322083400", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "17" },
+        { n: "NALAWADE SRUSHTI MANOJKUMAR", p: "8983495178", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "18" },
+        { n: "KHATAL SHANTANU PRAVIN", p: "9699150096", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "19" },
+        { n: "RATHOD GANESH RAJKUMAR", p: "9370909296", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "20" },
+        { n: "SIDDHI BANDU MARNE", p: "7385300981", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "21" },
+        { n: "GUJAR VEDANT PRAVIN", p: "9284226737", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "22" },
+        { n: "MESHRAM SHRUTI SUNIL", p: "8552891293", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "23" },
+        { n: "KADAM PRUTHVIRAJ RAMRATAN", p: "8010521259", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "24" },
+        { n: "WAGH BHUMIKA SATISH", p: "9890889702", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "25" },
+        { n: "SHREYASH ARJUN WADTILE", p: "9518312889", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "26" },
+        { n: "FEDRAM AJIT GANGAPRASAD", p: "8530887984", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "27" },
+        { n: "THAKRE ADITYA AJAYKUMAR", p: "7666863588", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "28" },
+        { n: "SAMARTH ANAND BADAVE", p: "9561147611", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "29" },
+        { n: "LABADE PRANJAL NANDKISHOR", p: "7498281703", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "30" },
+        { n: "DAFE YASH DNYANESHWAR", p: "8080530852", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "31" },
+        { n: "SURYAVANSHI SUPRIYA SOPANRAO", p: "8010450231", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "32" },
+        { n: "DHAMMAPAL SAWATAHARI KAMBLE", p: "7498121934", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "33" },
+        { n: "SATVA ROHIDAS SURNAR", p: "8767369456", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "34" },
+        { n: "DERE ADITYA SATISH", p: "8149859289", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "35" },
+        { n: "SIRSATH ADITYA MOKINDA", p: "8975871413", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "36" },
+        { n: "ASHLESHA VITTHAL SHEJWAL", p: "8830160259", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "37" },
+        { n: "NAJAN DINESH ASHOK", p: "7757014615", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "38" },
+        { n: "ABHANG YASH VAIBHAV", p: "8517810770", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "39" },
+        { n: "ATHARV PRAKASH GOTE", p: "8055977385", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "40" },
+        { n: "VIVEK VIJAY GUPTA", p: "8830896331", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "41" },
+        { n: "SHINDE PRANAV BHAULAL", p: "9529509580", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "42" },
+        { n: "TARANGE ROHAN SATISH", p: "8767945330", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "43" },
+        { n: "SHUBHAM KASAHEB GAIKWAD", p: "9529373599", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "44" },
+        { n: "SAKKARGI SHRADDHA SURENDRANATH", p: "8421259761", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "45" },
+        { n: "PATIL NIKITA RAVINDRA", p: "8263019208", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "46" },
+        { n: "AWARI SHREYASH VIJAY", p: "8857071220", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "47" },
+        { n: "SHAIKH SIRAJ MAULA", p: "8600335089", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "48" },
+        { n: "SONKAWADE RUDRAKSH PRADEEP", p: "7757920935", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "49" },
+        { n: "SHRAVANI ARUN KARPE", p: "7499048679", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "50" },
+        { n: "CHANDELE MANSI DNYANESHWAR", p: "9307344652", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "51" },
+        { n: "DOKE SANSKRUTI ANAND", p: "7745044792", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "52" },
+        { n: "DEVIKA SUNIL SONAR", p: "9579882656", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "53" },
+        { n: "JADHAV MAYUR BANYABA", p: "8600413161", y: "1ST YEAR", b: "COMBINE", d: "Div-4", r: "54" },
+        { n: "PANDIT AARNAV PARAG", p: "7775092617", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "1" },
+        { n: "KADAM RUDRAKSHI ASHOKRAO", p: "8208402311", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "2" },
+        { n: "GADHAVE AKSHAY VIKAS", p: "9373879462", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "3" },
+        { n: "DADAS DIGVIJAY ARJUN", p: "9623800526", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "4" },
+        { n: "JAGTAP ANKITA AMRUT", p: "7798166701", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "5" },
+        { n: "SAMAKSH SACHIN KUNDEN", p: "7620621873", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "6" },
+        { n: "KHADE ABHISHEK VITTHAL", p: "8459901486", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "7" },
+        { n: "SHINDE SANKET SACHIN", p: "9834359142", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "8" },
+        { n: "PRABHU SAKSHI GANESH", p: "9172798682", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "9" },
+        { n: "PATIL GAYATRI NIVRUTTI", p: "9021990764", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "10" },
+        { n: "NARAWADE HARSHAD EKNATH", p: "9423756624", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "11" },
+        { n: "KOLHE ANKITA ARJUN", p: "8530630416", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "12" },
+        { n: "AUTI HARSHAL SAMPAT", p: "7721983549", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "13" },
+        { n: "SHINDE AARYA VIJAY", p: "9422746426", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "14" },
+        { n: "JAGDALE TEJASWI BHAGWANT", p: "7709844959", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "15" },
+        { n: "PALIWAL VIRAG HITENDRA", p: "7775035401", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "16" },
+        { n: "MALI VAISHNAVI MANGESH", p: "9699684461", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "17" },
+        { n: "WARKAD RUPESH RAVISHANKAR", p: "7038400956", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "18" },
+        { n: "WAYKAR POONAM ARJUN", p: "9850116884", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "19" },
+        { n: "CHAVAN VISHESH PRAVIN", p: "9405941974", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "20" },
+        { n: "SANAP SHUBHAM SURESH", p: "7020212737", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "21" },
+        { n: "PATIL SHASHANK KAILAS", p: "8485020583", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "22" },
+        { n: "KAMBLE RUTUJA TUKARAM", p: "8766499208", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "23" },
+        { n: "PATIL MANISH SUNIL", p: "9659369134", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "24" },
+        { n: "BHUJBAL KARAN SANDIP", p: "9579876157", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "25" },
+        { n: "JARWAL PRATHSH MANGALSING", p: "9270568789", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "26" },
+        { n: "MUTHA SHRAVANI RAJENDRA", p: "7249660175", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "27" },
+        { n: "KAIKADI VIDHI NARESH", p: "7391966783", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "28" },
+        { n: "MAHADIK SHRADDHA SANTOSH", p: "7066155698", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "29" },
+        { n: "RATHOD SUMIT PARAMDAS", p: "9322890439", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "30" },
+        { n: "HINGMIRE SURAJ SANJAY", p: "7821006681", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "31" },
+        { n: "BADE PRASAD SHIVAJI", p: "9021068462", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "32" },
+        { n: "RATHOD ABHIJEET PRATAP", p: "9112931491", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "33" },
+        { n: "SHINGARE SANSKAR SANTOSH", p: "9404486027", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "34" },
+        { n: "SARATE JAYDEEP LAXMAN", p: "9028101704", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "35" },
+        { n: "KURMELKAR CHAITANYA", p: "9356459370", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "36" },
+        { n: "JADHAV VAIBHAV SANJAY", p: "7387052489", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "37" },
+        { n: "TARALKAR VEDANT RAJU", p: "8180070531", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "38" },
+        { n: "SHEDAGE MANASI SANJAY", p: "7276705929", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "39" },
+        { n: "SHEWALE SAI PRABHAKAR", p: "7219293094", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "40" },
+        { n: "SARGAM NAINISHA KAILASH", p: "7559498157", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "41" },
+        { n: "NANGRE YADNESH ATUL", p: "9209504381", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "42" },
+        { n: "POLE VIRAJ PANJABRAO", p: "7749388483", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "43" },
+        { n: "KOLI ABHISHEK DATTATRAY", p: "7972338005", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "44" },
+        { n: "GONGE KIRAN MADHUKAR", p: "9921351789", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "45" },
+        { n: "BULE VIVEK ROHIDAS", p: "9021252479", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "46" },
+        { n: "SHAIKH ALFIYA AFSAR", p: "9699502507", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "47" },
+        { n: "KADAM HARSHAL SATISH", p: "7249203860", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "48" },
+        { n: "BISEN OMKAR SHAILENDRASINGH", p: "8668811817", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "49" },
+        { n: "ULHARE SIDDHI SANTOSH", p: "9518322788", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "50" },
+        { n: "KONDE DEVENDRA SANTOSH", p: "7249796495", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "51" },
+        { n: "BORIKAR SWARAJ RAJKUMAR", p: "7822969867", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "52" },
+        { n: "PARTE SHLOKA SACHIN", p: "8484936998", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "53" },
+        { n: "BIDKAR VEDANT KIRANKUMAR", p: "9822020123", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "54" },
+        { n: "ADAGALE GAURAV SUNIL", p: "8624015033", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "55" },
+        { n: "MANKUMBARE SNEHAL SANTOSH", p: "9373190868", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "1" },
+        { n: "MANKAR PRANAV GANESH", p: "7249772167", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "2" },
+        { n: "KOTHALKAR MAYUR DIPAK", p: "8237103283", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "3" },
+        { n: "CHIKANE PRERANA PUNDLIK", p: "8379914535", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "4" },
+        { n: "SHIRSAT RAM NARAYAN", p: "9657123132", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "5" },
+        { n: "KURHADE DIKSHA SUNIL", p: "7620724241", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "6" },
+        { n: "POHAKAR SAHIL NIVRUTTI", p: "9373898211", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "7" },
+        { n: "AGLAWE MAYUR RAJU", p: "9359145599", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "8" },
+        { n: "SHETE SIDDHESH KIRAN", p: "9689893852", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "9" },
+        { n: "PUNDKARE SAMRUDDHI MOHAN", p: "9766388624", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "10" },
+        { n: "SUTAR SIDDHESH VINOD", p: "9270571010", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "11" },
+        { n: "PATIL SANGRAM SUNIL", p: "7758982501", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "12" },
+        { n: "NARAWADE HARSHAD EKNATH", p: "9423756624", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "13" },
+        { n: "KOTGIRE ADITYA DNYANESHWAR", p: "9075190075", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "14" },
+        { n: "DEVKAMBLE SAINATH RAMCHANDRA", p: "8830420637", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "15" },
+        { n: "PAWAR SHRAVANI SUDHIR", p: "7350044978", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "16" },
+        { n: "KHAIRNAR SHRUTI BHAGWAN", p: "9270107487", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "17" },
+        { n: "PADWAL RIDDHI PRAMOD", p: "8830369950", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "18" },
+        { n: "BANSODE ADITYA AAMSHIDA", p: "8767826524", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "19" },
+        { n: "CHOLE VAISHNAVI RAMKISHAN", p: "8975482815", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "20" },
+        { n: "GOSAVI RAJASHRI JAGADISH", p: "9028460344", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "21" },
+        { n: "EKAD SHUBHAM SANTOSH", p: "9307202644", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "22" },
+        { n: "SHELAKE SHRADDHA SUNIL", p: "8459952126", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "23" },
+        { n: "RODE RUSHIKESH ANIL", p: "8080157873", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "24" },
+        { n: "NAGRE ADIRAJ NANDKISHOR", p: "8412806189", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "25" },
+        { n: "SONAWANE PURVA PRAMOD", p: "9168017133", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "26" },
+        { n: "PARDESHI SHIVANI SANTOSH", p: "9145337517", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "27" },
+        { n: "NATVE SAKSHI SATYAJEET", p: "9764550626", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "28" },
+        { n: "SHARMA MAHEK DHARMENDRA", p: "8007796123", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "29" },
+        { n: "HAJARE POOJA SHIVSHANKAR", p: "9511680795", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "30" },
+        { n: "PATIL HIMAKSHI RAGHUNATH", p: "9172316717", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "31" },
+        { n: "HOLKAR YASH RAHUL", p: "9127976889", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "32" },
+        { n: "NALKAR KRUSHNA RAJENDRA", p: "8263810910", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "33" },
+        { n: "BARGE AVISHKAR JALINDAR", p: "9890688270", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "34" },
+        { n: "THAKRE NISARG JITENDRA", p: "8421171399", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "35" },
+        { n: "BORIKAR GAYATRI HARISHCHANDRA", p: "9960077710", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "36" },
+        { n: "ADHAV SHREYASH YASHWANT", p: "9021694460", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "37" },
+        { n: "NER JAYESH DEVIDAS", p: "9421501581", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "38" },
+        { n: "KSHIRSAGAR PRATIKSHA RAVINDRA", p: "7709955909", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "39" },
+        { n: "KAKAD SOJWAL PRADIP", p: "8999454967", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "40" },
+        { n: "JAGTAP DISHA KAILAS", p: "9657395131", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "41" },
+        { n: "DHAKANE SUHAS SHRIDHAR", p: "9021112484", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "42" },
+        { n: "CHAURPAGAR SAJAG RAJESH", p: "9923020181", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "43" },
+        { n: "BHANDARKAVATHEKAR PARAG P.", p: "9028272351", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "44" },
+        { n: "GARAD SANKET BHAGWAN", p: "7972036173", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "45" },
+        { n: "ADANE KAIWALYA SUDHIR", p: "8421515154", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "46" },
+        { n: "JAYBHAYE SAURABH RSH", p: "7666050224", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "1" },
+        { n: "LANJEWAR ARYA MOHAN", p: "9604025955", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "2" },
+        { n: "PATHADE BHAKTI", p: "9921746205", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "3" },
+        { n: "DAUNDKAR DAKSH TUSHAR", p: "7517000512", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "4" },
+        { n: "KARALE TANUJA MANOHAR", p: "9404283149", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "5" },
+        { n: "GAWADE HARSHIT DHANAJI", p: "9850800545", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "6" },
+        { n: "SANAP SHUBHAM MARUTI", p: "9022365118", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "7" },
+        { n: "DEOTALE DIVYANJALI DILIP", p: "7559344292", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "8" },
+        { n: "TAJNE VEDANT LOMESHWAR", p: "7030580411", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "9" },
+        { n: "JAMDAR AISHWARYA SHANKAR", p: "7620927365", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "10" },
+        { n: "BHAGAT POOJA SANTOSH", p: "7020197680", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "11" },
+        { n: "YADAV OM RAGHUNATH", p: "8482997550", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "12" },
+        { n: "AKHARE SAYALI SHYAM", p: "9209673278", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "13" },
+        { n: "PINJARI ANUSHKA SHANKAR", p: "7558796598", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "14" },
+        { n: "LABADE RUSHIKESH LAXMAN", p: "8080027979", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "15" },
+        { n: "MALI PRERANA RAKESH", p: "9511279466", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "16" },
+        { n: "JOGALE ADITYA ANIL", p: "7757004081", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "17" },
+        { n: "BHOI PIYUSH SUNIL", p: "7058569492", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "18" },
+        { n: "YEDAKE SANJOG SIDDHESHWAR", p: "9579907393", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "19" },
+        { n: "KAMAT KUNAL", p: "9834858043", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "20" },
+        { n: "POMAN AAKASH MANOHAR", p: "8459430473", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "21" },
+        { n: "DHAMDHERE ARPITA GORAKSH", p: "9359310078", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "22" },
+        { n: "KOTHEKAR SIDDHI NITINRAO", p: "8237103283", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "23" },
+        { n: "BAGAD BHUMISHA RAJENDRA", p: "8080550288", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "24" },
+        { n: "KAROD RANI ASHOK", p: "7423557718", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "25" },
+        { n: "KAMBLE UDAYADITYA RAJU", p: "7038357310", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "26" },
+        { n: "ZADE ADITYA RAVINDRA", p: "7558350459", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "27" },
+        { n: "AVHAD DIVYA DHANRAJ", p: "7020706184", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "28" },
+        { n: "SHINGADE ROHINI VINOD", p: "7387663696", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "29" },
+        { n: "MIRGALE SHRUTI AMOL", p: "9699544163", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "30" },
+        { n: "KADAJI VAISHNAVI MARUTI", p: "9373046912", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "31" },
+        { n: "PATIL VIVEK YOGESH", p: "8830896331", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "32" },
+        { n: "AWARI SAYALI RAHUL", p: "9284025916", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "33" },
+        { n: "NAWALE PRADIP BHAUSAHEB", p: "8459080947", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "34" },
+        { n: "WANGE SNEHAL BHAGWAT", p: "9022745885", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "35" },
+        { n: "GEND PRERANA SANTOSH", p: "8010688878", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "36" },
+        { n: "BICCHEWAR TANVI VIJAY", p: "9766105779", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "37" },
+        { n: "KAPSE SAHIL SOMNATH", p: "8421941671", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "38" },
+        { n: "SANGLE RAHUL DNYANDEV", p: "8261832036", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "39" },
+        { n: "DINGARE DHRUVAA SACHIN", p: "9403289912", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "40" },
+        { n: "KAKAD SAMARTH GAJANAN", p: "7972060729", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "41" },
+        { n: "DARADE SIDDHARTH SANTOSH", p: "7276048371", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "42" },
+        { n: "CHALAK RUTURAJ JANAK", p: "9860270311", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "43" },
+        { n: "NAKHATE AKSHAY DAJIBA", p: "8668299498", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "44" },
+        { n: "JAGTAP ANJANA VIJAY", p: "7057289040", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "45" },
+        { n: "LONKAR ANSHUL BABAN", p: "7020536263", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "46" },
+        { n: "SONAWANE ANUSHKA DEEPAK", p: "9209270130", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "47" },
+        { n: "KHADTARE SHUBHAM NAVANATH", p: "9922396059", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "48" },
+        { n: "KARANDE YASHRAJ VIKRAM", p: "7248976643", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "49" },
+        { n: "SAKKARGI PIYUSH VASUDEO", p: "8856897812", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "50" },
+        { n: "RUPWATE SARTHAK SUDHIR", p: "7499806406", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "51" },
+        { n: "SAWANT ROSHAN RAHUL", p: "8999575150", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "52" },
+        { n: "CHOUDHARI ONKAR BABAN", p: "7378852677", y: "1ST YEAR", b: "COMBINE", d: "Div-7", r: "53" },
+        { n: "SHIRASKAR KALYANI SUNIL", p: "9172680735", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "1" },
+        { n: "MULLA RIHAN RIYAJ", p: "9421123136", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "2" },
+        { n: "YADAV APARNA VIDYADHAR", p: "5049328617", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "3" },
+        { n: "SAI GANESH MALI", p: "9699793509", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "4" },
+        { n: "LOLE PRANALI SOPAN", p: "8208919554", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "5" },
+        { n: "MATE DNYANESHWARI RAVINDRA", p: "8421596076", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "6" },
+        { n: "PHATANGARE SHRADDHA VASANT", p: "9209516121", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "7" },
+        { n: "GAIKWAD ADESH GOKUL", p: "7887661529", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "8" },
+        { n: "NAGAWADE SAKSHI NITIN", p: "9325708643", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "9" },
+        { n: "MARKUNDE VISHAL JANKIRAM", p: "9307047923", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "10" },
+        { n: "KADAM PRUTHVIRAJ ASHOK", p: "9322927137", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "11" },
+        { n: "NAKADE SAMRUDDHI SURENDRA", p: "9307868844", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "12" },
+        { n: "SAHANE PURVA BHAGAWAT", p: "9552737716", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "13" },
+        { n: "MAHAMUNI SUMEDHA DHANANJAY", p: "9699925745", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "14" },
+        { n: "ZITE TEJAS BHAUSAHEB", p: "7441161645", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "15" },
+        { n: "BAIRAGI AJINKYA SUDHIR", p: "7493558779", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "16" },
+        { n: "MAHALPURE SHRUTI RAVINDRA", p: "9730186799", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "17" },
+        { n: "KAKADE PRATHMESH ASHOK", p: "9370937319", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "18" },
+        { n: "DHANARIYA HARSHAL RUPARAM", p: "8788837041", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "19" },
+        { n: "MOOLYA SAMRUDDHI SURESH", p: "9637314059", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "20" },
+        { n: "SABALE PRASANNA RAJENDRA", p: "7276103914", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "21" },
+        { n: "WAGH RAGINI VAIBHAV", p: "9657709472", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "22" },
+        { n: "ABDURREHMAN SAAD", p: "8317536576", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "23" },
+        { n: "GIR PARTH SANJAY", p: "7666361887", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "24" },
+        { n: "GANORKAR TUSHAR SHYAM", p: "9284725481", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "25" },
+        { n: "SHIRBHATE VAISHNAV SURESH", p: "8767898565", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "26" },
+        { n: "SARVADE SHIVAM GANESH", p: "9284105320", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "27" },
+        { n: "KALYANE RAJ MAHADEV", p: "9529430217", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "28" },
+        { n: "THORAT PRERANA JAGDISH", p: "9158278583", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "29" },
+        { n: "UBALE KSHITIJA NIVAS", p: "8261020095", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "30" },
+        { n: "DEVARE NITIN RAJENDRA", p: "7820943032", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "31" },
+        { n: "BHALERAO TARAN PRABHUDAS", p: "9356636924", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "32" },
+        { n: "GHATKAR SAMARTH RAJENDRA", p: "7559269014", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "33" },
+        { n: "YEWALE GAURI RAJENDRA", p: "8010039789", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "34" },
+        { n: "VARAT ADITYA RAMHARI", p: "9405455987", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "35" },
+        { n: "MALI MANOJ SHIVAJI", p: "8483059204", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "36" },
+        { n: "KASHID AVISHKAR RSH", p: "7083726025", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "37" },
+        { n: "PALKHEDE SAI VIJAY", p: "8623071548", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "38" },
+        { n: "DEOTALE DIVYANI DEEPAK", p: "7559344292", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "39" },
+        { n: "ATOLE RAJVARDHAN KAMLAKAR", p: "9021027314", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "40" },
+        { n: "CHAVAN DAKSH VINAY", p: "8421117144", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "41" },
+        { n: "CHOURE RITESH VIJAY", p: "9356395128", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "42" },
+        { n: "EKBOTE SNEHAL SHRINIVAS", p: "8263095932", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "43" },
+        { n: "BIRADAR RUDRAYANI SANTOSH", p: "9422114544", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "44" },
+        { n: "VIBHUTE SAKSHI SANJAY", p: "7507708204", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "45" },
+        { n: "PALKHEDE SHRADDHA VIJAY", p: "9326735683", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "46" },
+        { n: "PATIL CHAITANYA UDAYSINH", p: "7499550553", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "47" },
+        { n: "BAGAL CHAITANYA AVINASH", p: "9921902408", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "48" },
+        { n: "MUNDE MAHESH LAHUDAS", p: "7756935824", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "49" },
+        { n: "TARU ADITYA RAJENDRA", p: "9699456246", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "50" },
+        { n: "SHINDE ARYAN ANIL", p: "8625903817", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "51" },
+        { n: "MORE ROHIT DINESH", p: "9561228499", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "52" }
+    ];
+
+    const DB = {
+        students: JSON.parse(localStorage.getItem('sits_pro_std')) || INITIAL_STUDENTS,
+        records: JSON.parse(localStorage.getItem('sits_pro_rec')) || [],
+        leaves: JSON.parse(localStorage.getItem('sits_pro_lev')) || [],
+        notices: JSON.parse(localStorage.getItem('sits_pro_not')) || [],
+        grid: JSON.parse(localStorage.getItem('sits_pro_grid')) || [ 
+            ["Time", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], 
+            ["10:00", "Maths", "Phy", "BEE", "Mech", "BEE", "Phy"], 
+            ["11:00", "Phy", "Maths", "Mech", "BEE", "Maths", "Mech"], 
+            ["12:00", "LUNCH", "LUNCH", "LUNCH", "LUNCH", "LUNCH", "LUNCH"], 
+            ["01:00", "Mech", "BEE", "Prog", "Phy", "Prog", "Sports"] 
+        ],
+        lms: JSON.parse(localStorage.getItem('sits_pro_lms')) || [],
+        divisions: ["Div-1","Div-2","Div-3","Div-4","Div-5","Div-6","Div-7","Div-8"],
+        subjects: [
+            "Engineering Maths 1", "Physics", "Programming", "Chemistry", 
+            "Graphics", "BXE", "Mechanics", "Electrical", "Engineering Maths 2"
+        ]
+    };
+
+    function saveDB() {
+        localStorage.setItem('sits_pro_std', JSON.stringify(DB.students));
+        localStorage.setItem('sits_pro_rec', JSON.stringify(DB.records));
+        localStorage.setItem('sits_pro_lev', JSON.stringify(DB.leaves));
+        localStorage.setItem('sits_pro_not', JSON.stringify(DB.notices));
+        localStorage.setItem('sits_pro_grid', JSON.stringify(DB.grid));
+        localStorage.setItem('sits_pro_lms', JSON.stringify(DB.lms));
+    }
+
+    let activeUser = null;
+    let markCols = ["UT-1"];
+
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.querySelector('.sidebar-overlay').classList.toggle('active');
+    }
+
+    function handleLogin() {
+        const id = document.getElementById('loginID').value.trim();
+        const pass = document.getElementById('loginPass').value.trim();
+        
+        if(id==="admin@sits.com" && pass==="admin") {
+            activeUser = {role:"ADMIN", n:"Admin"};
+            playWelcomeAudio(activeUser); 
+            loadDashboard();
+        } else if(id==="teacher@sits.com" && pass==="1234") {
+            activeUser = {role:"TEACHER", n:"Faculty Member"};
+            playWelcomeAudio(activeUser); 
+            loadDashboard();
+        } else {
+            const st = DB.students.find(s => s.p === id || `P-${s.p}` === id);
+            
+            if(st && (pass==="1234" || pass==="parent")) { 
+                activeUser = {...st, role: pass==="parent"?"PARENT":"STUDENT"}; 
+                playWelcomeAudio(activeUser); 
+                loadDashboard(); 
+            } else {
+                alert("Invalid Credentials. Students: Use Phone Number as ID.");
+            }
+        }
+    }
+    function playWelcomeAudio(user) {
+        let text = "";
+        
+        if (user.role === "STUDENT") {
+            let year = user.y.replace("1ST", "First").replace("2ND", "Second").replace("3RD", "Third").replace("4TH", "Fourth");
+            let div = user.d.replace(" ");
+            
+            text = `${user.n}, ${year}, ${div} student, Welcome to Sinhgad Institute of Technology and Science ( S I T S ) Platform`;
+        } else {
+            text = `Welcome ${user.n} to Sinhgad Institute of Technology and Science ( S I T S )  Platform`;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const speech = new SpeechSynthesisUtterance(text);
+        speech.lang = "en-IN"; 
+        speech.volume = 1;     
+        speech.rate = 0.9;     
+        speech.pitch = 1;      
+        
+        window.speechSynthesis.speak(speech);
+    }
+
+    function loadDashboard() {
+        document.getElementById('authScreen').style.display = 'none';
+        document.getElementById('sidebar').style.display = 'flex';
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('sideName').innerText = activeUser.n;
+        document.getElementById('sideRole').innerText = activeUser.role;
+        document.getElementById('sideAvatar').innerText = activeUser.n.charAt(0);
+        document.getElementById('dashName').innerText = activeUser.n.split(' ')[0];
+        
+        if(DB.notices.length) {
+            document.getElementById('noticeWidget').style.display = 'block';
+            document.getElementById('noticeText').innerText = DB.notices[0].txt;
+            document.getElementById('noticeDate').innerText = DB.notices[0].date;
+        }
+
+        const nav = document.getElementById('navLinks');
+        nav.innerHTML = "";
+        
+        if(activeUser.role === "ADMIN") {
+            nav.innerHTML += `<div class="nav-link active" onclick="showPage('admin'); toggleSidebar()">
+                <i class="fa fa-cogs">
+                </i> Admin Control</div>`;
+            handleYearChange('aYear', 'aBranch'); 
+            refreshAdminView(); 
+            renderLeaveRequests('adminLeaveTable'); 
+            showPage('admin');
+        } else if(activeUser.role === "TEACHER") {
+            nav.innerHTML += `<div class="nav-link active" onclick="showPage('teacher'); toggleSidebar()">
+                <i class="fa fa-chalkboard-teacher">
+                    </i> Faculty Dashboard</div>`;
+            handleYearChange('tYear', 'tBranch'); 
+            updateClock(); 
+            renderLeaveRequests('teacherLeaveTable'); 
+            showPage('teacher');
+        } else {
+            nav.innerHTML += `<div class="nav-link active" onclick="showPage('student'); toggleSidebar()">
+                <i class="fa fa-user-graduate"></i> Student Portal</div>`;
+            document.getElementById('stDetails').innerText = `${activeUser.y} | ${activeUser.b} | Roll: ${activeUser.r} | ${activeUser.d}`;
+            document.getElementById('stFeeBadge').innerText = activeUser.fee === 'Paid' ? 'Fees Paid' : 'Fees Pending';
+            document.getElementById('stFeeBadge').className = activeUser.fee === 'Paid' ? 'tag tag-p' : 'tag tag-pend';
+            
+            renderStudentStats();
+            renderStudentMarks();
+            renderStudentLMS();
+            
+            showPage('student');
+        }
+    }
+
+    function showPage(id) { 
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
+        document.getElementById(id + 'Page').classList.add('active'); 
+    }
+
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function toggleTheme() { document.body.classList.toggle('dark'); }
+    
+    function updateClock() {
+        document.getElementById('clockDisplay').innerText = new Date().toLocaleTimeString();
+        setTimeout(updateClock, 1000);
+    }
+
+    function handleYearChange(yId, bId) {
+        const y = document.getElementById(yId).value;
+        const b = document.getElementById(bId);
+        
+        b.innerHTML = (y === "1ST YEAR" ? ["COMBINE"] : ["IT", "CS", "ENTC", "MECH", "CIVIL"])
+            .map(x => `<option>${x}</option>`).join('');
+
+        const divSelectId = yId === 'aYear' ? 'aDiv' : 'tDiv';
+        const divSelect = document.getElementById(divSelectId);
+        
+        divSelect.innerHTML = DB.divisions.map(d => `<option>${d}</option>`).join('');
+
+        if (yId === 'tYear') {
+            divSelect.onchange = () => renderLeaveRequests('teacherLeaveTable');
+        }
+
+        if (yId !== 'aYear') {
+            document.getElementById('tSub').innerHTML = DB.subjects
+                .map(s => `<option>${s}</option>`).join('');
+        }
+
+        if (yId === 'aYear') refreshAdminView();
+        if (yId === 'tYear') renderLeaveRequests('teacherLeaveTable');
+    }
+    function refreshAdminView() {
+        const y = document.getElementById('aYear').value, b = document.getElementById('aBranch').value, d = document.getElementById('aDiv').value;
+        const list = DB.students.filter(s => s.y===y && s.b===b && s.d===d).sort((x,z) => x.r - z.r);
+        
+        document.getElementById('adminStudentTable').innerHTML = `<thead><tr><th>Roll</th><th>Name</th><th>Fees</th><th>X</th></tr></thead><tbody>` + 
+        list.map(s => `<tr><td>${s.r}</td><td>${s.n}<br><small>${s.p}</small></td><td><span class="tag 
+            ${s.fee==='Paid'?'tag-p':'tag-pend'}">${s.fee||'Pending'}</span></td><td><button class="btn btn-d" onclick="delStudent('${s.p}')"
+                >X</button></td></tr>`).join('') + "</tbody>";
+    }
+
+    function saveNewStudent() {
+        const n = document.getElementById('newStName').value;
+        const p = document.getElementById('newStPhone').value;
+        const r = document.getElementById('newStRoll').value;
+        
+        if(n && p && r) {
+            DB.students.push({ 
+                n, p, r, 
+                y: document.getElementById('aYear').value, 
+                b: document.getElementById('aBranch').value, 
+                d: document.getElementById('aDiv').value, 
+                fee: document.getElementById('newStFee').value 
+            });
+            saveDB(); 
+            refreshAdminView(); 
+            closeModal('addStudentModal');
+        }
+    }
+
+    function delStudent(p) { 
+        if(confirm("Delete?")) { 
+            DB.students = DB.students.filter(s => s.p !== p); 
+            saveDB(); 
+            refreshAdminView(); 
+        } 
+    }
+
+    function openTimetableModal() {
+        const isAdmin = activeUser.role === 'ADMIN' || activeUser.role === 'TEACHER'; 
+        document.getElementById('ttAdminControls').style.display = isAdmin ? 'flex' : 'none';
+        renderTimetable(isAdmin); 
+        openModal('timetableModal');
+    }
+
+   function renderLeaveRequests(tid) {
+        let list = DB.leaves.map((l, index) => ({ ...l, originalIndex: index }));
+
+        if (activeUser && activeUser.role === 'TEACHER') {
+            const currentDiv = document.getElementById('tDiv').value;
+            if (currentDiv) {
+                list = list.filter(l => l.div === currentDiv);
+            }
+        }
+
+        let html = `<thead>
+            <tr>
+                <th style="text-align:left; padding-left:20px;">Student Details</th>
+                <th>Reason</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead><tbody>`;
+
+        if (list.length === 0) {
+            html += `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:25px;">No leave requests found for this Division.</td></tr>`;
+        } else {
+            list.sort((a, b) => (a.status === 'Pending' ? -1 : 1));
+
+            html += list.map(l => `
+                <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                    <td style="text-align:left; padding: 15px 20px;">
+                        <div style="font-weight:700; color:var(--text-main); font-size:14px; margin-bottom:4px;">
+                            ${l.name.toUpperCase()}
+                        </div>
+                        <div style="font-size:12px; color:var(--text-muted);">
+                            ${l.div} <span style="opacity:0.3; margin:0 4px;">|</span> Roll: ${l.roll}
+                        </div>
+                    </td>
+                    <td style="font-weight:600; font-size:13px; color:#475569; text-transform:uppercase;">
+                        ${l.reason}
+                    </td>
+                    <td style="font-weight:600; color:var(--text-main);">
+                        ${l.date}
+                    </td>
+                    <td>
+                        <span style="
+                            padding: 6px 16px; 
+                            border-radius: 50px; 
+                            font-size: 11px; 
+                            font-weight: 800; 
+                            letter-spacing: 0.5px; 
+                            text-transform: uppercase;
+                            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                            ${l.status === 'Approved' ? 'background:#dcfce7; color:#16a34a;' : 
+                             (l.status === 'Rejected' ? 'background:#fee2e2; color:#ef4444;' : 
+                             'background:#fef3c7; color:#d97706;')}">
+                            ${l.status}
+                        </span>
+                    </td>
+                    <td>
+                        ${l.status === 'Pending' ? `
+                        <div style="display:flex; gap:8px; justify-content:center;">
+                            <button onclick="updateLeave(${l.originalIndex}, 'Approved')" 
+                                style="background:#10b981; color:white; border:none; 
+                                padding:8px 16px; border-radius:50px; cursor:pointer; font-weight:600; display:flex; 
+                                align-items:center; gap:6px; font-size:12px; box-shadow:0 4px 10px rgba(16,185,129,0.2);">
+                                <i class="fa fa-check"></i> Allow
+                            </button>
+                            <button onclick="updateLeave(${l.originalIndex}, 'Rejected')" 
+                                style="background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid #ef4444;
+                                padding:8px 16px; border-radius:50px; cursor:pointer; font-weight:600; 
+                                display:flex; align-items:center; gap:6px; font-size:12px;">
+                                <i class="fa fa-times"></i> Deny
+                            </button>
+                        </div>
+                        ` : '<span style="color:var(--text-muted); font-size:20px;">-</span>'}
+                    </td>
+                </tr>`).join('');
+        }
+
+        document.getElementById(tid).innerHTML = html + "</tbody>";
+    }
+
+    function updateLeave(idx, status) {
+        if (DB.leaves[idx]) {
+            DB.leaves[idx].status = status;
+            saveDB();
+            
+            if (activeUser.role === 'ADMIN') renderLeaveRequests('adminLeaveTable');
+            if (activeUser.role === 'TEACHER') renderLeaveRequests('teacherLeaveTable');
+        }
+    }
+
+    function addTtRow() { DB.grid.push(new Array(DB.grid[0].length).fill("")); renderTimetable(true); }
+    function addTtCol() { DB.grid.forEach(row => row.push("")); renderTimetable(true); }
+    function removeTtRow(idx) { if(confirm("Del Row?")) 
+    { DB.grid.splice(idx,1); renderTimetable(true); } 
+}
+    function removeTtCol(idx) { 
+        if(confirm("Del Col?")) 
+        { DB.grid.forEach(row => row.splice(idx,1)); renderTimetable(true); } 
+    }
+    function saveTimetable() { saveDB(); alert("Timetable Updated"); closeModal('timetableModal'); }
+
+    function openAttendanceModal() { 
+        document.getElementById('attDate').valueAsDate = new Date(); 
+        renderAttendanceLedger(); 
+        openModal('attModal'); 
+    }
+
+    function saveAttendance() {
+        const d = document.getElementById('tDiv').value;
+        const s = document.getElementById('tSub').value;
+        const dt = document.getElementById('attDate').value;
+        const absInput = document.getElementById('absentRolls').value;
+        const abs = absInput ? absInput.split(',').map(x=>x.trim()) : [];
+        
+        DB.records.push({ type: 'ATT', div: d, sub: s, date: dt, abs: abs });
+        saveDB(); 
+        renderAttendanceLedger(); 
+        alert("Attendance Saved");
+    }
+
+    function renderAttendanceLedger() {
+        const div = document.getElementById('tDiv').value;
+        const sub = document.getElementById('tSub').value;
+        const branch = document.getElementById('tBranch').value;
+        const year = document.getElementById('tYear').value;
+        const mIdx = parseInt(document.getElementById('viewMonth').value);
+        const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        
+        document.getElementById('pYear').innerText = year;
+        document.getElementById('pBranch').innerText = branch;
+        document.getElementById('pDiv').innerText = div;
+        document.getElementById('pSub').innerText = sub;
+        document.getElementById('pMonth').innerText = months[mIdx];
+        document.getElementById('pDate').innerText = new Date().toLocaleDateString();
+        document.getElementById('pFac').innerText = activeUser ? activeUser.n : "Faculty";
+
+        const currentYear = new Date().getFullYear();
+        const daysInMonth = new Date(currentYear, mIdx + 1, 0).getDate();
+        const list = DB.students.filter(s => s.d === div).sort((a,b)=>a.r-b.r);
+        
+        let html = `<thead><tr><th style="width:30px">R</th><th>Student Name</th>`;
+        for(let i=1; i<=daysInMonth; i++) html += `<th style="font-size:9px; width:20px;">${i}</th>`;
+        html += `<th>%</th></tr></thead><tbody>`;
+        
+        list.forEach(st => {
+            let p=0, t=0;
+            html += `<tr><td>${st.r}</td><td>${st.n}</td>`;
+            for(let i=1; i<=daysInMonth; i++) {
+                const rec = DB.records.find(r => {
+                    if(r.type!=='ATT' || r.div!==div || r.sub!==sub) return false;
+                    const parts = r.date.split('-'); 
+                    return parseInt(parts[1])-1 === mIdx && parseInt(parts[2]) === i;
+                });
+                if(rec) { 
+                    t++; 
+                    if(rec.abs.includes(st.r)) { html+=`<td style="color:red;font-weight:bold;background:#fee">A</td>`; } 
+                    else { p++; html+=`<td style="color:green">P</td>`; } 
+                }
+                else html += `<td></td>`;
+            }
+            html += `<td>${t?Math.round((p/t)*100):0}%</td></tr>`;
+        });
+        document.getElementById('ledgerTable').innerHTML = html + "</tbody>";
+    }
+
+    function exportToExcel(tid, name) { 
+        const wb = XLSX.utils.table_to_book(document.getElementById(tid), {sheet: "Sheet1"}); 
+        XLSX.writeFile(wb, `${name}.xlsx`); 
+    }
+
+    function openMarksModal() {
+        const d = document.getElementById('tDiv').value;
+        const list = DB.students.filter(s => s.d === d).sort((a,b)=>a.r-b.r);
+        
+        let h = `<tr><th>Roll</th><th>Name</th>${markCols.map(c=>`<th>${c}</th>`).join('')}</tr>`;
+        
+        let b = list.map(st => `<tr><td>${st.r}</td><td>${st.n}</td>` + markCols.map(c => {
+            const rec = DB.records.find(r => r.type==='MRK' && r.roll===st.r && r.col===c && r.sub===document.getElementById('tSub').value);
+            return `<td><input class="marks-inp" data-r="${st.r}" data-c="${c}" value="${rec ? rec.val : ""}" style="width:50px"></td>`;
+        }).join('') + `</tr>`).join('');
+        
+        document.getElementById('marksDataTable').innerHTML = `<thead>${h}</thead><tbody>${b}</tbody>`; 
+        openModal('marksModal');
+    }
+    
+    function printAttendance() {
+        document.body.classList.add('printing-att');
+        window.print();
+        setTimeout(() => document.body.classList.remove('printing-att'), 500);
+    }
+    
+    function printMarks() {
+        const div = document.getElementById('tDiv').value;
+        const sub = document.getElementById('tSub').value;
+        const branch = document.getElementById('tBranch').value;
+        const year = document.getElementById('tYear').value;
+        
+        document.getElementById('mYear').innerText = year;
+        document.getElementById('mBranch').innerText = branch;
+        document.getElementById('mDiv').innerText = div;
+        document.getElementById('mSub').innerText = sub;
+        document.getElementById('mFac').innerText = activeUser ? activeUser.n : "Faculty";
+        document.getElementById('mDate').innerText = new Date().toLocaleDateString();
+
+        const list = DB.students.filter(s => s.d === div).sort((a,b)=>a.r-b.r);
+        
+        let h = `<thead><tr><th style="width:30px;">R</th><th>Student Name</th>${markCols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>`;
+        
+        let b = `<tbody>` + list.map(st => `<tr><td>${st.r}</td><td style="text-align:left;">${st.n}</td>` + markCols.map(c => {
+            const rec = DB.records.find(r => r.type==='MRK' && r.roll===st.r && r.col===c && r.sub===sub);
+            return `<td>${rec ? rec.val : "-"}</td>`;
+        }).join('') + `</tr>`).join('') + `</tbody>`;
+
+        document.getElementById('printMarksTable').innerHTML = h + b;
+        document.getElementById('printableAreaMarks').style.display = 'block';
+        
+        document.body.classList.add('printing-marks');
+        window.print();
+        setTimeout(() => {
+            document.body.classList.remove('printing-marks');
+            document.getElementById('printableAreaMarks').style.display = 'none';
+        }, 500);
+    }
+
+    function commitMarks() {
+        const sub = document.getElementById('tSub').value;
+        const div = document.getElementById('tDiv').value;
+        
+        document.querySelectorAll('.marks-inp').forEach(i => {
+            if(i.value) {
+                const existingIdx = DB.records.findIndex(r => r.type==='MRK' && r.roll===i.dataset.r && r.col===i.dataset.c && r.sub===sub);
+                if(existingIdx > -1) DB.records.splice(existingIdx, 1);
+                
+                DB.records.push({
+                    type:'MRK', 
+                    roll: i.dataset.r, 
+                    col: i.dataset.c, 
+                    val: i.value, 
+                    sub: sub, 
+                    div: div 
+                });
+            }
+        });
+        
+        saveDB(); 
+        alert("Marks Saved"); 
+        closeModal('marksModal');
+    }
+
+    function addExamColumn() { 
+        const val = document.getElementById('newExamCol').value;
+        if(val && !markCols.includes(val)) { 
+            markCols.push(val); 
+            openMarksModal(); 
+        } 
+    }
+
+    function uploadLms() {
+        const title = document.getElementById('lmsTitle').value;
+        const type = document.getElementById('lmsType').value;
+        const div = document.getElementById('tDiv').value;
+        const linkVal = document.getElementById('lmsLink').value;
+        const fileInput = document.getElementById('lmsFileLocal');
+        
+        if(!title) { alert("Please enter a Title"); return; }
+
+        let resourceLink = "#";
+        let isFile = false;
+
+        if(fileInput.files.length > 0) {
+            resourceLink = fileInput.files[0].name;
+            isFile = true;
+        } else if (linkVal) {
+            resourceLink = linkVal;
+        }
+
+        DB.lms.push({ 
+            title: title, 
+            type: type, 
+            div: div, 
+            link: resourceLink, 
+            isFile: isFile, 
+            date: new Date().toLocaleDateString() 
+        });
+        
+        saveDB(); 
+        alert("Resource Uploaded Successfully"); 
+        closeModal('lmsModal');
+        
+        document.getElementById('lmsTitle').value = "";
+        document.getElementById('lmsLink').value = "";
+        document.getElementById('lmsFileLocal').value = "";
+    }
+
+    function renderStudentStats() {
+        const myAttRecords = DB.records.filter(r => r.type === 'ATT' && r.div === activeUser.d);
+        let present = 0, total = 0;
+        let html = "";
+        
+        myAttRecords.forEach(r => {
+            total++;
+            const isAbsent = r.abs.includes(activeUser.r);
+            if (!isAbsent) present++;
+            html += `<tr><td>${r.date}</td><td>${r.sub}</td><td><span class="tag 
+              ${isAbsent ? 'tag-a' : 'tag-p'}">${isAbsent ? 'Absent' : 'Present'}</span></td></tr>`;
+        });
+
+        const pct = total > 0 ? Math.round((present / total) * 100) : 0;
+        const chart = document.getElementById('stAttChart');
+        chart.style.setProperty('--p', `${pct * 3.6}deg`); 
+        chart.setAttribute('data-val', `${pct}%`);
+        document.querySelector('#stAttTable tbody').innerHTML = html.split('</tr>').reverse().join('</tr>');
+    }
+
+    function renderStudentMarks() {
+        const myMarks = DB.records.filter(r => r.type === 'MRK' && r.roll === activeUser.r);
+        let html = "";
+        
+        if(myMarks.length === 0) {
+            html = "<tr><td colspan='3' style='text-align:center'>No marks uploaded yet.</td></tr>";
+        } else {
+            myMarks.forEach(m => {
+                html += `<tr><td>${m.sub}</td><td>${m.col}</td><td style="font-weight:bold">${m.val}</td></tr>`;
+            });
+        }
+        document.querySelector('#stGradesTable tbody').innerHTML = html;
+    }
+
+    function renderStudentLMS() {
+        const myLms = DB.lms.filter(l => l.div === activeUser.d);
+        let html = "";
+        if(myLms.length === 0) {
+            html = "<tr><td colspan='3' style='text-align:center'>No resources available.</td></tr>";
+        } else {
+            myLms.forEach(l => {
+                let actionBtn = "";
+                if(l.isFile) {
+                    actionBtn = `<button class="btn btn-s" style="padding:4px 10px; font-size:11px;" onclick="downloadSimulatedFile('${l.link}')">
+                        <i class="fa fa-download"></i> Download
+                    </button>`;
+                } else {
+                    actionBtn = `
+                    <div style="display:flex; gap:5px;">
+                        <a href="${l.link}" target="_blank" class="btn btn-p" style="padding:4px 10px; font-size:11px; text-decoration:none;">View</a>
+                        <button class="btn btn-s" style="padding:4px 10px; font-size:11px;" onclick="downloadSimulatedFile('${l.link}')">
+                            <i class="fa fa-download"></i> Save
+                        </button>
+                    </div>`;
+                }
+                
+                html += `<tr>
+                    <td>${l.title}</td>
+                    <td><span class="tag tag-p">${l.type}</span></td>
+                    <td>${actionBtn}</td>
+                </tr>`;
+            });
+        }
+        document.querySelector('#stLmsTable tbody').innerHTML = html;
+    }
+
+    function downloadSimulatedFile(filename) {
+        const element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent("This is a simulated file content for: " + filename));
+        element.setAttribute('download', filename || "download.txt");
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
+    function submitLeave() {
+        const reason = document.getElementById('leaveReason').value;
+        const date = document.getElementById('leaveDate').value;
+
+        if(reason && date) {
+            DB.leaves.push({
+                name: activeUser.n,
+                roll: activeUser.r,
+                div: activeUser.d,
+                reason: reason,
+                date: date,
+                status: 'Pending'
+            });
+            saveDB();
+            alert("Leave Request Submitted!");
+            closeModal('applyLeaveModal');
+            document.getElementById('stLeaveStatus').innerHTML = 
+            `<span style="color:#f59e0b; font-weight:600;"><i class="fa fa-clock"></i> Leave Pending for ${date}</span>`;
+        } else {
+            alert("Please fill in all details.");
+        }
+    }
+
+    function renderTimetable(editable) {
+        const table = document.getElementById('ttTable');
+        let html = "";
+        
+        DB.grid.forEach((row, rIdx) => {
+            html += "<tr>";
+            row.forEach((cell, cIdx) => {
+                if(rIdx === 0) {
+                    html += `<th style="background:rgba(0,0,0,0.05); padding:10px; min-width:100px;">
+                        ${editable 
+                            ? `<input value="${cell}" onchange="updateTt(${rIdx},${cIdx},
+                            this.value)" style="width:100%; border:none; background:transparent; font-weight:800; text-align:center;">
+                               <i class="fa fa-times" style="color:red; font-size:10px;
+                                cursor:pointer; display:block;" onclick="removeTtCol(${cIdx})"></i>` 
+                            : cell}
+                    </th>`;
+                } 
+                else {
+                    html += `<td style="padding:10px; border:1px solid rgba(0,0,0,0.1);">
+                        ${editable 
+                            ? `<input value="${cell}" onchange="updateTt(${rIdx},${cIdx},
+                            this.value)" style="width:100%; border:none; text-align:center; background:transparent;">` 
+                            : `<span style="font-weight:${cIdx===0?'800':'400'}">${cell}</span>`}
+                    </td>`;
+                }
+            });
+            
+            if(editable) {
+                html += `<td style="border:none; padding:5px;">
+                    <i class="fa fa-times" style="color:red; cursor:pointer;" onclick="removeTtRow(${rIdx})"></i>
+                </td>`;
+            }
+            html += "</tr>";
+        });
+        table.innerHTML = html;
+    }
+
+    function updateTt(r, c, val) {
+        DB.grid[r][c] = val;
+    }
+
+    function postNotice() {
+        const txt = document.getElementById('noticeContent').value;
+        if(txt) {
+            DB.notices.unshift({ 
+                txt: txt, 
+                date: new Date().toLocaleDateString() 
+            });
+            saveDB();
+            alert("Notice Published Successfully");
+            closeModal('noticeModal');
+            document.getElementById('noticeContent').value = "";
+            
+            // Update UI if widget is visible
+            document.getElementById('noticeWidget').style.display = 'block';
+            document.getElementById('noticeText').innerText = txt;
+        } else {
+            alert("Please write a notice first.");
+        }
+    }
+
+    function switchGuide(id) {
+        document.querySelectorAll('.guide-tab').forEach(t => t.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+
+    window.onload = function() {
+    };
+
+</script>
+</html>
