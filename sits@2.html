@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SITS Pune -Attendance Portal</title>
+    <title>SITS Pune - Attendance Portal</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -135,28 +135,31 @@
         color: white; 
     }
 
-    #authScreen {
+   #authScreen {
         position: fixed;
         inset: 0;
-        background: rgba(15, 23, 42, 0.8);
+        background: url('https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/16fbf6e1-310d-425c-a37a-d95413e0f1c4.tmp');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         z-index: 9999;
         display: flex;
         align-items: center;
         justify-content: center;
-        backdrop-filter: blur(15px);
-        perspective: 1000px;
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
     }
 
     .login-card {
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.95);
         width: 420px;
         padding: 50px;
-        border-radius: 30px;
+        border-radius: 24px;
         text-align: center;
-        box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.5);
-        border: 1px solid rgba(255,255,255,0.4);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.5);
         transform-style: preserve-3d;
-        animation: fadeInScale 0.6s ease-out;
+        animation: fadeInScale 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     body.dark .login-card { background: rgba(30, 41, 59, 0.9); border-color: rgba(255,255,255,0.05); }
@@ -730,7 +733,408 @@
             padding-left: 5px; 
             font-weight: 600; 
         }
+        }
+        .form-section {
+        background: rgba(0,0,0,0.02);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 20px;
+        }
+
+.form-section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 8px;
+}
+
+.grid-forms-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+
+.doc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.doc-upload-item {
+    background: white;
+    border: 1px dashed var(--text-muted);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    transition: 0.3s;
+}
+
+.doc-upload-item:hover {
+    border-color: var(--accent);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.doc-upload-item input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.doc-icon {
+    font-size: 24px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.profile-header-card {
+    background: linear-gradient(135deg, var(--accent), #2563eb);
+    padding: 30px;
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.ph-avatar {
+    width: 70px;
+    height: 70px;
+    background: white;
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.tab-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 10px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.tab-btn.active {
+    background: var(--accent);
+    color: white;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-item label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: block;
+    font-weight: 700;
+}
+.info-item div {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-main);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.ishala-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 24px;
+    transition: 0.3s;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.ishala-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: #00A5EC; 
+}
+
+.ishala-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.ishala-role {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.ishala-company {
+    font-size: 14px;
+    color: #666;
+}
+
+.ishala-logo {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    padding: 2px;
+}
+
+.ishala-details {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #444;
+    flex-wrap: wrap;
+}
+
+.ishala-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ishala-label {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ishala-value {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ishala-tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ishala-tag {
+    background: #f8f8f8;
+    color: #666;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.ishala-footer {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ishala-time {
+    font-size: 12px;
+    color: #28b661; 
+    background: #eafff0;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.iframe-full-height {
+    width: 100%;
+    height: calc(90vh - 60px);
+    border: none;
+    border-radius: 0 0 16px 16px;
+    background: white;
+    display: block;
+}
+
+#aboutCollegeModal .modal-content {
+    padding: 0 !important;
+    background: white;
+    overflow: hidden;
+}
+.quick-access-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.qa-card {
+    background: white;
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.qa-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.qa-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.browser-modal-content {
+    width: 98%;
+    height: 95vh;
+    max-width: 1400px;
+    padding: 0;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.browser-header {
+    padding: 12px 20px;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.browser-title {
+    font-weight: 700;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.browser-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.browser-frame {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background: white;
+}
+    
+    body.dark .qa-card {
+        background: rgba(30, 41, 59, 0.6); 
+        border-color: rgba(255, 255, 255, 0.1); 
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
     }
+
+    body.dark .qa-card:hover {
+        background: rgba(30, 41, 59, 1); 
+        border-color: var(--accent);
+        transform: translateY(-5px);
+    }
+
+    body.dark .qa-card div {
+        color: #f8fafc !important; 
+    }
+
+    body.dark .qa-icon {
+        border: 1px solid rgba(255,255,255,0.05);
+        background: rgba(0, 0, 0, 0.2) !important; 
+    }
+
+.animate-pop-in {
+    opacity: 0;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.btn {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes ripple {
+    to { transform: scale(4); opacity: 0; }
+}
+
+.tag-p, .tag-a, .tag-pend {
+    position: relative;
+    overflow: hidden;
+}
+
+.tag-p::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
+}
 </style>
 </head>
 <body>
@@ -941,314 +1345,521 @@
             opacity: 0.8;">
             </small>
         </div>
+<div id="adminPage" class="page">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; flex-wrap:wrap; gap:15px;">
+        <h2 style="font-size: 24px; color: var(--text-main);">
+            <i class="fa fa-user-shield" style="color: var(--accent); margin-right: 10px;"></i> Admin Control
+        </h2>
+        <div style="display:flex; gap:12px;">
+            <button class="btn btn-dark" onclick="openTimetableModal()">
+                <i class="fa fa-calendar-alt"></i> Timetable
+            </button>
+            <button class="btn btn-p" onclick="openModal('admissionModal')">
+                <i class="fa fa-user-plus"></i> New Admission
+            </button>
+            <button class="btn btn-p" onclick="openModal('postJobModal')">
+                <i class="fa fa-plus-circle"></i> Post Internship
+            </button>
+        </div>
+    </div>
 
-        <div id="adminPage" 
-        class="page">
-            <div style="
-                display:flex; 
-                justify-content:space-between; 
-                align-items:center; 
-                margin-bottom:25px; 
-                flex-wrap:wrap; 
-                gap:15px;">
-                <h2 style="
-                    font-size: 24px; 
-                    color: var(--text-main);">
-                    <i class="fa fa-cogs" 
-                    style="
-                    color: var(--accent); 
-                    margin-right: 10px;">
-                </i> Admin Control
-                </h2>
-                <div style="display:flex; gap:12px;">
-                    <button class="btn btn-dark" onclick="openTimetableModal()">
-                        <i class="fa fa-edit"></i> Manage Timetable
-                    </button>
-                    <button class="btn btn-p" 
-                    onclick="openModal('noticeModal')">
-                        <i class="fa fa-bullhorn"></i> Post Notice
-                    </button>
+    <div class="grid-forms" style="margin-bottom:25px;">
+        <div class="card">
+            <h3 style="margin-top:0; border-bottom:1px solid var(--glass-border); padding-bottom:10px;">
+                <i class="fa fa-filter"></i> Student Registry
+            </h3>
+            <div class="grid-forms" style="gap: 15px;">
+                <div>
+                    <label class="form-label">Year</label>
+                    <select id="aYear" onchange="handleYearChange('aYear','aBranch')">
+                        <option value="1ST YEAR">1st Year</option>
+                        <option value="2ND YEAR">2nd Year</option>
+                        <option value="3RD YEAR">3rd Year</option>
+                        <option value="4TH YEAR">4th Year</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label">Branch</label>
+                    <select id="aBranch" onchange="refreshAdminView()"></select>
+                </div>
+                <div>
+                    <label class="form-label">Division</label>
+                    <select id="aDiv" onchange="refreshAdminView()"></select>
                 </div>
             </div>
-            <div class="grid-forms" 
-            style="margin-bottom:25px;">
-                <div class="card">
-                    <h3 style="margin-top:0;">Leave Requests</h3>
-                    <div class="table-container" 
-                    style="max-height:220px;">
-                        <table id="adminLeaveTable"></table>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3 style="margin-top:0;">Configuration</h3>
-                    <div class="grid-forms" 
-                    style="gap: 15px;">
-                        <div>
-                            <label>Year</label>
-                            <select id="aYear" 
-                            onchange="handleYearChange('aYear','aBranch')">
-                                <option value="1ST YEAR">1st Year</option>
-                                <option value="2ND YEAR">2nd Year</option>
-                                <option value="3RD YEAR">3rd Year</option>
-                                <option value="4TH YEAR">4th Year</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Branch</label>
-                            <select id="aBranch" 
-                            onchange="refreshAdminView()">
-                        </select>
-                        </div>
-                        <div>
-                            <label>Div</label>
-                            <select id="aDiv" 
-                            onchange="refreshAdminView()">
-                        </select>
-                        </div>
-                    </div>
-                </div>
+            <div class="table-container" style="max-height:400px; margin-top:15px;">
+                <table id="adminStudentTable"></table>
             </div>
-            <div class="card">
-                <div style="
-                    display:flex; 
-                    justify-content:space-between; 
-                    align-items:center; 
-                    margin-bottom: 15px;">
-                    <h3>Student Registry</h3>
-                    <button class="btn btn-s" 
-                    onclick="openModal('addStudentModal')">
-                        <i class="fa fa-plus"></i> New Student
-                    </button>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0;">Pending Actions</h3>
+            <button class="btn btn-w" style="width:100%; margin-bottom:15px;" onclick="openModal('noticeModal')">
+                <i class="fa fa-bullhorn"></i> Post Notice
+            </button>
+            <h4 style="margin:0 0 10px 0;">Leave Requests</h4>
+            <div class="table-container" style="max-height:300px;">
+                <table id="adminLeaveTable"></table>
+            </div>
+        </div>
+    </div>
+
+    <h4 style="margin:20px 0 10px 0; border-top:1px solid rgba(0,0,0,0.05); padding-top:15px;">
+        <i class="fa fa-bug" style="color:var(--danger);"></i> Reported Issues
+    </h4>
+    <div class="table-container" style="max-height:250px;">
+        <table id="adminIssueTable">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Category</th>
+                    <th>Issue</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<div id="admissionModal" class="modal">
+    <div class="modal-content" style="max-width:900px;">
+        <span class="close-modal" onclick="closeModal('admissionModal')">&times;</span>
+        <div class="modal-header">
+            <h2 style="margin:0;"><i class="fa fa-university"></i> New Student Admission</h2>
+            <p style="margin:0; color:var(--text-muted);">Fill in the official details below.</p>
+        </div>
+
+        <div class="form-section">
+            <div class="form-section-title">Academic Details</div>
+            <div class="grid-forms-3">
+                <div class="form-group">
+                    <label>Academic Year</label>
+                    <select id="admYear" onchange="handleAdmissionYear()">
+                        <option value="1ST YEAR">1st Year</option>
+                        <option value="2ND YEAR">2nd Year</option>
+                        <option value="3RD YEAR">3rd Year</option>
+                        <option value="4TH YEAR">4th Year</option>
+                    </select>
                 </div>
-                <div class="table-container" 
-                style="max-height:500px;">
-                    <table id="adminStudentTable"></table>
+                <div class="form-group">
+                    <label>Branch / Dept</label>
+                    <select id="admBranch">
+                        <option value="COMBINE">COMBINE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Division</label>
+                    <select id="admDiv">
+                        <option>Div-1</option><option>Div-2</option><option>Div-3</option>
+                        <option>Div-4</option><option>Div-5</option><option>Div-6</option>
+                        <option>Div-7</option><option>Div-8</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Roll Number</label>
+                    <input type="text" id="admRoll" placeholder="e.g. 45">
+                </div>
+                <div class="form-group">
+                    <label>Fee Status</label>
+                    <select id="admFee">
+                        <option value="Pending">Fees Pending</option>
+                        <option value="Paid">Fees Paid</option>
+                    </select>
                 </div>
             </div>
         </div>
 
+        <div class="form-section">
+            <div class="form-section-title">Personal Information</div>
+            <div class="grid-forms-3">
+                <div class="form-group">
+                    <label>Student Full Name</label>
+                    <input type="text" id="admName" placeholder="Surname First Name Middle">
+                </div>
+                <div class="form-group">
+                    <label>Father's Name</label>
+                    <input type="text" id="admFather" placeholder="Father's Full Name">
+                </div>
+                <div class="form-group">
+                    <label>Mother's Name</label>
+                    <input type="text" id="admMother" placeholder="Mother's First Name">
+                </div>
+                <div class="form-group">
+                    <label>Father's Occupation</label>
+                    <input type="text" id="admOcc" placeholder="e.g. Service / Business">
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                    <label>Permanent Address</label>
+                    <input type="text" id="admAddr" placeholder="Full Residential Address">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-section-title">Contact Details</div>
+            <div class="grid-forms-3">
+                <div class="form-group">
+                    <label>Student Mobile</label>
+                    <input type="text" id="admPhone" placeholder="10 Digit Mobile No">
+                </div>
+                <div class="form-group">
+                    <label>Student Email</label>
+                    <input type="email" id="admEmail" placeholder="student@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Parent Contact</label>
+                    <input type="text" id="admParPhone" placeholder="Parent Mobile No">
+                </div>
+                <div class="form-group">
+                    <label>Emergency Contact</label>
+                    <input type="text" id="admEmgPhone" placeholder="Emergency No">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-section-title">Document Uploads</div>
+            <div class="doc-grid" id="docUploadContainer">
+                </div>
+        </div>
+
+        <div style="margin-top:30px; display:flex; gap:15px; justify-content:flex-end;">
+            <button class="btn btn-d" onclick="closeModal('admissionModal')">Cancel</button>
+            <button class="btn btn-p" onclick="submitAdmission()">
+                <i class="fa fa-check-circle"></i> Confirm Admission
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="profileModal" class="modal">
+    <div class="modal-content" style="max-width:800px;">
+        <span class="close-modal" onclick="closeModal('profileModal')">&times;</span>
+        <div class="profile-header-card">
+            <div class="ph-avatar" id="profAvatar">U</div>
+            <div>
+                <h2 id="profName" style="margin:0;">Student Name</h2>
+                <p id="profSubtitle" style="margin:5px 0 0; opacity:0.8;">Branch | Year | Roll</p>
+            </div>
+        </div>
+
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchProfileTab('tab-info')">Personal Info</button>
+            <button class="tab-btn" onclick="switchProfileTab('tab-docs')">Documents</button>
+        </div>
+
+        <div id="tab-info" class="prof-tab active">
+            <div class="info-grid" id="profInfoGrid">
+                </div>
+        </div>
+
+        <div id="tab-docs" class="prof-tab" style="display:none;">
+            <div class="table-container">
+                <table id="profDocTable" style="width:100%;">
+                    <thead><tr><th>Document Name</th><th>Status</th><th>Action</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
         <div id="teacherPage" class="page">
-            <div style="
-                display:flex; 
-                justify-content:space-between; 
-                align-items:center; 
-                margin-bottom:30px;">
-                <h2 style="font-size: 24px; margin:0;">
-                    <i class="fa fa-chalkboard-teacher" 
-                    style="color: var(--accent); 
-                    margin-right: 10px;"></i> Faculty Dashboard
-                </h2>
-                <div id="clockDisplay" style="
-                font-weight:800; 
-                color:var(--accent); 
-                font-size: 20px; 
-                background: rgba(59, 130, 246, 0.1); 
-                padding: 8px 16px; 
-                border-radius: 12px;"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+        <h2 style="font-size: 24px; margin:0;">
+            <i class="fa fa-chalkboard-teacher" 
+            style="color: var(--accent); margin-right: 10px;"></i> Faculty Dashboard
+        </h2>
+        <div id="clockDisplay" style="font-weight:800; color:var(--accent); font-size: 20px; 
+        background: rgba(59, 130, 246, 0.1); padding: 8px 16px; border-radius: 12px;"></div>
+    </div>
+
+    <div class="grid-forms" style="margin-bottom:25px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+        <div class="card" onclick="openAttendanceModal()" 
+        style="cursor:pointer; text-align:center; display:flex; flex-direction:column; align-items:center; 
+        justify-content:center; min-height:140px; margin-bottom:0;">
+            <div style="width:50px; height:50px; background:rgba(59,130,246,0.1); border-radius:50%; 
+            display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
+                <i class="fa fa-user-check" style="font-size:24px; color:var(--accent);"></i>
             </div>
-            <div class="grid-forms" style="
-            margin-bottom:30px; 
-            grid-template-columns: 
-            repeat(auto-fit, minmax(180px, 1fr));">
-                <div class="card" 
-                onclick="openAttendanceModal()" 
-                style="cursor:pointer; 
-                text-align:center; 
-                display:flex; 
-                flex-direction:column; 
-                align-items:center; 
-                justify-content:center; 
-                min-height:160px;">
-                    <div style="
-                        width:60px; 
-                        height:60px; 
-                        background:rgba(59,130,246,0.1); 
-                        border-radius:50%; 
-                        display:flex; 
-                        align-items:center; 
-                        justify-content:center; 
-                        margin-bottom:15px;">
-                        <i class="fa fa-user-check" 
-                        style="font-size:28px; color:var(--accent);"></i>
-                    </div>
-                    <h3 style="margin:0; font-size:16px;">Attendance</h3>
-                </div>
-                <div class="card" 
-                onclick="openMarksModal()" 
-                style="cursor:pointer; 
-                text-align:center; 
-                display:flex; 
-                flex-direction:column; 
-                align-items:center; 
-                justify-content:center; 
-                min-height:160px;">
-                    <div style="width:60px; 
-                    height:60px; 
-                    background:rgba(16,185,129,0.1); 
-                    border-radius:50%; 
-                    display:flex; 
-                    align-items:center; 
-                    justify-content:center; 
-                    margin-bottom:15px;">
-                        <i class="fa fa-chart-bar" 
-                        style="font-size:28px; color:var(--success);"></i>
-                    </div>
-                    <h3 style="margin:0; font-size:16px;">Marks Entry</h3>
-                </div>
-                <div class="card" 
-                onclick="openModal('lmsModal')" 
-                style="cursor:pointer; 
-                text-align:center; 
-                display:flex; 
-                flex-direction:column; 
-                align-items:center; 
-                justify-content:center; 
-                min-height:160px;">
-                    <div style="width:60px; 
-                    height:60px; 
-                    background:rgba(245,158,11,0.1); 
-                    border-radius:50%; 
-                    display:flex; 
-                    align-items:center; 
-                    justify-content:center; 
-                    margin-bottom:15px;">
-                        <i class="fa fa-cloud-upload-alt" 
-                        style="font-size:28px; color:var(--warning);"></i>
-                    </div>
-                    <h3 style="margin:0; font-size:16px;">LMS Upload</h3>
-                </div>
-                <div class="card" 
-                onclick="openTimetableModal()" 
-                style="cursor:pointer; 
-                text-align:center; 
-                display:flex; 
-                flex-direction:column; 
-                align-items:center; 
-                justify-content:center; 
-                min-height:160px;">
-                    <div style="width:60px; 
-                    height:60px; 
-                    background:rgba(99,102,241,0.1); 
-                    border-radius:50%; 
-                    display:flex; 
-                    align-items:center; 
-                    justify-content:center;
-                    margin-bottom:15px;">
-                        <i class="fa fa-calendar-day" 
-                        style="font-size:28px; color:#6366f1;"></i>
-                    </div>
-                    <h3 style="margin:0; font-size:16px;">Schedule</h3>
-                </div>
+            <h3 style="margin:0; font-size:15px;">Attendance</h3>
+        </div>
+
+        <div class="card" onclick="openMarksModal()" style="cursor:pointer; text-align:center; 
+        display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:140px; margin-bottom:0;">
+            <div style="width:50px; height:50px; background:rgba(16,185,129,0.1); border-radius:50%; 
+            display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
+                <i class="fa fa-chart-bar" style="font-size:24px; color:var(--success);"></i>
             </div>
-            <div class="card">
-                <h4 style="margin-top:0; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px; margin-bottom: 15px;">
-                    <i class="fa fa-filter"></i> Class Selection
-                </h4>
-                <div class="grid-forms">
+            <h3 style="margin:0; font-size:15px;">Marks Entry</h3>
+        </div>
+
+        <div class="card" onclick="openModal('lmsModal')" style="cursor:pointer; text-align:center; 
+        display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:140px; margin-bottom:0;">
+            <div style="width:50px; height:50px; background:rgba(245,158,11,0.1); border-radius:50%; 
+            display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
+                <i class="fa fa-cloud-upload-alt" style="font-size:24px; color:var(--warning);"></i>
+            </div>
+            <h3 style="margin:0; font-size:15px;">LMS Upload</h3>
+        </div>
+
+        <div class="card" onclick="openTimetableModal()" style="cursor:pointer; text-align:center; 
+        display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:140px; margin-bottom:0;">
+            <div style="width:50px; height:50px; background:rgba(99,102,241,0.1); border-radius:50%; 
+            display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
+                <i class="fa fa-calendar-day" style="font-size:24px; color:#6366f1;"></i>
+            </div>
+            <h3 style="margin:0; font-size:15px;">Schedule</h3>
+        </div>
+    </div>
+
+    <div class="grid-forms" style="margin-bottom: 25px;">
+        <div class="card" style="margin-bottom:0;">
+            <h4 style="margin-top:0; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px; margin-bottom: 15px;">
+                <i class="fa fa-filter"></i> Class Selection
+            </h4>
+            <div class="grid-forms" style="gap:15px;">
+                <div>
+                    <label style="font-size:12px; font-weight:bold; color:var(--text-muted);">Year</label>
                     <select id="tYear" onchange="handleYearChange('tYear','tBranch')">
                         <option value="1ST YEAR">1st Year</option>
                         <option value="2ND YEAR">2nd Year</option>
                         <option value="3RD YEAR">3rd Year</option>
                         <option value="4TH YEAR">4th Year</option>
                     </select>
+                </div>
+                <div>
+                    <label style="font-size:12px; font-weight:bold; color:var(--text-muted);">Branch</label>
                     <select id="tBranch"></select>
+                </div>
+                <div>
+                    <label style="font-size:12px; font-weight:bold; color:var(--text-muted);">Division</label>
                     <select id="tDiv"></select>
+                </div>
+                <div>
+                    <label style="font-size:12px; font-weight:bold; color:var(--text-muted);">Subject</label>
                     <select id="tSub"></select>
                 </div>
             </div>
-            <div class="card">
-                <h3 style="margin-top:0;">Pending Leaves</h3>
-                <div class="table-container">
-                    <table id="teacherLeaveTable"></table>
-                </div>
-            </div>
         </div>
 
-        <div id="studentPage" 
-        class="page">
-            <div style="margin-bottom: 25px; display: flex; align-items: center; gap: 15px;">
-                <span id="stFeeBadge" 
-                class="tag" 
-                style="font-size: 14px; padding: 8px 16px;"></span>
-                <div style="height: 40px; border-left: 2px solid var(--glass-border);"></div>
-                <p id="stDetails" style="margin:0; color:var(--text-muted); font-size:15px; font-weight: 500;">Loading...</p>
-            </div>
-            <div class="grid-forms">
-                <div class="card">
-                    <div style="display:flex; justify-content:space-between; align-items: center; margin-bottom: 15px;">
-                        <h3 style="margin:0;">Attendance</h3>
-                        <div class="pie-chart" 
-                        id="stAttChart" s
-                        tyle="--p:0deg;" 
-                        data-val="0%"></div>
-                    </div>
-                    <div class="table-container" 
-                    style="max-height:220px;">
-                        <table id="stAttTable">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Subject</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3 style="margin-top:0;">Quick Actions</h3>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <button class="btn btn-p" 
-                        style="width:100%;" 
-                        onclick="openTimetableModal()">
-                            <i class="fa fa-calendar-alt"></i> View Timetable
-                        </button>
-                        <button class="btn btn-s" 
-                        style="width:100%" 
-                        onclick="openModal('applyLeaveModal')">
-                            <i class="fa fa-paper-plane"></i> Apply Leave
-                        </button>
-                    </div>
-                    <div style="margin-top:15px; text-align: center; font-weight: 500;" id="stLeaveStatus"></div>
-                </div>
-            </div>
-            <div class="grid-forms" 
-            style="margin-top:25px;">
-                <div class="card">
-                    <h3 style="margin-top:0;">Exam Marks</h3>
-                    <div class="table-container">
-                        <table id="stGradesTable">
-                            <thead>
-                                <tr>
-                                    <th>Subject</th>
-                                    <th>Exam</th>
-                                    <th>Marks</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3 style="margin-top:0;">LMS Resources</h3>
-                    <div class="table-container" style="max-height: 220px;">
-                        <table id="stLmsTable">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Type</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="card" style="margin-bottom:0;">
+            <h3 style="margin-top:0; font-size:16px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px; margin-bottom: 15px;">
+                <i class="fa fa-envelope-open-text" style="color:var(--accent);"></i> Pending Leaves
+            </h3>
+            <div class="table-container" style="max-height: 140px;">
+                <table id="teacherLeaveTable"></table>
             </div>
         </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0; border-bottom:1px solid rgba(0,0,0,0.05); padding-bottom:10px; margin-bottom:15px;">
+            <i class="fa fa-users"></i> Student List & Documents
+        </h3>
+        <div class="table-container" style="max-height: 400px;">
+            <table style="width:100%;">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">Roll</th>
+                        <th>Student Details</th>
+                        <th>Uploads</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="teacherStudentTable">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+   <div id="studentPage" class="page">
+    <div style="margin-bottom: 25px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+        <span id="stFeeBadge" class="tag" style="font-size: 14px; padding: 8px 16px;">Loading...</span>
+        <div style="height: 40px; border-left: 2px solid var(--glass-border);"></div>
+        <p id="stDetails" style="margin:0; color:var(--text-muted); font-size:15px; font-weight: 500;">Loading...</p>
+    </div>
+
+    <h3 style="margin: 0 0 15px 0; font-size: 16px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+        Academic & Utility Hub
+    </h3>
+    <div class="quick-access-grid">
+        <div class="qa-card" onclick="openInAppBrowser('https://www.unipune.ac.in/', 'SPPU University Login')">
+            <div class="qa-icon" style="background: rgba(249, 115, 22, 0.1); color: #f97316;">
+                <i class="fa fa-university"></i>
+            </div>
+            <div style="font-weight: 600; font-size: 13px;">University Login</div>
+        </div>
+
+        <div class="qa-card" onclick="openInAppBrowser('http://onlineresults.unipune.ac.in/', 'Exam Results')">
+            <div class="qa-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                <i class="fa fa-trophy"></i>
+            </div>
+            <div style="font-weight: 600; font-size: 13px;">Exam Results</div>
+        </div>
+
+        <div class="qa-card" onclick="openInAppBrowser('https://www.brainkart.com/menu/engineering/', 'Study Material')">
+            <div class="qa-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
+                <i class="fa fa-book-reader"></i>
+            </div>
+            <div style="font-weight: 600; font-size: 13px;">Study Material</div>
+        </div>
+
+        <div class="qa-card" onclick="openInAppBrowser('https://sinhgad.edu/', 'College Website')">
+            <div class="qa-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div style="font-weight: 600; font-size: 13px;">College Site</div>
+        </div>
+        
+        <div class="qa-card" onclick="openInAppBrowser('http://www.unipune.ac.in/university_files/syllabi.htm', 'Syllabus')">
+            <div class="qa-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
+                <i class="fa fa-list-alt"></i>
+            </div>
+            <div style="font-weight: 600; font-size: 13px;">Syllabus</div>
+        </div>
+        <div class="qa-card" onclick="openStudentMessages()">
+            <div class="qa-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+                <i class="fa fa-envelope"></i>
+            </div>
+            <div style="font-weight: 600; font-size: 13px;">
+                Messages <span id="msgBadge" class="tag tag-a" style="font-size:10px; padding:2px 6px; display:none; border-radius:10px;">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-forms">
+        <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="margin:0;">Attendance</h3>
+                <div class="pie-chart" id="stAttChart" style="--p:0deg;" data-val="0%"></div>
+            </div>
+            <div class="table-container" style="max-height:220px;">
+                <table id="stAttTable">
+                    <thead>
+                        <tr><th>Date</th><th>Subject</th><th>Status</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3 style="margin-top:0;">Quick Actions</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="btn btn-p" style="width:100%;" onclick="openTimetableModal()">
+                    <i class="fa fa-calendar-alt"></i> View Timetable
+                </button>
+                <button class="btn btn-s" style="width:100%" onclick="openModal('applyLeaveModal')">
+                    <i class="fa fa-paper-plane"></i> Apply Leave
+                </button>
+                <button class="btn btn-d" style="width:100%; margin-top:10px;" onclick="openModal('reportIssueModal')">
+                    <i class="fa fa-exclamation-triangle"></i> Report Issue
+                </button>
+            </div>
+            <div style="margin-top:15px; text-align: center; font-weight: 500;" id="stLeaveStatus"></div>
+        </div>
+    </div>
+
+    <div class="grid-forms" style="margin-top:25px;">
+        <div class="card">
+            <h3 style="margin-top:0;">Exam Marks</h3>
+            <div class="table-container">
+                <table id="stGradesTable">
+                    <thead><tr><th>Subject</th><th>Exam</th><th>Marks</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h3 style="margin-top:0;">LMS Resources</h3>
+            <div class="table-container" style="max-height: 220px;">
+                <table id="stLmsTable">
+                    <thead><tr><th>Title</th><th>Type</th><th>Action</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h3 style="margin:0;">My Documents</h3>
+            <button class="btn btn-p" style="padding:6px 12px; font-size:12px;" onclick="openStDocModal()">
+                <i class="fa fa-plus"></i> Upload
+            </button>
+        </div>
+        <div class="table-container" style="max-height: 220px;">
+            <table id="stSelfDocTable">
+                <thead><tr><th>Document Type</th><th>File Name</th><th>Status</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+        <div id="placementPage" class="page">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
+        <h2 style="font-size: 24px; margin:0;">
+            <i class="fa fa-briefcase" style="color: var(--accent); margin-right: 10px;"></i> Training & Placement
+        </h2>
+        <span class="tag tag-p" style="font-size:14px;">Year 2025-26</span>
+    </div>
+
+    <div class="grid-forms" style="margin-bottom:20px;">
+        <input type="text" id="jobSearch" placeholder="Search Company or Role..." onkeyup="renderJobs()">
+        <select id="jobTypeFilter" onchange="renderJobs()">
+            <option value="All">All Types</option>
+            <option value="Internship">Internship</option>
+            <option value="Full Time">Full Time</option>
+        </select>
+    </div>
+
+    <div class="job-grid" id="jobContainer" 
+    style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+        </div>
+</div>
     </main>
+<div id="submitAssignmentModal" 
+class="modal">
+    <div class="modal-content" 
+    style="max-width:500px;">
+        <span class="close-modal" 
+        onclick="closeModal('submitAssignmentModal')">&times;</span>
+        <h2 style="margin-top:0;">
+            <i class="fa fa-upload">
+            </i> Submit Assignment</h2>
+        <p id="submitTargetTitle" style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">
+            Submitting for: <span style="font-weight:700; color:var(--text-main);">...</span>
+        </p>
 
+        <div class="grid-forms" 
+        style="display: flex; flex-direction: column; gap: 15px;">
+            <input type="hidden" id="submitLmsId">
+
+            <label style="font-size:12px; font-weight:700; color:var(--text-muted);">YOUR WORK LINK</label>
+            <input type="text" 
+            id="submitLink" 
+            placeholder="Paste Google Drive / GitHub Link">
+            
+            <div style="text-align: center; color: var(--text-muted); font-size: 13px; font-weight: 500;">- OR -</div>
+            
+            <div class="file-upload-box">
+                <i class="fa fa-file-pdf" 
+                style="font-size: 32px; color: var(--danger); margin-bottom: 10px;"></i>
+                <br>
+                <input type="file" id="submitFileLocal" 
+                style="width: 100%; margin-top: 10px;">
+                <small style="color: var(--text-muted);">Upload PDF / Doc</small>
+            </div>
+            
+            <button class="btn btn-p" onclick="saveAssignmentSubmission()">
+                <i class="fa fa-paper-plane"></i> Turn In
+            </button>
+        </div>
+    </div>
+</div>
     <div id="attModal" class="modal" 
     style="display:none; flex-direction:column;">
         <div class="modal-content">
@@ -1528,75 +2139,504 @@
         </div>
     </div>
 
+    <div id="postJobModal" class="modal">
+    <div class="modal-content" 
+    style="max-width:600px;">
+        <span class="close-modal" 
+        onclick="closeModal('postJobModal')">&times;</span>
+        <h2 style="margin-top:0; color:var(--text-main);"><i class="fa fa-bullhorn"></i> Post New Opportunity</h2>
+        
+        <div class="grid-forms" style="display:flex; flex-direction:column; gap:15px;">
+            <input type="text" id="jobRole" 
+            placeholder="Profile (e.g. Full Stack Intern)">
+            <input type="text" id="jobCompany" 
+            placeholder="Company Name (e.g. Google)">
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                <input 
+                type="text" 
+                id="jobStipend" 
+                placeholder="Stipend (e.g. ₹15,000 /Month)">
+                <input 
+                type="text" 
+                id="jobDuration" 
+                placeholder="Duration (e.g. 3 Months)">
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                <input 
+                type="text" 
+                id="jobLocation" 
+                placeholder="Location (e.g. Work From Home)">
+                <input 
+                type="date" 
+                id="jobDeadline">
+            </div>
+
+            <select id="jobType">
+                <option 
+                value="Internship">Internship</option>
+                <option 
+                value="Full Time">Full Time Job</option>
+            </select>
+
+            <div 
+            style="background:rgba(0,0,0,0.03); padding:10px; border-radius:8px;">
+                <label 
+                style="font-size:12px; font-weight:bold;">Application Mode:</label>
+                <select 
+                id="jobApplyMode" 
+                onchange="toggleLinkInput()">
+                    <option value="INTERNAL">Apply on SITS Portal</option>
+                    <option value="EXTERNAL">External Link (Internshala/LinkedIn)</option>
+                </select>
+                <input type="text" id="jobExternalLink" placeholder="Paste External Application Link here..." 
+                       style="margin-top:10px; display:none;">
+            </div>
+
+            <button class="btn btn-p" onclick="postNewJob()">
+                <i class="fa fa-paper-plane"></i> Post Opportunity
+            </button>
+        </div>
+    </div>
+</div>
     <div id="guideModal" class="modal">
-        <div class="modal-content" style="max-width: 700px;">
-            <span class="close-modal" onclick="closeModal('guideModal')">&times;</span>
-            <div style="border-bottom: 1px solid var(--glass-border); margin-bottom: 20px; padding-bottom: 15px;">
-                <h2 style="margin:0;">
-                    <i class="fa fa-life-ring" style="color:var(--accent)"></i> User Guide & Help
-                </h2>
-                <p style="margin:5px 0 0; color:var(--text-muted); font-size:14px;">Select a topic below to learn how to use the portal.</p>
-            </div>
-            <div style="display:flex; gap:12px; margin-bottom:25px; overflow-x:auto; padding-bottom:5px;">
-                <button class="btn btn-dark" onclick="switchGuide('g-gen')">General</button>
-                <button class="btn btn-p" onclick="switchGuide('g-att')">Attendance</button>
-                <button class="btn btn-s" onclick="switchGuide('g-mrk')">Marks</button>
-                <button class="btn btn-w" onclick="switchGuide('g-tt')">Timetable</button>
-            </div>
-            <div id="g-gen" class="guide-tab" style="animation: fadeInScale 0.3s;">
+    <div class="modal-content" style="max-width: 900px; height: 85vh; display: flex; flex-direction: column;">
+        <span class="close-modal" onclick="closeModal('guideModal')">&times;</span>
+        
+        <div style="border-bottom: 1px solid var(--glass-border); margin-bottom: 15px; padding-bottom: 15px;">
+            <h2 style="margin:0; display: flex; align-items: center; gap: 10px;">
+                <i class="fa fa-book-reader" style="color:var(--accent)"></i> Portal Master Guide
+            </h2>
+            <p style="margin:5px 0 0; color:var(--text-muted); font-size:14px;">
+                Complete documentation for Students, Faculty, and Administrators.
+            </p>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-bottom:20px; overflow-x:auto; padding-bottom:5px; 
+        flex-shrink: 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+            <button class="btn btn-dark" 
+            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" 
+            onclick="switchGuide('g-intro')">
+                <i class="fa fa-key"></i> Login & Basics
+            </button>
+            <button class="btn btn-p" 
+            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;"
+             onclick="switchGuide('g-admin')">
+                <i class="fa fa-user-shield"></i> Admin Ops
+            </button>
+            <button class="btn btn-s" 
+            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" 
+            onclick="switchGuide('g-fac')">
+                <i class="fa fa-chalkboard-teacher"></i> Faculty Tools
+            </button>
+            <button class="btn btn-w" 
+            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" 
+            onclick="switchGuide('g-stud')">
+                <i class="fa fa-user-graduate"></i> Student Zone
+            </button>
+            <button class="btn btn-e" 
+            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" 
+            onclick="switchGuide('g-place')">
+                <i class="fa fa-briefcase"></i> Placements
+            </button>
+            <button class="btn btn-d" 
+            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" 
+            onclick="switchGuide('g-util')">
+                <i class="fa fa-tools"></i> Utils & Print
+            </button>
+        </div>
+
+        <div style="overflow-y: auto; padding-right: 15px; flex: 1;">
+            
+            <div id="g-intro" class="guide-tab" style="animation: fadeInScale 0.3s;">
                 <h3 style="color:var(--accent); margin-top:0;">Getting Started</h3>
-                <ul style="line-height:1.8; font-size:15px; color:var(--text-main);">
-                    <li><strong>Login:</strong> Use your Email (Faculty) or Phone Number (Students) to log in.</li>
-                    <li><strong>Sidebar:</strong> Access different modules using the menu on the left.</li>
-                    <li><strong>Dark Mode:</strong> Toggle the moon icon <i class="fa fa-moon">
-\                    </i> in the sidebar to switch themes.</li>
-                    <li><strong>Logout:</strong> Click the <i class="fa fa-power-off">
-                    </i> icon to exit securely.</li>
-                </ul>
-            </div>
-            <div id="g-att" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
-                <h3 style="color:var(--success); margin-top:0;">Marking Attendance</h3>
-                <ul style="line-height:1.8; font-size:15px; color:var(--text-main);">
-                    <li><strong>Step 1:</strong> Go to the Faculty Dashboard and click "Attendance".</li>
-                    <li><strong>Step 2:</strong> Select the Date.</li>
-                    <li><strong>Step 3:</strong> Enter the **Roll Numbers** of absent students (separated by commas, e.g., "1, 5, 12").</li>
-                    <li><strong>Step 4:</strong> Click "Save". The system automatically calculates percentages.</li>
-                    <li><strong>Export:</strong> You can print the monthly ledger or download it as Excel.</li>
-                </ul>
-            </div>
-            <div id="g-mrk" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
-                <h3 style="color:var(--accent); margin-top:0;">Managing Marks</h3>
-                <ul style="line-height:1.8; font-size:15px; color:var(--text-main);">
-                    <li><strong>Add Exam:</strong> Type an exam name (e.g., "Unit Test 1") and click "Add Col".</li>
-                    <li><strong>Enter Data:</strong> Fill in the marks for each student in the table.</li>
-                    <li><strong>Save:</strong> Click "Save" to store the marks in the database.</li>
-                    <li><strong>Excel:</strong> Click "Excel" to download the result sheet.</li>
-                </ul>
-            </div>
-            <div id="g-tt" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
-                <h3 style="color:#6366f1; margin-top:0;">Timetable Management</h3>
-                <ul style="line-height:1.8; font-size:15px; color:var(--text-main);">
-                    <li><strong>View:</strong> Everyone can view the weekly schedule.</li>
-                    <li><strong>Edit (Admin Only):</strong>
-                        <ul>
-                            <li>Click <strong>+ Row</strong> to add a new time slot.</li>
-                            <li>Click <strong>+ Col</strong> to add a new day/column.</li>
-                            <li>Type directly into the cells to update subjects.</li>
+                
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+                    <div style="background: rgba(59, 130, 246, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.1);">
+                        <strong style="color:var(--accent);">
+                            <i class="fa fa-lock">
+                            </i> Default Credentials</strong>
+                        <ul style="margin: 10px 0; padding-left: 20px; font-size:13px; font-family: monospace; color:var(--text-main);">
+                            <li><strong>Admin:</strong> admin@sits.com (Pass: admin)</li>
+                            <li><strong>Faculty:</strong> teacher@sits.com (Pass: 1234)</li>
+                            <li><strong>Student:</strong> [Phone Number] (Pass: 1234)</li>
+                            <li><strong>Parent:</strong> [Phone Number] (Pass: parent)</li>
                         </ul>
+                    </div>
+                    <div>
+                        <strong style="color:var(--text-main);"><i class="fa fa-desktop"></i> Interface Features</strong>
+                        <ul style="font-size:13px; line-height:1.8; color:var(--text-muted);">
+                            <li><i class="fa fa-moon"></i> 
+                                <strong>Dark Mode:</strong> Toggle at the bottom of the sidebar.</li>
+                            <li><i class="fa fa-bars"></i> 
+                                <strong>Sidebar:</strong> Collapsible menu (top-left on mobile).</li>
+                            <li><i class="fa fa-bullhorn"></i> 
+                                <strong>Notices:</strong> Orange widget on dashboard shows latest alerts.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="g-admin" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
+                <h3 style="color:#6366f1; margin-top:0;">Administrator Controls</h3>
+                
+                <div style="margin-bottom:20px;">
+                    <h4 style="margin:0 0 10px 0; color:var(--text-main);">1. Student Management</h4>
+                    <ul style="font-size:13px; line-height:1.6;">
+                        <li><strong>New Admission:</strong> C
+                            ick "New Admission". Fill in Academic, Personal, and Contact details. 
+                            Upload required documents (Aadhar, Marksheets).</li>
+                        <li><strong>Registry:</strong> 
+                            Filter students by Year/Branch/Div. Click 
+                            <i class="fa fa-eye">
+                            </i> to view full profile or <i class="fa fa-trash"></i> to remove.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <h4 style="margin:0 0 10px 0; color:var(--text-main);">2. System Maintenance</h4>
+                    <ul style="font-size:13px; line-height:1.6;">
+                        <li><strong>Issue Resolution:</strong> 
+                            Check the "Reported Issues" table. Review complaints (WiFi, Academic, etc.) and click "Resolve" to close them.</li>
+                        <li><strong>Post Notice:</strong> 
+                            Click "Post Notice" to broadcast messages to all users' dashboards.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="g-fac" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
+                <h3 style="color:#10b981; margin-top:0;">Faculty Suite</h3>
+                
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                    <div style="background:rgba(16, 185, 129, 0.05); padding:15px; border-radius:12px;">
+                        <h4 style="color:#059669; margin-top:0;"><i class="fa fa-user-check"></i> Marking Attendance</h4>
+                        <ol style="font-size:13px; padding-left:20px;">
+                            <li>Select <strong>Class, Div, & Subject</strong> from dropdowns.</li>
+                            <li>Click the <strong>Attendance</strong> card.</li>
+                            <li>Select Date.</li>
+                            <li><strong>Important:</strong> Enter only <em>ABSENT</em> 
+                                roll numbers separated by commas (e.g., <code>1, 12, 45</code>).</li>
+                            <li>Click Save. All others are marked Present.</li>
+                        </ol>
+                    </div>
+
+                    <div style="background:rgba(59, 130, 246, 0.05); padding:15px; border-radius:12px;">
+                        <h4 style="color:#2563eb; margin-top:0;"><i class="fa fa-edit"></i> Entering Marks</h4>
+                        <ol style="font-size:13px; padding-left:20px;">
+                            <li>Click <strong>Marks Entry</strong>.</li>
+                            <li>Create a new column (e.g., "Unit Test 1").</li>
+                            <li>Enter marks directly in the table grid.</li>
+                            <li>Click <strong>Save All</strong> to commit to database.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <h4 style="margin-bottom:5px;">Other Faculty Tasks:</h4>
+                    <ul style="font-size:13px; line-height:1.6;">
+                        <li><strong>Leave Requests:</strong> 
+                            Approve or Reject student leave applications directly from the dashboard.</li>
+                        <li><strong>Profile Access:</strong> 
+                            View uploaded student documents (Aadhar/Cast Cert) via the "Student List" table.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="g-stud" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
+                <h3 style="color:#db2777; margin-top:0;">Student Features</h3>
+                
+                <div style="margin-bottom:15px; border-left:3px solid #db2777; padding-left:15px;">
+                    <strong style="display:block; margin-bottom:5px;"
+                    >Dashboard Overview</strong>
+                    <span style="font-size:13px; color:var(--text-muted);"
+                    >View your real-time Attendance Pie Chart, Fee Status (Paid/Pending), and recent Notices immediately upon login.</span>
+                </div>
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
+                    <div>
+                        <h4 style="font-size:14px;"><i class="fa fa-cloud-upload-alt"></i> LMS & Assignments</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">
+                            - <strong>Notes:</strong> Click 'Download' or 'View'.<br>
+                            - <strong>Assignments:</strong> Click 'Submit'. You can upload a PDF or paste a Drive link. Status changes to "Turned In".
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="font-size:14px;"><i class="fa fa-file-alt"></i> My Documents</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">
+                            Go to "My Documents" > "Upload" to safe-keep your digital records (Aadhar, 10th/12th Marksheets) on the portal.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="font-size:14px;"><i class="fa fa-exclamation-triangle"></i> Support</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">
+                            Use "Report Issue" for infrastructure or academic complaints. Use "Apply Leave" to notify teachers of absence.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="g-place" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
+                <h3 style="color:#f59e0b; margin-top:0;">Training & Placement</h3>
+                
+                <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:10px;">
+                    <tr style="background:rgba(0,0,0,0.03); text-align:left;">
+                        <th style="padding:10px;">Feature</th>
+                        <th style="padding:10px;">Admin Action</th>
+                        <th style="padding:10px;">Student Action</th>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border-bottom:1px solid #eee;">
+                            <strong>Posting</strong></td>
+                        <td style="padding:10px; border-bottom:1px solid #eee;">
+                            Post Jobs/Internships. Set mode to "Internal" (portal) or "External" (Link).</td>
+                        <td style="padding:10px; border-bottom:1px solid #eee;">
+                            View listings with tags (Internship/Full Time). Search by company.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;"><strong>Applying</strong></td>
+                        <td style="padding:10px;">-</td>
+                        <td style="padding:10px;">Click <strong>Apply Now</strong> 
+                            for internal tracking, or visit external links for other platforms.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="g-util" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
+                <h3 style="color:#475569; margin-top:0;">Advanced Utilities</h3>
+                
+                <ul style="font-size:13px; line-height:1.8;">
+                    <li>
+                        <strong><i class="fa fa-print"></i> Printing & Exporting:</strong>
+                        <br>Available in Attendance and Marks modals.
+                        <br>- <em>Excel:</em> Downloads an .xlsx file.
+                        <br>- <em>Print:</em> Generates a clean, black-and-white official format (hiding buttons/menus) for physical records.
+                    </li>
+                    <li>
+                        <strong><i class="fa fa-calendar-alt"></i> Timetable Editor:</strong>
+                        <br>Admin/Faculty can click "Timetable". Use <strong>+ Row</strong> / 
+                        <strong>+ Col</strong> to expand. Click ANY cell to type subjects. Click "Save Changes" to publish.
+                    </li>
+                    <li>
+                        <strong><i class="fa fa-external-link-alt"></i> External Resources:</strong>
+                        <br>Access the official college website or online study materials (Brainkart) directly within the portal modal without leaving the app.
                     </li>
                 </ul>
             </div>
-            <div style="margin-top:25px; text-align:right; border-top:1px solid var(--glass-border); padding-top:15px;">
-                <button class="btn btn-d" onclick="closeModal('guideModal')">Close Guide</button>
-            </div>
+
+        </div>
+
+        <div style="margin-top:15px; text-align:right; border-top:1px solid var(--glass-border); padding-top:15px;">
+            <button class="btn btn-d" onclick="closeModal('guideModal')">Close Guide</button>
         </div>
     </div>
+</div>
+<div id="stDocModal" class="modal">
+    <div class="modal-content" style="max-width:500px;">
+        <span class="close-modal" onclick="closeModal('stDocModal')">&times;</span>
+        <h2 style="margin-top:0;"><i class="fa fa-file-upload"></i> Upload Document</h2>
+        <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">
+            Upload official documents for verification.
+        </p>
 
+        <div class="grid-forms" style="display: flex; flex-direction: column; gap: 15px;">
+            <label style="font-size:12px; font-weight:bold;">Select Document Type</label>
+            <select id="stDocType">
+                <option value="Aadhar Card">Aadhar Card</option>
+                <option value="10th Marksheet">10th Marksheet</option>
+                <option value="12th Marksheet">12th Marksheet</option>
+                <option value="Domicile Cert">Domicile Certificate</option>
+                <option value="Income Cert">Income Certificate</option>
+                <option value="Caste Certificate">Caste Certificate</option>
+                <option value="Gap Certificate">Gap Certificate</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div class="file-upload-box">
+                <i class="fa fa-file-image" style="font-size: 32px; color: var(--accent); margin-bottom: 10px;"></i>
+                <br>
+                <input type="file" id="stDocFile" style="width: 100%; margin-top: 10px;">
+                <small style="color: var(--text-muted);">JPG/PDF/PNG only</small>
+            </div>
+            
+            <button class="btn btn-p" onclick="saveStudentUpload()">
+                <i class="fa fa-check-circle"></i> Upload Now
+            </button>
+        </div>
+    </div>
+</div>
+<div id="reportIssueModal" class="modal">
+    <div class="modal-content" style="max-width:500px;">
+        <span class="close-modal" onclick="closeModal('reportIssueModal')">&times;</span>
+        <h2 style="margin-top:0; color:var(--danger);"><i class="fa fa-exclamation-circle"></i> Report an Issue</h2>
+        <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">
+            Describe your issue clearly. This will be sent directly to the Admin.
+        </p>
+
+        <div class="grid-forms" style="display: flex; flex-direction: column; gap: 15px;">
+            <label style="font-size:12px; font-weight:bold;">Issue Category</label>
+            <select id="issueCategory">
+                <option value="Academic">Academic (Marks/Attendance)</option>
+                <option value="Infrastructure">Infrastructure (WiFi/Classroom)</option>
+                <option value="Administrative">Administrative (Fees/Documents)</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label style="font-size:12px; font-weight:bold;">Description</label>
+            <textarea id="issueDesc" rows="4" placeholder="Please describe the problem in detail..."></textarea>
+
+            <button class="btn btn-d" onclick="submitIssueReport()">
+                <i class="fa fa-paper-plane"></i> Submit Report
+            </button>
+        </div>
+    </div>
+</div>
+<div id="aboutCollegeModal" class="modal">
+    <div class="modal-content" 
+    style="width: 95%; max-width: 1200px; height: 90vh;">
+        <div style="padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; 
+        border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" 
+                style="width: 30px; border-radius: 5px;">
+                <h3 style="margin:0; font-size: 16px; color: #0f172a;">Sinhgad Institute Website</h3>
+            </div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <a href="https://sinhgad.edu/" target="_blank" class="btn btn-s" 
+                style="padding: 6px 12px; font-size: 12px; text-decoration: none;">
+                    <i class="fa fa-external-link-alt"></i> Open in Browser
+                </a>
+                <span class="close-modal" 
+                style="position: static; color: #64748b; font-size: 24px;" 
+                onclick="closeModal('aboutCollegeModal')">&times;</span>
+            </div>
+        </div>
+        
+        <iframe src="https://sinhgad.edu/" 
+        class="iframe-full-height" 
+        title="Sinhgad Website" 
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms">
+            <p style="padding: 20px; text-align: center;">Your browser does not support iframes.</p>
+        </iframe>
+    </div>
+</div>
+<div id="studyMaterialModal" class="modal">
+    <div class="modal-content" 
+    style="width: 95%; max-width: 1200px; height: 90vh;">
+        <div style="padding: 15px 25px; display: flex; justify-content: space-between; 
+        align-items: center; border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fa fa-book-reader" 
+                style="font-size: 20px; color: #3b82f6;"></i>
+                <h3 style="margin:0; font-size: 16px; color: #0f172a;">Engineering Study Material (BrainKart)</h3>
+            </div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <a href="https://www.brainkart.com/menu/engineering/" target="_blank" class="btn btn-s" 
+                style="padding: 6px 12px; font-size: 12px; text-decoration: none;">
+                    <i class="fa fa-external-link-alt"></i> Open in Browser
+                </a>
+                <span class="close-modal" 
+                style="position: static; color: #64748b; font-size: 24px;" 
+                onclick="closeModal('studyMaterialModal')">&times;</span>
+            </div>
+        </div>
+        
+        <iframe src="https://www.brainkart.com/menu/engineering/" 
+        class="iframe-full-height" 
+        title="Study Material" 
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms">
+            <p style="padding: 20px; text-align: center;">Your browser does not support iframes.</p>
+        </iframe>
+    </div>
+</div>
+<div id="universityLoginModal" class="modal">
+    <div class="modal-content" style="width: 95%; max-width: 1200px; height: 90vh;">
+        <div style="padding: 15px 25px; display: flex; justify-content: space-between; align-items: 
+        center; border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fa fa-graduation-cap" style="font-size: 20px; color: #b45309;"></i>
+                <h3 style="margin:0; font-size: 16px; color: #0f172a;">SPPU University Student Login</h3>
+            </div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <a href="https://www.unipune.ac.in/" 
+                target="_blank" 
+                class="btn btn-s" 
+                style="padding: 6px 12px; font-size: 12px; text-decoration: none;">
+                    <i class="fa fa-external-link-alt"></i> Open in Browser
+                </a>
+                <span class="close-modal" 
+                style="position: static; color: #64748b; font-size: 24px;" 
+                onclick="closeModal('universityLoginModal')">&times;</span>
+            </div>
+        </div>
+        
+        <iframe src="https://www.unipune.ac.in/" 
+        class="iframe-full-height" 
+        title="University Login" 
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms">
+            <p style="padding: 20px; text-align: center;">Your browser does not support iframes.</p>
+        </iframe>
+    </div>
+</div>
+<div id="universalBrowserModal" class="modal" style="z-index: 3000;">
+    <div class="modal-content browser-modal-content">
+        <div class="browser-header">
+            <div class="browser-title">
+                <i class="fa fa-globe" style="color:var(--accent)"></i>
+                <span id="browserTitleText">Web Portal</span>
+            </div>
+            <div class="browser-controls">
+                <button class="btn btn-s" style="padding: 5px 10px; font-size: 12px;" onclick="refreshBrowserFrame()">
+                    <i class="fa fa-sync"></i> Refresh
+                </button>
+                <button class="btn btn-d" style="padding: 5px 10px; font-size: 12px;" onclick="closeModal('universalBrowserModal')">
+                    <i class="fa fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+        <iframe id="universalFrame" class="browser-frame" src="" sandbox="allow-same-origin allow-scripts allow-popups allow-forms">
+            <p style="padding: 20px; text-align: center;">Your browser does not support iframes.</p>
+        </iframe>
+    </div>
+</div>
+
+<div id="messageModal" class="modal">
+    <div class="modal-content" style="max-width:400px;">
+        <span class="close-modal" onclick="closeModal('messageModal')">&times;</span>
+        <h2 style="margin-top:0;"><i class="fa fa-comment-alt"></i> Send Message</h2>
+        <p style="color:var(--text-muted); margin-bottom:15px; font-size:14px;">
+            To: <strong id="msgTargetName" style="color:var(--text-main)">Student Name</strong>
+        </p>
+        <input type="hidden" id="msgTargetPhone">
+        
+        <label style="font-size:12px; font-weight:bold; color:var(--text-muted);">MESSAGE CONTENT</label>
+        <textarea id="msgContent" rows="5" placeholder="Type your instruction or message here..." 
+            style="width:100%; margin-top:5px; margin-bottom:15px; border:1px solid var(--glass-border); padding:10px; border-radius:10px;"></textarea>
+        
+        <button class="btn btn-p" style="width:100%" onclick="sendStudentMessage()">
+            <i class="fa fa-paper-plane"></i> Send Now
+        </button>
+    </div>
+</div>
+
+<div id="viewMessagesModal" class="modal">
+    <div class="modal-content" style="max-width:500px;">
+        <span class="close-modal" onclick="closeModal('viewMessagesModal')">&times;</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:15px;">
+            <h2 style="margin:0;"><i class="fa fa-envelope-open-text" style="color:var(--accent)"></i> Inbox</h2>
+            <button class="btn btn-s" style="padding:6px 12px; font-size:12px;" onclick="renderStudentMessages()">
+                <i class="fa fa-sync"></i> Refresh
+            </button>
+        </div>
+        <div id="studentMsgList" style="display:flex; flex-direction:column; gap:15px; max-height:400px; overflow-y:auto; padding:5px;">
+            </div>
+    </div>
+</div>
 </body>
 <script>
-    // 1. DATA INITIALIZATION
-    const INITIAL_STUDENTS = [
-         { n: "BHALERAO PAVAN DINKARAPPA",   p: "9325530650", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "1" },
+    const INITIAL_STUDENTS = 
+                            [
+        { n: "BHALERAO PAVAN DINKARAPPA",   p: "9325530650", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "1" },
         { n: "BORKAR DNYANESHWARI TANHAJI", p: "7666103944", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "2" },
         { n: "SHETKAR DNYANESH RAMCHANDRA", p: "8888216966", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "3" },
         { n: "NARWADE SHRADDHA VILAS",      p: "9423756624", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "4" },
@@ -1962,39 +3002,63 @@
         { n: "TARU ADITYA RAJENDRA", p: "9699456246", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "50" },
         { n: "SHINDE ARYAN ANIL", p: "8625903817", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "51" },
         { n: "MORE ROHIT DINESH", p: "9561228499", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "52" }
-    ];
+         ];
 
-    const DB = {
-        students: JSON.parse(localStorage.getItem('sits_pro_std')) || INITIAL_STUDENTS,
-        records: JSON.parse(localStorage.getItem('sits_pro_rec')) || [],
-        leaves: JSON.parse(localStorage.getItem('sits_pro_lev')) || [],
-        notices: JSON.parse(localStorage.getItem('sits_pro_not')) || [],
-        grid: JSON.parse(localStorage.getItem('sits_pro_grid')) || [ 
+   const DB = {
+        students: JSON.parse(localStorage.getItem('sits_pro_std_v2')) || INITIAL_STUDENTS,
+        records: JSON.parse(localStorage.getItem('sits_pro_rec_v2')) || [],
+        leaves: JSON.parse(localStorage.getItem('sits_pro_lev_v2')) || [],
+        issues: JSON.parse(localStorage.getItem('sits_pro_issues_v1')) || [], 
+        notices: JSON.parse(localStorage.getItem('sits_pro_not_v2')) || [],
+        messages: JSON.parse(localStorage.getItem('sits_pro_msgs_v1')) || [],
+        
+        grid: JSON.parse(localStorage.getItem('sits_pro_grid_v2')) || [ 
             ["Time", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], 
-            ["10:00", "Maths", "Phy", "BEEE", "Mech", "BEEE", "Phy"], 
-            ["11:00", "Phy", "Maths", "Mech", "BEEE", "Maths", "Mech"], 
+            ["10:00", "Maths", "Phy", "BEE", "Mech", "BEE", "Phy"], 
+            ["11:00", "Phy", "Maths", "Mech", "BEE", "Maths", "Mech"], 
             ["12:00", "LUNCH", "LUNCH", "LUNCH", "LUNCH", "LUNCH", "LUNCH"], 
-            ["01:00", "Mech", "BEEE", "Prog", "Phy", "Prog", "Sports"] 
+            ["01:00", "Mech", "BEE", "Prog", "Phy", "Prog", "Sports"] 
         ],
-        lms: JSON.parse(localStorage.getItem('sits_pro_lms')) || [],
+        lms: JSON.parse(localStorage.getItem('sits_pro_lms_v2')) || [],
+        submissions: JSON.parse(localStorage.getItem('sits_pro_subs_v1')) || [],
+        applications: JSON.parse(localStorage.getItem('sits_pro_apps_v2')) || [],
         divisions: ["Div-1","Div-2","Div-3","Div-4","Div-5","Div-6","Div-7","Div-8"],
         subjects: [
             "Engineering Maths 1", "Physics", "Programming", "Chemistry", 
             "Graphics", "BXE", "Mechanics", "Electrical", "Engineering Maths 2"
+        ],
+        placements: JSON.parse(localStorage.getItem('sits_pro_jobs_real_v1')) || [
+            { 
+            id: 101, role: "Web Development Intern", 
+            co: "Internshala", loc: "Work From Home", 
+            dur: "3 Months", stip: "10,000 /Mo", 
+            dl: "2026-02-28", type: "Internship", 
+            mode: "EXTERNAL", link: "https://internshala.com" 
+        },
+            { 
+                id: 102, role: "React Native Developer", 
+                co: "Zomato", loc: "Gurgaon", 
+                dur: "6 Months", stip: "25,000 /Mo", 
+                dl: "2026-03-10", type: "Full Time", 
+                mode: "INTERNAL", link: "" }
         ]
     };
 
     function saveDB() {
-        localStorage.setItem('sits_pro_std', JSON.stringify(DB.students));
-        localStorage.setItem('sits_pro_rec', JSON.stringify(DB.records));
-        localStorage.setItem('sits_pro_lev', JSON.stringify(DB.leaves));
-        localStorage.setItem('sits_pro_not', JSON.stringify(DB.notices));
-        localStorage.setItem('sits_pro_grid', JSON.stringify(DB.grid));
-        localStorage.setItem('sits_pro_lms', JSON.stringify(DB.lms));
+        localStorage.setItem('sits_pro_std_v2', JSON.stringify(DB.students));
+        localStorage.setItem('sits_pro_rec_v2', JSON.stringify(DB.records));
+        localStorage.setItem('sits_pro_lev_v2', JSON.stringify(DB.leaves));
+        localStorage.setItem('sits_pro_not_v2', JSON.stringify(DB.notices));
+        localStorage.setItem('sits_pro_grid_v2', JSON.stringify(DB.grid));
+        localStorage.setItem('sits_pro_lms_v2', JSON.stringify(DB.lms));
+        localStorage.setItem('sits_pro_subs_v1', JSON.stringify(DB.submissions));
+        localStorage.setItem('sits_pro_apps_v2', JSON.stringify(DB.applications)); 
+        localStorage.setItem('sits_pro_jobs_real_v1', JSON.stringify(DB.placements));
+        localStorage.setItem('sits_pro_issues_v1', JSON.stringify(DB.issues));
+        // --- NEW SAVE ---
+        localStorage.setItem('sits_pro_msgs_v1', JSON.stringify(DB.messages));
     }
 
-    let activeUser = null;
-    let markCols = ["UT-1"];
 
     function toggleSidebar() {
         document.getElementById('sidebar').classList.toggle('active');
@@ -2007,75 +3071,127 @@
         
         if(id==="admin@sits.com" && pass==="admin") {
             activeUser = {role:"ADMIN", n:"Admin"};
+            playWelcomeAudio(activeUser); 
             loadDashboard();
         } else if(id==="teacher@sits.com" && pass==="1234") {
             activeUser = {role:"TEACHER", n:"Faculty Member"};
+            playWelcomeAudio(activeUser); 
             loadDashboard();
         } else {
             const st = DB.students.find(s => s.p === id || `P-${s.p}` === id);
+            
             if(st && (pass==="1234" || pass==="parent")) { 
                 activeUser = {...st, role: pass==="parent"?"PARENT":"STUDENT"}; 
+                playWelcomeAudio(activeUser); 
                 loadDashboard(); 
             } else {
                 alert("Invalid Credentials. Students: Use Phone Number as ID.");
             }
         }
     }
-
-    function loadDashboard() {
-        document.getElementById('authScreen').style.display = 'none';
-        document.getElementById('sidebar').style.display = 'flex';
-        document.getElementById('mainContent').style.display = 'block';
-        document.getElementById('sideName').innerText = activeUser.n;
-        document.getElementById('sideRole').innerText = activeUser.role;
-        document.getElementById('sideAvatar').innerText = activeUser.n.charAt(0);
-        document.getElementById('dashName').innerText = activeUser.n.split(' ')[0];
+    function playWelcomeAudio(user) {
+        let text = "";
         
-        if(DB.notices.length) {
-            document.getElementById('noticeWidget').style.display = 'block';
-            document.getElementById('noticeText').innerText = DB.notices[0].txt;
-            document.getElementById('noticeDate').innerText = DB.notices[0].date;
-        }
-
-        const nav = document.getElementById('navLinks');
-        nav.innerHTML = "";
-        
-        if(activeUser.role === "ADMIN") {
-            nav.innerHTML += `<div class="nav-link active" onclick="showPage('admin'); toggleSidebar()">
-                <i class="fa fa-cogs">
-                </i> Admin Control</div>`;
-            handleYearChange('aYear', 'aBranch'); 
-            refreshAdminView(); 
-            renderLeaveRequests('adminLeaveTable'); 
-            showPage('admin');
-        } else if(activeUser.role === "TEACHER") {
-            nav.innerHTML += `<div class="nav-link active" onclick="showPage('teacher'); toggleSidebar()">
-                <i class="fa fa-chalkboard-teacher">
-                    </i> Faculty Dashboard</div>`;
-            handleYearChange('tYear', 'tBranch'); 
-            updateClock(); 
-            renderLeaveRequests('teacherLeaveTable'); 
-            showPage('teacher');
+        if (user.role === "STUDENT") {
+            let year = user.y.replace("1ST", "First").replace("2ND", "Second").replace("3RD", "Third").replace("4TH", "Fourth");
+            let div = user.d.replace(" ");
+            
+            text = `${user.n}, ${year}, ${div} student, Welcome to Sinhgad Institute of Technology and Science ( S I T S ) Platform Developed By Shubham Sanap 1228 `;
         } else {
-            nav.innerHTML += `<div class="nav-link active" onclick="showPage('student'); toggleSidebar()">
-                <i class="fa fa-user-graduate"></i> Student Portal</div>`;
-            document.getElementById('stDetails').innerText = `${activeUser.y} | ${activeUser.b} | Roll: ${activeUser.r} | ${activeUser.d}`;
-            document.getElementById('stFeeBadge').innerText = activeUser.fee === 'Paid' ? 'Fees Paid' : 'Fees Pending';
-            document.getElementById('stFeeBadge').className = activeUser.fee === 'Paid' ? 'tag tag-p' : 'tag tag-pend';
-            
-            renderStudentStats();
-            renderStudentMarks();
-            renderStudentLMS();
-            
-            showPage('student');
+            text = `Welcome ${user.n} to Sinhgad Institute of Technology and Science ( S I T S )  Platform Developed By Shubham Sanap 1228`;
         }
+
+        window.speechSynthesis.cancel();
+
+        const speech = new SpeechSynthesisUtterance(text);
+        speech.lang = "en-IN"; 
+        speech.volume = 1;     
+        speech.rate = 0.9;     
+        speech.pitch = 1;      
+        
+        window.speechSynthesis.speak(speech);
+    }
+function loadDashboard() {
+    document.getElementById('authScreen').style.display = 'none';
+    document.getElementById('sidebar').style.display = 'flex';
+    document.getElementById('mainContent').style.display = 'block';
+    
+    document.getElementById('sideName').innerText = activeUser.n;
+    document.getElementById('sideRole').innerText = activeUser.role;
+    document.getElementById('sideAvatar').innerText = activeUser.n.charAt(0);
+    document.getElementById('dashName').innerText = activeUser.n.split(' ')[0];
+    
+    if(DB.notices.length) {
+        document.getElementById('noticeWidget').style.display = 'block';
+        document.getElementById('noticeText').innerText = DB.notices[0].txt;
+        document.getElementById('noticeDate').innerText = DB.notices[0].date;
     }
 
-    function showPage(id) { 
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
-        document.getElementById(id + 'Page').classList.add('active'); 
-    }
+    const nav = document.getElementById('navLinks');
+    nav.innerHTML = "";
+    
+    if(activeUser.role === "ADMIN") {
+        nav.innerHTML += `<div class="nav-link active" onclick="showPage('admin'); toggleSidebar()">
+            <i class="fa fa-cogs"></i> Admin Control</div>`;
+            
+        nav.innerHTML += `<div class="nav-link" onclick="showPage('placement'); toggleSidebar(); renderJobs();">
+            <i class="fa fa-briefcase"></i> Placements (Admin)</div>`;
+            
+        handleYearChange('aYear', 'aBranch'); 
+        refreshAdminView(); 
+        renderAdminIssues(); 
+        renderLeaveRequests('adminLeaveTable'); 
+        showPage('admin');
+    } 
+    else if(activeUser.role === "TEACHER") {
+        nav.innerHTML += `<div class="nav-link active" onclick="showPage('teacher'); toggleSidebar()">
+            <i class="fa fa-chalkboard-teacher"></i> Faculty Dashboard</div>`;
+        handleYearChange('tYear', 'tBranch'); 
+        updateClock(); 
+        renderLeaveRequests('teacherLeaveTable'); 
+        showPage('teacher');
+    } 
+    else {
+        nav.innerHTML += `<div class="nav-link active" onclick="showPage('student'); toggleSidebar()">
+            <i class="fa fa-user-graduate"></i> Student Portal</div>`;
+        
+        nav.innerHTML += `<div class="nav-link" onclick="showPage('placement'); toggleSidebar(); renderJobs();">
+            <i class="fa fa-briefcase"></i> Internships & Jobs</div>`;
 
+        nav.innerHTML += `<div class="nav-link" onclick="openAboutCollege(); toggleSidebar();">
+            <i class="fa fa-university"></i> About College</div>`;
+
+        nav.innerHTML += `<div class="nav-link" onclick="openStudyMaterial(); toggleSidebar();">
+            <i class="fa fa-book-reader"></i> Online Study Material</div>`;
+
+        nav.innerHTML += `<div class="nav-link" onclick="openUniversityLogin(); toggleSidebar();">
+            <i class="fa fa-graduation-cap"></i> University Login</div>`;
+            
+        document.getElementById('stDetails').innerText = `${activeUser.y} | ${activeUser.b} | Roll: ${activeUser.r} | ${activeUser.d}`;
+        const feeBadge = document.getElementById('stFeeBadge');
+        feeBadge.innerText = activeUser.fee === 'Paid' ? 'Fees Paid' : 'Fees Pending';
+        feeBadge.className = activeUser.fee === 'Paid' ? 'tag tag-p' : 'tag tag-pend';
+        
+        renderStudentStats();
+        renderStudentMarks();
+        renderStudentLMS();
+        renderStudentSelfDocs();
+        
+        setTimeout(() => renderJobs(), 100); 
+        
+        showPage('student');
+    }
+}
+  function showPage(id) { 
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
+    
+    const target = document.getElementById(id + 'Page');
+    if(target) {
+        target.classList.add('active'); 
+    } else {
+        console.error("Page not found:", id + "Page");
+    }
+}
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function toggleTheme() { document.body.classList.toggle('dark'); }
@@ -2084,47 +3200,232 @@
         document.getElementById('clockDisplay').innerText = new Date().toLocaleTimeString();
         setTimeout(updateClock, 1000);
     }
-
-    function handleYearChange(yId, bId) {
-        const y = document.getElementById(yId).value;
-        const b = document.getElementById(bId);
-        b.innerHTML = (y==="1ST YEAR" ? ["COMBINE"] : ["IT","CS","ENTC","MECH","CIVIL"])
+function handleYearChange(yId, bId) {
+    const y = document.getElementById(yId).value;
+    const b = document.getElementById(bId);
+    
+    b.innerHTML = (y === "1ST YEAR" ? ["COMBINE"] : ["IT", "CS", "ENTC", "MECH", "CIVIL"])
         .map(x => `<option>${x}</option>`).join('');
-        document.getElementById(yId==='aYear'?'aDiv':'tDiv').innerHTML = DB.divisions
-        .map(d => `<option>${d}</option>`).join('');
-        if(yId !== 'aYear') document.getElementById('tSub').innerHTML = DB.subjects
-        .map(s => `<option>${s}</option>`).join('');
-        if(yId === 'aYear') refreshAdminView();
+
+    const divSelectId = yId === 'aYear' ? 'aDiv' : 'tDiv';
+    const divSelect = document.getElementById(divSelectId);
+    divSelect.innerHTML = DB.divisions.map(d => `<option>${d}</option>`).join('');
+
+    if (yId === 'aYear') {
+        refreshAdminView();
     }
 
-    function refreshAdminView() {
-        const y = document.getElementById('aYear').value, b = document.getElementById('aBranch').value, d = document.getElementById('aDiv').value;
-        const list = DB.students.filter(s => s.y===y && s.b===b && s.d===d).sort((x,z) => x.r - z.r);
-        
-        document.getElementById('adminStudentTable').innerHTML = `<thead><tr><th>Roll</th><th>Name</th><th>Fees</th><th>X</th></tr></thead><tbody>` + 
-        list.map(s => `<tr><td>${s.r}</td><td>${s.n}<br><small>${s.p}</small></td><td><span class="tag 
-            ${s.fee==='Paid'?'tag-p':'tag-pend'}">${s.fee||'Pending'}</span></td><td><button class="btn btn-d" onclick="delStudent('${s.p}')"
-                >X</button></td></tr>`).join('') + "</tbody>";
+    if (yId === 'tYear') {
+        divSelect.onchange = () => {
+            renderLeaveRequests('teacherLeaveTable');
+            refreshTeacherClassList(); 
+        };
+        renderLeaveRequests('teacherLeaveTable');
+        refreshTeacherClassList(); 
+    }
+    
+    if (yId !== 'aYear') {
+        document.getElementById('tSub').innerHTML = DB.subjects
+            .map(s => `<option>${s}</option>`).join('');
+    }
+}
+function refreshTeacherClassList() {
+    const div = document.getElementById('tDiv').value;
+    const branch = document.getElementById('tBranch').value;
+    const year = document.getElementById('tYear').value;
+    const list = DB.students.filter(s => s.y === year && s.b === branch && s.d === div)
+                            .sort((a,b) => a.r - b.r);
+
+    const tbody = document.getElementById('teacherStudentTable');
+    if(!tbody) return;
+
+    if(list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; 
+            color:var(--text-muted);">No students found for ${year} ${div}.</td></tr>`;
+        return;
     }
 
-    function saveNewStudent() {
-        const n = document.getElementById('newStName').value;
-        const p = document.getElementById('newStPhone').value;
-        const r = document.getElementById('newStRoll').value;
+    tbody.innerHTML = list.map(s => {
+        const docCount = s.docs ? Object.keys(s.docs).length : 0;
+        const docBadge = docCount > 0 
+            ? `<span class="tag tag-p" style="font-size:10px;">${docCount} File(s)</span>`
+            : `<span style="color:#ccc; font-size:11px;">-</span>`;
+
+        return `
+        <tr>
+            <td><strong>${s.r}</strong></td>
+            <td>
+                <div style="font-weight:600; color:var(--text-main);">${s.n}</div>
+                <div style="font-size:11px; color:var(--text-muted);">${s.p}</div>
+            </td>
+            <td>${docBadge}</td>
+            <td>
+                <div style="display:flex; gap:5px;">
+                    <button class="btn btn-s" style="padding:6px 12px; font-size:12px;" onclick="openProfile('${s.p}')">
+                        <i class="fa fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-w" style="padding:6px 12px; font-size:12px;" onclick="openMessageModal('${s.p}', '${s.n}')">
+                        <i class="fa fa-comment-dots"></i> Message
+                    </button>
+                </div>
+            </td>
+        </tr>`;
+    }).join('');
+}
+ function refreshAdminView() {
+    const y = document.getElementById('aYear').value;
+    const b = document.getElementById('aBranch').value;
+    const d = document.getElementById('aDiv').value;
+    
+    const list = DB.students.filter(s => s.y===y && s.b===b && s.d===d).sort((x,z) => x.r - z.r);
+    
+    document.getElementById('adminStudentTable').innerHTML = `
+    <thead><tr><th>R</th><th>Name</th><th>Status</th><th>Actions</th></tr></thead><tbody>` + 
+    list.map(s => `
+        <tr>
+            <td><strong>${s.r}</strong></td>
+            <td>
+                <div style="font-weight:600;">${s.n}</div>
+                <small style="color:var(--text-muted);">${s.p}</small>
+            </td>
+            <td><span class="tag ${s.fee==='Paid'?'tag-p':'tag-pend'}">${s.fee||'Pending'}</span></td>
+            <td>
+                <div style="display:flex; gap:5px;">
+                    <button class="btn btn-s" style="padding:5px 10px;" onclick="openProfile('${s.p}')" title="View Profile">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button class="btn btn-w" style="padding:5px 10px;" onclick="openMessageModal('${s.p}', '${s.n}')" title="Message Student">
+                        <i class="fa fa-comment-alt"></i>
+                    </button>
+                    <button class="btn btn-d" style="padding:5px 10px;" onclick="delStudent('${s.p}')" title="Delete">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>`).join('') + "</tbody>";
+
+    animateLists();
+}
+
+let currentProfileUser = null;
+
+function openProfile(phone) {
+    const s = DB.students.find(st => st.p == phone);
+    if(!s) return;
+    
+    currentProfileUser = s;
+    
+    document.getElementById('profAvatar').innerText = s.n.charAt(0);
+    document.getElementById('profName').innerText = s.n;
+    document.getElementById('profSubtitle').innerText = `${s.y} | ${s.b} | ${s.d} | Roll: ${s.r}`;
+    
+    const p = s.personal || {};
+    const c = s.contact || {};
+    
+    document.getElementById('profInfoGrid').innerHTML = `
+        <div class="info-item"><label>Full Name</label><div>${s.n}</div></div>
+        <div class="info-item"><label>Roll Number</label><div>${s.r}</div></div>
+        <div class="info-item"><label>Mobile</label><div>${s.p}</div></div>
+        <div class="info-item"><label>Email</label><div>${c.email || '-'}</div></div>
+        <div class="info-item"><label>Address</label><div>${p.addr || '-'}</div></div>
+        <div class="info-item"><label>Father's Name</label><div>${p.father || '-'}</div></div>
+        <div class="info-item"><label>Mother's Name</label><div>${p.mother || '-'}</div></div>
+        <div class="info-item"><label>Father's Occupation</label><div>${p.occ || '-'}</div></div>
+        <div class="info-item"><label>Parent Contact</label><div>${c.parent || '-'}</div></div>
+        <div class="info-item"><label>Emergency Contact</label><div>${c.emergency || '-'}</div></div>
+    `;
+
+    const docs = s.docs || {};
+    const docRows = Object.keys(docs).map(key => `
+        <tr>
+            <td><div style="font-weight:600;">${key}</div><small>${docs[key].fileName}</small></td>
+            <td><span class="tag tag-p">Uploaded</span></td>
+            <td>
+                <button class="btn btn-p" style="padding:5px 10px; font-size:12px;" onclick="viewDocument('${docs[key].fileName}')">
+                    <i class="fa fa-eye"></i> View
+                </button>
+            </td>
+        </tr>
+    `).join('');
+    
+    document.querySelector('#profDocTable tbody').innerHTML = docRows || 
+    '<tr><td colspan="3" style="text-align:center; padding:20px;">No documents uploaded.</td></tr>';
+
+    openModal('profileModal');
+}
+
+function switchProfileTab(tabId) {
+    document.querySelectorAll('.prof-tab').forEach(t => t.style.display = 'none');
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).style.display = 'block';
+    event.target.classList.add('active');
+}
+
+function viewDocument(fileName) {
+    alert("Simulating preview for: " + fileName + "\n\n(In a real backend, this would open the PDF/Image)");
+}
+
+const originalOpenModal = window.openModal;
+window.openModal = function(id) {
+    if(id === 'admissionModal') {
+        renderDocUploads();
+        handleAdmissionYear();
+    }
+    document.getElementById(id).style.display = 'flex';
+}
+function submitAdmission() {
+    const year = document.getElementById('admYear').value;
+    const branch = document.getElementById('admBranch').value; 
+    const div = document.getElementById('admDiv').value;
+    const roll = document.getElementById('admRoll').value;
+    const fee = document.getElementById('admFee').value;
+    
+    const student = {
+        n: document.getElementById('admName').value,
+        p: document.getElementById('admPhone').value,
+        r: roll,
+        y: year,
+        b: branch,
+        d: div,
+        fee: fee,
+        personal: {
+            father: document.getElementById('admFather').value,
+            mother: document.getElementById('admMother').value,
+            occ: document.getElementById('admOcc').value,
+            addr: document.getElementById('admAddr').value
+        },
+        contact: {
+            email: document.getElementById('admEmail').value,
+            parent: document.getElementById('admParPhone').value,
+            emergency: document.getElementById('admEmgPhone').value
+        },
+        docs: {}
         
-        if(n && p && r) {
-            DB.students.push({ 
-                n, p, r, 
-                y: document.getElementById('aYear').value, 
-                b: document.getElementById('aBranch').value, 
-                d: document.getElementById('aDiv').value, 
-                fee: document.getElementById('newStFee').value 
-            });
-            saveDB(); 
-            refreshAdminView(); 
-            closeModal('addStudentModal');
+    };
+
+    if(!student.n || !student.p || !student.r) {
+        alert("Please fill at least Name, Phone, and Roll Number.");
+        return;
+    }
+
+    const inputs = document.querySelectorAll('.doc-upload-item input[type="file"]');
+    inputs.forEach((inp, index) => {
+        if(inp.files.length > 0) {
+            const docName = REQUIRED_DOCS[index];
+            student.docs[docName] = {
+                fileName: inp.files[0].name,
+                uploaded: true,
+                date: new Date().toLocaleDateString()
+            };
         }
-    }
+    });
+
+    DB.students.push(student);
+    saveDB();
+    refreshAdminView();
+    closeModal('admissionModal');
+    alert("Student Admission Successful!");
+}
 
     function delStudent(p) { 
         if(confirm("Delete?")) { 
@@ -2141,48 +3442,95 @@
         openModal('timetableModal');
     }
 
-    function renderTimetable(editable) {
-        const table = document.getElementById('ttTable'); 
-        table.innerHTML = "";
-        
-        DB.grid.forEach((row, rIndex) => {
-            const tr = document.createElement('tr');
-            row.forEach((cellData, cIndex) => {
-                const cell = rIndex === 0 ? document.createElement('th') : document.createElement('td');
-                if(editable) {
-                    const input = document.createElement('input'); 
-                    input.value = cellData;
-                    input.style.minWidth = "60px";
-                    input.onchange = (e) => { DB.grid[rIndex][cIndex] = e.target.value; };
-                    cell.appendChild(input);
-                    if(rIndex===0 && cIndex>0) { 
-                        const btn=document.createElement('div'); 
-                        btn.style.cursor='pointer'; 
-                        btn.style.color='red'; 
-                        btn.innerText='x'; 
-                        btn.onclick=()=>removeTtCol(cIndex); 
-                        cell.appendChild(btn); 
-                    }
-                    if(cIndex===0 && rIndex>0) { 
-                        const btn=document.createElement('div'); 
-                        btn.style.cursor='pointer'; 
-                        btn.style.color='red'; 
-                        btn.innerText='x'; 
-                        btn.onclick=()=>removeTtRow(rIndex); 
-                        cell.appendChild(btn); 
-                    }
-                } else {
-                    cell.innerText = cellData;
-                    if(cellData==="LUNCH") { 
-                        cell.style.background="#f1f5f9"; 
-                        cell.style.color="#94a3b8"; 
-                        cell.style.fontWeight="bold"; 
-                    }
-                }
-                tr.appendChild(cell);
-            });
-            table.appendChild(tr);
-        });
+   function renderLeaveRequests(tid) {
+        let list = DB.leaves.map((l, index) => ({ ...l, originalIndex: index }));
+
+        if (activeUser && activeUser.role === 'TEACHER') {
+            const currentDiv = document.getElementById('tDiv').value;
+            if (currentDiv) {
+                list = list.filter(l => l.div === currentDiv);
+            }
+        }
+
+        let html = `<thead>
+            <tr>
+                <th style="text-align:left; padding-left:20px;">Student Details</th>
+                <th>Reason</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead><tbody>`;
+
+        if (list.length === 0) {
+            html += `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); 
+                padding:25px;">No leave requests found for this Division.</td></tr>`;
+        } else {
+            list.sort((a, b) => (a.status === 'Pending' ? -1 : 1));
+
+            html += list.map(l => `
+                <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                    <td style="text-align:left; padding: 15px 20px;">
+                        <div style="font-weight:700; color:var(--text-main); font-size:14px; margin-bottom:4px;">
+                            ${l.name.toUpperCase()}
+                        </div>
+                        <div style="font-size:12px; color:var(--text-muted);">
+                            ${l.div} <span style="opacity:0.3; margin:0 4px;">|</span> Roll: ${l.roll}
+                        </div>
+                    </td>
+                    <td style="font-weight:600; font-size:13px; color:#475569; text-transform:uppercase;">
+                        ${l.reason}
+                    </td>
+                    <td style="font-weight:600; color:var(--text-main);">
+                        ${l.date}
+                    </td>
+                    <td>
+                        <span style="
+                            padding: 6px 16px; 
+                            border-radius: 50px; 
+                            font-size: 11px; 
+                            font-weight: 800; 
+                            letter-spacing: 0.5px; 
+                            text-transform: uppercase;
+                            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                            ${l.status === 'Approved' ? 'background:#dcfce7; color:#16a34a;' : 
+                             (l.status === 'Rejected' ? 'background:#fee2e2; color:#ef4444;' : 
+                             'background:#fef3c7; color:#d97706;')}">
+                            ${l.status}
+                        </span>
+                    </td>
+                    <td>
+                        ${l.status === 'Pending' ? `
+                        <div style="display:flex; gap:8px; justify-content:center;">
+                            <button onclick="updateLeave(${l.originalIndex}, 'Approved')" 
+                                style="background:#10b981; color:white; border:none; 
+                                padding:8px 16px; border-radius:50px; cursor:pointer; font-weight:600; display:flex; 
+                                align-items:center; gap:6px; font-size:12px; box-shadow:0 4px 10px rgba(16,185,129,0.2);">
+                                <i class="fa fa-check"></i> Allow
+                            </button>
+                            <button onclick="updateLeave(${l.originalIndex}, 'Rejected')" 
+                                style="background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid #ef4444;
+                                padding:8px 16px; border-radius:50px; cursor:pointer; font-weight:600; 
+                                display:flex; align-items:center; gap:6px; font-size:12px;">
+                                <i class="fa fa-times"></i> Deny
+                            </button>
+                        </div>
+                        ` : '<span style="color:var(--text-muted); font-size:20px;">-</span>'}
+                    </td>
+                </tr>`).join('');
+        }
+
+        document.getElementById(tid).innerHTML = html + "</tbody>";
+    }
+
+    function updateLeave(idx, status) {
+        if (DB.leaves[idx]) {
+            DB.leaves[idx].status = status;
+            saveDB();
+            
+            if (activeUser.role === 'ADMIN') renderLeaveRequests('adminLeaveTable');
+            if (activeUser.role === 'TEACHER') renderLeaveRequests('teacherLeaveTable');
+        }
     }
 
     function addTtRow() { DB.grid.push(new Array(DB.grid[0].length).fill("")); renderTimetable(true); }
@@ -2325,7 +3673,8 @@
         
         document.querySelectorAll('.marks-inp').forEach(i => {
             if(i.value) {
-                const existingIdx = DB.records.findIndex(r => r.type==='MRK' && r.roll===i.dataset.r && r.col===i.dataset.c && r.sub===sub);
+                const existingIdx = DB.records.findIndex(r => 
+                r.type==='MRK' && r.roll===i.dataset.r && r.col===i.dataset.c && r.sub===sub);
                 if(existingIdx > -1) DB.records.splice(existingIdx, 1);
                 
                 DB.records.push({
@@ -2389,75 +3738,95 @@
         document.getElementById('lmsFileLocal').value = "";
     }
 
-    function renderStudentStats() {
-        const myAttRecords = DB.records.filter(r => r.type === 'ATT' && r.div === activeUser.d);
-        let present = 0, total = 0;
-        let html = "";
-        
-        myAttRecords.forEach(r => {
-            total++;
-            const isAbsent = r.abs.includes(activeUser.r);
-            if (!isAbsent) present++;
-            html += `<tr><td>${r.date}</td><td>${r.sub}</td><td><span class="tag ${isAbsent ? 'tag-a' : 'tag-p'}">${isAbsent ? 'Absent' : 'Present'}</span></td></tr>`;
+ function renderStudentStats() {
+    const myAttRecords = DB.records.filter(r => r.type === 'ATT' && r.div === activeUser.d);
+    let present = 0, total = 0;
+    let html = "";
+    
+    myAttRecords.forEach(r => {
+        total++;
+        const isAbsent = r.abs.includes(activeUser.r);
+        if (!isAbsent) present++;
+        html += `<tr><td>${r.date}</td><td>${r.sub}</td><td><span class="tag 
+          ${isAbsent ? 'tag-a' : 'tag-p'}">${isAbsent ? 'Absent' : 'Present'}</span></td></tr>`;
+    });
+
+    const pct = total > 0 ? Math.round((present / total) * 100) : 0;
+    const chart = document.getElementById('stAttChart');
+    chart.style.setProperty('--p', `${pct * 3.6}deg`); 
+    chart.setAttribute('data-val', `${pct}%`);
+    document.querySelector('#stAttTable tbody').innerHTML = html.split('</tr>').reverse().join('</tr>');
+
+    animateLists(); 
+}
+
+ function renderStudentMarks() {
+    const myMarks = DB.records.filter(r => r.type === 'MRK' && r.roll === activeUser.r);
+    let html = "";
+    
+    if(myMarks.length === 0) {
+        html = "<tr><td colspan='3' style='text-align:center'>No marks uploaded yet.</td></tr>";
+    } else {
+        myMarks.forEach(m => {
+            html += `<tr><td>${m.sub}</td><td>${m.col}</td><td style="font-weight:bold">${m.val}</td></tr>`;
         });
-
-        const pct = total > 0 ? Math.round((present / total) * 100) : 0;
-        const chart = document.getElementById('stAttChart');
-        chart.style.setProperty('--p', `${pct * 3.6}deg`); 
-        chart.setAttribute('data-val', `${pct}%`);
-        document.querySelector('#stAttTable tbody').innerHTML = html.split('</tr>').reverse().join('</tr>');
     }
+    document.querySelector('#stGradesTable tbody').innerHTML = html;
 
-    function renderStudentMarks() {
-        const myMarks = DB.records.filter(r => r.type === 'MRK' && r.roll === activeUser.r);
-        let html = "";
-        
-        if(myMarks.length === 0) {
-            html = "<tr><td colspan='3' style='text-align:center'>No marks uploaded yet.</td></tr>";
-        } else {
-            myMarks.forEach(m => {
-                html += `<tr><td>${m.sub}</td><td>${m.col}</td><td style="font-weight:bold">${m.val}</td></tr>`;
-            });
-        }
-        document.querySelector('#stGradesTable tbody').innerHTML = html;
-    }
+    animateLists(); 
+}
 
-    function renderStudentLMS() {
-        const myLms = DB.lms.filter(l => l.div === activeUser.d);
-        let html = "";
-        if(myLms.length === 0) {
-            html = "<tr><td colspan='3' style='text-align:center'>No resources available.</td></tr>";
-        } else {
-            myLms.forEach(l => {
-                let actionBtn = "";
+function renderStudentLMS() {
+    const myLms = DB.lms.filter(l => l.div === activeUser.d);
+    let html = "";
+    
+    if(myLms.length === 0) {
+        html = "<tr><td colspan='3' style='text-align:center; padding:15px; color:var(--text-muted);'>No resources available.</td></tr>";
+    } else {
+        myLms.forEach(l => {
+            const lmsId = l.id || l.title; 
+            const existingSub = DB.submissions.find(s => s.lmsId == lmsId && s.studentRoll === activeUser.r);
+            
+            let actionBtn = "";
+            
+            if (l.type === "Assignment") {
+                if (existingSub) {
+                    actionBtn = `<span class="tag tag-p"><i class="fa fa-check"></i> Turned In</span>`;
+                } else {
+                    actionBtn = `<button class="btn btn-p" style="padding:6px 12px; font-size:11px;" 
+                    onclick="openSubmitModal('${lmsId}', '${l.title}')">
+                        <i class="fa fa-upload"></i> Submit
+                    </button>`;
+                }
+            } 
+            else {
                 if(l.isFile) {
                     actionBtn = `<button class="btn btn-s" style="padding:4px 10px; font-size:11px;" onclick="downloadSimulatedFile('${l.link}')">
                         <i class="fa fa-download"></i> Download
                     </button>`;
                 } else {
-                    actionBtn = `
-                    <div style="display:flex; gap:5px;">
-                        <a href="${l.link}" target="_blank" class="btn btn-p" style="padding:4px 10px; font-size:11px; text-decoration:none;">View</a>
-                        <button class="btn btn-s" style="padding:4px 10px; font-size:11px;" onclick="downloadSimulatedFile('${l.title}.txt')">
-                            <i class="fa fa-download"></i>
-                        </button>
-                    </div>`;
+                    actionBtn = `<a href="${l.link}" target="_blank" class="btn btn-w" style="padding:4px 10px; font-size:11px; text-decoration:none;">
+                        <i class="fa fa-external-link-alt"></i> View
+                    </a>`;
                 }
-
-                html += `<tr>
-                    <td>${l.title}<br><small style="color:gray">${l.date}</small></td>
-                    <td><span class="tag">${l.type}</span></td>
-                    <td>${actionBtn}</td>
-                </tr>`;
-            });
-        }
-        document.querySelector('#stLmsTable tbody').innerHTML = html;
+            }
+            
+            html += `<tr>
+                <td>
+                    <div style="font-weight:600;">${l.title}</div>
+                    <div style="font-size:10px; opacity:0.7;">${l.date || ''}</div>
+                </td>
+                <td><span class="tag ${l.type==='Assignment'?'tag-pend':'tag-p'}">${l.type}</span></td>
+                <td>${actionBtn}</td>
+            </tr>`;
+        });
     }
-
+    document.querySelector('#stLmsTable tbody').innerHTML = html;
+}
     function downloadSimulatedFile(filename) {
         const element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent("This is a simulated download content for: " + filename));
-        element.setAttribute('download', filename);
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent("This is a simulated file content for: " + filename));
+        element.setAttribute('download', filename || "download.txt");
         element.style.display = 'none';
         document.body.appendChild(element);
         element.click();
@@ -2465,54 +3834,703 @@
     }
 
     function submitLeave() {
-        DB.leaves.push({ 
-            roll: activeUser.r, 
-            name: activeUser.n, 
-            div: activeUser.d, 
-            reason: document.getElementById('leaveReason').value, 
-            date: document.getElementById('leaveDate').value, 
-            status: 'Pending' 
-        });
-        
-        saveDB(); 
-        alert("Sent"); 
-        closeModal('applyLeaveModal');
-        document.getElementById('stLeaveStatus').innerHTML = "<small style='color:orange'>Leave Sent. Waiting for approval.</small>";
-    }
+        const reason = document.getElementById('leaveReason').value;
+        const date = document.getElementById('leaveDate').value;
 
-    function renderLeaveRequests(tid) {
-        let list = DB.leaves;
-        if(activeUser && activeUser.role === 'TEACHER') {
-            const currentDiv = document.getElementById('tDiv').value;
-            list = list.filter(l => l.div === currentDiv);
+        if(reason && date) {
+            DB.leaves.push({
+                name: activeUser.n,
+                roll: activeUser.r,
+                div: activeUser.d,
+                reason: reason,
+                date: date,
+                status: 'Pending'
+            });
+            saveDB();
+            alert("Leave Request Submitted!");
+            closeModal('applyLeaveModal');
+            document.getElementById('stLeaveStatus')
+            .innerHTML = 
+            `<span style="color:#f59e0b; font-weight:600;"><i class="fa fa-clock"></i> Leave Pending for ${date}</span>`;
+        } else {
+            alert("Please fill in all details.");
         }
-
-        document.getElementById(tid).innerHTML = `<thead><tr><th>Name</th><th>Reason</th> <th>Status</th><th>Act</th></tr></thead><tbody>` + 
-        list.map((l,i) => `<tr><td>${l.name}</td><td>${l.reason}</td><td>${l.status} </td><td>${l.status==='Pending'?`<button onclick="updateLeave(${i},'Approved')">✔</button>`:''} </td></tr>`).join('') + `</tbody>`;
     }
 
-    function updateLeave(idx,s) {
-        DB.leaves[idx].status = s; 
-        saveDB(); 
-        if(activeUser.role === 'ADMIN') renderLeaveRequests('adminLeaveTable'); 
-        if(activeUser.role === 'TEACHER') renderLeaveRequests('teacherLeaveTable'); 
+    function renderTimetable(editable) {
+        const table = document.getElementById('ttTable');
+        let html = "";
+        
+        DB.grid.forEach((row, rIdx) => {
+            html += "<tr>";
+            row.forEach((cell, cIdx) => {
+                if(rIdx === 0) {
+                    html += `<th style="background:rgba(0,0,0,0.05); padding:10px; min-width:100px;">
+                        ${editable 
+                            ? `<input value="${cell}" onchange="updateTt(${rIdx},${cIdx},
+                            this.value)" style="width:100%; border:none; background:transparent; font-weight:800; text-align:center;">
+                               <i class="fa fa-times" style="color:red; font-size:10px;
+                                cursor:pointer; display:block;" onclick="removeTtCol(${cIdx})"></i>` 
+                            : cell}
+                    </th>`;
+                } 
+                else {
+                    html += `<td style="padding:10px; border:1px solid rgba(0,0,0,0.1);">
+                        ${editable 
+                            ? `<input value="${cell}" onchange="updateTt(${rIdx},${cIdx},
+                            this.value)" style="width:100%; border:none; text-align:center; background:transparent;">` 
+                            : `<span style="font-weight:${cIdx===0?'800':'400'}">${cell}</span>`}
+                    </td>`;
+                }
+            });
+            
+            if(editable) {
+                html += `<td style="border:none; padding:5px;">
+                    <i class="fa fa-times" style="color:red; cursor:pointer;" onclick="removeTtRow(${rIdx})"></i>
+                </td>`;
+            }
+            html += "</tr>";
+        });
+        table.innerHTML = html;
+    }
+
+    function updateTt(r, c, val) {
+        DB.grid[r][c] = val;
     }
 
     function postNotice() {
-        const txt = document.getElementById('noticeContent').value; 
-        if(txt) { 
-            DB.notices.unshift({ txt, date: new Date().toLocaleDateString() }); 
-            saveDB(); 
-            alert("Published"); 
-            location.reload(); 
-        } 
+        const txt = document.getElementById('noticeContent').value;
+        if(txt) {
+            DB.notices.unshift({ 
+                txt: txt, 
+                date: new Date().toLocaleDateString() 
+            });
+            saveDB();
+            alert("Notice Published Successfully");
+            closeModal('noticeModal');
+            document.getElementById('noticeContent').value = "";
+            
+            document.getElementById('noticeWidget').style.display = 'block';
+            document.getElementById('noticeText').innerText = txt;
+        } else {
+            alert("Please write a notice first.");
+        }
+    }
+    const REQUIRED_DOCS = [
+    "Aadhar Card", "Non-Creamy Layer", "Domicile Cert", "Nationality Cert",
+    "Income Cert", "10th Marksheet", "12th Marksheet", "Gap Certificate",
+    "Caste Certificate", "Caste Validity"
+];
+
+function renderDocUploads() {
+    const container = document.getElementById('docUploadContainer');
+    container.innerHTML = REQUIRED_DOCS.map(doc => `
+        <div class="doc-upload-item">
+            <i class="fa fa-cloud-upload-alt doc-icon"></i>
+            <div style="font-size:12px; font-weight:600;">${doc}</div>
+            <small class="file-status" id="status-${doc.replace(/ /g,'')}" style="font-size:10px; color:var(--text-muted);">No file chosen</small>
+            <input type="file" onchange="updateFileStatus(this, '${doc.replace(/ /g,'')}')">
+        </div>
+    `).join('');
+}
+
+function updateFileStatus(input, id) {
+    const statusEl = document.getElementById(`status-${id}`);
+    if(input.files && input.files[0]) {
+        statusEl.innerText = input.files[0].name;
+        statusEl.style.color = "var(--success)";
+    }
+}
+
+function handleAdmissionYear() {
+    const y = document.getElementById('admYear').value;
+    const b = document.getElementById('admBranch');
+    
+    if(y === "1ST YEAR") {
+        b.innerHTML = '<option value="COMBINE">COMBINE</option>';
+        b.disabled = true;
+    } else {
+        b.disabled = false;
+        b.innerHTML = ["IT", "CS", "ENTC", "MECH", "CIVIL"].map(x => `<option>${x}</option>`).join('');
+    }
+}
+
+    function switchGuide(id) {
+        document.querySelectorAll('.guide-tab').forEach(t => t.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
     }
 
-    function switchGuide(tabId) {
-        document.querySelectorAll('.guide-tab').forEach(tab => {
-            tab.style.display = 'none';
-        });
-        document.getElementById(tabId).style.display = 'block';
+    window.onload = function() {
+    };
+
+function toggleLinkInput() {
+    const mode = document.getElementById('jobApplyMode').value;
+    document.getElementById('jobExternalLink').style.display = (mode === 'EXTERNAL') ? 'block' : 'none';
+}
+
+function postNewJob() {
+    const role = document.getElementById('jobRole').value;
+    const company = document.getElementById('jobCompany').value;
+    const stipend = document.getElementById('jobStipend').value;
+    const duration = document.getElementById('jobDuration').value;
+    const location = document.getElementById('jobLocation').value;
+    const deadline = document.getElementById('jobDeadline').value;
+    const type = document.getElementById('jobType').value;
+    const mode = document.getElementById('jobApplyMode').value;
+    const link = document.getElementById('jobExternalLink').value;
+
+    if(!role || !company || !deadline) {
+        alert("Please fill in Role, Company, and Deadline at minimum.");
+        return;
     }
+
+    const newJob = {
+        id: Date.now(), 
+        role: role,
+        co: company,
+        loc: location,
+        dur: duration,
+        stip: stipend,
+        dl: deadline,
+        type: type,
+        mode: mode, 
+    };
+
+    DB.placements.unshift(newJob); 
+    localStorage.setItem('sits_pro_jobs_real_v1', JSON.stringify(DB.placements));
+    
+    alert("Opportunity Posted Successfully!");
+    closeModal('postJobModal');
+    renderJobs(); 
+}
+
+function renderJobs() {
+    const search = document.getElementById('jobSearch') ? document.getElementById('jobSearch').value.toLowerCase() : "";
+    const filterType = document.getElementById('jobTypeFilter') ? document.getElementById('jobTypeFilter').value : "All";
+    const container = document.getElementById('jobContainer');
+
+    if(!container) return;
+
+    const jobs = DB.placements.filter(j => {
+        const matchSearch = j.role.toLowerCase().includes(search) || j.co.toLowerCase().includes(search);
+        const matchType = filterType === "All" || j.type === filterType;
+        return matchSearch && matchType;
+    });
+
+    if(jobs.length === 0) {
+        container.innerHTML = `<div style="text-align:center; grid-column:1/-1; padding:40px; color:#999;">No internships found.</div>`;
+        return;
+    }
+
+    container.innerHTML = jobs.map(j => {
+        let isApplied = false;
+        if(activeUser && activeUser.role === "STUDENT" && j.mode === "INTERNAL") {
+            isApplied = DB.applications.some(app => app.jobId === j.id && app.roll === activeUser.r);
+        }
+
+        let btnHtml = "";
+        if (j.mode === "EXTERNAL") {
+            btnHtml = `<a href="${j.link}" target="_blank" class="btn" style="background:white; border:1px solid #00A5EC; color:#00A5EC; text-decoration:none;">
+                Apply Externally <i class="fa fa-external-link-alt"></i>
+            </a>`;
+        } else {
+            btnHtml = `<button class="btn ${isApplied ? 'btn-s' : 'btn-p'}" 
+                ${isApplied ? 'disabled' : `onclick="applyJob(${j.id})"`}>
+                ${isApplied ? 'Applied' : 'Apply Now'}
+            </button>`;
+        }
+
+        return `
+        <div class="ishala-card">
+            <div class="ishala-head">
+                <div>
+                    <div class="ishala-role">${j.role}</div>
+                    <div class="ishala-company">${j.co}</div>
+                </div>
+                <div class="ishala-logo">
+                    <i class="fa fa-building" style="font-size:24px; color:#ddd;"></i>
+                </div>
+            </div>
+
+            <div class="ishala-details">
+                <div class="ishala-item">
+                    <span class="ishala-label"><i class="fa fa-map-marker-alt"></i> Location</span>
+                    <span class="ishala-value">${j.loc}</span>
+                </div>
+                <div class="ishala-item">
+                    <span class="ishala-label"><i class="fa fa-calendar-alt"></i> Duration</span>
+                    <span class="ishala-value">${j.dur}</span>
+                </div>
+                <div class="ishala-item">
+                    <span class="ishala-label"><i class="fa fa-money-bill-wave"></i> Stipend</span>
+                    <span class="ishala-value">${j.stip}</span>
+                </div>
+            </div>
+
+            <div class="ishala-tags">
+                <span class="ishala-tag">${j.type}</span>
+                <span class="ishala-time"><i class="fa fa-clock"></i> Apply by ${j.dl}</span>
+            </div>
+
+            <div class="ishala-footer">
+                <div style="font-size:12px; color:#00A5EC; font-weight:600; cursor:pointer;">View Details <i class="fa fa-chevron-right"></i></div>
+                ${btnHtml}
+            </div>
+        </div>
+        `;
+    }).join('');
+
+    animateLists(); 
+}
+function applyJob(jobId) {
+        if(!activeUser || activeUser.role !== "STUDENT") {
+            alert("Only students can apply.");
+            return;
+        }
+
+        DB.applications.push({
+            appId: Date.now(),
+            jobId: jobId,
+            roll: activeUser.r,
+            name: activeUser.n,
+            date: new Date().toLocaleDateString(),
+            status: 'Applied'
+        });
+        
+        saveDB();
+        alert("Application Submitted Successfully!");
+        renderJobs(); 
+    }
+
+function openSubmitModal(lmsId, title) {
+        document.getElementById('submitAssignmentModal')
+        .style.display = 'flex';
+        document.getElementById('submitLmsId')
+        .value = lmsId;
+        document.getElementById('submitTargetTitle')
+        .innerHTML = `Submitting for: <span style="font-weight:700; color:var(--text-main);">${title}</span>`;
+        
+        document.getElementById('submitLink')
+        .value = "";
+        document.getElementById('submitFileLocal')
+        .value = "";
+    }
+
+function saveAssignmentSubmission() {
+    const lmsId = document.getElementById('submitLmsId'
+    ).value;
+    const link = document.getElementById('submitLink')
+    .value;
+    const fileInp = document.getElementById('submitFileLocal');
+    
+    let subLink = "#";
+    let isFile = false;
+
+    if (fileInp.files.length > 0) {
+        subLink = fileInp.files[0].name; 
+        isFile = true;
+    } else if (link) {
+        subLink = link;
+    } else {
+        alert("Please attach a file or paste a link.");
+        return;
+    }
+
+    const newSub = {
+        subId: Date.now(),
+        lmsId: lmsId,
+        studentRoll: activeUser.r,
+        studentName: activeUser.n,
+        link: subLink,
+        isFile: isFile,
+        date: new Date().toLocaleDateString(),
+        status: "Submitted"
+    };
+
+    DB.submissions.push(newSub);
+    saveDB();
+    
+    alert("Assignment Submitted Successfully!");
+    closeModal('submitAssignmentModal');
+    renderStudentLMS();
+}
+
+function openStDocModal() {
+    document.getElementById('stDocFile').value = ""; 
+    document.getElementById('stDocModal').style.display = 'flex';
+}
+
+function saveStudentUpload() {
+    const docType = document.getElementById('stDocType').value;
+    const fileInput = document.getElementById('stDocFile');
+    
+    if (fileInput.files.length === 0) {
+        alert("Please select a file to upload.");
+        return;
+    }
+
+    const fileName = fileInput.files[0].name;
+
+    const dbIndex = DB.students.findIndex(s => s.p === activeUser.p);
+    
+    if (dbIndex > -1) {
+        if (!DB.students[dbIndex].docs) {
+            DB.students[dbIndex].docs = {};
+        }
+
+        DB.students[dbIndex].docs[docType] = {
+            fileName: fileName,
+            uploaded: true,
+            date: new Date().toLocaleDateString()
+        };
+
+        activeUser.docs = DB.students[dbIndex].docs;
+
+        saveDB(); 
+        renderStudentSelfDocs();
+        closeModal('stDocModal');
+        alert("Document Uploaded Successfully!");
+    } else {
+        alert("Error: Student record not found.");
+    }
+}
+
+function renderStudentSelfDocs() {
+    const tableBody = document.querySelector('#stSelfDocTable tbody');
+    if(!tableBody) return; 
+
+    const docs = activeUser.docs || {};
+    const docKeys = Object.keys(docs);
+
+    let html = "";
+    
+    if (docKeys.length === 0) {
+        html = `<tr><td colspan="3" style="text-align:center; padding:15px; color:var(--text-muted);">No documents uploaded yet.</td></tr>`;
+    } else {
+        docKeys.forEach(key => {
+            const doc = docs[key];
+            html += `
+            <tr>
+                <td style="font-weight:600;">${key}</td>
+                <td>${doc.fileName}</td>
+                <td><span class="tag tag-p">Uploaded</span></td>
+            </tr>`;
+        });
+    }
+
+    tableBody.innerHTML = html;
+}
+
+function submitIssueReport() {
+    const category = document.getElementById('issueCategory').value;
+    const desc = document.getElementById('issueDesc').value;
+
+    if (!desc.trim()) {
+        alert("Please describe the issue.");
+        return;
+    }
+
+    const newIssue = {
+        id: Date.now(),
+        studentName: activeUser.n,
+        studentRoll: activeUser.r,
+        studentPhone: activeUser.p,
+        category: category,
+        description: desc,
+        date: new Date().toLocaleDateString(),
+        status: 'Open'
+    };
+
+    DB.issues.push(newIssue);
+    saveDB(); 
+    
+    alert("Issue Reported Successfully. Admin will review it.");
+    document.getElementById('issueDesc').value = "";
+    closeModal('reportIssueModal');
+}
+
+function renderAdminIssues() {
+    const tbody = document.querySelector('#adminIssueTable tbody');
+    if (!tbody) return;
+
+    if (DB.issues.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:15px; color:var(--text-muted);">No issues reported.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = DB.issues.map((issue, index) => `
+        <tr style="background:${issue.status === 'Resolved' ? 'rgba(0,0,0,0.02)' : 'white'}">
+            <td>
+                <div style="font-weight:600; font-size:12px;">${issue.studentName}</div>
+                <div style="font-size:10px; color:var(--text-muted);">Roll: ${issue.studentRoll}</div>
+            </td>
+            <td><span class="tag" style="background:#f3f4f6; color:#374151;">${issue.category}</span></td>
+            <td>
+                <div style="font-size:12px; color:var(--text-main); max-width:200px; white-space:normal;">
+                    ${issue.description}
+                </div>
+                <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">${issue.date}</div>
+            </td>
+            <td>
+                ${issue.status === 'Open' ? 
+                `<button class="btn btn-s" style="padding:4px 8px; font-size:10px;" onclick="resolveIssue(${index})">
+                    <i class="fa fa-check"></i> Resolve
+                 </button>` : 
+                `<span style="color:green; font-size:11px; font-weight:bold;"><i class="fa fa-check-circle"></i> Done</span>`}
+            </td>
+        </tr>
+    `).join('');
+}
+
+function resolveIssue(index) {
+    if(confirm("Mark this issue as Resolved?")) {
+        DB.issues[index].status = "Resolved";
+        saveDB();
+        renderAdminIssues();
+    }
+}
+function openAboutCollege() {
+    const modal = document.getElementById('aboutCollegeModal');
+    if(modal) {
+        modal.style.display = 'flex';
+    } else {
+        alert("Error: About College module is loading...");
+    }
+}
+function openStudyMaterial() {
+    const modal = document.getElementById('studyMaterialModal');
+    if(modal) {
+        modal.style.display = 'flex';
+    } else {
+        alert("Error: Study Material module is loading...");
+    }
+}
+function openUniversityLogin() {
+    const modal = document.getElementById('universityLoginModal');
+    if(modal) {
+        modal.style.display = 'flex';
+    } else {
+        alert("Error: University Login module is loading...");
+    }
+}
+function openInAppBrowser(url, title) {
+    const modal = document.getElementById('universalBrowserModal');
+    const frame = document.getElementById('universalFrame');
+    const titleText = document.getElementById('browserTitleText');
+    
+    titleText.innerText = title;
+    frame.src = url;
+    
+    modal.style.display = 'flex';
+}
+
+function refreshBrowserFrame() {
+    const frame = document.getElementById('universalFrame');
+    frame.src = frame.src; 
+}
+
+function postNewJob() {
+    const role = document.getElementById('jobRole').value;
+    const company = document.getElementById('jobCompany').value;
+    const stipend = document.getElementById('jobStipend').value;
+    const duration = document.getElementById('jobDuration').value;
+    const location = document.getElementById('jobLocation').value;
+    const deadline = document.getElementById('jobDeadline').value;
+    const type = document.getElementById('jobType').value;
+    const mode = document.getElementById('jobApplyMode').value;
+    const link = document.getElementById('jobExternalLink').value;
+
+    if(!role || !company || !deadline) {
+        alert("Please fill in Role, Company, and Deadline at minimum.");
+        return;
+    }
+
+    const newJob = {
+        id: Date.now(), 
+        role: role,
+        co: company,
+        loc: location,
+        dur: duration,
+        stip: stipend,
+        dl: deadline,
+        type: type,
+        mode: mode,
+        link: link || "#"
+    };
+
+    DB.placements.unshift(newJob); 
+    localStorage.setItem('sits_pro_jobs_real_v1', JSON.stringify(DB.placements));
+    
+    alert("Opportunity Posted Successfully!");
+    closeModal('postJobModal');
+    renderJobs(); 
+}
+
+function renderJobs() {
+    const search = document.getElementById('jobSearch') ? document.getElementById('jobSearch').value.toLowerCase() : "";
+    const filterType = document.getElementById('jobTypeFilter') ? document.getElementById('jobTypeFilter').value : "All";
+    const container = document.getElementById('jobContainer');
+
+    if(!container) return; 
+    const jobs = DB.placements.filter(j => {
+        const matchSearch = j.role.toLowerCase().includes(search) || j.co.toLowerCase().includes(search);
+        const matchType = filterType === "All" || j.type === filterType;
+        return matchSearch && matchType;
+    });
+
+    if(jobs.length === 0) {
+        container.innerHTML = `<div style="text-align:center; grid-column:1/-1; padding:40px; color:#999;">No internships found.</div>`;
+        return;
+    }
+
+    container.innerHTML = jobs.map(j => {
+        let isApplied = false;
+        if(activeUser && activeUser.role === "STUDENT" && j.mode === "INTERNAL") {
+            isApplied = DB.applications.some(app => app.jobId === j.id && app.roll === activeUser.r);
+        }
+
+        let btnHtml = "";
+        if (j.mode === "EXTERNAL") {
+            btnHtml = `<a href="${j.link}" target="_blank" class="btn" style="background:white; border:1px solid #00A5EC; color:#00A5EC; text-decoration:none;">
+                Apply Externally <i class="fa fa-external-link-alt"></i>
+            </a>`;
+        } else {
+            btnHtml = `<button class="btn ${isApplied ? 'btn-s' : 'btn-p'}" 
+                ${isApplied ? 'disabled' : `onclick="applyJob(${j.id})"`}>
+                ${isApplied ? 'Applied' : 'Apply Now'}
+            </button>`;
+        }
+
+        return `
+        <div class="ishala-card">
+            <div class="ishala-head">
+                <div>
+                    <div class="ishala-role">${j.role}</div>
+                    <div class="ishala-company">${j.co}</div>
+                </div>
+                <div class="ishala-logo">
+                    <i class="fa fa-building" style="font-size:24px; color:#ddd;"></i>
+                </div>
+            </div>
+
+            <div class="ishala-details">
+                <div class="ishala-item">
+                    <span class="ishala-label"><i class="fa fa-map-marker-alt"></i> Location</span>
+                    <span class="ishala-value">${j.loc}</span>
+                </div>
+                <div class="ishala-item">
+                    <span class="ishala-label"><i class="fa fa-calendar-alt"></i> Duration</span>
+                    <span class="ishala-value">${j.dur}</span>
+                </div>
+                <div class="ishala-item">
+                    <span class="ishala-label"><i class="fa fa-money-bill-wave"></i> Stipend</span>
+                    <span class="ishala-value">${j.stip}</span>
+                </div>
+            </div>
+
+            <div class="ishala-tags">
+                <span class="ishala-tag">${j.type}</span>
+                <span class="ishala-time"><i class="fa fa-clock"></i> Apply by ${j.dl}</span>
+            </div>
+
+            <div class="ishala-footer">
+                <div style="font-size:12px; color:#00A5EC; font-weight:600; cursor:pointer;">View Details <i class="fa fa-chevron-right"></i></div>
+                ${btnHtml}
+            </div>
+        </div>
+        `;
+    }).join('');
+}
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('btn')) {
+        const button = e.target;
+        const circle = document.createElement('span');
+        const diameter = Math.max(button.clientWidth, button.clientHeight);
+        const radius = diameter / 2;
+
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.left = `${e.clientX - button.getBoundingClientRect().left - radius}px`;
+        circle.style.top = `${e.clientY - button.getBoundingClientRect().top - radius}px`;
+        circle.classList.add('ripple');
+
+        const ripple = button.getElementsByClassName('ripple')[0];
+        if (ripple) { ripple.remove(); }
+
+        button.appendChild(circle);
+    }
+});
+
+function animateLists() {
+    const tables = document.querySelectorAll('tbody tr, .qa-card, .ishala-card');
+    tables.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.05}s`; 
+        item.classList.add('animate-pop-in');
+    });
+}
+
+function openMessageModal(phone, name) {
+    document.getElementById('msgTargetPhone').value = phone;
+    document.getElementById('msgTargetName').innerText = name;
+    document.getElementById('msgContent').value = '';
+    
+    openModal('messageModal');
+}
+
+function sendStudentMessage() {
+    const toPhone = document.getElementById('msgTargetPhone').value;
+    const txt = document.getElementById('msgContent').value;
+    
+    if(!txt.trim()) { alert("Please type a message."); return; }
+    if(!toPhone) { alert("Error: No recipient selected."); return; }
+    
+    const newMsg = {
+        id: Date.now(),
+        from: (activeUser ? activeUser.n : "System") + " (" + (activeUser && activeUser.role === 'ADMIN' ? 'Admin' : 'Faculty') + ")",
+        to: toPhone, 
+        txt: txt,
+        date: new Date().toLocaleString(),
+        read: false
+    };
+
+    DB.messages.unshift(newMsg);
+    saveDB();
+    
+    alert("Message Sent Successfully!");
+    closeModal('messageModal');
+}
+
+function openStudentMessages() {
+    renderStudentMessages();
+    openModal('viewMessagesModal');
+    
+    const badge = document.getElementById('msgBadge');
+    if(badge) badge.style.display = 'none';
+}
+
+function renderStudentMessages() {
+    const list = document.getElementById('studentMsgList');
+    
+    const myMsgs = DB.messages.filter(m => String(m.to) === String(activeUser.p));
+    
+    if(myMsgs.length === 0) {
+        list.innerHTML = `
+        <div style="text-align:center; padding:30px; color:var(--text-muted);">
+            <i class="fa fa-inbox" style="font-size:30px; opacity:0.5; margin-bottom:10px;"></i><br>
+            No messages received yet.
+        </div>`;
+        return;
+    }
+    
+    list.innerHTML = myMsgs.map(m => `
+        <div class="card" style="margin:0; padding:15px; border-left:4px solid var(--accent); box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #eee; padding-bottom:5px;">
+                <strong style="font-size:13px; color:var(--accent);"><i class="fa fa-user-circle"></i> ${m.from}</strong>
+                <small style="color:var(--text-muted); font-size:10px;">${m.date}</small>
+            </div>
+            <div style="font-size:14px; color:var(--text-main); line-height:1.5;">${m.txt}</div>
+        </div>
+    `).join('');
+}
 </script>
 </html>
