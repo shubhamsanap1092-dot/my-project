@@ -1135,6 +1135,217 @@
     20% { left: 200%; }
     100% { left: 200%; }
 }
+/* --- RATING SYSTEM STYLES --- */
+.rating-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.2);
+    margin-top: 10px;
+}
+
+.star-rating {
+    display: flex;
+    gap: 5px;
+    font-size: 18px;
+    cursor: default; /* Default to non-clickable */
+}
+
+.star-rating.editable {
+    cursor: pointer;
+}
+
+.star-rating .fa-star {
+    color: rgba(255, 255, 255, 0.3); /* Empty star color */
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.star-rating .fa-star.filled {
+    color: #fbbf24; /* Gold color */
+    transform: scale(1.1);
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+.star-rating.editable .fa-star:hover {
+    transform: scale(1.3);
+    color: #f59e0b;
+}
+
+.dash-rating-card {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border: 1px solid #fcd34d;
+    color: #92400e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(251, 191, 36, 0.2);
+    animation: popIn 0.6s ease;
+}
+.dash-rating-score {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 10px 0;
+    color: #d97706;
+}
+/* --- EVENT CALENDAR STYLES --- */
+.event-date-box {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent);
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    min-width: 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+.event-day { 
+    font-size: 20px; 
+    font-weight: 800; 
+    line-height: 1; 
+    margin-bottom: 2px;
+}
+.event-month { 
+    font-size: 11px; 
+    text-transform: uppercase; 
+    font-weight: 700; 
+}
+.event-row {
+    display: flex;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: 0.2s;
+}
+.event-row:last-child { border-bottom: none; }
+.event-row:hover { transform: translateX(5px); }
+.event-tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 4px;
+}
+/* --- GLOBAL CHAT STYLES --- */
+.chat-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    background: #f0f2f5;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 15px;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+    background-size: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-bubble {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.msg-me {
+    align-self: flex-end;
+    background: #dcf8c6;
+    border-top-right-radius: 0;
+}
+
+.msg-other {
+    align-self: flex-start;
+    background: white;
+    border-top-left-radius: 0;
+}
+
+.msg-sender {
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--accent);
+}
+.msg-role {
+    font-size: 9px;
+    background: rgba(0,0,0,0.05);
+    padding: 1px 4px;
+    border-radius: 4px;
+    margin-left: 5px;
+    color: #555;
+}
+
+.msg-time {
+    font-size: 9px;
+    color: #999;
+    text-align: right;
+    margin-top: 4px;
+}
+
+.chat-footer {
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+}
+
+.chat-input-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f0f2f5;
+    padding: 8px 15px;
+    border-radius: 25px;
+}
+
+.file-preview {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #eef2ff;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    border: 1px solid #c7d2fe;
+}
+
+/* File Type Icons */
+.ft-pdf { color: #ef4444; }
+.ft-img { color: #3b82f6; }
+.ft-vid { color: #8b5cf6; }
+.ft-aud { color: #f59e0b; }
+.et-Holiday { background: #fee2e2; color: #ef4444; }
+.et-Exam { background: #fef3c7; color: #d97706; }
+.et-Event { background: #dcfce7; color: #16a34a; }
+.et-Seminar { background: #e0e7ff; color: #4338ca; }
 </style>
 </head>
 <body>
@@ -1362,7 +1573,19 @@
             </button>
         </div>
     </div>
-
+<div class="card" style="min-height:300px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid rgba(0,0,0,0.05); padding-bottom:10px;">
+        <h3 style="margin:0; display:flex; align-items:center; gap:10px;">
+            <i class="fa fa-calendar-alt" style="color:var(--accent);"></i> Academic Calendar
+        </h3>
+        <button class="btn btn-p" id="btnAddEvent" style="padding:6px 12px; font-size:12px; display:none;" onclick="openModal('addEventModal')">
+            <i class="fa fa-plus"></i> Add
+        </button>
+    </div>
+    
+    <div id="calendarList" style="display:flex; flex-direction:column; gap:5px;">
+        </div>
+</div>
     <div class="grid-forms" style="margin-bottom:25px;">
         <div class="card">
             <h3 style="margin-top:0; border-bottom:1px solid var(--glass-border); padding-bottom:10px;">
@@ -1643,6 +1866,19 @@
                 </div>
             </div>
         </div>
+        <div class="card" style="min-height:300px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid rgba(0,0,0,0.05); padding-bottom:10px;">
+        <h3 style="margin:0; display:flex; align-items:center; gap:10px;">
+            <i class="fa fa-calendar-alt" style="color:var(--accent);"></i> Academic Calendar
+        </h3>
+        <button class="btn btn-p" id="btnAddEvent" style="padding:6px 12px; font-size:12px; display:none;" onclick="openModal('addEventModal')">
+            <i class="fa fa-plus"></i> Add
+        </button>
+    </div>
+    
+    <div id="calendarList" style="display:flex; flex-direction:column; gap:5px;">
+        </div>
+</div>
 
         <div class="card" style="margin-bottom:0;">
             <h3 style="margin-top:0; font-size:16px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px; margin-bottom: 15px;">
@@ -1745,7 +1981,13 @@
                 </table>
             </div>
         </div>
-        
+        <div class="card dash-rating-card" id="stDashRatingWidget" style="display:none;">
+    <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Performance Rating</div>
+    <div class="dash-rating-score" id="stDashScore">0.0</div>
+    <div class="star-rating" id="stDashStars">
+        </div>
+    <div style="font-size:11px; margin-top:8px; opacity:0.8;">Rated by Faculty</div>
+</div>
         <div class="card">
             <h3 style="margin-top:0;">Quick Actions</h3>
             <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -1773,6 +2015,19 @@
                 </table>
             </div>
         </div>
+        <div class="card" style="min-height:300px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid rgba(0,0,0,0.05); padding-bottom:10px;">
+        <h3 style="margin:0; display:flex; align-items:center; gap:10px;">
+            <i class="fa fa-calendar-alt" style="color:var(--accent);"></i> Academic Calendar
+        </h3>
+        <button class="btn btn-p" id="btnAddEvent" style="padding:6px 12px; font-size:12px; display:none;" onclick="openModal('addEventModal')">
+            <i class="fa fa-plus"></i> Add
+        </button>
+    </div>
+    
+    <div id="calendarList" style="display:flex; flex-direction:column; gap:5px;">
+        </div>
+</div>
         <div class="card">
             <h3 style="margin-top:0;">LMS Resources</h3>
             <div class="table-container" style="max-height: 220px;">
@@ -2632,8 +2887,130 @@ class="modal">
             </div>
     </div>
 </div>
+<div id="ratePortalModal" class="modal">
+    <div class="modal-content" style="max-width:400px; text-align:center;">
+        <span class="close-modal" onclick="closeModal('ratePortalModal')">&times;</span>
+        <h2 style="margin-top:0;"><i class="fa fa-smile" style="color:var(--accent);"></i> Rate Experience</h2>
+        <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">
+            How is your experience using the SITS Portal?
+        </p>
+
+        <div class="star-rating editable" style="justify-content:center; font-size:32px; margin-bottom:20px;">
+            <i class="fa fa-star" onclick="setPortalRating(1)" id="pr-1"></i>
+            <i class="fa fa-star" onclick="setPortalRating(2)" id="pr-2"></i>
+            <i class="fa fa-star" onclick="setPortalRating(3)" id="pr-3"></i>
+            <i class="fa fa-star" onclick="setPortalRating(4)" id="pr-4"></i>
+            <i class="fa fa-star" onclick="setPortalRating(5)" id="pr-5"></i>
+        </div>
+        
+        <textarea id="portalReviewText" rows="3" placeholder="Write a short review (optional)..." 
+        style="width:100%; margin-bottom:15px; border:1px solid var(--glass-border); padding:10px; border-radius:10px;"></textarea>
+        
+        <button class="btn btn-p" style="width:100%" onclick="submitPortalFeedback()">
+            <i class="fa fa-paper-plane"></i> Submit Feedback
+        </button>
+    </div>
+</div>
+
+<div id="viewFeedbackModal" class="modal">
+    <div class="modal-content" style="max-width:600px;">
+        <span class="close-modal" onclick="closeModal('viewFeedbackModal')">&times;</span>
+        <div style="border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                <h2 style="margin:0;"><i class="fa fa-comments" style="color:var(--accent);"></i> Student Feedback</h2>
+                <div style="font-size:13px; color:var(--text-muted); margin-top:5px;">
+                    Average Rating: <strong id="avgPortalRating" style="color:#d97706; font-size:16px;">0.0</strong> / 5.0
+                </div>
+            </div>
+            <button class="btn btn-d" style="padding:6px 12px; font-size:12px;" onclick="clearFeedback()">
+                <i class="fa fa-trash"></i> Clear All
+            </button>
+        </div>
+        
+        <div id="feedbackListContainer" style="max-height:400px; overflow-y:auto; display:flex; flex-direction:column; gap:15px;">
+            </div>
+    </div>
+</div>
+<div id="addEventModal" class="modal">
+    <div class="modal-content" style="max-width:400px;">
+        <span class="close-modal" onclick="closeModal('addEventModal')">&times;</span>
+        <h2 style="margin-top:0;"><i class="fa fa-calendar-plus"></i> Add New Event</h2>
+        
+        <div class="grid-forms" style="display:flex; flex-direction:column; gap:15px;">
+            <div>
+                <label style="font-size:12px; font-weight:bold;">Event Title</label>
+                <input type="text" id="newEventTitle" placeholder="e.g. Annual Gathering">
+            </div>
+            
+            <div>
+                <label style="font-size:12px; font-weight:bold;">Date</label>
+                <input type="date" id="newEventDate">
+            </div>
+            
+            <div>
+                <label style="font-size:12px; font-weight:bold;">Event Type</label>
+                <select id="newEventType">
+                    <option value="Event">General Event</option>
+                    <option value="Holiday">Holiday</option>
+                    <option value="Exam">Exam / Test</option>
+                    <option value="Seminar">Seminar / Workshop</option>
+                </select>
+            </div>
+
+            <button class="btn btn-p" onclick="saveNewEvent()">
+                <i class="fa fa-check"></i> Add to Calendar
+            </button>
+        </div>
+    </div>
+</div>
+<div id="globalChatModal" class="modal">
+    <div class="modal-content" style="max-width: 600px; padding: 0; overflow: hidden;">
+        <div class="chat-wrapper">
+            <div class="chat-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div style="width:40px; height:40px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white;">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div>
+                        <h3 style="margin:0; font-size:16px;">Classroom Discussion</h3>
+                        <div style="font-size:11px; color:green;"><i class="fa fa-circle" style="font-size:8px;"></i> Online</div>
+                    </div>
+                </div>
+                <button class="btn btn-d" style="padding:5px 10px;" onclick="closeModal('globalChatModal')">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+
+            <div class="chat-body" id="chatContainer">
+                </div>
+
+            <div class="chat-footer">
+                <div id="chatFilePreview" style="display:none;" class="file-preview">
+                    <i class="fa fa-file" id="previewIcon"></i>
+                    <span id="previewName">filename.pdf</span>
+                    <i class="fa fa-times" style="cursor:pointer; color:red; margin-left:auto;" onclick="clearChatFile()"></i>
+                </div>
+
+                <div class="chat-input-box">
+                    <i class="fa fa-paperclip" style="cursor:pointer; color:#555; font-size:18px;" onclick="document.getElementById('chatFileInput').click()"></i>
+                    <input type="file" id="chatFileInput" style="display:none" onchange="handleChatFileSelect()">
+                    
+                    <input type="text" id="chatMsgInput" placeholder="Type a message..." 
+                           style="border:none; background:transparent; flex:1; outline:none;" 
+                           onkeypress="if(event.key==='Enter') sendGlobalMsg()">
+                    
+                    <button class="btn btn-p" style="padding:8px; border-radius:50%; width:40px; height:40px;" onclick="sendGlobalMsg()">
+                        <i class="fa fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
-<script>
+    <script>
+    let activeUser = null;
+
     const INITIAL_STUDENTS = 
                             [
         { n: "BHALERAO PAVAN DINKARAPPA",   p: "9325530650", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "1" },
@@ -3003,15 +3380,32 @@ class="modal">
         { n: "SHINDE ARYAN ANIL", p: "8625903817", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "51" },
         { n: "MORE ROHIT DINESH", p: "9561228499", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "52" }
          ];
+  // --- FIXED DATABASE INITIALIZATION ---
+    // 1. Load saved data or use defaults
+    const savedStudents = JSON.parse(localStorage.getItem('sits_pro_std_v2'));
+    
+    // FIX: Ensure we use the correct variable name 'validStudentsList' here
+    const validStudentsList = (savedStudents && savedStudents.length > 0) ? savedStudents : INITIAL_STUDENTS;
 
-   const DB = {
-        students: JSON.parse(localStorage.getItem('sits_pro_std_v2')) || INITIAL_STUDENTS,
+   // --- UPDATED DATABASE STRUCTURE ---
+    const DB = {
+        students: validStudentsList,
         records: JSON.parse(localStorage.getItem('sits_pro_rec_v2')) || [],
         leaves: JSON.parse(localStorage.getItem('sits_pro_lev_v2')) || [],
         issues: JSON.parse(localStorage.getItem('sits_pro_issues_v1')) || [], 
         notices: JSON.parse(localStorage.getItem('sits_pro_not_v2')) || [],
         messages: JSON.parse(localStorage.getItem('sits_pro_msgs_v1')) || [],
+        portalFeedback: JSON.parse(localStorage.getItem('sits_pro_feed_v1')) || [],
+        events: JSON.parse(localStorage.getItem('sits_pro_events_v1')) || [],
+        placements: JSON.parse(localStorage.getItem('sits_pro_jobs_real_v1')) || [],
+        submissions: JSON.parse(localStorage.getItem('sits_pro_subs_v1')) || [],
+        lms: JSON.parse(localStorage.getItem('sits_pro_lms_v2')) || [],
+        applications: JSON.parse(localStorage.getItem('sits_pro_apps_v2')) || [],
         
+        // --- ADD THIS NEW ARRAY ---
+        globalChat: JSON.parse(localStorage.getItem('sits_pro_chat_v1')) || [],
+        // --------------------------
+
         grid: JSON.parse(localStorage.getItem('sits_pro_grid_v2')) || [ 
             ["Time", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], 
             ["10:00", "Maths", "Phy", "BEE", "Mech", "BEE", "Phy"], 
@@ -3019,31 +3413,9 @@ class="modal">
             ["12:00", "LUNCH", "LUNCH", "LUNCH", "LUNCH", "LUNCH", "LUNCH"], 
             ["01:00", "Mech", "BEE", "Prog", "Phy", "Prog", "Sports"] 
         ],
-        lms: JSON.parse(localStorage.getItem('sits_pro_lms_v2')) || [],
-        submissions: JSON.parse(localStorage.getItem('sits_pro_subs_v1')) || [],
-        applications: JSON.parse(localStorage.getItem('sits_pro_apps_v2')) || [],
         divisions: ["Div-1","Div-2","Div-3","Div-4","Div-5","Div-6","Div-7","Div-8"],
-        subjects: [
-            "Engineering Maths 1", "Physics", "Programming", "Chemistry", 
-            "Graphics", "BXE", "Mechanics", "Electrical", "Engineering Maths 2"
-        ],
-        placements: JSON.parse(localStorage.getItem('sits_pro_jobs_real_v1')) || [
-            { 
-            id: 101, role: "Web Development Intern", 
-            co: "Internshala", loc: "Work From Home", 
-            dur: "3 Months", stip: "10,000 /Mo", 
-            dl: "2026-02-28", type: "Internship", 
-            mode: "EXTERNAL", link: "https://internshala.com" 
-        },
-            { 
-                id: 102, role: "React Native Developer", 
-                co: "Zomato", loc: "Gurgaon", 
-                dur: "6 Months", stip: "25,000 /Mo", 
-                dl: "2026-03-10", type: "Full Time", 
-                mode: "INTERNAL", link: "" }
-        ]
+        subjects: [ "Engineering Maths 1", "Physics", "Programming", "Chemistry", "Graphics", "BXE", "Mechanics", "Electrical", "Engineering Maths 2"],
     };
-
     function saveDB() {
         localStorage.setItem('sits_pro_std_v2', JSON.stringify(DB.students));
         localStorage.setItem('sits_pro_rec_v2', JSON.stringify(DB.records));
@@ -3055,37 +3427,57 @@ class="modal">
         localStorage.setItem('sits_pro_apps_v2', JSON.stringify(DB.applications)); 
         localStorage.setItem('sits_pro_jobs_real_v1', JSON.stringify(DB.placements));
         localStorage.setItem('sits_pro_issues_v1', JSON.stringify(DB.issues));
-        // --- NEW SAVE ---
         localStorage.setItem('sits_pro_msgs_v1', JSON.stringify(DB.messages));
+        localStorage.setItem('sits_pro_feed_v1', JSON.stringify(DB.portalFeedback));
+        localStorage.setItem('sits_pro_events_v1', JSON.stringify(DB.events));
+        localStorage.setItem('sits_pro_std_v2', JSON.stringify(DB.students));
+        localStorage.setItem('sits_pro_chat_v1', JSON.stringify(DB.globalChat));
     }
-
 
     function toggleSidebar() {
         document.getElementById('sidebar').classList.toggle('active');
         document.querySelector('.sidebar-overlay').classList.toggle('active');
     }
 
+    // --- FIXED LOGIN FUNCTION ---
     function handleLogin() {
+        // 1. Get input and remove extra spaces
         const id = document.getElementById('loginID').value.trim();
         const pass = document.getElementById('loginPass').value.trim();
         
-        if(id==="admin@sits.com" && pass==="admin") {
+        console.log("Attempting login with:", id); // Debugging line
+
+        // 2. Admin Login
+        if(id === "admin@sits.com" && pass === "admin") {
             activeUser = {role:"ADMIN", n:"Admin"};
             playWelcomeAudio(activeUser); 
             loadDashboard();
-        } else if(id==="teacher@sits.com" && pass==="1234") {
+        } 
+        // 3. Faculty Login
+        else if(id === "teacher@sits.com" && pass === "1234") {
             activeUser = {role:"TEACHER", n:"Faculty Member"};
             playWelcomeAudio(activeUser); 
             loadDashboard();
-        } else {
-            const st = DB.students.find(s => s.p === id || `P-${s.p}` === id);
+        } 
+        // 4. Student/Parent Login
+        else {
+            // Robust search: Convert both to String to avoid number/text mismatches
+            const st = DB.students.find(s => String(s.p).trim() === String(id));
             
-            if(st && (pass==="1234" || pass==="parent")) { 
-                activeUser = {...st, role: pass==="parent"?"PARENT":"STUDENT"}; 
-                playWelcomeAudio(activeUser); 
-                loadDashboard(); 
+            if(st) {
+                if (pass === "1234") {
+                    activeUser = {...st, role: "STUDENT"};
+                    playWelcomeAudio(activeUser); 
+                    loadDashboard();
+                } else if (pass === "parent") {
+                    activeUser = {...st, role: "PARENT"};
+                    playWelcomeAudio(activeUser); 
+                    loadDashboard();
+                } else {
+                    alert("Incorrect Password. (Default: 1234)");
+                }
             } else {
-                alert("Invalid Credentials. Students: Use Phone Number as ID.");
+                alert("User ID not found. Use your registered mobile number (e.g., " + INITIAL_STUDENTS[0].p + ")");
             }
         }
     }
@@ -3096,9 +3488,9 @@ class="modal">
             let year = user.y.replace("1ST", "First").replace("2ND", "Second").replace("3RD", "Third").replace("4TH", "Fourth");
             let div = user.d.replace(" ");
             
-            text = `${user.n}, ${year}, ${div} student, Welcome to Sinhgad Institute of Technology and Science ( S I T S ) Platform Developed By Shubham Sanap 1228 `;
+            text = `${user.n}, ${year}, ${div} student, Welcome to Sinhgad Institute of Technology and Science ( S I T S ) Platform Developed By Shubham Sanap  `;
         } else {
-            text = `Welcome ${user.n} to Sinhgad Institute of Technology and Science ( S I T S )  Platform Developed By Shubham Sanap 1228`;
+            text = `Welcome ${user.n} to Sinhgad Institute of Technology and Science ( S I T S )  Platform Developed By Shubham Sanap `;
         }
 
         window.speechSynthesis.cancel();
@@ -3131,52 +3523,94 @@ function loadDashboard() {
     nav.innerHTML = "";
     
     if(activeUser.role === "ADMIN") {
+        // 1. Admin Links
         nav.innerHTML += `<div class="nav-link active" onclick="showPage('admin'); toggleSidebar()">
             <i class="fa fa-cogs"></i> Admin Control</div>`;
             
         nav.innerHTML += `<div class="nav-link" onclick="showPage('placement'); toggleSidebar(); renderJobs();">
             <i class="fa fa-briefcase"></i> Placements (Admin)</div>`;
-            
+
+        nav.innerHTML += `<div class="nav-link" onclick="openFeedbackViewer(); toggleSidebar();">
+            <i class="fa fa-comments"></i> Portal Feedback</div>`;  
+        nav.innerHTML += `<div class="nav-link" onclick="openGlobalChat(); toggleSidebar();">
+            <i class="fa fa-comments"></i> Classroom Chat</div>`;
+        // 2. Initialize Admin Views
         handleYearChange('aYear', 'aBranch'); 
         refreshAdminView(); 
         renderAdminIssues(); 
         renderLeaveRequests('adminLeaveTable'); 
+        
+        // --- FIX: RENDER CALENDAR FOR ADMIN ---
+        renderCalendarEvents(); 
+        // --------------------------------------
+
         showPage('admin');
-    } 
+    }
     else if(activeUser.role === "TEACHER") {
+        // 1. Teacher Links
         nav.innerHTML += `<div class="nav-link active" onclick="showPage('teacher'); toggleSidebar()">
             <i class="fa fa-chalkboard-teacher"></i> Faculty Dashboard</div>`;
+            
+        nav.innerHTML += `<div class="nav-link" onclick="openFeedbackViewer(); toggleSidebar();">
+            <i class="fa fa-comments"></i> Portal Feedback</div>`;
+        nav.innerHTML += `<div class="nav-link" onclick="openGlobalChat(); toggleSidebar();">
+        <i class="fa fa-comments"></i> Classroom Chat</div>`;
+        // 2. Initialize Teacher Views
         handleYearChange('tYear', 'tBranch'); 
         updateClock(); 
         renderLeaveRequests('teacherLeaveTable'); 
+        
+        // --- FIX: RENDER CALENDAR FOR TEACHER ---
+        renderCalendarEvents(); 
+        // ----------------------------------------
+
         showPage('teacher');
-    } 
+    }
     else {
+        // 1. Student Portal Link
         nav.innerHTML += `<div class="nav-link active" onclick="showPage('student'); toggleSidebar()">
             <i class="fa fa-user-graduate"></i> Student Portal</div>`;
         
+        // 2. Internships Link
         nav.innerHTML += `<div class="nav-link" onclick="showPage('placement'); toggleSidebar(); renderJobs();">
             <i class="fa fa-briefcase"></i> Internships & Jobs</div>`;
 
+        // 3. About College Link
         nav.innerHTML += `<div class="nav-link" onclick="openAboutCollege(); toggleSidebar();">
             <i class="fa fa-university"></i> About College</div>`;
 
+        // 4. Study Material Link
         nav.innerHTML += `<div class="nav-link" onclick="openStudyMaterial(); toggleSidebar();">
             <i class="fa fa-book-reader"></i> Online Study Material</div>`;
 
+        // 5. University Login Link
         nav.innerHTML += `<div class="nav-link" onclick="openUniversityLogin(); toggleSidebar();">
             <i class="fa fa-graduation-cap"></i> University Login</div>`;
-            
+            // In loadDashboard() -> else block (Student)
+// Add this line with the other nav links:
+        nav.innerHTML += `<div class="nav-link" onclick="openRatePortalModal(); toggleSidebar();">
+            <i class="fa fa-star"></i> Rate This Portal</div>`;
+            // Add this near the other nav links
+nav.innerHTML += `<div class="nav-link" onclick="openGlobalChat(); toggleSidebar();">
+    <i class="fa fa-comments"></i> Classroom Chat</div>`;
+        // Update Header Details
         document.getElementById('stDetails').innerText = `${activeUser.y} | ${activeUser.b} | Roll: ${activeUser.r} | ${activeUser.d}`;
+        
+        // Update Fee Badge
         const feeBadge = document.getElementById('stFeeBadge');
         feeBadge.innerText = activeUser.fee === 'Paid' ? 'Fees Paid' : 'Fees Pending';
         feeBadge.className = activeUser.fee === 'Paid' ? 'tag tag-p' : 'tag tag-pend';
         
+        // Render Student Sections
         renderStudentStats();
         renderStudentMarks();
         renderStudentLMS();
         renderStudentSelfDocs();
         
+        /* --- ADDED RATING FUNCTION --- */
+        renderStudentDashboardRating(); 
+        /* ----------------------------- */
+        renderCalendarEvents();
         setTimeout(() => renderJobs(), 100); 
         
         showPage('student');
@@ -3310,15 +3744,38 @@ function refreshTeacherClassList() {
 let currentProfileUser = null;
 
 function openProfile(phone) {
-    const s = DB.students.find(st => st.p == phone);
+    // Find student safely using String comparison
+    const s = DB.students.find(st => String(st.p) === String(phone));
     if(!s) return;
     
     currentProfileUser = s;
+    const rating = s.rating || 0;
     
+    // Check permissions
+    const isTeacherOrAdmin = activeUser && (activeUser.role === 'ADMIN' || activeUser.role === 'TEACHER');
+
+    // Update Header
     document.getElementById('profAvatar').innerText = s.n.charAt(0);
     document.getElementById('profName').innerText = s.n;
-    document.getElementById('profSubtitle').innerText = `${s.y} | ${s.b} | ${s.d} | Roll: ${s.r}`;
     
+    // --- STAR RATING INTEGRATION ---
+    const starHTML = getStarHTML(rating, isTeacherOrAdmin);
+    const starClass = isTeacherOrAdmin ? 'editable' : '';
+    
+    document.getElementById('profSubtitle').innerHTML = `
+        <div style="margin-bottom:8px;">${s.y} | ${s.b} | Roll: ${s.r}</div>
+        <div class="rating-container">
+            <div class="star-rating ${starClass}" id="profStarContainer">
+                ${starHTML}
+            </div>
+            <span style="font-size:12px; font-weight:600; color:${rating > 0 ? '#d97706' : '#64748b'}" id="profStarLabel">
+                ${rating > 0 ? rating + '/5 Rating' : (isTeacherOrAdmin ? 'Tap stars to rate' : 'Not Rated')}
+            </span>
+        </div>
+    `;
+    // -------------------------------
+    
+    // Populate Personal Info
     const p = s.personal || {};
     const c = s.contact || {};
     
@@ -3330,11 +3787,10 @@ function openProfile(phone) {
         <div class="info-item"><label>Address</label><div>${p.addr || '-'}</div></div>
         <div class="info-item"><label>Father's Name</label><div>${p.father || '-'}</div></div>
         <div class="info-item"><label>Mother's Name</label><div>${p.mother || '-'}</div></div>
-        <div class="info-item"><label>Father's Occupation</label><div>${p.occ || '-'}</div></div>
         <div class="info-item"><label>Parent Contact</label><div>${c.parent || '-'}</div></div>
-        <div class="info-item"><label>Emergency Contact</label><div>${c.emergency || '-'}</div></div>
     `;
 
+    // Populate Documents
     const docs = s.docs || {};
     const docRows = Object.keys(docs).map(key => `
         <tr>
@@ -3348,12 +3804,13 @@ function openProfile(phone) {
         </tr>
     `).join('');
     
-    document.querySelector('#profDocTable tbody').innerHTML = docRows || 
-    '<tr><td colspan="3" style="text-align:center; padding:20px;">No documents uploaded.</td></tr>';
+    const docTable = document.querySelector('#profDocTable tbody');
+    if(docTable) {
+        docTable.innerHTML = docRows || '<tr><td colspan="3" style="text-align:center; padding:20px;">No documents uploaded.</td></tr>';
+    }
 
     openModal('profileModal');
 }
-
 function switchProfileTab(tabId) {
     document.querySelectorAll('.prof-tab').forEach(t => t.style.display = 'none');
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -4531,6 +4988,452 @@ function renderStudentMessages() {
             <div style="font-size:14px; color:var(--text-main); line-height:1.5;">${m.txt}</div>
         </div>
     `).join('');
+}
+/* --- RATING SYSTEM LOGIC --- */
+
+/* --- FIXED RATING SYSTEM LOGIC --- */
+
+// 1. Robust Rate Student Function
+function rateStudent(score) {
+    if (!currentProfileUser) {
+        console.error("No profile loaded to rate.");
+        return;
+    }
+    
+    // Update local memory
+    currentProfileUser.rating = score;
+    
+    // Update Main Database (Fixes Type Mismatch Issues)
+    const idx = DB.students.findIndex(s => String(s.p) === String(currentProfileUser.p));
+    
+    if(idx > -1) {
+        DB.students[idx].rating = score;
+        saveDB(); // Save to local storage
+        
+        // Immediate UI Update
+        renderProfileStars(score, true);
+        
+        // Show success feedback
+        alert(`Rated ${score} Stars Successfully!`);
+    } else {
+        alert("Error: Student record not found in database.");
+    }
+}
+
+// 2. Generate Star HTML (Visuals)
+function getStarHTML(score, isEditable) {
+    let html = '';
+    for(let i = 1; i <= 5; i++) {
+        const isFilled = i <= score ? 'filled' : '';
+        // Add onclick only if editable (Teacher/Admin)
+        const clickAttr = isEditable ? `onclick="rateStudent(${i})"` : '';
+        // Add style cursor pointer if editable
+        const styleAttr = isEditable ? 'style="cursor:pointer;"' : '';
+        
+        html += `<i class="fa fa-star ${isFilled}" ${clickAttr} ${styleAttr}></i>`;
+    }
+    return html;
+}
+
+// 3. Render Stars in Profile Modal
+function renderProfileStars(score, isEditable) {
+    const container = document.getElementById('profStarContainer');
+    const label = document.getElementById('profStarLabel');
+    
+    if(container) {
+        container.innerHTML = getStarHTML(score, isEditable);
+        container.className = `star-rating ${isEditable ? 'editable' : ''}`;
+    }
+    
+    if(label) {
+        if(score > 0) {
+            label.innerText = `${score}/5 Rating`;
+            label.style.color = "#d97706";
+        } else {
+            label.innerText = isEditable ? 'Tap stars to rate' : 'Not Rated';
+            label.style.color = "#64748b";
+        }
+    }
+}
+
+// 4. Render Student Dashboard Widget
+function renderStudentDashboardRating() {
+    const widget = document.getElementById('stDashRatingWidget');
+    const scoreEl = document.getElementById('stDashScore');
+    const starsEl = document.getElementById('stDashStars');
+    
+    if(!widget || !activeUser) return;
+    
+    // Safely get rating
+    const score = activeUser.rating || 0;
+    
+    if(score > 0) {
+        widget.style.display = 'flex'; // Show card if rated
+        scoreEl.innerText = score.toFixed(1);
+        starsEl.innerHTML = getStarHTML(score, false); // Not clickable for student
+    } else {
+        widget.style.display = 'none'; // Hide if no rating yet
+    }
+}
+/* --- PORTAL FEEDBACK SYSTEM --- */
+
+let currentPortalRating = 0;
+
+function openRatePortalModal() {
+    currentPortalRating = 0;
+    updatePortalStarsUI(0);
+    document.getElementById('portalReviewText').value = "";
+    openModal('ratePortalModal');
+}
+
+function setPortalRating(n) {
+    currentPortalRating = n;
+    updatePortalStarsUI(n);
+}
+
+function updatePortalStarsUI(n) {
+    for (let i = 1; i <= 5; i++) {
+        const star = document.getElementById(`pr-${i}`);
+        if (i <= n) {
+            star.classList.add('filled');
+            star.style.color = "#fbbf24";
+        } else {
+            star.classList.remove('filled');
+            star.style.color = "rgba(0,0,0,0.2)";
+        }
+    }
+}
+
+function submitPortalFeedback() {
+    if (currentPortalRating === 0) {
+        alert("Please select a star rating first.");
+        return;
+    }
+
+    const text = document.getElementById('portalReviewText').value;
+    
+    const feedback = {
+        id: Date.now(),
+        studentName: activeUser.n,
+        roll: activeUser.r,
+        rating: currentPortalRating,
+        review: text,
+        date: new Date().toLocaleDateString()
+    };
+
+    DB.portalFeedback.unshift(feedback);
+    saveDB();
+
+    alert("Thank you for your feedback!");
+    closeModal('ratePortalModal');
+}
+
+// Function for Teachers/Admins to view feedback
+function openFeedbackViewer() {
+    const list = document.getElementById('feedbackListContainer');
+    const avgEl = document.getElementById('avgPortalRating');
+    
+    if (DB.portalFeedback.length === 0) {
+        list.innerHTML = `<div style="text-align:center; padding:30px; color:#999;">No feedback received yet.</div>`;
+        avgEl.innerText = "0.0";
+    } else {
+        // Calculate Average
+        const total = DB.portalFeedback.reduce((sum, item) => sum + item.rating, 0);
+        const avg = (total / DB.portalFeedback.length).toFixed(1);
+        avgEl.innerText = avg;
+
+        // Render List
+        list.innerHTML = DB.portalFeedback.map(f => `
+            <div class="card" style="margin:0; padding:15px; border-left:4px solid ${f.rating >= 4 ? '#10b981' : (f.rating <= 2 ? '#ef4444' : '#f59e0b')};">
+                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                    <strong style="font-size:14px;">${f.studentName} <span style="font-weight:400; color:#666; font-size:12px;">(Roll: ${f.roll})</span></strong>
+                    <div style="color:#fbbf24;">
+                        ${getStarHTML(f.rating, false)} 
+                    </div>
+                </div>
+                <div style="font-size:13px; color:#333; margin-bottom:5px;">"${f.review || 'No text review provided.'}"</div>
+                <div style="font-size:10px; color:#999; text-align:right;">${f.date}</div>
+            </div>
+        `).join('');
+    }
+    
+    openModal('viewFeedbackModal');
+}
+
+function clearFeedback() {
+    if(confirm("Are you sure you want to delete all student feedback?")) {
+        DB.portalFeedback = [];
+        saveDB();
+        openFeedbackViewer(); // Refresh view
+    }
+}
+/* --- CALENDAR LOGIC --- */
+
+function renderCalendarEvents() {
+    // 1. Sort events by date
+    const sortedEvents = DB.events.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    // 2. Determine if user is Admin/Teacher (to show controls)
+    const canEdit = activeUser && (activeUser.role === 'ADMIN' || activeUser.role === 'TEACHER');
+    
+    // 3. Show/Hide Add Button in all widgets
+    document.querySelectorAll('#btnAddEvent').forEach(btn => {
+        btn.style.display = canEdit ? 'block' : 'none';
+    });
+
+    // 4. Generate HTML
+    let html = "";
+    if(sortedEvents.length === 0) {
+        html = `<div style="text-align:center; padding:30px; color:var(--text-muted);">No upcoming events.</div>`;
+    } else {
+        html = sortedEvents.map(e => {
+            const dateObj = new Date(e.date);
+            const day = dateObj.getDate();
+            const month = dateObj.toLocaleString('default', { month: 'short' });
+            
+            return `
+            <div class="event-row">
+                <div class="event-date-box">
+                    <div class="event-day">${day}</div>
+                    <div class="event-month">${month}</div>
+                </div>
+                <div style="flex:1;">
+                    <h4 style="margin:0; font-size:14px; color:var(--text-main);">${e.title}</h4>
+                    <span class="event-tag et-${e.type}">${e.type}</span>
+                    <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">${dateObj.toDateString()}</div>
+                </div>
+                ${canEdit ? `
+                <div style="display:flex; align-items:center;">
+                    <i class="fa fa-trash" style="color:#ef4444; cursor:pointer; padding:5px;" onclick="deleteEvent(${e.id})"></i>
+                </div>` : ''}
+            </div>`;
+        }).join('');
+    }
+
+    // 5. Inject into ALL calendar lists (Admin, Teacher, Student)
+    document.querySelectorAll('#calendarList').forEach(el => el.innerHTML = html);
+    
+    animateLists();
+}
+
+function saveNewEvent() {
+    const title = document.getElementById('newEventTitle').value;
+    const date = document.getElementById('newEventDate').value;
+    const type = document.getElementById('newEventType').value;
+    
+    if(!title || !date) {
+        alert("Please enter title and date.");
+        return;
+    }
+    
+    DB.events.push({
+        id: Date.now(),
+        title: title,
+        date: date,
+        type: type
+    });
+    
+    saveDB();
+    renderCalendarEvents();
+    closeModal('addEventModal');
+    
+    // Clear inputs
+    document.getElementById('newEventTitle').value = "";
+    document.getElementById('newEventDate').value = "";
+}
+
+function deleteEvent(id) {
+    if(confirm("Are you sure you want to delete this event?")) {
+        DB.events = DB.events.filter(e => e.id !== id);
+        saveDB();
+        renderCalendarEvents();
+    }
+}
+/* --- GROUP CHAT SYSTEM (DIV-WISE) --- */
+
+let chatFileBlob = null; // Stores file info temporarily
+
+function openGlobalChat() {
+    // 1. Determine the Context (Which Room?)
+    let roomName = "";
+    
+    if (activeUser.role === 'STUDENT') {
+        roomName = `${activeUser.y} - ${activeUser.d}`;
+    } 
+    else if (activeUser.role === 'TEACHER') {
+        // Teachers enter the room selected in their dashboard dropdowns
+        const y = document.getElementById('tYear').value;
+        const d = document.getElementById('tDiv').value;
+        roomName = `${y} - ${d}`;
+    } 
+    else if (activeUser.role === 'ADMIN') {
+        // Admins enter the room selected in their dashboard dropdowns
+        const y = document.getElementById('aYear').value;
+        const d = document.getElementById('aDiv').value;
+        roomName = `${y} - ${d}`;
+    }
+
+    // 2. Update Header Title
+    const headerTitle = document.querySelector('#globalChatModal h3');
+    if(headerTitle) headerTitle.innerText = `Class Discussion (${roomName})`;
+
+    // 3. Render & Open
+    renderGlobalChat();
+    openModal('globalChatModal');
+    scrollToBottom();
+}
+
+function renderGlobalChat() {
+    const container = document.getElementById('chatContainer');
+    if(!container) return;
+    
+    // 1. Define Filter Criteria
+    let targetYear, targetDiv;
+
+    if (activeUser.role === 'STUDENT') {
+        targetYear = activeUser.y;
+        targetDiv = activeUser.d;
+    } else if (activeUser.role === 'TEACHER') {
+        targetYear = document.getElementById('tYear').value;
+        targetDiv = document.getElementById('tDiv').value;
+    } else if (activeUser.role === 'ADMIN') {
+        targetYear = document.getElementById('aYear').value;
+        targetDiv = document.getElementById('aDiv').value;
+    }
+
+    // 2. Filter Messages by Year and Division
+    // We handle legacy messages (without targetYear) by showing them to everyone or hiding them. 
+    // Here we strictly show only matched messages.
+    const chats = DB.globalChat.filter(msg => {
+        return msg.targetYear === targetYear && msg.targetDiv === targetDiv;
+    }).sort((a,b) => a.id - b.id);
+    
+    // 3. Handle Empty State
+    if(chats.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:#999; margin-top:50px;">
+            <i class="fa fa-comments" style="font-size:30px; opacity:0.3;"></i><br>
+            <div style="font-size:12px; margin-top:10px;">
+                Start the discussion for<br><strong>${targetYear} | ${targetDiv}</strong>
+            </div>
+        </div>`;
+        return;
+    }
+
+    // 4. Render Messages
+    container.innerHTML = chats.map(msg => {
+        const isMe = msg.senderPhone === activeUser.p; // Check if I sent it
+        
+        // Style badges for Teacher/Admin
+        let roleBadge = "";
+        if(msg.role === "TEACHER") roleBadge = `<span class="msg-role" style="background:#dbeafe; color:#1e40af;">FACULTY</span>`;
+        else if(msg.role === "ADMIN") roleBadge = `<span class="msg-role" style="background:#fee2e2; color:#991b1b;">ADMIN</span>`;
+        
+        // File HTML generation
+        let fileHtml = '';
+        if(msg.file) {
+            let icon = 'fa-file';
+            let colorClass = '';
+            if(msg.file.type.includes('image')) { icon = 'fa-image'; colorClass = 'ft-img'; }
+            else if(msg.file.type.includes('pdf')) { icon = 'fa-file-pdf'; colorClass = 'ft-pdf'; }
+            else if(msg.file.type.includes('video')) { icon = 'fa-video'; colorClass = 'ft-vid'; }
+            else if(msg.file.type.includes('audio')) { icon = 'fa-music'; colorClass = 'ft-aud'; }
+
+            fileHtml = `
+            <div style="background:rgba(0,0,0,0.05); padding:8px; border-radius:8px; margin-top:5px; display:flex; align-items:center; gap:8px;">
+                <i class="fa ${icon} ${colorClass}" style="font-size:20px;"></i>
+                <div style="overflow:hidden;">
+                    <div style="font-weight:600; font-size:11px;">${msg.file.name}</div>
+                    <div style="font-size:9px; opacity:0.7;">${msg.file.type.toUpperCase()}</div>
+                </div>
+            </div>`;
+        }
+
+        return `
+        <div class="chat-bubble ${isMe ? 'msg-me' : 'msg-other'}">
+            ${!isMe ? `<div class="msg-sender">${msg.senderName} ${roleBadge}</div>` : ''}
+            <div>${msg.text}</div>
+            ${fileHtml}
+            <div class="msg-time">${msg.time}</div>
+        </div>`;
+    }).join('');
+}
+
+function handleChatFileSelect() {
+    const fileInput = document.getElementById('chatFileInput');
+    const file = fileInput.files[0];
+    if(file) {
+        chatFileBlob = {
+            name: file.name,
+            type: getFileType(file.name)
+        };
+        // Show Preview
+        document.getElementById('chatFilePreview').style.display = 'flex';
+        document.getElementById('previewName').innerText = file.name;
+    }
+}
+
+function clearChatFile() {
+    document.getElementById('chatFileInput').value = "";
+    document.getElementById('chatFilePreview').style.display = 'none';
+    chatFileBlob = null;
+}
+
+function getFileType(name) {
+    const ext = name.split('.').pop().toLowerCase();
+    if(['jpg','jpeg','png'].includes(ext)) return 'image';
+    if(['mp4','mkv'].includes(ext)) return 'video';
+    if(['mp3','wav'].includes(ext)) return 'audio';
+    if(['pdf'].includes(ext)) return 'pdf';
+    return 'file';
+}
+
+function sendGlobalMsg() {
+    const txt = document.getElementById('chatMsgInput').value;
+    
+    if(!txt.trim() && !chatFileBlob) return; // Don't send empty
+    
+    // 1. Identify Target Room based on Sender Role
+    let tYear, tDiv;
+
+    if (activeUser.role === 'STUDENT') {
+        tYear = activeUser.y;
+        tDiv = activeUser.d;
+    } else if (activeUser.role === 'TEACHER') {
+        tYear = document.getElementById('tYear').value;
+        tDiv = document.getElementById('tDiv').value;
+    } else if (activeUser.role === 'ADMIN') {
+        tYear = document.getElementById('aYear').value;
+        tDiv = document.getElementById('aDiv').value;
+    }
+
+    const newMsg = {
+        id: Date.now(),
+        text: txt,
+        senderName: activeUser.n,
+        senderPhone: activeUser.p,
+        role: activeUser.role,
+        time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+        file: chatFileBlob,
+        
+        // NEW: Tag message with specific room
+        targetYear: tYear,
+        targetDiv: tDiv
+    };
+
+    DB.globalChat.push(newMsg);
+    saveDB();
+    
+    // Clear Input
+    document.getElementById('chatMsgInput').value = "";
+    clearChatFile();
+    
+    renderGlobalChat();
+    scrollToBottom();
+}
+
+function scrollToBottom() {
+    const container = document.getElementById('chatContainer');
+    if(container) container.scrollTop = container.scrollHeight;
 }
 </script>
 </html>
