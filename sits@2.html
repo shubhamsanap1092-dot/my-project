@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
    <style>
     :root {
         --primary-dark: #0f172a;
@@ -207,12 +208,32 @@
         background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
     }
 
-    #navLinks {
+   #navLinks {
         padding: 20px;
         flex: 1;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        
+        /* --- ADD THESE LINES FOR SCROLLING --- */
+        overflow-y: auto;       /* Enables vertical scrolling */
+        overflow-x: hidden;     /* Hides horizontal scrollbar */
+        scrollbar-width: thin;  /* For Firefox */
+    }
+
+    /* --- ADD THIS FOR A CLEAN CUSTOM SCROLLBAR --- */
+    #navLinks::-webkit-scrollbar {
+        width: 6px;
+    }
+    #navLinks::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    #navLinks::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+    }
+    #navLinks::-webkit-scrollbar-thumb:hover {
+        background-color: var(--accent);
     }
     
     .nav-link {
@@ -1135,7 +1156,6 @@
     20% { left: 200%; }
     100% { left: 200%; }
 }
-/* --- RATING SYSTEM STYLES --- */
 .rating-container {
     background: rgba(255, 255, 255, 0.1);
     padding: 10px 15px;
@@ -1152,7 +1172,7 @@
     display: flex;
     gap: 5px;
     font-size: 18px;
-    cursor: default; /* Default to non-clickable */
+    cursor: default; 
 }
 
 .star-rating.editable {
@@ -1160,13 +1180,13 @@
 }
 
 .star-rating .fa-star {
-    color: rgba(255, 255, 255, 0.3); /* Empty star color */
+    color: rgba(255, 255, 255, 0.3); 
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     text-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .star-rating .fa-star.filled {
-    color: #fbbf24; /* Gold color */
+    color: #fbbf24; 
     transform: scale(1.1);
     text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
 }
@@ -1195,7 +1215,6 @@
     margin: 10px 0;
     color: #d97706;
 }
-/* --- EVENT CALENDAR STYLES --- */
 .event-date-box {
     background: rgba(59, 130, 246, 0.1);
     color: var(--accent);
@@ -1236,7 +1255,6 @@
     display: inline-block;
     margin-top: 4px;
 }
-/* --- GLOBAL CHAT STYLES --- */
 .chat-wrapper {
     display: flex;
     flex-direction: column;
@@ -1337,15 +1355,716 @@
     border: 1px solid #c7d2fe;
 }
 
-/* File Type Icons */
-.ft-pdf { color: #ef4444; }
-.ft-img { color: #3b82f6; }
-.ft-vid { color: #8b5cf6; }
-.ft-aud { color: #f59e0b; }
-.et-Holiday { background: #fee2e2; color: #ef4444; }
-.et-Exam { background: #fef3c7; color: #d97706; }
-.et-Event { background: #dcfce7; color: #16a34a; }
-.et-Seminar { background: #e0e7ff; color: #4338ca; }
+.ft-pdf { 
+    color: #ef4444; 
+}
+.ft-img { 
+    color: #3b82f6; 
+}
+.ft-vid { 
+    color: #8b5cf6; 
+}
+.ft-aud { 
+    color: #f59e0b; 
+}
+.et-Holiday { 
+    background: #fee2e2; 
+    color: #ef4444; 
+}
+.et-Exam { 
+    background: #fef3c7; 
+    color: #d97706; 
+}
+.et-Event { 
+    background: #dcfce7; 
+    color: #16a34a; 
+}
+.et-Seminar { 
+    background: #e0e7ff; 
+    color: #4338ca; 
+    }
+.sits-ai-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563eb, #4f46e5); 
+    box-shadow: 0 8px 30px rgba(37, 99, 235, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 3px solid rgba(255,255,255,0.2);
+}
+
+.sits-ai-float:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.6);
+}
+
+.sits-ai-float i {
+    font-size: 28px;
+    color: white;
+}
+
+.sits-ai-window {
+    position: fixed;
+    bottom: 110px;
+    right: 30px;
+    width: 400px;
+    height: 650px;
+    max-width: 90vw;
+    max-height: 80vh;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+    border: 1px solid rgba(0,0,0,0.08);
+    font-family: 'Outfit', sans-serif; 
+    animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.sits-chat-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.sits-header-title {
+    font-weight: 700;
+    font-size: 17px;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ai-status-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.sits-chat-body {
+    flex: 1;
+    padding: 20px 25px;
+    overflow-y: auto;
+    background: #f8fafc; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    scroll-behavior: smooth;
+}
+
+.sits-chat-body::-webkit-scrollbar { width: 6px; }
+.sits-chat-body::-webkit-scrollbar-track { background: transparent; }
+.sits-chat-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+.chat-bubble {
+    max-width: 88%;
+    padding: 14px 18px;
+    font-size: 15px;
+    line-height: 1.6;
+    position: relative;
+    word-wrap: break-word;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.bot-msg {
+    align-self: flex-start;
+    background: #ffffff;
+    color: #334155;
+    border-radius: 0 20px 20px 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.bot-msg strong {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.bot-msg pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 10px 0;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    border: 1px solid #333;
+}
+
+.bot-msg code {
+    background: rgba(0,0,0,0.06);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #d63384;
+    font-size: 0.9em;
+}
+
+.user-msg {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    border-radius: 20px 20px 0 20px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.sits-chat-footer {
+    padding: 20px;
+    background: #ffffff;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.chat-input-wrapper {
+    flex: 1;
+    background: #f1f5f9;
+    border-radius: 30px;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    border: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.chat-input-wrapper:focus-within {
+    background: #fff;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.chat-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 0;
+    font-size: 15px;
+    color: #334155;
+    outline: none;
+    font-family: inherit;
+}
+
+.send-btn-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 16px;
+}
+
+.send-btn-icon:hover {
+    background: #1d4ed8;
+    transform: scale(1.05);
+}
+
+.typing-dots span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #94a3b8;
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+body.dark .sits-ai-window { 
+    background: #1e293b; 
+    border-color: #334155; 
+}
+body.dark .sits-chat-header { 
+    background: rgba(30, 41, 59, 0.95); 
+    border-color: #334155; 
+}
+body.dark .sits-header-title { 
+    color: #f1f5f9; 
+}
+body.dark .sits-chat-body { 
+    background: #0f172a; 
+}
+body.dark .bot-msg { 
+    background: #334155; 
+    color: #e2e8f0; 
+    border-color: #475569; 
+}
+body.dark .bot-msg strong { 
+    color: #fff; 
+}
+body.dark .sits-chat-footer { 
+    background: #1e293b; 
+    border-color: #334155; 
+}
+body.dark .chat-input-wrapper { 
+    background: #334155; 
+}
+body.dark .chat-input-wrapper:focus-within { 
+    background: #1e293b; 
+    border-color: #60a5fa; 
+}
+body.dark .chat-input { 
+    color: #fff; 
+}
+.chat-attach-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    font-size: 18px;
+}
+.chat-attach-btn:hover { 
+    background: rgba(37, 99, 235, 0.1); 
+    color: #2563eb; 
+}
+
+.chat-file-preview {
+    display: none; 
+    padding: 8px 15px;
+    background: #f1f5f9;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 13px;
+    color: #334155;
+    align-items: center;
+    justify-content: space-between;
+    animation: fadeInScale 0.2s ease;
+}
+
+.chat-preview-content { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.chat-preview-thumb { 
+    width: 35px; 
+    height: 35px; 
+    object-fit: cover; 
+    border-radius: 6px; 
+    border: 1px solid #cbd5e1;
+}
+
+.chat-remove-file { 
+    cursor: pointer; 
+    color: #ef4444; 
+    padding: 5px;
+}
+.sits-ai-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;  
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    box-shadow: 0 8px 30px rgba(37, 99, 235, 0.4);
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 3px solid rgba(255,255,255,0.2);
+    text-align: center;
+}
+
+.sits-ai-float:hover {
+    transform: scale(1.1) rotate(0deg);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.6);
+}
+
+.sits-float-text {
+    font-family: 'Outfit', sans-serif;
+    color: white;
+    font-weight: 800; 
+    font-size: 15px;
+    line-height: 1.1; 
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.id-modal-body {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.id-card-side {
+    width: 450px;
+    height: 280px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+}
+
+.id-front-content {
+    flex: 1;
+    padding: 15px;
+    position: relative;
+}
+
+.id-side-strip {
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(180deg, #43a047 0%, #2e7d32 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.id-vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+.id-logo-small {
+    width: 35px;
+    height: 35px;
+    background: white;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    padding: 2px;
+}
+
+.id-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid #43a047;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.id-college-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1b5e20;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.id-photo-box {
+    width: 90px;
+    height: 105px;
+    border: 1px solid #ccc;
+    background: #f0f0f0;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.id-photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.id-upload-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 9px;
+    text-align: center;
+    padding: 3px 0;
+    cursor: pointer;
+    display: none;
+}
+.id-photo-box:hover .id-upload-overlay { display: block; }
+
+.id-student-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.id-info-table {
+    font-size: 11px;
+    width: 70%;
+    border-collapse: collapse;
+}
+.id-info-table td {
+    padding: 3px 0;
+    vertical-align: top;
+}
+.id-label { font-weight: 700; color: #555; width: 80px; }
+.id-val { font-weight: 600; color: #000; }
+
+.id-qr-box {
+    position: absolute;
+    bottom: 15px;     
+    left: 20px;        
+    width: 65px;      
+    height: 65px;
+    background: white;
+    padding: 2px;
+    border: 1px solid #ddd;
+}
+
+.id-qr-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.id-back-content {
+    padding: 20px;
+    width: 100%;
+    font-size: 11px;
+    position: relative;
+    background-image: radial-gradient(#e8f5e9 1px, transparent 1px);
+    background-size: 10px 10px;
+    padding-bottom: 80px;
+}
+
+.id-back-row {
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+}
+.id-back-label {
+    font-weight: 800;
+    color: #1b5e20;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+.id-back-val {
+    color: #333;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.id-terms {
+    margin-top: 15px;
+    font-size: 9px;
+    color: #666;
+    line-height: 1.4;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.id-principal-sign {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    text-align: center;
+}
+.id-sign-img {
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+    opacity: 0.7;
+}
+
+.id-edit-panel {
+    width: 100%;
+    max-width: 920px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+@media print {
+    @page { size: landscape; margin: 0; }
+    body * { visibility: hidden; }
+    #printableIdCard, #printableIdCard * { visibility: visible; }
+    #printableIdCard {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .id-card-side {
+        border: 1px solid #000;
+        box-shadow: none;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+.receipt-paper {
+    background: white;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 40px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.15);
+    font-family: 'Calibri', 'Arial', sans-serif;
+    color: #333;
+    position: relative;
+    box-sizing: border-box;
+    border-top: 8px solid #800080;
+}
+
+.receipt-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid #800080;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+.receipt-logo {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+}
+.receipt-inst-details {
+    flex: 1;
+    text-align: center;
+}
+
+.receipt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 30px;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.r-group {
+    display: flex;
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 2px;
+}
+.r-group label {
+    font-weight: 700;
+    width: 130px;
+    color: #555;
+}
+.editable-field {
+    flex: 1;
+    color: #000;
+    font-weight: 500;
+    outline: none;
+    border-bottom: 1px dashed transparent;
+    transition: 0.2s;
+}
+.editable-field:focus {
+    border-bottom: 1px dashed #800080;
+    background: #fdf2ff;
+}
+
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.receipt-table th {
+    background: #800080;
+    color: white;
+    padding: 10px;
+    border: 1px solid #800080;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.receipt-table td {
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+}
+.receipt-table tfoot th {
+    background: #f3e5f5; 
+    color: #800080;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+}
+.amount-inp {
+    width: 100%;
+    border: none;
+    text-align: right;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+}
+.desc-inp {
+    width: 100%;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+}
+
+@media print {
+    body * { visibility: hidden; }
+    #feeReceiptModal, #feeReceiptModal * { visibility: visible; }
+    #feeReceiptModal .modal-content {
+        position: absolute; left: 0; top: 0; margin: 0; padding: 0;
+        width: 100%; height: auto; background: white; box-shadow: none; border:none;
+    }
+    #printableReceipt {
+        margin: 0; width: 100%; box-shadow: none; border-top: 5px solid #800080;
+    }
+    #feeReceiptModal > div > div:first-child { display: none !important; }
+}
 </style>
 </head>
 <body>
@@ -2054,25 +2773,9 @@
         </div>
     </div>
 </div>
-        <div id="placementPage" class="page">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
-        <h2 style="font-size: 24px; margin:0;">
-            <i class="fa fa-briefcase" style="color: var(--accent); margin-right: 10px;"></i> Training & Placement
-        </h2>
-        <span class="tag tag-p" style="font-size:14px;">Year 2025-26</span>
-    </div>
 
-    <div class="grid-forms" style="margin-bottom:20px;">
-        <input type="text" id="jobSearch" placeholder="Search Company or Role..." onkeyup="renderJobs()">
-        <select id="jobTypeFilter" onchange="renderJobs()">
-            <option value="All">All Types</option>
-            <option value="Internship">Internship</option>
-            <option value="Full Time">Full Time</option>
-        </select>
-    </div>
 
-    <div class="job-grid" id="jobContainer" 
-    style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+  
         </div>
 </div>
     </main>
@@ -2468,36 +3171,26 @@ class="modal">
             </p>
         </div>
 
-        <div style="display:flex; gap:10px; margin-bottom:20px; overflow-x:auto; padding-bottom:5px; 
-        flex-shrink: 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
-            <button class="btn btn-dark" 
-            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" 
-            onclick="switchGuide('g-intro')">
+        <div style="display:flex; gap:10px; margin-bottom:20px; overflow-x:auto; padding-bottom:5px; flex-shrink: 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+            <button class="btn btn-dark" style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" onclick="switchGuide('g-intro')">
                 <i class="fa fa-key"></i> Login & Basics
             </button>
-            <button class="btn btn-p" 
-            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;"
-             onclick="switchGuide('g-admin')">
+            <button class="btn btn-p" style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" onclick="switchGuide('g-admin')">
                 <i class="fa fa-user-shield"></i> Admin Ops
             </button>
-            <button class="btn btn-s" 
-            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" 
-            onclick="switchGuide('g-fac')">
+            <button class="btn btn-s" style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" onclick="switchGuide('g-fac')">
                 <i class="fa fa-chalkboard-teacher"></i> Faculty Tools
             </button>
-            <button class="btn btn-w" 
-            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" 
-            onclick="switchGuide('g-stud')">
+            <button class="btn btn-w" style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" onclick="switchGuide('g-stud')">
                 <i class="fa fa-user-graduate"></i> Student Zone
             </button>
-            <button class="btn btn-e" 
-            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" 
-            onclick="switchGuide('g-place')">
+            <button class="btn" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: white; padding: 8px 16px; font-size: 13px; white-space: nowrap;" onclick="switchGuide('g-ai')">
+                <i class="fa fa-robot"></i> AI & Pro Tools
+            </button>
+            <button class="btn btn-e" style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" onclick="switchGuide('g-place')">
                 <i class="fa fa-briefcase"></i> Placements
             </button>
-            <button class="btn btn-d" 
-            style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" 
-            onclick="switchGuide('g-util')">
+            <button class="btn btn-d" style="padding: 8px 16px; font-size: 13px; white-space: nowrap;" onclick="switchGuide('g-util')">
                 <i class="fa fa-tools"></i> Utils & Print
             </button>
         </div>
@@ -2509,9 +3202,7 @@ class="modal">
                 
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
                     <div style="background: rgba(59, 130, 246, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.1);">
-                        <strong style="color:var(--accent);">
-                            <i class="fa fa-lock">
-                            </i> Default Credentials</strong>
+                        <strong style="color:var(--accent);"><i class="fa fa-lock"></i> Default Credentials</strong>
                         <ul style="margin: 10px 0; padding-left: 20px; font-size:13px; font-family: monospace; color:var(--text-main);">
                             <li><strong>Admin:</strong> admin@sits.com (Pass: admin)</li>
                             <li><strong>Faculty:</strong> teacher@sits.com (Pass: 1234)</li>
@@ -2522,12 +3213,9 @@ class="modal">
                     <div>
                         <strong style="color:var(--text-main);"><i class="fa fa-desktop"></i> Interface Features</strong>
                         <ul style="font-size:13px; line-height:1.8; color:var(--text-muted);">
-                            <li><i class="fa fa-moon"></i> 
-                                <strong>Dark Mode:</strong> Toggle at the bottom of the sidebar.</li>
-                            <li><i class="fa fa-bars"></i> 
-                                <strong>Sidebar:</strong> Collapsible menu (top-left on mobile).</li>
-                            <li><i class="fa fa-bullhorn"></i> 
-                                <strong>Notices:</strong> Orange widget on dashboard shows latest alerts.</li>
+                            <li><i class="fa fa-moon"></i> <strong>Dark Mode:</strong> Toggle at the bottom of the sidebar.</li>
+                            <li><i class="fa fa-bars"></i> <strong>Sidebar:</strong> Collapsible menu (top-left on mobile).</li>
+                            <li><i class="fa fa-bullhorn"></i> <strong>Notices:</strong> Orange widget on dashboard shows latest alerts.</li>
                         </ul>
                     </div>
                 </div>
@@ -2539,23 +3227,16 @@ class="modal">
                 <div style="margin-bottom:20px;">
                     <h4 style="margin:0 0 10px 0; color:var(--text-main);">1. Student Management</h4>
                     <ul style="font-size:13px; line-height:1.6;">
-                        <li><strong>New Admission:</strong> C
-                            ick "New Admission". Fill in Academic, Personal, and Contact details. 
-                            Upload required documents (Aadhar, Marksheets).</li>
-                        <li><strong>Registry:</strong> 
-                            Filter students by Year/Branch/Div. Click 
-                            <i class="fa fa-eye">
-                            </i> to view full profile or <i class="fa fa-trash"></i> to remove.</li>
+                        <li><strong>New Admission:</strong> Click "New Admission". Fill in Academic, Personal, and Contact details. Upload required documents.</li>
+                        <li><strong>Registry:</strong> Filter students by Year/Branch/Div. Click <i class="fa fa-eye"></i> to view profile, <i class="fa fa-trash"></i> to remove.</li>
                     </ul>
                 </div>
 
                 <div style="margin-bottom:20px;">
                     <h4 style="margin:0 0 10px 0; color:var(--text-main);">2. System Maintenance</h4>
                     <ul style="font-size:13px; line-height:1.6;">
-                        <li><strong>Issue Resolution:</strong> 
-                            Check the "Reported Issues" table. Review complaints (WiFi, Academic, etc.) and click "Resolve" to close them.</li>
-                        <li><strong>Post Notice:</strong> 
-                            Click "Post Notice" to broadcast messages to all users' dashboards.</li>
+                        <li><strong>Issue Resolution:</strong> Check the "Reported Issues" table. Review complaints and click "Resolve".</li>
+                        <li><strong>Post Notice:</strong> Click "Post Notice" to broadcast messages to all users.</li>
                     </ul>
                 </div>
             </div>
@@ -2567,11 +3248,10 @@ class="modal">
                     <div style="background:rgba(16, 185, 129, 0.05); padding:15px; border-radius:12px;">
                         <h4 style="color:#059669; margin-top:0;"><i class="fa fa-user-check"></i> Marking Attendance</h4>
                         <ol style="font-size:13px; padding-left:20px;">
-                            <li>Select <strong>Class, Div, & Subject</strong> from dropdowns.</li>
+                            <li>Select <strong>Class, Div, & Subject</strong>.</li>
                             <li>Click the <strong>Attendance</strong> card.</li>
                             <li>Select Date.</li>
-                            <li><strong>Important:</strong> Enter only <em>ABSENT</em> 
-                                roll numbers separated by commas (e.g., <code>1, 12, 45</code>).</li>
+                            <li><strong>Important:</strong> Enter only <em>ABSENT</em> roll numbers separated by commas (e.g., <code>1, 12, 45</code>).</li>
                             <li>Click Save. All others are marked Present.</li>
                         </ol>
                     </div>
@@ -2581,20 +3261,10 @@ class="modal">
                         <ol style="font-size:13px; padding-left:20px;">
                             <li>Click <strong>Marks Entry</strong>.</li>
                             <li>Create a new column (e.g., "Unit Test 1").</li>
-                            <li>Enter marks directly in the table grid.</li>
-                            <li>Click <strong>Save All</strong> to commit to database.</li>
+                            <li>Enter marks directly in the grid.</li>
+                            <li>Click <strong>Save All</strong>.</li>
                         </ol>
                     </div>
-                </div>
-
-                <div style="margin-top:20px;">
-                    <h4 style="margin-bottom:5px;">Other Faculty Tasks:</h4>
-                    <ul style="font-size:13px; line-height:1.6;">
-                        <li><strong>Leave Requests:</strong> 
-                            Approve or Reject student leave applications directly from the dashboard.</li>
-                        <li><strong>Profile Access:</strong> 
-                            View uploaded student documents (Aadhar/Cast Cert) via the "Student List" table.</li>
-                    </ul>
                 </div>
             </div>
 
@@ -2602,10 +3272,8 @@ class="modal">
                 <h3 style="color:#db2777; margin-top:0;">Student Features</h3>
                 
                 <div style="margin-bottom:15px; border-left:3px solid #db2777; padding-left:15px;">
-                    <strong style="display:block; margin-bottom:5px;"
-                    >Dashboard Overview</strong>
-                    <span style="font-size:13px; color:var(--text-muted);"
-                    >View your real-time Attendance Pie Chart, Fee Status (Paid/Pending), and recent Notices immediately upon login.</span>
+                    <strong style="display:block; margin-bottom:5px;">Dashboard Overview</strong>
+                    <span style="font-size:13px; color:var(--text-muted);">View your real-time Attendance Pie Chart, Fee Status, and Notices immediately.</span>
                 </div>
 
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
@@ -2613,19 +3281,59 @@ class="modal">
                         <h4 style="font-size:14px;"><i class="fa fa-cloud-upload-alt"></i> LMS & Assignments</h4>
                         <p style="font-size:12px; color:var(--text-muted);">
                             - <strong>Notes:</strong> Click 'Download' or 'View'.<br>
-                            - <strong>Assignments:</strong> Click 'Submit'. You can upload a PDF or paste a Drive link. Status changes to "Turned In".
+                            - <strong>Assignments:</strong> Click 'Submit'. Upload PDF or paste Drive link. Status changes to "Turned In".
                         </p>
                     </div>
                     <div>
                         <h4 style="font-size:14px;"><i class="fa fa-file-alt"></i> My Documents</h4>
                         <p style="font-size:12px; color:var(--text-muted);">
-                            Go to "My Documents" > "Upload" to safe-keep your digital records (Aadhar, 10th/12th Marksheets) on the portal.
+                            Go to "My Documents" > "Upload" to safe-keep your digital records (Aadhar, Marksheets).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="g-ai" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
+                <h3 style="background: -webkit-linear-gradient(45deg, #2563eb, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-top:0;">
+                    <i class="fa fa-robot"></i> AI & Advanced Tools
+                </h3>
+                
+                <div style="margin-bottom:20px; background:linear-gradient(135deg, #eff6ff, #f5f3ff); padding:20px; border-radius:15px; border:1px solid #ddd;">
+                    <h4 style="margin:0 0 10px 0; color:#4f46e5;">1. SITS AI Assistant (Gemini)</h4>
+                    <p style="font-size:13px; color:#475569; margin-bottom:10px;">
+                        A smart assistant powered by Google Gemini AI, available via the floating button on the bottom right.
+                    </p>
+                    <ul style="font-size:13px; color:#334155; line-height:1.6;">
+                        <li><strong>Chat:</strong> Ask questions about syllabus, coding, or college info.</li>
+                        <li><strong>Image Analysis:</strong> Click the <i class="fa fa-paperclip"></i> icon to upload an image (e.g., a math problem or code error). The AI will analyze and solve it for you!</li>
+                    </ul>
+                </div>
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+                    <div>
+                        <h4 style="color:#059669; font-size:15px;"><i class="fa fa-comments"></i> Global Classroom Chat</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">
+                            Accessible via sidebar. A real-time group chat room connecting all students and faculty of the <strong>same Class & Division</strong>. Supports file sharing (PDF, Images).
                         </p>
                     </div>
                     <div>
-                        <h4 style="font-size:14px;"><i class="fa fa-exclamation-triangle"></i> Support</h4>
+                        <h4 style="color:#d97706; font-size:15px;"><i class="fa fa-id-card"></i> Digital ID Generator (Admin)</h4>
                         <p style="font-size:12px; color:var(--text-muted);">
-                            Use "Report Issue" for infrastructure or academic complaints. Use "Apply Leave" to notify teachers of absence.
+                            In the Student Registry table, click the <i class="fa fa-id-card"></i> icon. 
+                            Allows editing details, uploading a photo, generating a QR code, and downloading the ID card as <strong>PNG or PDF</strong>.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="color:#db2777; font-size:15px;"><i class="fa fa-file-invoice-dollar"></i> Fee Receipts (Admin)</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">
+                            In the Student Registry table, click <i class="fa fa-file-invoice-dollar"></i>. 
+                            Generates an official receipt. You can <strong>recalculate totals</strong>, print it, or send it directly to the Parent via <strong>WhatsApp</strong>.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="color:#2563eb; font-size:15px;"><i class="fa fa-globe"></i> In-App Browser</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">
+                            Found on the Student Dashboard. Opens external sites (University Login, Results, Syllabus) inside the app modal, so you don't have to leave the portal.
                         </p>
                     </div>
                 </div>
@@ -2633,7 +3341,6 @@ class="modal">
 
             <div id="g-place" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
                 <h3 style="color:#f59e0b; margin-top:0;">Training & Placement</h3>
-                
                 <table style="width:100%; border-collapse:collapse; font-size:13px; margin-top:10px;">
                     <tr style="background:rgba(0,0,0,0.03); text-align:left;">
                         <th style="padding:10px;">Feature</th>
@@ -2641,41 +3348,23 @@ class="modal">
                         <th style="padding:10px;">Student Action</th>
                     </tr>
                     <tr>
-                        <td style="padding:10px; border-bottom:1px solid #eee;">
-                            <strong>Posting</strong></td>
-                        <td style="padding:10px; border-bottom:1px solid #eee;">
-                            Post Jobs/Internships. Set mode to "Internal" (portal) or "External" (Link).</td>
-                        <td style="padding:10px; border-bottom:1px solid #eee;">
-                            View listings with tags (Internship/Full Time). Search by company.</td>
+                        <td style="padding:10px; border-bottom:1px solid #eee;"><strong>Posting</strong></td>
+                        <td style="padding:10px; border-bottom:1px solid #eee;">Post Jobs/Internships. Set mode to "Internal" or "External".</td>
+                        <td style="padding:10px; border-bottom:1px solid #eee;">View listings with tags. Search by company.</td>
                     </tr>
                     <tr>
                         <td style="padding:10px;"><strong>Applying</strong></td>
                         <td style="padding:10px;">-</td>
-                        <td style="padding:10px;">Click <strong>Apply Now</strong> 
-                            for internal tracking, or visit external links for other platforms.</td>
+                        <td style="padding:10px;">Click <strong>Apply Now</strong> for internal tracking, or visit external links.</td>
                     </tr>
                 </table>
             </div>
 
             <div id="g-util" class="guide-tab" style="display:none; animation: fadeInScale 0.3s;">
                 <h3 style="color:#475569; margin-top:0;">Advanced Utilities</h3>
-                
                 <ul style="font-size:13px; line-height:1.8;">
-                    <li>
-                        <strong><i class="fa fa-print"></i> Printing & Exporting:</strong>
-                        <br>Available in Attendance and Marks modals.
-                        <br>- <em>Excel:</em> Downloads an .xlsx file.
-                        <br>- <em>Print:</em> Generates a clean, black-and-white official format (hiding buttons/menus) for physical records.
-                    </li>
-                    <li>
-                        <strong><i class="fa fa-calendar-alt"></i> Timetable Editor:</strong>
-                        <br>Admin/Faculty can click "Timetable". Use <strong>+ Row</strong> / 
-                        <strong>+ Col</strong> to expand. Click ANY cell to type subjects. Click "Save Changes" to publish.
-                    </li>
-                    <li>
-                        <strong><i class="fa fa-external-link-alt"></i> External Resources:</strong>
-                        <br>Access the official college website or online study materials (Brainkart) directly within the portal modal without leaving the app.
-                    </li>
+                    <li><strong><i class="fa fa-print"></i> Printing & Exporting:</strong> Excel downloads and clean print formats available in Attendance/Marks modals.</li>
+                    <li><strong><i class="fa fa-calendar-alt"></i> Timetable Editor:</strong> Admin/Faculty can edit the schedule grid directly.</li>
                 </ul>
             </div>
 
@@ -3007,12 +3696,403 @@ class="modal">
         </div>
     </div>
 </div>
-</body>
+<div id="placementExternalModal" class="modal">
+    <div class="modal-content" style="width: 95%; max-width: 1200px; height: 90vh;">
+        <div style="padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fa fa-briefcase" style="font-size: 20px; color: #db2777;"></i>
+                <h3 style="margin:0; font-size: 16px; color: #0f172a;">Internship Search Portal</h3>
+            </div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <a href="https://internship.aicte-india.org/" target="_blank" class="btn btn-s" style="padding: 6px 12px; font-size: 12px; text-decoration: none;">
+                    <i class="fa fa-external-link-alt"></i> Official Site
+                </a>
+                <span class="close-modal" style="position: static; color: #64748b; font-size: 24px;" onclick="closeModal('placementExternalModal')">&times;</span>
+            </div>
+        </div>
+        
+        <iframe src="https://internship.aicte-india.org/" 
+        class="iframe-full-height" 
+        title="Placement Search" 
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms">
+            <p style="padding: 20px; text-align: center;">Your browser does not support iframes.</p>
+        </iframe>
+    </div>
+</div>
+<div class="sits-ai-float" onclick="toggleSitsChat()">
+    <div class="sits-float-text">
+        SITS<br>Ai Chat box
+    </div>
+</div>
+
+<div class="sits-ai-float" onclick="toggleSitsChat()">
+    <div class="sits-float-text">
+        SITS<br>AI Chat box
+    </div>
+</div>
+
+<div class="sits-ai-window" id="sitsChatWindow">
+   <div class="sits-chat-header">
+        <div class="sits-header-title">
+            <div style="
+                width: 35px; 
+                height: 35px; 
+                background: linear-gradient(135deg, #2563eb, #9333ea); 
+                border-radius: 10px; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+                margin-right: 10px;
+            ">
+                <i class="fa fa-robot" style="color: white; font-size: 18px;"></i>
+            </div>
+            
+            <div style="display:flex; flex-direction:column;">
+                <span style="font-size:16px; font-weight:800; background: -webkit-linear-gradient(45deg, #2563eb, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    SITS Ai Chat Box 
+                </span>
+                <span style="font-size:10px; color:#64748b; font-weight:600; display:flex; align-items:center; gap:4px;">
+                    <span class="ai-status-dot" style="width:6px; height:6px;"></span> Online
+                </span>
+            </div>
+        </div>
+        
+        <button class="btn btn-d" style="padding: 0; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; min-width:32px;" onclick="toggleSitsChat()">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+    <div class="sits-chat-body" id="sitsChatBody">
+        <div class="chat-bubble bot-msg">
+            Hi! I am the new <strong>SITS Ai Chat Box </strong>. 🌟
+            <br><br>
+            You can <strong>upload images</strong> (like math problems or code errors), and I will solve them for you!
+            <br><br>
+            <em>for uploading image ,video ,file click on the paperclip icon <i class="fa fa-paperclip"></i> below.</em>
+        </div>
+    </div>
+    
+    <div class="chat-file-preview" id="sitsFilePreview" style="display:none; padding: 10px; background: #f1f5f9; border-top: 1px solid #e2e8f0; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img id="sitsPreviewImg" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; display:none;">
+            <i id="sitsPreviewIcon" class="fa fa-file" style="display:none; font-size: 20px; color: #475569;"></i>
+            <div style="display:flex; flex-direction:column;">
+                <span id="sitsFileName" style="font-weight:600; font-size:12px; color: #334155;">file.png</span>
+                <span style="font-size:10px; color:#64748b;">Ready to send</span>
+            </div>
+        </div>
+        <i class="fa fa-times" style="cursor: pointer; color: #ef4444; padding: 5px;" onclick="clearSitsFile()"></i>
+    </div>
+    
+    <div class="sits-chat-footer">
+        <input type="file" id="sitsFileInput" style="display:none;" onchange="handleSitsFileSelect()">
+        
+        <button class="chat-attach-btn" onclick="document.getElementById('sitsFileInput').click()" 
+                style="width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; cursor: pointer; color: #64748b; font-size: 18px;">
+            <i class="fa fa-paperclip"></i>
+        </button>
+
+        <div class="chat-input-wrapper">
+            <input type="text" class="chat-input" id="sitsChatInput" 
+                   placeholder="Ask me anything..." autocomplete="off">
+        </div>
+        <button class="send-btn-icon" onclick="sendSitsMsg()">
+            <i class="fa fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+<div id="idCardModal" class="modal">
+    <div class="modal-content" style="max-width: 1000px; width: 95%;">
+        <span class="close-modal" onclick="closeModal('idCardModal')">&times;</span>
+        
+       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:15px;">
+    <h2 style="margin:0;"><i class="fa fa-id-badge" style="color:#43a047;"></i> Professional Student ID</h2>
+    
+    <div style="display:flex; gap:10px;">
+        <button class="btn btn-w" onclick="downloadIdCardImage()">
+            <i class="fa fa-file-image"></i> Save Image
+        </button>
+        
+        <button class="btn btn-p" onclick="downloadIdCardPdf()">
+            <i class="fa fa-file-pdf"></i> Save PDF
+        </button>
+        
+        <button class="btn btn-dark" onclick="printIdCard()">
+            <i class="fa fa-print"></i> Print
+        </button>
+    </div>
+</div>
+
+        <div class="id-modal-body">
+            
+            <div id="printableIdCard" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+    
+    <div class="id-card-side">
+        <div class="id-front-content">
+            <div class="id-header-row" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #43a047; padding-bottom: 5px; margin-bottom: 10px;">
+                <div class="id-college-title" style="font-size: 16px; font-weight: 800; color: #1b5e20; text-transform: uppercase; line-height: 1.2;">
+                    Sinhgad Institute of<br>Technology & Science
+                </div>
+                <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" 
+                     style="width: 50px; height: 50px; object-fit: contain; margin-left: 10px;">
+            </div>
+
+            <div class="id-student-name" id="idCardName">STUDENT NAME</div>
+
+            <table class="id-info-table">
+                <tr><td class="id-label">Course:</td><td class="id-val">B.E.</td></tr>
+                <tr><td class="id-label">Branch:</td><td class="id-val" id="idCardBranch">IT</td></tr>
+                <tr><td class="id-label">Year:</td><td class="id-val" id="idCardYear">2026</td></tr>
+                <tr><td class="id-label">DOB:</td><td class="id-val" id="idCardDob">01-01-2000</td></tr>
+                <tr><td class="id-label">Blood Group:</td><td class="id-val" id="idCardBlood" style="color:#d32f2f;">B+</td></tr>
+                <tr><td class="id-label">roll no:</td><td class="id-val" id="idCardRoll">1234</td></tr>
+            </table>
+
+            <div class="id-photo-box" onclick="document.getElementById('idPhotoInput').click()">
+                <img id="idCardPhoto" src="https://via.placeholder.com/150" alt="Student Photo">
+                <div class="id-upload-overlay"><i class="fa fa-camera"></i> Edit</div>
+            </div>
+        </div>
+
+        <div class="id-side-strip">
+            <div class="id-vertical-text">SITS NARHE</div>
+        </div>
+    </div>
+
+    <div class="id-card-side">
+        <div class="id-side-strip">
+            <div class="id-vertical-text">SINHGAD INSTITUTES</div>
+        </div>
+        <div class="id-back-content">
+            <div class="id-back-row">
+                <div class="id-back-label">Permanent Address</div>
+                <div class="id-back-val" id="idCardAddr">At Post Pune...</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="id-back-row">
+                    <div class="id-back-label">Student Contact</div>
+                    <div class="id-back-val" id="idCardPhone">9876543210</div>
+                </div>
+                <div class="id-back-row">
+                    <div class="id-back-label">Emergency Contact</div>
+                    <div class="id-back-val" id="idCardEmerg" style="color:#d32f2f;">9876543210</div>
+                </div>
+            </div>
+
+            <div class="id-back-row">
+                <div class="id-back-label">Email Address</div>
+                <div class="id-back-val" id="idCardEmail" style="text-transform: lowercase;">student@sits.edu</div>
+            </div>
+
+            <div class="id-terms">
+                <strong>TERMS:</strong> This card is non-transferable and must be produced whenever demanded. 
+                Report loss immediately to Admin office.
+            </div>
+
+            <div class="id-qr-box">
+                <img id="idCardQr" src="" alt="QR">
+            </div>
+
+           <div class="id-principal-sign">
+                <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/my-project/main/principal.jpeg" 
+                     class="id-sign-img" 
+                     style="height: 40px; width: auto; mix-blend-mode: multiply;">
+                <div style="font-size:10px; font-weight:700; border-top:1px solid #333; padding-top:2px; margin-top: 2px;">
+                    Principal Sign
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="id-edit-panel">
+                <h4 style="margin-top:0; color:#43a047; border-bottom:1px solid #ddd; padding-bottom:10px;">
+                    <i class="fa fa-edit"></i> Update Student Details
+                </h4>
+                <div class="grid-forms" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
+                    
+                    <div>
+                        <label class="form-label">Profile Photo</label>
+                        <input type="file" id="idPhotoInput" accept="image/*" onchange="saveIdPhoto()">
+                    </div>
+
+                    <div>
+                        <label class="form-label">Blood Group</label>
+                        <select id="idEditBlood" onchange="updateIdDetails()">
+                            <option value="">Select...</option>
+                            <option value="A+">A+</option><option value="A-">A-</option>
+                            <option value="B+">B+</option><option value="B-">B-</option>
+                            <option value="O+">O+</option><option value="O-">O-</option>
+                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" id="idEditDob" onchange="updateIdDetails()">
+                    </div>
+
+                    <div>
+                        <label class="form-label">Student Contact</label>
+                        <input type="text" id="idEditPhone" onkeyup="updateIdDetails()">
+                    </div>
+
+                    <div>
+                        <label class="form-label">Emergency Contact</label>
+                        <input type="text" id="idEditEmerg" onkeyup="updateIdDetails()">
+                    </div>
+
+                    <div>
+                        <label class="form-label">Email</label>
+                        <input type="email" id="idEditEmail" onkeyup="updateIdDetails()">
+                    </div>
+
+                    <div style="grid-column: span 2;">
+                        <label class="form-label">Permanent Address</label>
+                        <input type="text" id="idEditAddr" onkeyup="updateIdDetails()" placeholder="Full address...">
+                    </div>
+                </div>
+                <button class="btn btn-p" style="margin-top:15px;" onclick="saveIdDetailsToDB()">
+                    <i class="fa fa-save"></i> Save All Changes
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="feeReceiptModal" class="modal">
+    <div class="modal-content" style="max-width: 900px; padding: 0; background: #eef2f3; height: 95vh; display: flex; flex-direction: column;">
+        
+      <div style="background: #2d3748; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 10;">
+    <div style="font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 10px;">
+        <i class="fa fa-file-invoice-dollar" style="color: #48bb78;"></i> Fee Receipt Generator
+    </div>
+    <div style="display: flex; gap: 10px;">
+        <button class="btn" style="background: #25D366; color: white;" onclick="sendReceiptToWhatsapp()">
+            <i class="fa fa-whatsapp"></i> Send to Parent
+        </button>
+        
+        <button class="btn btn-p" onclick="calculateReceiptTotal()">
+            <i class="fa fa-calculator"></i> Recalculate Total
+        </button>
+        <button class="btn btn-s" onclick="printFeeReceipt()">
+            <i class="fa fa-print"></i> Print Official
+        </button>
+        <button class="btn btn-d" onclick="closeModal('feeReceiptModal')">Close</button>
+    </div>
+</div>
+        <div style="flex: 1; overflow-y: auto; padding: 40px; display: flex; justify-content: center;">
+            
+            <div id="printableReceipt" class="receipt-paper" contenteditable="true">
+                
+                <div class="receipt-header">
+                    <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/sinhgad%20logo.jpg" class="receipt-logo">
+                    <div class="receipt-inst-details">
+                        <h1 style="margin: 0; font-size: 22px; color: #800080; text-transform: uppercase; letter-spacing: 0.5px;">Sinhgad Technical Education Society</h1>
+                        <h2 style="margin: 5px 0; font-size: 16px; font-weight: 700;">SINHGAD INSTITUTE OF TECHNOLOGY AND SCIENCE</h2>
+                        <p style="margin: 0; font-size: 11px; color: #555;">
+                            Narhe, Pune - 411041 | Reg. No: MAH/7199-93/Pune<br>
+                            Email: principal_sits@sinhgad.edu | Phone: 020-66831704
+                        </p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin: 10px 0;">
+                    <span style="border: 2px solid #800080; color: #800080; padding: 4px 12px; font-weight: 800; font-size: 14px; text-transform: uppercase; border-radius: 4px;">Official Fee Receipt</span>
+                </div>
+
+                <div class="receipt-grid">
+                    <div class="r-group">
+                        <label>Receipt No:</label>
+                        <div id="rNo" class="editable-field">NITS/2025/001</div>
+                    </div>
+                    <div class="r-group">
+                        <label>Date:</label>
+                        <div id="rDate" class="editable-field">23-08-2025</div>
+                    </div>
+                    <div class="r-group">
+                        <label>Student Name:</label>
+                        <div id="rName" class="editable-field" style="font-weight: 700;">Student Name</div>
+                    </div>
+                    <div class="r-group">
+                        <label>Student ID / ERP:</label>
+                        <div id="rId" class="editable-field">2025/SITS/0001</div>
+                    </div>
+                    <div class="r-group">
+                        <label>Class & Branch:</label>
+                        <div class="editable-field"><span id="rClass">FE</span> - <span id="rBranch">COMP</span> (<span id="rDiv">Div-A</span>)</div>
+                    </div>
+                    <div class="r-group">
+                        <label>Academic Year:</label>
+                        <div class="editable-field">2025-2026</div>
+                    </div>
+                    <div class="r-group">
+                        <label>Category:</label>
+                        <div class="editable-field">OPEN / OBC / SC</div>
+                    </div>
+                     <div class="r-group">
+                        <label>Mother's Name:</label>
+                        <div id="rMother" class="editable-field">-</div>
+                    </div>
+                </div>
+
+                <table class="receipt-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">Sr.</th>
+                            <th style="text-align: left;">Particulars of Fees</th>
+                            <th style="text-align: right; width: 130px;">Amount (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="receiptItems">
+                        </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2" style="text-align: right; padding-right: 15px;">GRAND TOTAL</th>
+                            <th style="text-align: right;" id="rTotalAmount">0.00</th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div style="margin-top: 20px; border: 1px solid #ddd; padding: 10px; border-radius: 4px; background: #f9f9f9;">
+                    <div style="font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 5px;">Payment Details</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px;">
+                        <div><strong>Mode:</strong> <span id="rMode" class="editable-field">Online / NEFT</span></div>
+                        <div><strong>Transaction ID:</strong> <span id="rTransId" class="editable-field">PAY_12345678</span></div>
+                        <div style="grid-column: span 2;">
+                            <strong>Amount (in words):</strong> 
+                            <span id="rInWords" style="font-style: italic; font-weight: 600;">Zero Only</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 50px; padding-top: 10px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 12px; font-weight: 700;">Accountant</div>
+                        <div style="font-size: 10px; color: #777;">(Prepared By)</div>
+                    </div>
+                   <div style="text-align: center; position: relative; min-width: 120px;">
+    <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/my-project/main/WhatsApp%20Image%202026-02-18%20at%205.32.16%20PM.jpeg" 
+         style="width: 80px; opacity: 0.8; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); z-index: 0; mix-blend-mode: multiply;">
+    
+    <div style="font-size: 12px; font-weight: 700; position: relative; z-index: 1;">Principal / Authority</div>
+    <div style="font-size: 10px; color: #777; position: relative; z-index: 1;">(Sinhgad Institutes)</div>
+</div>
+
+                <div style="margin-top: 20px; font-size: 9px; color: #888; text-align: center; border-top: 1px dashed #ccc; padding-top: 5px;">
+                    Note: This receipt is computer generated and subject to realization of funds. Fees once paid are not refundable.
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
     <script>
     let activeUser = null;
 
     const INITIAL_STUDENTS = 
-                            [
+        [
         { n: "BHALERAO PAVAN DINKARAPPA",   p: "9325530650", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "1" },
         { n: "BORKAR DNYANESHWARI TANHAJI", p: "7666103944", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "2" },
         { n: "SHETKAR DNYANESH RAMCHANDRA", p: "8888216966", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "3" },
@@ -3021,6 +4101,7 @@ class="modal">
         { n: "KADAM SHRADDHA SADANAND", p: "8459430473", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "6" },
         { n: "TILVE VEDANT MAHESH", p: "7038580411", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "7" },
         { n: "BHAGAT RUTUJA PRAVIN", p: "9552737716", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "8" },
+        { n: "Pranav Dnyaneshwar Talekar", p: "8956699046", y: "1ST YEAR", b: "COMBINE", d: "Div-1", r: "16" },
         { n: "HIRE PRIYANKA RUSHINDAR", p: "9527592219", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "1" },
         { n: "RATHOD VIKAS RAJARAM", p: "8767459645", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "2" },
         { n: "JADHAV DHANANJAY NAVNATH", p: "8669054022", y: "1ST YEAR", b: "COMBINE", d: "Div-2", r: "3" },
@@ -3094,7 +4175,7 @@ class="modal">
         { n: "CHADOKAR RISHIKA YOGESH", p: "9699945991", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "21" },
         { n: "TEJAS NANDKUMAR RATHOD", p: "9359798864", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "22" },
         { n: "PRANAV CHHAGAN GAIKWAD", p: "8197775751", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "23" },
-        { n: "UTTARWAR KAUSTUBH VIJAY", p: "7972564543", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "24" },
+        { n: "UTTARWAR KAUSTUBH VIJAY", p: "7972964543", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "24" },
         { n: "GHODKE SHIVAM SATISH", p: "7972624725", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "25" },
         { n: "AMRUTA DATTATRAY SAPKAL", p: "9579827176", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "26" },
         { n: "KHEDKAR ARJUN HARIBHAU", p: "8459613354", y: "1ST YEAR", b: "COMBINE", d: "Div-3", r: "27" },
@@ -3196,7 +4277,7 @@ class="modal">
         { n: "SANAP SHUBHAM SURESH", p: "7020212737", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "21" },
         { n: "PATIL SHASHANK KAILAS", p: "8485020583", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "22" },
         { n: "KAMBLE RUTUJA TUKARAM", p: "8766499208", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "23" },
-        { n: "PATIL MANISH SUNIL", p: "9659369134", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "24" },
+        { n: "PATIL MANISH SUNIL", p: "9699389134", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "24" },
         { n: "BHUJBAL KARAN SANDIP", p: "9579876157", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "25" },
         { n: "JARWAL PRATHSH MANGALSING", p: "9270568789", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "26" },
         { n: "MUTHA SHRAVANI RAJENDRA", p: "7249660175", y: "1ST YEAR", b: "COMBINE", d: "Div-5", r: "27" },
@@ -3232,7 +4313,7 @@ class="modal">
         { n: "MANKAR PRANAV GANESH", p: "7249772167", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "2" },
         { n: "KOTHALKAR MAYUR DIPAK", p: "8237103283", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "3" },
         { n: "CHIKANE PRERANA PUNDLIK", p: "8379914535", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "4" },
-        { n: "SHIRSAT RAM NARAYAN", p: "9657123132", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "5" },
+        { n: "SHIRSAT RAM NARAYAN", p: "9270092791", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "5" },
         { n: "KURHADE DIKSHA SUNIL", p: "7620724241", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "6" },
         { n: "POHAKAR SAHIL NIVRUTTI", p: "9373898211", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "7" },
         { n: "AGLAWE MAYUR RAJU", p: "9359145599", y: "1ST YEAR", b: "COMBINE", d: "Div-6", r: "8" },
@@ -3347,7 +4428,7 @@ class="modal">
         { n: "KAKADE PRATHMESH ASHOK", p: "9370937319", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "18" },
         { n: "DHANARIYA HARSHAL RUPARAM", p: "8788837041", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "19" },
         { n: "MOOLYA SAMRUDDHI SURESH", p: "9637314059", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "20" },
-        { n: "SABALE PRASANNA RAJENDRA", p: "7276103914", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "21" },
+        { n: "SABALE PRASANNA RAJENDRA", p: "7276303914", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "21" },
         { n: "WAGH RAGINI VAIBHAV", p: "9657709472", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "22" },
         { n: "ABDURREHMAN SAAD", p: "8317536576", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "23" },
         { n: "GIR PARTH SANJAY", p: "7666361887", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "24" },
@@ -3379,34 +4460,26 @@ class="modal">
         { n: "TARU ADITYA RAJENDRA", p: "9699456246", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "50" },
         { n: "SHINDE ARYAN ANIL", p: "8625903817", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "51" },
         { n: "MORE ROHIT DINESH", p: "9561228499", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "52" }
-         ];
-  // --- FIXED DATABASE INITIALIZATION ---
-    // 1. Load saved data or use defaults
-    const savedStudents = JSON.parse(localStorage.getItem('sits_pro_std_v2'));
-    
-    // FIX: Ensure we use the correct variable name 'validStudentsList' here
+         ]
+
+    const savedStudents = JSON.parse(localStorage.getItem('sits_students'));
     const validStudentsList = (savedStudents && savedStudents.length > 0) ? savedStudents : INITIAL_STUDENTS;
 
-   // --- UPDATED DATABASE STRUCTURE ---
     const DB = {
         students: validStudentsList,
-        records: JSON.parse(localStorage.getItem('sits_pro_rec_v2')) || [],
-        leaves: JSON.parse(localStorage.getItem('sits_pro_lev_v2')) || [],
-        issues: JSON.parse(localStorage.getItem('sits_pro_issues_v1')) || [], 
-        notices: JSON.parse(localStorage.getItem('sits_pro_not_v2')) || [],
-        messages: JSON.parse(localStorage.getItem('sits_pro_msgs_v1')) || [],
-        portalFeedback: JSON.parse(localStorage.getItem('sits_pro_feed_v1')) || [],
-        events: JSON.parse(localStorage.getItem('sits_pro_events_v1')) || [],
-        placements: JSON.parse(localStorage.getItem('sits_pro_jobs_real_v1')) || [],
-        submissions: JSON.parse(localStorage.getItem('sits_pro_subs_v1')) || [],
-        lms: JSON.parse(localStorage.getItem('sits_pro_lms_v2')) || [],
-        applications: JSON.parse(localStorage.getItem('sits_pro_apps_v2')) || [],
-        
-        // --- ADD THIS NEW ARRAY ---
-        globalChat: JSON.parse(localStorage.getItem('sits_pro_chat_v1')) || [],
-        // --------------------------
-
-        grid: JSON.parse(localStorage.getItem('sits_pro_grid_v2')) || [ 
+        records: JSON.parse(localStorage.getItem('sits_records')) || [],
+        leaves: JSON.parse(localStorage.getItem('sits_leaves')) || [],
+        issues: JSON.parse(localStorage.getItem('sits_issues')) || [], 
+        notices: JSON.parse(localStorage.getItem('sits_notices')) || [],
+        messages: JSON.parse(localStorage.getItem('sits_messages')) || [],
+        portalFeedback: JSON.parse(localStorage.getItem('sits_feedback')) || [],
+        events: JSON.parse(localStorage.getItem('sits_events')) || [],
+        placements: JSON.parse(localStorage.getItem('sits_placements')) || [],
+        submissions: JSON.parse(localStorage.getItem('sits_submissions')) || [],
+        lms: JSON.parse(localStorage.getItem('sits_lms')) || [],
+        applications: JSON.parse(localStorage.getItem('sits_applications')) || [],
+        globalChat: JSON.parse(localStorage.getItem('sits_chat')) || [],
+        grid: JSON.parse(localStorage.getItem('sits_timetable')) || [ 
             ["Time", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], 
             ["10:00", "Maths", "Phy", "BEE", "Mech", "BEE", "Phy"], 
             ["11:00", "Phy", "Maths", "Mech", "BEE", "Maths", "Mech"], 
@@ -3416,52 +4489,47 @@ class="modal">
         divisions: ["Div-1","Div-2","Div-3","Div-4","Div-5","Div-6","Div-7","Div-8"],
         subjects: [ "Engineering Maths 1", "Physics", "Programming", "Chemistry", "Graphics", "BXE", "Mechanics", "Electrical", "Engineering Maths 2"],
     };
+
     function saveDB() {
-        localStorage.setItem('sits_pro_std_v2', JSON.stringify(DB.students));
-        localStorage.setItem('sits_pro_rec_v2', JSON.stringify(DB.records));
-        localStorage.setItem('sits_pro_lev_v2', JSON.stringify(DB.leaves));
-        localStorage.setItem('sits_pro_not_v2', JSON.stringify(DB.notices));
-        localStorage.setItem('sits_pro_grid_v2', JSON.stringify(DB.grid));
-        localStorage.setItem('sits_pro_lms_v2', JSON.stringify(DB.lms));
-        localStorage.setItem('sits_pro_subs_v1', JSON.stringify(DB.submissions));
-        localStorage.setItem('sits_pro_apps_v2', JSON.stringify(DB.applications)); 
-        localStorage.setItem('sits_pro_jobs_real_v1', JSON.stringify(DB.placements));
-        localStorage.setItem('sits_pro_issues_v1', JSON.stringify(DB.issues));
-        localStorage.setItem('sits_pro_msgs_v1', JSON.stringify(DB.messages));
-        localStorage.setItem('sits_pro_feed_v1', JSON.stringify(DB.portalFeedback));
-        localStorage.setItem('sits_pro_events_v1', JSON.stringify(DB.events));
-        localStorage.setItem('sits_pro_std_v2', JSON.stringify(DB.students));
-        localStorage.setItem('sits_pro_chat_v1', JSON.stringify(DB.globalChat));
+        localStorage.setItem('sits_students', JSON.stringify(DB.students));
+        localStorage.setItem('sits_records', JSON.stringify(DB.records));
+        localStorage.setItem('sits_leaves', JSON.stringify(DB.leaves));
+        localStorage.setItem('sits_issues', JSON.stringify(DB.issues));
+        localStorage.setItem('sits_notices', JSON.stringify(DB.notices));
+        localStorage.setItem('sits_messages', JSON.stringify(DB.messages));
+        localStorage.setItem('sits_feedback', JSON.stringify(DB.portalFeedback));
+        localStorage.setItem('sits_events', JSON.stringify(DB.events));
+        localStorage.setItem('sits_placements', JSON.stringify(DB.placements));
+        localStorage.setItem('sits_submissions', JSON.stringify(DB.submissions));
+        localStorage.setItem('sits_lms', JSON.stringify(DB.lms));
+        localStorage.setItem('sits_applications', JSON.stringify(DB.applications));
+        localStorage.setItem('sits_chat', JSON.stringify(DB.globalChat));
+        localStorage.setItem('sits_timetable', JSON.stringify(DB.grid));
     }
+    
 
     function toggleSidebar() {
         document.getElementById('sidebar').classList.toggle('active');
         document.querySelector('.sidebar-overlay').classList.toggle('active');
     }
 
-    // --- FIXED LOGIN FUNCTION ---
     function handleLogin() {
-        // 1. Get input and remove extra spaces
         const id = document.getElementById('loginID').value.trim();
         const pass = document.getElementById('loginPass').value.trim();
         
-        console.log("Attempting login with:", id); // Debugging line
+        console.log("Attempting login with:", id); 
 
-        // 2. Admin Login
         if(id === "admin@sits.com" && pass === "admin") {
             activeUser = {role:"ADMIN", n:"Admin"};
             playWelcomeAudio(activeUser); 
             loadDashboard();
         } 
-        // 3. Faculty Login
         else if(id === "teacher@sits.com" && pass === "1234") {
             activeUser = {role:"TEACHER", n:"Faculty Member"};
             playWelcomeAudio(activeUser); 
             loadDashboard();
         } 
-        // 4. Student/Parent Login
         else {
-            // Robust search: Convert both to String to avoid number/text mismatches
             const st = DB.students.find(s => String(s.p).trim() === String(id));
             
             if(st) {
@@ -3485,12 +4553,18 @@ class="modal">
         let text = "";
         
         if (user.role === "STUDENT") {
-            let year = user.y.replace("1ST", "First").replace("2ND", "Second").replace("3RD", "Third").replace("4TH", "Fourth");
+            let year = user.y
+            .replace("1ST", "First")
+            .replace("2ND", "Second")
+            .replace("3RD", "Third")
+            .replace("4TH", "Fourth");
             let div = user.d.replace(" ");
             
-            text = `${user.n}, ${year}, ${div} student, Welcome to Sinhgad Institute of Technology and Science ( S I T S ) Platform Developed By Shubham Sanap  `;
+            text = `${user.n}, ${year}, ${div} student, Welcome to Sinhgad Institute of Technology and Science 
+            ( S I T S ) Platform Developed By Shubham Sanap  `;
         } else {
-            text = `Welcome ${user.n} to Sinhgad Institute of Technology and Science ( S I T S )  Platform Developed By Shubham Sanap `;
+            text = `Welcome ${user.n} to Sinhgad Institute of Technology and Science ( S I T S ) 
+             Platform Developed By Shubham Sanap `;
         }
 
         window.speechSynthesis.cancel();
@@ -3523,93 +4597,65 @@ function loadDashboard() {
     nav.innerHTML = "";
     
     if(activeUser.role === "ADMIN") {
-        // 1. Admin Links
         nav.innerHTML += `<div class="nav-link active" onclick="showPage('admin'); toggleSidebar()">
             <i class="fa fa-cogs"></i> Admin Control</div>`;
-            
-        nav.innerHTML += `<div class="nav-link" onclick="showPage('placement'); toggleSidebar(); renderJobs();">
-            <i class="fa fa-briefcase"></i> Placements (Admin)</div>`;
-
+        nav.innerHTML += `<div class="nav-link" onclick="window.open('https://internship.aicte-india.org/', '_blank'); toggleSidebar();">
+        <i class="fa fa-briefcase"></i> Internships & Jobs</div>`;
         nav.innerHTML += `<div class="nav-link" onclick="openFeedbackViewer(); toggleSidebar();">
             <i class="fa fa-comments"></i> Portal Feedback</div>`;  
         nav.innerHTML += `<div class="nav-link" onclick="openGlobalChat(); toggleSidebar();">
             <i class="fa fa-comments"></i> Classroom Chat</div>`;
-        // 2. Initialize Admin Views
         handleYearChange('aYear', 'aBranch'); 
         refreshAdminView(); 
         renderAdminIssues(); 
         renderLeaveRequests('adminLeaveTable'); 
         
-        // --- FIX: RENDER CALENDAR FOR ADMIN ---
         renderCalendarEvents(); 
-        // --------------------------------------
 
         showPage('admin');
     }
     else if(activeUser.role === "TEACHER") {
-        // 1. Teacher Links
         nav.innerHTML += `<div class="nav-link active" onclick="showPage('teacher'); toggleSidebar()">
             <i class="fa fa-chalkboard-teacher"></i> Faculty Dashboard</div>`;
-            
         nav.innerHTML += `<div class="nav-link" onclick="openFeedbackViewer(); toggleSidebar();">
             <i class="fa fa-comments"></i> Portal Feedback</div>`;
         nav.innerHTML += `<div class="nav-link" onclick="openGlobalChat(); toggleSidebar();">
         <i class="fa fa-comments"></i> Classroom Chat</div>`;
-        // 2. Initialize Teacher Views
         handleYearChange('tYear', 'tBranch'); 
         updateClock(); 
         renderLeaveRequests('teacherLeaveTable'); 
         
-        // --- FIX: RENDER CALENDAR FOR TEACHER ---
         renderCalendarEvents(); 
-        // ----------------------------------------
 
         showPage('teacher');
     }
-    else {
-        // 1. Student Portal Link
+       else {
         nav.innerHTML += `<div class="nav-link active" onclick="showPage('student'); toggleSidebar()">
             <i class="fa fa-user-graduate"></i> Student Portal</div>`;
-        
-        // 2. Internships Link
-        nav.innerHTML += `<div class="nav-link" onclick="showPage('placement'); toggleSidebar(); renderJobs();">
-            <i class="fa fa-briefcase"></i> Internships & Jobs</div>`;
-
-        // 3. About College Link
         nav.innerHTML += `<div class="nav-link" onclick="openAboutCollege(); toggleSidebar();">
             <i class="fa fa-university"></i> About College</div>`;
-
-        // 4. Study Material Link
         nav.innerHTML += `<div class="nav-link" onclick="openStudyMaterial(); toggleSidebar();">
             <i class="fa fa-book-reader"></i> Online Study Material</div>`;
-
-        // 5. University Login Link
         nav.innerHTML += `<div class="nav-link" onclick="openUniversityLogin(); toggleSidebar();">
             <i class="fa fa-graduation-cap"></i> University Login</div>`;
-            // In loadDashboard() -> else block (Student)
-// Add this line with the other nav links:
         nav.innerHTML += `<div class="nav-link" onclick="openRatePortalModal(); toggleSidebar();">
             <i class="fa fa-star"></i> Rate This Portal</div>`;
-            // Add this near the other nav links
-nav.innerHTML += `<div class="nav-link" onclick="openGlobalChat(); toggleSidebar();">
-    <i class="fa fa-comments"></i> Classroom Chat</div>`;
-        // Update Header Details
+        nav.innerHTML += `<div class="nav-link" onclick="openGlobalChat(); toggleSidebar();">
+            <i class="fa fa-comments"></i> Classroom Chat</div>`;
+        nav.innerHTML += `<div class="nav-link" onclick="openPlacementExternal(); toggleSidebar();">
+            <i class="fa fa-briefcase"></i> Internships & Jobs</div>`;
         document.getElementById('stDetails').innerText = `${activeUser.y} | ${activeUser.b} | Roll: ${activeUser.r} | ${activeUser.d}`;
         
-        // Update Fee Badge
         const feeBadge = document.getElementById('stFeeBadge');
         feeBadge.innerText = activeUser.fee === 'Paid' ? 'Fees Paid' : 'Fees Pending';
         feeBadge.className = activeUser.fee === 'Paid' ? 'tag tag-p' : 'tag tag-pend';
         
-        // Render Student Sections
         renderStudentStats();
         renderStudentMarks();
         renderStudentLMS();
         renderStudentSelfDocs();
         
-        /* --- ADDED RATING FUNCTION --- */
         renderStudentDashboardRating(); 
-        /* ----------------------------- */
         renderCalendarEvents();
         setTimeout(() => renderJobs(), 100); 
         
@@ -3706,15 +4752,23 @@ function refreshTeacherClassList() {
         </tr>`;
     }).join('');
 }
- function refreshAdminView() {
+function refreshAdminView() {
     const y = document.getElementById('aYear').value;
     const b = document.getElementById('aBranch').value;
     const d = document.getElementById('aDiv').value;
     
-    const list = DB.students.filter(s => s.y===y && s.b===b && s.d===d).sort((x,z) => x.r - z.r);
+    const list = DB.students.filter(s => s.y === y && s.b === b && s.d === d).sort((x,z) => x.r - z.r);
     
     document.getElementById('adminStudentTable').innerHTML = `
-    <thead><tr><th>R</th><th>Name</th><th>Status</th><th>Actions</th></tr></thead><tbody>` + 
+    <thead>
+        <tr>
+            <th>R</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>` + 
     list.map(s => `
         <tr>
             <td><strong>${s.r}</strong></td>
@@ -3725,6 +4779,13 @@ function refreshTeacherClassList() {
             <td><span class="tag ${s.fee==='Paid'?'tag-p':'tag-pend'}">${s.fee||'Pending'}</span></td>
             <td>
                 <div style="display:flex; gap:5px;">
+                    <button class="btn btn-p" style="padding:5px 10px; background: #800080; border-color: #800080;" onclick="openFeeReceipt('${s.p}')" title="Generate Receipt">
+                        <i class="fa fa-file-invoice-dollar"></i>
+                    </button>
+
+                    <button class="btn btn-dark" style="padding:5px 10px;" onclick="openIdCard('${s.p}')" title="Digital ID">
+                        <i class="fa fa-id-card"></i>
+                    </button>
                     <button class="btn btn-s" style="padding:5px 10px;" onclick="openProfile('${s.p}')" title="View Profile">
                         <i class="fa fa-eye"></i>
                     </button>
@@ -3740,25 +4801,20 @@ function refreshTeacherClassList() {
 
     animateLists();
 }
-
 let currentProfileUser = null;
 
 function openProfile(phone) {
-    // Find student safely using String comparison
     const s = DB.students.find(st => String(st.p) === String(phone));
     if(!s) return;
     
     currentProfileUser = s;
     const rating = s.rating || 0;
     
-    // Check permissions
     const isTeacherOrAdmin = activeUser && (activeUser.role === 'ADMIN' || activeUser.role === 'TEACHER');
 
-    // Update Header
     document.getElementById('profAvatar').innerText = s.n.charAt(0);
     document.getElementById('profName').innerText = s.n;
     
-    // --- STAR RATING INTEGRATION ---
     const starHTML = getStarHTML(rating, isTeacherOrAdmin);
     const starClass = isTeacherOrAdmin ? 'editable' : '';
     
@@ -3772,10 +4828,7 @@ function openProfile(phone) {
                 ${rating > 0 ? rating + '/5 Rating' : (isTeacherOrAdmin ? 'Tap stars to rate' : 'Not Rated')}
             </span>
         </div>
-    `;
-    // -------------------------------
-    
-    // Populate Personal Info
+    `;    
     const p = s.personal || {};
     const c = s.contact || {};
     
@@ -3790,7 +4843,6 @@ function openProfile(phone) {
         <div class="info-item"><label>Parent Contact</label><div>${c.parent || '-'}</div></div>
     `;
 
-    // Populate Documents
     const docs = s.docs || {};
     const docRows = Object.keys(docs).map(key => `
         <tr>
@@ -4454,7 +5506,7 @@ function postNewJob() {
     };
 
     DB.placements.unshift(newJob); 
-    localStorage.setItem('sits_pro_jobs_real_v1', JSON.stringify(DB.placements));
+    saveDB();
     
     alert("Opportunity Posted Successfully!");
     closeModal('postJobModal');
@@ -4989,45 +6041,34 @@ function renderStudentMessages() {
         </div>
     `).join('');
 }
-/* --- RATING SYSTEM LOGIC --- */
 
-/* --- FIXED RATING SYSTEM LOGIC --- */
-
-// 1. Robust Rate Student Function
 function rateStudent(score) {
     if (!currentProfileUser) {
         console.error("No profile loaded to rate.");
         return;
     }
     
-    // Update local memory
     currentProfileUser.rating = score;
     
-    // Update Main Database (Fixes Type Mismatch Issues)
     const idx = DB.students.findIndex(s => String(s.p) === String(currentProfileUser.p));
     
     if(idx > -1) {
         DB.students[idx].rating = score;
-        saveDB(); // Save to local storage
+        saveDB(); 
         
-        // Immediate UI Update
         renderProfileStars(score, true);
         
-        // Show success feedback
         alert(`Rated ${score} Stars Successfully!`);
     } else {
         alert("Error: Student record not found in database.");
     }
 }
 
-// 2. Generate Star HTML (Visuals)
 function getStarHTML(score, isEditable) {
     let html = '';
     for(let i = 1; i <= 5; i++) {
         const isFilled = i <= score ? 'filled' : '';
-        // Add onclick only if editable (Teacher/Admin)
         const clickAttr = isEditable ? `onclick="rateStudent(${i})"` : '';
-        // Add style cursor pointer if editable
         const styleAttr = isEditable ? 'style="cursor:pointer;"' : '';
         
         html += `<i class="fa fa-star ${isFilled}" ${clickAttr} ${styleAttr}></i>`;
@@ -5035,7 +6076,6 @@ function getStarHTML(score, isEditable) {
     return html;
 }
 
-// 3. Render Stars in Profile Modal
 function renderProfileStars(score, isEditable) {
     const container = document.getElementById('profStarContainer');
     const label = document.getElementById('profStarLabel');
@@ -5055,8 +6095,6 @@ function renderProfileStars(score, isEditable) {
         }
     }
 }
-
-// 4. Render Student Dashboard Widget
 function renderStudentDashboardRating() {
     const widget = document.getElementById('stDashRatingWidget');
     const scoreEl = document.getElementById('stDashScore');
@@ -5064,18 +6102,16 @@ function renderStudentDashboardRating() {
     
     if(!widget || !activeUser) return;
     
-    // Safely get rating
     const score = activeUser.rating || 0;
     
     if(score > 0) {
-        widget.style.display = 'flex'; // Show card if rated
+        widget.style.display = 'flex'; 
         scoreEl.innerText = score.toFixed(1);
-        starsEl.innerHTML = getStarHTML(score, false); // Not clickable for student
+        starsEl.innerHTML = getStarHTML(score, false);
     } else {
-        widget.style.display = 'none'; // Hide if no rating yet
+        widget.style.display = 'none'; 
     }
 }
-/* --- PORTAL FEEDBACK SYSTEM --- */
 
 let currentPortalRating = 0;
 
@@ -5128,7 +6164,6 @@ function submitPortalFeedback() {
     closeModal('ratePortalModal');
 }
 
-// Function for Teachers/Admins to view feedback
 function openFeedbackViewer() {
     const list = document.getElementById('feedbackListContainer');
     const avgEl = document.getElementById('avgPortalRating');
@@ -5137,12 +6172,10 @@ function openFeedbackViewer() {
         list.innerHTML = `<div style="text-align:center; padding:30px; color:#999;">No feedback received yet.</div>`;
         avgEl.innerText = "0.0";
     } else {
-        // Calculate Average
         const total = DB.portalFeedback.reduce((sum, item) => sum + item.rating, 0);
         const avg = (total / DB.portalFeedback.length).toFixed(1);
         avgEl.innerText = avg;
 
-        // Render List
         list.innerHTML = DB.portalFeedback.map(f => `
             <div class="card" style="margin:0; padding:15px; border-left:4px solid ${f.rating >= 4 ? '#10b981' : (f.rating <= 2 ? '#ef4444' : '#f59e0b')};">
                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
@@ -5164,24 +6197,19 @@ function clearFeedback() {
     if(confirm("Are you sure you want to delete all student feedback?")) {
         DB.portalFeedback = [];
         saveDB();
-        openFeedbackViewer(); // Refresh view
+        openFeedbackViewer();
     }
 }
-/* --- CALENDAR LOGIC --- */
 
 function renderCalendarEvents() {
-    // 1. Sort events by date
     const sortedEvents = DB.events.sort((a, b) => new Date(a.date) - new Date(b.date));
     
-    // 2. Determine if user is Admin/Teacher (to show controls)
     const canEdit = activeUser && (activeUser.role === 'ADMIN' || activeUser.role === 'TEACHER');
     
-    // 3. Show/Hide Add Button in all widgets
     document.querySelectorAll('#btnAddEvent').forEach(btn => {
         btn.style.display = canEdit ? 'block' : 'none';
     });
 
-    // 4. Generate HTML
     let html = "";
     if(sortedEvents.length === 0) {
         html = `<div style="text-align:center; padding:30px; color:var(--text-muted);">No upcoming events.</div>`;
@@ -5210,7 +6238,6 @@ function renderCalendarEvents() {
         }).join('');
     }
 
-    // 5. Inject into ALL calendar lists (Admin, Teacher, Student)
     document.querySelectorAll('#calendarList').forEach(el => el.innerHTML = html);
     
     animateLists();
@@ -5237,7 +6264,6 @@ function saveNewEvent() {
     renderCalendarEvents();
     closeModal('addEventModal');
     
-    // Clear inputs
     document.getElementById('newEventTitle').value = "";
     document.getElementById('newEventDate').value = "";
 }
@@ -5249,35 +6275,29 @@ function deleteEvent(id) {
         renderCalendarEvents();
     }
 }
-/* --- GROUP CHAT SYSTEM (DIV-WISE) --- */
 
-let chatFileBlob = null; // Stores file info temporarily
+let chatFileBlob = null;
 
 function openGlobalChat() {
-    // 1. Determine the Context (Which Room?)
     let roomName = "";
     
     if (activeUser.role === 'STUDENT') {
         roomName = `${activeUser.y} - ${activeUser.d}`;
     } 
     else if (activeUser.role === 'TEACHER') {
-        // Teachers enter the room selected in their dashboard dropdowns
         const y = document.getElementById('tYear').value;
         const d = document.getElementById('tDiv').value;
         roomName = `${y} - ${d}`;
     } 
     else if (activeUser.role === 'ADMIN') {
-        // Admins enter the room selected in their dashboard dropdowns
         const y = document.getElementById('aYear').value;
         const d = document.getElementById('aDiv').value;
         roomName = `${y} - ${d}`;
     }
 
-    // 2. Update Header Title
     const headerTitle = document.querySelector('#globalChatModal h3');
     if(headerTitle) headerTitle.innerText = `Class Discussion (${roomName})`;
 
-    // 3. Render & Open
     renderGlobalChat();
     openModal('globalChatModal');
     scrollToBottom();
@@ -5287,7 +6307,6 @@ function renderGlobalChat() {
     const container = document.getElementById('chatContainer');
     if(!container) return;
     
-    // 1. Define Filter Criteria
     let targetYear, targetDiv;
 
     if (activeUser.role === 'STUDENT') {
@@ -5301,14 +6320,10 @@ function renderGlobalChat() {
         targetDiv = document.getElementById('aDiv').value;
     }
 
-    // 2. Filter Messages by Year and Division
-    // We handle legacy messages (without targetYear) by showing them to everyone or hiding them. 
-    // Here we strictly show only matched messages.
     const chats = DB.globalChat.filter(msg => {
         return msg.targetYear === targetYear && msg.targetDiv === targetDiv;
     }).sort((a,b) => a.id - b.id);
     
-    // 3. Handle Empty State
     if(chats.length === 0) {
         container.innerHTML = `<div style="text-align:center; color:#999; margin-top:50px;">
             <i class="fa fa-comments" style="font-size:30px; opacity:0.3;"></i><br>
@@ -5319,16 +6334,13 @@ function renderGlobalChat() {
         return;
     }
 
-    // 4. Render Messages
     container.innerHTML = chats.map(msg => {
-        const isMe = msg.senderPhone === activeUser.p; // Check if I sent it
+        const isMe = msg.senderPhone === activeUser.p; 
         
-        // Style badges for Teacher/Admin
         let roleBadge = "";
         if(msg.role === "TEACHER") roleBadge = `<span class="msg-role" style="background:#dbeafe; color:#1e40af;">FACULTY</span>`;
         else if(msg.role === "ADMIN") roleBadge = `<span class="msg-role" style="background:#fee2e2; color:#991b1b;">ADMIN</span>`;
         
-        // File HTML generation
         let fileHtml = '';
         if(msg.file) {
             let icon = 'fa-file';
@@ -5366,7 +6378,6 @@ function handleChatFileSelect() {
             name: file.name,
             type: getFileType(file.name)
         };
-        // Show Preview
         document.getElementById('chatFilePreview').style.display = 'flex';
         document.getElementById('previewName').innerText = file.name;
     }
@@ -5390,9 +6401,8 @@ function getFileType(name) {
 function sendGlobalMsg() {
     const txt = document.getElementById('chatMsgInput').value;
     
-    if(!txt.trim() && !chatFileBlob) return; // Don't send empty
+    if(!txt.trim() && !chatFileBlob) return; 
     
-    // 1. Identify Target Room based on Sender Role
     let tYear, tDiv;
 
     if (activeUser.role === 'STUDENT') {
@@ -5415,7 +6425,6 @@ function sendGlobalMsg() {
         time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
         file: chatFileBlob,
         
-        // NEW: Tag message with specific room
         targetYear: tYear,
         targetDiv: tDiv
     };
@@ -5423,7 +6432,6 @@ function sendGlobalMsg() {
     DB.globalChat.push(newMsg);
     saveDB();
     
-    // Clear Input
     document.getElementById('chatMsgInput').value = "";
     clearChatFile();
     
@@ -5434,6 +6442,598 @@ function sendGlobalMsg() {
 function scrollToBottom() {
     const container = document.getElementById('chatContainer');
     if(container) container.scrollTop = container.scrollHeight;
+}
+function openPlacementExternal() {
+    const modal = document.getElementById('placementExternalModal');
+    if(modal) {
+        modal.style.display = 'flex';
+    } else {
+        alert("Error: Placement Portal module is loading...");
+    }
+}
+    
+    const GEMINI_API_KEY = "AIzaSyBsBHTe2WrJCWLOzpmxv-Xl2ckhm2Rfz34"; 
+    
+    let ACTIVE_MODEL = ""; 
+    let currentSitsFile = null;
+
+    function handleSitsFileSelect() {
+        const fileInput = document.getElementById('sitsFileInput');
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64Data = e.target.result.split(',')[1]; 
+            const mimeType = file.type;
+
+            currentSitsFile = {
+                inlineData: {
+                    mimeType: mimeType,
+                    data: base64Data
+                }
+            };
+
+            document.getElementById('sitsFilePreview').style.display = 'flex';
+            document.getElementById('sitsFileName').innerText = file.name;
+
+            if (mimeType.startsWith('image/')) {
+                const img = document.getElementById('sitsPreviewImg');
+                img.src = e.target.result;
+                img.style.display = 'block';
+                document.getElementById('sitsPreviewIcon').style.display = 'none';
+            } else {
+                document.getElementById('sitsPreviewImg').style.display = 'none';
+                document.getElementById('sitsPreviewIcon').style.display = 'block';
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function clearSitsFile() {
+        document.getElementById('sitsFileInput').value = "";
+        document.getElementById('sitsFilePreview').style.display = 'none';
+        currentSitsFile = null;
+    }
+
+    function toggleSitsChat() {
+        const win = document.getElementById('sitsChatWindow');
+        if (win.style.display === 'none' || win.style.display === '') {
+            win.style.display = 'flex';
+            document.getElementById('sitsChatInput').focus();
+        } else {
+            win.style.display = 'none';
+        }
+    }
+
+    async function findWorkingModel() {
+        const preferredModels = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro-vision"];
+        const listUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${GEMINI_API_KEY}`;
+        
+        try {
+            const response = await fetch(listUrl);
+            const data = await response.json();
+
+            if (data.models) {
+                for (const pref of preferredModels) {
+                    const match = data.models.find(m => m.name.includes(pref));
+                    if (match) {
+                        ACTIVE_MODEL = match.name;
+                        return true;
+                    }
+                }
+                // Fallback
+                const anyGemini = data.models.find(m => m.name.includes("gemini"));
+                if(anyGemini) {
+                     ACTIVE_MODEL = anyGemini.name;
+                     return true;
+                }
+            }
+            return false;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }
+
+    async function sendSitsMsg() {
+        const input = document.getElementById('sitsChatInput');
+        const text = input.value.trim();
+
+        if (!text && !currentSitsFile) return;
+
+        let userHtml = text;
+        if(currentSitsFile) {
+            userHtml += `<br><small><i>[Attached File]</i></small>`;
+        }
+        appendMessage(userHtml, 'user');
+        
+        input.value = '';
+        showTyping();
+        
+        const fileToSend = currentSitsFile; 
+        clearSitsFile(); 
+
+        if (ACTIVE_MODEL === "") {
+            const found = await findWorkingModel();
+            if (!found) {
+                removeTyping();
+                appendMessage("❌ System Error: No AI models available.", 'bot');
+                return;
+            }
+        }
+
+        const parts = [];
+        if (text) parts.push({ text: text });
+        if (fileToSend) parts.push(fileToSend);
+
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/${ACTIVE_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [{ parts: parts }]
+                })
+            });
+
+            const data = await response.json();
+            removeTyping();
+
+            if (data.candidates && data.candidates[0].content) {
+                const aiText = data.candidates[0].content.parts[0].text;
+                appendMessage(formatGeminiText(aiText), 'bot');
+            } else if (data.error) {
+                appendMessage(`⚠️ <strong>Error:</strong> ${data.error.message}`, 'bot');
+            } else {
+                appendMessage("⚠️ I couldn't process that. Try again.", 'bot');
+            }
+
+        } catch (error) {
+            removeTyping();
+            appendMessage(`🚫 Network Error: ${error.message}`, 'bot');
+        }
+    }
+
+    function formatGeminiText(text) {
+        return text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/```([\s\S]*?)```/g, '<pre>$1</pre>')
+            .replace(/\n/g, '<br>');
+    }
+
+    function appendMessage(text, sender) {
+        const body = document.getElementById('sitsChatBody');
+        const bubble = document.createElement('div');
+        bubble.className = `chat-bubble ${sender === 'user' ? 'user-msg' : 'bot-msg'}`;
+        bubble.innerHTML = text;
+        body.appendChild(bubble);
+        body.scrollTop = body.scrollHeight; 
+    }
+
+    function showTyping() {
+        const body = document.getElementById('sitsChatBody');
+        const bubble = document.createElement('div');
+        bubble.id = 'sitsTyping';
+        bubble.className = 'chat-bubble bot-msg';
+        bubble.style.width = 'fit-content';
+        bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+        body.appendChild(bubble);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function removeTyping() {
+        const t = document.getElementById('sitsTyping');
+        if(t) t.remove();
+    }
+
+    document.getElementById('sitsChatInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') sendSitsMsg();
+    });
+let activeIdStudent = null;
+
+function openIdCard(phone) {
+    const s = DB.students.find(st => String(st.p) === String(phone));
+    if(!s) return;
+    
+    activeIdStudent = s; 
+
+    if(!s.personal) s.personal = {};
+    if(!s.contact) s.contact = {};
+
+    document.getElementById('idCardName').innerText = s.n;
+    document.getElementById('idCardBranch').innerText = s.b || "IT";
+    document.getElementById('idCardYear').innerText = s.y || "2026";
+    document.getElementById('idCardRoll').innerText = s.r;
+    document.getElementById('idCardDob').innerText = s.dob || "--/--/----";
+    document.getElementById('idCardBlood').innerText = s.blood || "--";
+    document.getElementById('idCardAddr').innerText = s.personal.addr || "Address not updated.";
+    document.getElementById('idCardPhone').innerText = s.p;
+    document.getElementById('idCardEmerg').innerText = s.contact.emergency || "Not Provided";
+    document.getElementById('idCardEmail').innerText = s.contact.email || "student@sinhgad.edu";
+    document.getElementById('idEditDob').value = s.dob || ""; 
+    document.getElementById('idEditBlood').value = s.blood || "";
+    document.getElementById('idEditPhone').value = s.p;
+    document.getElementById('idEditEmerg').value = s.contact.emergency || "";
+    document.getElementById('idEditEmail').value = s.contact.email || "";
+    document.getElementById('idEditAddr').value = s.personal.addr || "";
+
+    const photoImg = document.getElementById('idCardPhoto');
+    if (s.profilePic) {
+        photoImg.src = s.profilePic;
+    } else {
+        photoImg.src = `https://ui-avatars.com/api/?name=${s.n}&background=random&color=fff&size=150`;
+    }
+
+    const fullInfo = `
+Name: ${s.n}
+ID: ${s.r}
+Branch: ${s.b} | Year: ${s.y}
+DOB: ${s.dob || 'N/A'} | Blood: ${s.blood || 'N/A'}
+Contact: ${s.p}
+Emergency: ${s.contact.emergency || 'N/A'}
+Email: ${s.contact.email || 'N/A'}
+Address: ${s.personal.addr || 'N/A'}
+    `.trim();
+
+    document.getElementById('idCardQr').src = 
+        `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(fullInfo)}`;
+
+    openModal('idCardModal');
+}
+
+function updateIdDetails() {
+    document.getElementById('idCardDob').innerText = document.getElementById('idEditDob').value;
+    document.getElementById('idCardBlood').innerText = document.getElementById('idEditBlood').value;
+    document.getElementById('idCardPhone').innerText = document.getElementById('idEditPhone').value;
+    document.getElementById('idCardEmerg').innerText = document.getElementById('idEditEmerg').value;
+    document.getElementById('idCardEmail').innerText = document.getElementById('idEditEmail').value;
+    document.getElementById('idCardAddr').innerText = document.getElementById('idEditAddr').value;
+}
+
+function saveIdDetailsToDB() {
+    if(!activeIdStudent) return;
+    activeIdStudent.dob = document.getElementById('idEditDob').value;
+    activeIdStudent.blood = document.getElementById('idEditBlood').value;
+    activeIdStudent.p = document.getElementById('idEditPhone').value;
+    if(!activeIdStudent.contact) activeIdStudent.contact = {};
+    activeIdStudent.contact.emergency = document.getElementById('idEditEmerg').value;
+    activeIdStudent.contact.email = document.getElementById('idEditEmail').value;
+    if(!activeIdStudent.personal) activeIdStudent.personal = {};
+    activeIdStudent.personal.addr = document.getElementById('idEditAddr').value;
+    saveDB(); 
+    refreshAdminView(); 
+    alert("Student Details & ID Card Updated Successfully!");
+}
+
+function saveIdPhoto() {
+    const fileInput = document.getElementById('idPhotoInput');
+    const file = fileInput.files[0];
+    
+    if (file && activeIdStudent) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('idCardPhoto').src = e.target.result;
+            activeIdStudent.profilePic = e.target.result; 
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function printIdCard() {
+    const printContent = document.getElementById('printableIdCard').innerHTML;
+    const originalContent = document.body.innerHTML;
+
+    document.body.innerHTML = `
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; gap:20px;">
+            ${printContent}
+        </div>
+    `;
+
+    window.print();
+
+    document.body.innerHTML = originalContent;
+    location.reload(); 
+}
+
+async function downloadIdCardImage() {
+    const element = document.getElementById('printableIdCard');
+    const btn = event.currentTarget;
+    const originalText = btn.innerHTML;
+
+    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Saving...';
+    btn.disabled = true;
+
+    try {
+        const canvas = await html2canvas(element, {
+            scale: 3, 
+            useCORS: true, 
+            backgroundColor: '#ffffff'
+        });
+
+        const link = document.createElement('a');
+        link.download = `${activeIdStudent.n}_ID_Card.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+    } catch (err) {
+        console.error("ID Card Image Error:", err);
+        alert("Could not generate image. Please try again.");
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+}
+
+async function downloadIdCardPdf() {
+    const { jsPDF } = window.jspdf;
+    const element = document.getElementById('printableIdCard');
+    const btn = event.currentTarget;
+    const originalText = btn.innerHTML;
+
+    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Generating PDF...';
+    btn.disabled = true;
+
+    try {
+        const canvas = await html2canvas(element, {
+            scale: 3,
+            useCORS: true,
+            backgroundColor: '#ffffff'
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+
+        const pdf = new jsPDF('l', 'mm', 'a4'); 
+        
+        const pageWidth = 297; 
+        const pageHeight = 210;
+        const margin = 10;
+        
+        const imgWidth = pageWidth - (margin * 2); 
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'PNG', margin, margin, imgWidth, imgHeight);
+
+        pdf.save(`${activeIdStudent.n}_ID_Card.pdf`);
+
+    } catch (err) {
+        console.error("ID Card PDF Error:", err);
+        alert("Could not generate PDF. Please ensure all images are loaded.");
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+}
+let currentReceiptParentPhone = "";
+
+function openFeeReceipt(phone) {
+    const s = DB.students.find(st => String(st.p) === String(phone));
+    if(!s) return;
+    
+    if (s.contact && s.contact.parent) {
+        currentReceiptParentPhone = s.contact.parent;
+    } else {
+        currentReceiptParentPhone = s.p;
+    }
+
+    const today = new Date().toLocaleDateString('en-GB');
+    const rNo = "NITS/" + new Date().getFullYear() + "/" + Math.floor(1000 + Math.random() * 9000);
+
+    document.getElementById('rName').innerText = s.n.toUpperCase();
+    document.getElementById('rId').innerText = "ERP-" + s.r; 
+    document.getElementById('rClass').innerText = s.y;
+    document.getElementById('rBranch').innerText = s.b;
+    document.getElementById('rDiv').innerText = s.d;
+    document.getElementById('rMother').innerText = (s.personal && s.personal.mother) ? s.personal.mother : "-";
+    document.getElementById('rDate').innerText = today;
+    document.getElementById('rNo').innerText = rNo;
+    document.getElementById('rTransId').innerText = "TXN" + Date.now().toString().slice(-8);
+
+    let fees = [];
+    if(s.y.includes("1ST")) {
+        fees = [
+            { desc: "Tuition Fee", amt: 85000 },
+            { desc: "Development Fee", amt: 12000 },
+            { desc: "University Prorata", amt: 2391 },
+            { desc: "Caution Money (Refundable)", amt: 5000 },
+            { desc: "Student Insurance", amt: 25 },
+            { desc: "Eligibility Fee", amt: 550 }
+        ];
+    } else {
+        fees = [
+            { desc: "Tuition Fee (Annual)", amt: 85000 },
+            { desc: "Development Fee", amt: 12000 },
+            { desc: "Exam Fee", amt: 2000 },
+            { desc: "Other Charges", amt: 500 }
+        ];
+    }
+
+    const tbody = document.getElementById('receiptItems');
+    tbody.innerHTML = fees.map((f, i) => `
+        <tr>
+            <td style="text-align: center;">${i+1}</td>
+            <td><div contenteditable="true" class="desc-inp">${f.desc}</div></td>
+            <td style="text-align: right;">
+                <input type="number" class="amount-inp" value="${f.amt}" 
+                style="width: 100%; border: none; text-align: right; outline: none; font-size: inherit; font-family: inherit;" 
+                oninput="calculateReceiptTotal()"> 
+            </td>
+        </tr>
+    `).join('') + `
+        <tr>
+            <td style="text-align: center;">+</td>
+            <td><div contenteditable="true" class="desc-inp" placeholder="Add Item..."></div></td>
+            <td style="text-align: right;">
+                <input type="number" class="amount-inp" value="0" 
+                style="width: 100%; border: none; text-align: right; outline: none; font-size: inherit; font-family: inherit;" 
+                oninput="calculateReceiptTotal()">
+            </td>
+        </tr>
+    `;
+
+    calculateReceiptTotal();
+    openModal('feeReceiptModal');
+}
+
+function calculateReceiptTotal() {
+    let total = 0;
+    document.querySelectorAll('.amount-inp').forEach(inp => {
+        total += Number(inp.value) || 0;
+    });
+
+    document.getElementById('rTotalAmount').innerText = total.toLocaleString('en-IN', {
+        maximumFractionDigits: 2, 
+        style: 'currency', 
+        currency: 'INR' 
+    });
+
+    document.getElementById('rInWords').innerText = convertNumberToWords(total) + " Only";
+}
+
+function convertNumberToWords(amount) {
+    const words = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 
+                   'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+    const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+    
+    if (amount === 0) return "Zero";
+    
+    function numToWords(n) {
+        if (n < 20) return words[n];
+        if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 ? " " + words[n % 10] : "");
+        if (n < 1000) return words[Math.floor(n / 100)] + " Hundred" + (n % 100 ? " and " + numToWords(n % 100) : "");
+        if (n < 100000) return numToWords(Math.floor(n / 1000)) + " Thousand" + (n % 1000 ? " " + numToWords(n % 1000) : "");
+        if (n < 10000000) return numToWords(Math.floor(n / 100000)) + " Lakh" + (n % 100000 ? " " + numToWords(n % 100000) : "");
+        return "Amount too large";
+    }
+    
+    return numToWords(parseInt(amount));
+}
+
+function printFeeReceipt() {
+    window.print();
+}
+function calculateReceiptTotal() {
+    let total = 0;
+    document.querySelectorAll('.amount-inp').forEach(inp => {
+        const val = parseFloat(inp.value);
+        if(!isNaN(val)) {
+            total += val;
+        }
+    });
+
+    document.getElementById('rTotalAmount').innerText = total.toLocaleString('en-IN', {
+        maximumFractionDigits: 2, 
+        style: 'currency', 
+        currency: 'INR' 
+    });
+
+    document.getElementById('rInWords').innerText = convertNumberToWords(total) + " Only";
+}
+function sendReceiptToWhatsapp() {
+    if(!currentReceiptParentPhone) {
+        alert("Parent phone number not found in registration data.");
+        return;
+    }
+
+    const rNo = document.getElementById('rNo').innerText;
+    const name = document.getElementById('rName').innerText;
+    const date = document.getElementById('rDate').innerText;
+    const amount = document.getElementById('rTotalAmount').innerText;
+    const mode = document.getElementById('rMode').innerText;
+    
+    const text = `*FEE RECEIPT - SITS PUNE*
+    
+Student: ${name}
+Receipt No: ${rNo}
+Date: ${date}
+------------------------
+*TOTAL PAID: ${amount}*
+------------------------
+Payment Mode: ${mode}
+
+This is a system generated receipt.
+- Principal, SITS Narhe`;
+
+    const cleanPhone = currentReceiptParentPhone.replace(/\D/g, ''); 
+    const url = `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(text)}`;
+    
+    window.open(url, '_blank');
+}
+async function sendReceiptToWhatsapp() {
+    if(!currentReceiptParentPhone) {
+        alert("Parent phone number not found. Please close and re-open the receipt.");
+        return;
+    }
+
+    const btn = event.currentTarget;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa fa-circle-notch fa-spin"></i> Processing...';
+    btn.disabled = true;
+
+    try {
+        const { jsPDF } = window.jspdf;
+        const element = document.getElementById('printableReceipt');
+        
+        const canvas = await html2canvas(element, {
+            scale: 2, 
+            useCORS: true, 
+            backgroundColor: '#ffffff'
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        
+        const rNo = document.getElementById('rNo').innerText.replace(/\//g, '-');
+        const studentName = document.getElementById('rName').innerText;
+        const totalAmt = document.getElementById('rTotalAmount').innerText;
+        const filename = `Fee_Receipt_${studentName}_${rNo}.pdf`;
+        
+        pdf.save(filename); 
+
+        const msgText = `*OFFICIAL FEE RECEIPT - SITS PUNE* 🎓
+        
+Dear Parent,
+Here is the fee receipt for *${studentName}*.
+
+📄 *Receipt No:* ${document.getElementById('rNo').innerText}
+💰 *Total Paid:* ${totalAmt}
+📅 *Date:* ${document.getElementById('rDate').innerText}
+
+(Please find the PDF receipt attached above)`;
+
+        let cleanPhone = String(currentReceiptParentPhone).replace(/\D/g, ''); 
+                if(cleanPhone.length === 10) {
+            cleanPhone = "91" + cleanPhone;
+        }
+
+        const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msgText)}`;
+
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+
+            const userConfirmed = confirm(
+                `✅ PDF Downloaded Successfully!\n\n` + 
+                `Click OK to open WhatsApp for ${cleanPhone}.\n` +
+                `👉 Don't forget to attach the downloaded file!`
+            );
+            
+            if(userConfirmed) {
+                window.open(whatsappUrl, '_blank');
+            }
+        }, 500);
+
+    } catch (err) {
+        console.error("WhatsApp Error:", err);
+        alert("Error generating receipt. check console.");
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
 }
 </script>
 </html>
