@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHUBH BIKE HOUSE | Elite Motorcycle Showroom Pune</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+    :root {
+        --primary: #ff2d55;
+        --primary-dark: #e31837;
+        --bg: #0d0e12;
+        --surface: #1a1c23;
+        --surface-light: #252833;
+        --text: #ffffff;
+        --text-dim: #a0a0ab;
+        --border: rgba(255, 255, 255, 0.08);
+        --glass: rgba(255, 255, 255, 0.03);
+        --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+        font-family: 'Outfit', sans-serif; 
+        background-color: var(--bg); 
+        color: var(--text);
+        line-height: 1.6; 
+        overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+        display: flex; 
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 8%; 
+        background: rgba(13, 14, 18, 0.85);
+        backdrop-filter: blur(15px); 
+        position: sticky; 
+        top: 0; 
+        z-index: 2000;
+        border-bottom: 1px solid var(--border);
+    }
+    .logo { 
+        font-size: 1.4rem; 
+        font-weight: 800; 
+        letter-spacing: 1px; 
+        color: var(--primary); 
+        text-transform: uppercase; 
+        cursor: pointer; 
+    }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-btn { 
+        background: none; 
+        border: none; 
+        color: var(--text-dim); 
+        font-weight: 600; 
+        cursor: pointer; 
+        transition: var(--transition); 
+        text-transform: uppercase; 
+        font-size: 0.8rem; 
+        letter-spacing: 1px; 
+    }
+    .nav-btn:hover, .nav-btn.active { color: var(--text); }
+
+    /* View Handling */
+    .view-section { 
+        display: none;
+        min-height: 90vh; 
+        animation: fadeIn 0.6s ease-out; 
+    }
+    .view-section.active { display: block; opacity: 1; transform: translateY(0); }
+    
+    @keyframes fadeIn {
+         from { opacity: 0; transform: translateY(10px); } 
+         to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Section */
+    .hero {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+            radial-gradient(circle at top, rgba(255,140,60,.15), transparent 60%),
+            linear-gradient(rgba(10,10,12,.8), rgba(10,10,12,.9)),
+            url("https://images.unsplash.com/photo-1558981403-c5f91cbba527?q=80&w=2070&auto=format&fit=crop")
+            center / cover no-repeat;
+        perspective: 1200px;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .hero-inner {
+        transform-style: preserve-3d;
+        transition: transform 0.1s ease-out; /* Smoother mouse follow */
+        padding: 0 6%;
+    }
+
+    .hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(3.2rem, 8vw, 5.8rem);
+        font-weight: 700;
+        background: linear-gradient(145deg, #ffd29d, #ff9a3c, #ff6a00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 0 rgba(0,0,0,.4), 0 18px 40px rgba(255,106,0,.35);
+        transform: translateZ(60px);
+        margin-bottom: 1rem;
+    }
+
+    .hero p {
+        font-family: Inter, sans-serif;
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        color: #c9c9d1;
+        max-width: 650px;
+        margin: 0 auto 3rem;
+        transform: translateZ(30px);
+    }
+
+    /* Features Section */
+    .features-container { background: #0a0b0e; padding: 6rem 8%; }
+    .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    .feature-card {
+        padding: 3rem 2rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        transition: var(--transition);
+        text-align: left;
+    }
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(255, 45, 85, 0.15);
+        border-color: var(--primary);
+    }
+    .feature-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--text);
+    }
+    .feature-card p {
+        color: var(--text-dim);
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+    .icon-wrapper {
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+        display: inline-block;
+    }
+
+    /* Common Components */
+    .container { padding: 6rem 8%; }
+    .btn {
+        padding: 1.1rem 2.2rem;
+        border-radius: 12px;
+        border: none; 
+        font-weight: 700; 
+        cursor: pointer;
+        transition: var(--transition);
+        font-family: inherit; 
+        font-size: 0.85rem; 
+        text-transform: uppercase; 
+        letter-spacing: 1px;
+    }
+    .btn-solid {
+        background: var(--primary);
+        color: white;
+    }
+    .btn-solid:hover {
+        transform: scale(1.05); 
+        box-shadow: 0 10px 30px rgba(255, 45, 85, 0.4);
+    }
+    .btn-outline { 
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text); 
+    }
+    .btn-outline:hover { 
+        background: rgba(255, 255, 255, 0.1); 
+    }
+
+    /* Bike Cards */
+    .bike-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+        gap: 2.5rem; 
+    }
+    .bike-card { 
+        background: var(--surface); 
+        border-radius: 20px; 
+        border: 1px solid var(--border); 
+        overflow: hidden; 
+        transition: var(--transition); 
+        position: relative;
+    }
+    .bike-card:hover { 
+        border-color: var(--primary); 
+        transform: translateY(-10px); 
+        box-shadow: 0 25px 50px rgba(255, 3, 49, 0.15); 
+    }
+    .img-box { 
+        height: 240px; 
+        overflow: hidden; 
+        background: #111; 
+        position: relative;
+    }
+    .img-box img { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover; 
+        transition: var(--transition); 
+    }
+    .bike-card:hover .img-box img { 
+        transform: scale(1.1); 
+        opacity: 0.9;
+    }
+    .card-content { padding: 2rem; }
+
+    /* Modal */
+    .modal { 
+        display: none; 
+        position: fixed; 
+        inset: 0; 
+        background: rgba(0,0,0,0.95); 
+        backdrop-filter: blur(10px); 
+        z-index: 3000; 
+        justify-content: center; 
+        align-items: center; 
+        padding: 2rem; 
+    }
+    .modal-content {
+        max-width: 1100px; 
+        width: 100%; 
+        background: var(--surface); 
+        border-radius: 24px; 
+        padding: 3rem; 
+        border: 1px solid var(--border); 
+        position: relative; 
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .detail-split-container { 
+        display: grid; 
+        grid-template-columns: 1fr 1.2fr; 
+        gap: 3rem; 
+        align-items: center;
+    }
+    .spec-table {
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-top: 1.5rem; 
+    }
+    .spec-table td { 
+        padding: 12px 0; 
+        border-bottom: 1px solid var(--border); 
+        font-size: 0.9rem; 
+    }
+    .spec-label { 
+        color: var(--text-dim); 
+        text-transform: uppercase; 
+        font-size: 0.7rem; 
+        letter-spacing: 1px; 
+    }
+
+    /* 360 Viewer */
+    .viewer-360 {
+        position: relative;
+        background: radial-gradient(circle at center, #252833 0%, #0d0e12 100%);
+        border-radius: 20px;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        cursor: grab;
+    }
+    .viewer-360 img { 
+        max-width: 85%; 
+        filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5)); 
+        transition: transform 0.1s linear; 
+        pointer-events: none; 
+    }
+    .badge-360 { 
+        position: absolute; 
+        top: 15px; 
+        right: 15px; 
+        background: rgba(255, 45, 85, 0.2); 
+        color: var(--primary); 
+        padding: 5px 12px; 
+        border-radius: 20px; 
+        font-size: 0.65rem; 
+        font-weight: 800; 
+        border: 1px solid var(--primary); 
+    }
+
+    /* Contact Page */
+    .contact-hero { padding: 6rem 8% 2rem; text-align: center; }
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 4rem;
+        padding: 0 8% 6rem;
+    }
+    .contact-info-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 2.5rem;
+        border-radius: 24px;
+        height: fit-content;
+    }
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .info-icon {
+        background: rgba(227, 24, 55, 0.1);
+        color: var(--primary);
+        padding: 1rem;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .info-text h4 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-dim);
+        margin-bottom: 0.5rem;
+    }
+    .info-text p { font-size: 1.1rem; font-weight: 600; }
+    
+    .contact-form-container {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 3rem;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label {
+        display: block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-dim);
+        margin-bottom: 0.5rem;
+    }
+    .form-input {
+        width: 100%;
+        padding: 1rem;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: white;
+        font-family: inherit;
+        transition: var(--transition);
+    }
+    .form-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(227, 24, 55, 0.1);
+    }
+    .map-full {
+        width: 100%;
+        height: 400px;
+        border-radius: 24px;
+        filter: grayscale(1) invert(0.9) contrast(1.2);
+        border: 1px solid var(--border);
+    }
+
+    /* Footer */
+    footer {
+        background: #07080a;
+        border-top: 5px solid rgba(255, 106, 0, 0.979); 
+        padding: 5rem 8% 2rem;
+        perspective: 800px; 
+    }
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+        gap: 4rem;
+    }
+    .footer-col h4 {
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--primary); 
+    }
+    .footer-col p, .footer-col li {
+        color: var(--text-dim);
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        list-style: none;
+    }
+    .footer-bottom {
+        border-top: 1px solid var(--border);
+        padding-top: 2rem;
+        margin-top: 3rem;
+        text-align: center;
+        color: var(--text-dim);
+        font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .contact-grid { grid-template-columns: 1fr; }
+        .detail-split-container, .footer-grid { grid-template-columns: 1fr; }
+        .hero h1 { font-size: 3rem; }
+        footer { padding: 3rem 5% 2rem; }
+    }
+    @media (max-width: 768px) {
+        .hero { perspective: none; }
+        .hero-inner { transform: none !important; }
+        .nav-links { display: none; } /* Simplified for mobile */
+    }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo" onclick="switchView('home')">S<span style="color: var(--primary);">B</span>H.</div>
+        <div class="nav-links">
+            <button class="nav-btn active" id="nav-home" onclick="switchView('home')">Home</button>
+            <button class="nav-btn" id="nav-collection" onclick="switchView('collection')">Collection</button>
+            <button class="nav-btn" id="nav-contact" onclick="switchView('contact')">Bookings</button>
+        </div>
+    </nav>
+
+    <section id="home" class="view-section active">
+        <div class="hero">
+            <div class="hero-inner">
+                <span style="color: var(--primary); font-weight: 800; letter-spacing: 4px; text-transform: uppercase;">Established 2025 • Pune</span>
+                <h1>SHUBH BIKEHOUSE.</h1>
+                <p>Curating the world's most prestigious motorcycles for the discerning rider.</p>
+                <button class="btn btn-solid" onclick="switchView('collection')" style="padding: 1.5rem 4rem; border-radius: 100px;">
+                    View Collection
+                </button>
+            </div>
+        </div>
+
+        <div class="features-container">
+            <div class="features">
+                <div class="feature-card">
+                    <div class="icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="14" x="2" y="5" rx="2"/>
+                            <line x1="2" x2="22" y1="10" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3>Elite Financial Access</h3>
+                    <p>Bespoke financing solutions crafted for discerning clients, offering exceptional flexibility and preferred rates.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Signature Certification</h3>
+                    <p>Every asset is meticulously inspected and authenticated, supported by an exclusive protection program.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m16 3 4 4-4 4"/>
+                            <path d="M20 7H4"/>
+                            <path d="m8 21-4-4 4-4"/>
+                            <path d="M4 17h16"/>
+                        </svg>
+                    </div>
+                    <h3>Curated Exchange</h3>
+                    <p>A refined trade-in experience powered by precision valuation and white-glove service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="collection" class="view-section">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 3rem;">Global Collection</h2>
+            <div class="bike-grid" id="bikeContainer"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="view-section">
+        <div class="contact-hero">
+            <span style="color: var(--primary); font-weight: 800; letter-spacing: 4px; text-transform: uppercase;">Get In Touch</span>
+            <h2 style="font-size: 3.5rem; margin-top: 1rem; font-family: 'Playfair Display', serif;">Concierge Service</h2>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info-side">
+                <div class="contact-info-card">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 
+                              0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0
+                               0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 
+                               12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </div>
+                        <div class="info-text">
+                            <h4>Phone</h4>
+                            <p>+91 9022365118</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+                            stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        </div>
+                        <div class="info-text">
+                            <h4>Email</h4>
+                            <p>shubhamsanap1092@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div class="info-text">
+                            <h4>Location</h4>
+                            <p>Pune, Maharashtra, India</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <iframe class="map-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d242117.70906733226!2d73.69815124976766!3d18.52461645258999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1703770000000!5m2!1sen!2sin" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-side">
+                <div class="contact-form-container">
+                    <h3 style="margin-bottom: 2rem; font-size: 1.5rem;">Schedule an Appointment</h3>
+                    <form onsubmit="handleBooking(event)">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="name" class="form-input" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Select Machine</label>
+                            <select id="bikeSelect" class="form-input" required>
+                            </select>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Preferred Date</label>
+                                <input type="date" id="date" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Inquiry Type</label>
+                                <select class="form-input">
+                                    <option>Purchase Inquiry</option>
+                                    <option>Test Ride</option>
+                                    <option>Financing</option>
+                                    <option>Sell Your Bike</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Message (Optional)</label>
+                            <textarea class="form-input" rows="4" placeholder="How can we help you?"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-solid" style="width: 100%; padding: 1.2rem;">
+                            Request via WhatsApp Concierge
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="detailModal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="detail-split-container">
+                <div class="specs-side">
+                    <h2 id="modalTitle" style="color: var(--primary); font-size: 2rem;">Bike Specs</h2>
+                    <div id="modalTag" style="margin-top: 0.5rem; color: var(--text-dim); font-weight: 600; 
+                    text-transform: uppercase; font-size: 0.8rem;"></div>
+                    <table class="spec-table" id="specTable"></table>
+                    <button class="btn btn-solid" style="margin-top: 2rem; width: 100%;" onclick="switchView('contact'); closeModal();">BOOK TEST RIDE</button>
+                </div>
+                <div class="viewer-side">
+                    <div class="viewer-360" id="viewerArea">
+                        <div class="badge-360">🔄 360° VIEW</div>
+                        <img id="bikePreviewImage" src="" alt="Motorcycle Preview">
+                        <div class="rotate-hint" style="position: absolute; bottom: 15px; 
+                        color: var(--text-dim); font-size: 0.75rem;">← DRAG TO ROTATE →</div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-outline" style="margin-top: 2rem; width: 100%;" onclick="closeModal()">CLOSE PREVIEW</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 1.5rem;">Shubh Bike House</div>
+                <p>Pune's premier motorcycle destination. We bridge the gap between human ambition and mechanical excellence.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Sitemap</h4>
+                <li><a href="#" onclick="switchView('home')" style="color: inherit; text-decoration: none;">Home</a></li>
+                <li><a href="#" onclick="switchView('collection')" style="color: inherit; text-decoration: none;">Collection</a></li>
+                <li><a href="#" onclick="switchView('contact')" style="color: inherit; text-decoration: none;">Bookings</a></li>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>📍 Pune, Maharashtra</p>
+                <p>📞 +91 9022365118</p>
+                <p>✉️ shubhamsanap1092@gmail.com</p>
+            </div>
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p>Join the inner circle for exclusive Collection drops.</p>
+                <input type="email" placeholder="Email Address" style="width:100%; padding:0.8rem; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:white;">
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 SHUBH BIKE HOUSE. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+    const bikes = [
+       {
+    id: 1,
+    price: "₹16,79,000",
+    model: "Kawasaki Ninja ZX-10R",
+    cc: 998,
+    categoryClass: "high",
+    infoLine: "Power: 203 HP | Top Speed: 299+ km/h",
+    tag: "Superbike",
+    image: "https://www.bossrides.in/wp-content/uploads/2023/03/kawasaki-ninja-zx10r-1-min-scaled-1.jpg",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, In-Line Four",
+      maxPower: "203 PS @ 13200 rpm",
+      torque: "114.9 Nm @ 11400 rpm",
+      brakes: "Dual semi-floating 330 mm discs (Front)",
+      curbWeight: "207 kg",
+      fuelTank: "17 Litres",
+      mileage: "12-15 kmpl",
+      seatHeight: "835 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 2,
+    price: "₹34,99,000",
+    model: "Kawasaki Ninja H2",
+    cc: 998,
+    categoryClass: "high",
+    infoLine: "Power: 231 HP | Top Speed: 331 km/h",
+    tag: "Superbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-wjDBK_QAJsykWEYvbERmsS5bkZ9Z9BSoXw&s",
+    specs: {
+      engineType: "Supercharged, Liquid-cooled, In-Line Four",
+      maxPower: "231 PS @ 11500 rpm",
+      torque: "141.7 Nm @ 11000 rpm",
+      brakes: "Dual 330 mm Brembo Stylema discs",
+      curbWeight: "238 kg",
+      fuelTank: "17 Litres",
+      mileage: "10-12 kmpl",
+      seatHeight: "825 mm",
+      transmission: "6-Speed, Return"
+    }
+  },
+  {
+    id: 3,
+    price: "₹9,38,000",
+    model: "Kawasaki Z900",
+    cc: 948,
+    categoryClass: "high",
+    infoLine: "Naked Street Fighter | Dual Channel ABS",
+    tag: "Supernaked",
+    image: "https://i.pinimg.com/736x/d5/04/8b/d5048b10a241b4c652075ba4ff6e1e65.jpg",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke In-Line Four",
+      maxPower: "125 PS @ 9500 rpm",
+      torque: "98.6 Nm @ 7700 rpm",
+      brakes: "Dual 300 mm petal discs (Front)",
+      curbWeight: "212 kg",
+      fuelTank: "17 Litres",
+      mileage: "15-17 kmpl",
+      seatHeight: "820 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 4,
+    price: "₹20,39,000",
+    model: "Yamaha YZF R1",
+    cc: 998,
+    categoryClass: "high",
+    infoLine: "Power: 200 HP | Top Speed: 299+ km/h",
+    tag: "Superbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs2OjO5FmPxertD06DBvpqAUvzNCwECZbYKg&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, In-Line Four",
+      maxPower: "200 PS @ 13500 rpm",
+      torque: "112.4 Nm @ 11500 rpm",
+      brakes: "Dual 320 mm hydraulic discs (Front)",
+      curbWeight: "201 kg",
+      fuelTank: "17 Litres",
+      mileage: "12-14 kmpl",
+      seatHeight: "855 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 5,
+    price: "₹23,11,000",
+    model: "BMW S 1000 RR",
+    cc: 999,
+    categoryClass: "high",
+    infoLine: "Power: 210 HP | Top Speed: 303 km/h",
+    tag: "Superbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrjdr4k8AAh2cNKhNSJlMdK73Pvxv5PdG6bg&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, In-Line Four",
+      maxPower: "210 PS @ 13750 rpm",
+      torque: "113 Nm @ 11000 rpm",
+      brakes: "Dual 320 mm discs with ABS Pro",
+      curbWeight: "197 kg",
+      fuelTank: "16.5 Litres",
+      mileage: "14-16 kmpl",
+      seatHeight: "832 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 6,
+    price: "₹27,41,000",
+    model: "Ducati Panigale V4",
+    cc: 1103,
+    categoryClass: "high",
+    infoLine: "Power: 214 HP | Top Speed: 300+ km/h",
+    tag: "Superbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRodkTaA0wi8jOI0GlbYbwpjEFm7jqeInDKEA&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, V4",
+      maxPower: "214 PS @ 13000 rpm",
+      torque: "124 Nm @ 10000 rpm",
+      brakes: "Dual 330 mm Brembo Stylema discs",
+      curbWeight: "198 kg",
+      fuelTank: "16 Litres",
+      mileage: "10-13 kmpl",
+      seatHeight: "850 mm",
+      transmission: "6-Speed with Quickshifter"
+    }
+  },
+  {
+    id: 7,
+    price: "₹4,10,000",
+    model: "KTM 390 Duke",
+    cc: 398,
+    categoryClass: "mid",
+    infoLine: "Power: 46 HP | Quickshifter+ Standard",
+    tag: "Street Naked",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSux1e71QSKVPHEayLF_cNgEtNBcNUDpm6g4A&s",
+    specs: {
+      engineType: "Liquid-cooled, single-cylinder",
+      maxPower: "46 PS @ 8500 rpm",
+      torque: "39 Nm @ 7000 rpm",
+      brakes: "320 mm disc (Front), Dual Channel ABS",
+      curbWeight: "168 kg",
+      fuelTank: "15 Litres",
+      mileage: "28-30 kmpl",
+      seatHeight: "820 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 8,
+    price: "₹1,93,000",
+    model: "Yamaha R15 V4",
+    cc: 155,
+    categoryClass: "low",
+    infoLine: "VVA Technology | Traction Control",
+    tag: "Sport Bike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToAbBmicuxugJ-i8pdvdMRIsp646d5MEs6XQ&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, SOHC, 4-valve",
+      maxPower: "18.4 PS @ 10000 rpm",
+      torque: "14.2 Nm @ 7500 rpm",
+      brakes: "282 mm disc (Front), Single Channel ABS",
+      curbWeight: "141 kg",
+      fuelTank: "11 Litres",
+      mileage: "45-50 kmpl",
+      seatHeight: "815 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 9,
+    price: "₹25,00,000", // Estimated price
+    model: "Honda CBR1000RR-R Fireblade",
+    cc: 999,
+    categoryClass: "high",
+    infoLine: "Power: 217 HP | Top Speed: 300 km/h",
+    tag: "Superbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaBISI13efyYYOrwodLXLql-SFm5njLHXxSw&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, In-Line Four",
+      maxPower: "217 PS @ 14500 rpm",
+      torque: "113 Nm @ 12500 rpm",
+      brakes: "Dual 330 mm discs with Brembo calipers",
+      curbWeight: "201 kg",
+      fuelTank: "16.1 Litres",
+      mileage: "12-15 kmpl",
+      seatHeight: "830 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 10,
+    price: "₹16,50,000", // Estimated price
+    model: "Suzuki GSX-R1000R",
+    cc: 999,
+    categoryClass: "high",
+    infoLine: "Power: 202 HP | Top Speed: 299 km/h",
+    tag: "Superbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKZccL8O40aZ5v9gdtBcffPxe3IcdzUdMvtg&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, In-Line Four",
+      maxPower: "202 PS @ 13200 rpm",
+      torque: "117.6 Nm @ 10800 rpm",
+      brakes: "Dual 320 mm Brembo discs",
+      curbWeight: "203 kg",
+      fuelTank: "16 Litres",
+      mileage: "13-15 kmpl",
+      seatHeight: "825 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 11,
+    price: "₹23,69,000",
+    model: "Aprilia RSV4 Factory",
+    cc: 1099,
+    categoryClass: "high",
+    infoLine: "Power: 217 HP | Top Speed: 305 km/h",
+    tag: "Superbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgvUwng3VGVtTmsx8Md3hMhw16jXENYoBuuQ&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, V4",
+      maxPower: "217 PS @ 13000 rpm",
+      brakes: "Dual 330 mm Brembo discs",
+      curbWeight: "199 kg",
+      fuelTank: "17.9 Litres",
+      mileage: "12 kmpl",
+      seatHeight: "845 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 12,
+    model: "MV Agusta F4 RC",
+    cc: 998,
+    categoryClass: "high",
+    infoLine: "Power: 212 HP | Top Speed: 312 km/h",
+    tag: "Superbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-ay7OclJ04ifG7Z8Xe4t83NvOYLJuKe0YgQ&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, In-Line Four",
+      maxPower: "212 PS @ 13600 rpm",
+      torque: "115 Nm @ 9300 rpm",
+      brakes: "Dual 320 mm Brembo discs",
+      curbWeight: "212 kg",
+      fuelTank: "17 Litres",
+      mileage: "10-12 kmpl",
+      seatHeight: "830 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 13,
+    price: "₹20,50,000",
+    model: "Ducati Panigale V2",
+    cc: 955,
+    categoryClass: "high",
+    infoLine: "Power: 155 HP | Top Speed: 271 km/h",
+    tag: "Superbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBnbiOv3vcRUoEZgIrCAIbC2smMJt-PGQVIQ&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, L-Twin",
+      maxPower: "155 PS @ 10750 rpm",
+      torque: "104 Nm @ 9000 rpm",
+      brakes: "Dual 320 mm Brembo discs",
+      curbWeight: "200 kg",
+      fuelTank: "17 Litres",
+      mileage: "15-18 kmpl",
+      seatHeight: "840 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 14,
+    model: "KTM 1290 Super Duke R",
+    cc: 1301,
+    categoryClass: "high",
+    infoLine: "Power: 180 HP | Top Speed: 289 km/h",
+    tag: "Superbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGq7gxPl_-TD3G5I_417-ie5DU5-QeQyslYg&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, V-Twin",
+      maxPower: "180 PS @ 9500 rpm",
+      torque: "140 Nm @ 8000 rpm",
+      brakes: "Dual 320 mm Brembo Stylema discs",
+      curbWeight: "209 kg",
+      fuelTank: "16 Litres",
+      mileage: "14-16 kmpl",
+      seatHeight: "835 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 15,
+    price: "₹5,24,000",
+    model: "Kawasaki Ninja 400",
+    cc: 399,
+    categoryClass: "mid",
+    infoLine: "Weight: 168 kg | Assist & Slipper Clutch",
+    tag: "Sport Bike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCn-bUh7iV8Gk2-7OU8Crp0c5YHnAVE3fz9Q&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke Parallel Twin",
+      maxPower: "45 PS @ 10000 rpm",
+      torque: "37 Nm @ 8000 rpm",
+      brakes: "310 mm petal disc (Front), ABS",
+      curbWeight: "168 kg",
+      fuelTank: "14 Litres",
+      mileage: "24-26 kmpl",
+      seatHeight: "785 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 16,
+    price: "₹2,15,000",
+    model: "Royal Enfield Classic 350",
+    cc: 349,
+    categoryClass: "low",
+    infoLine: "Torque: 27 Nm | Halcyon Series",
+    tag: "Cruiser",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShtQroVl8FuzRoVlfXdgkDias5NaP7hm18cA&s",
+    specs: {
+      engineType: "Air-Oil Cooled, Single Cylinder, 4-stroke",
+      maxPower: "20.2 HP @ 6100 rpm",
+      torque: "27 Nm @ 4000 rpm",
+      brakes: "300 mm disc (Front), Dual Channel ABS",
+      curbWeight: "195 kg",
+      fuelTank: "13 Litres",
+      mileage: "35-37 kmpl",
+      seatHeight: "805 mm",
+      transmission: "5-Speed"
+    }
+  },
+  {
+    id: 17,
+    price: "₹3,19,000",
+    model: "Royal Enfield Continental GT 650",
+    cc: 648,
+    categoryClass: "high",
+    infoLine: "Torque: 52 Nm | Design: Cafe Racer",
+    tag: "Cafe Racer",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp2eUw2d0WRD4KYiurKhLSpL8vpDlDll6M5Q&s",
+    specs: {
+      engineType: "Parallel Twin, SOHC",
+      maxPower: "47 HP",
+      torque: "52 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "202 kg",
+      fuelTank: "12.5 Litres",
+      mileage: "23-25 kmpl",
+      seatHeight: "804 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 18,
+    price: "₹11,81,000",
+    model: "Triumph Street Triple RS",
+    cc: 765,
+    categoryClass: "high",
+    infoLine: "Power: 123 PS | Full Color TFT Display",
+    tag: "Supernaked",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2afdrXwTxngAYtlDGz7AeKOEBtoTIMANG8Q&s",
+    specs: {
+      engineType: "Liquid-cooled, 12-valve, in-line 3-cylinder",
+      maxPower: "123 PS",
+      torque: "79 Nm",
+      brakes: "Brembo Stylema calipers",
+      curbWeight: "188 kg",
+      fuelTank: "15 Litres",
+      mileage: "18-20 kmpl",
+      seatHeight: "836 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 19,
+    price: "₹16,90,000",
+    model: "Suzuki Hayabusa",
+    cc: 1340,
+    categoryClass: "high",
+    infoLine: "Weight: 264 kg | Legendary Sport Tourer",
+    tag: "Hyperbike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr8eRot6D6xx6lnfoKrF9tB7cf_aC72OZJ5Q&s",
+    specs: {
+      engineType: "4-stroke, liquid-cooled, DOHC",
+      maxPower: "190 PS",
+      torque: "150 Nm",
+      brakes: "Brembo Stylema calipers",
+      curbWeight: "264 kg",
+      fuelTank: "20 Litres",
+      mileage: "14-16 kmpl",
+      seatHeight: "800 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 20,
+    price: "₹20,49,000",
+    model: "Harley-Davidson Fat Bob",
+    cc: 1868,
+    categoryClass: "high",
+    infoLine: "Engine: Milwaukee-Eight® 114 | Cruiser",
+    tag: "Cruiser",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6TpiiLwt31Pws7w2bFxheFYatKiyKrW09qA&s",
+    specs: {
+      engineType: "Milwaukee-Eight® 114",
+      maxPower: "93 HP",
+      torque: "155 Nm",
+      brakes: "ABS Standard",
+      curbWeight: "306 kg",
+      fuelTank: "13.2 Litres",
+      mileage: "15-18 kmpl",
+      seatHeight: "710 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 21,
+    price: "₹9,90,000",
+    model: "Honda CBR650R",
+    cc: 649,
+    categoryClass: "high",
+    infoLine: "Inline 4-Cylinder Engine | Showa Forks",
+    tag: "Sport Bike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk2yUeLKPQI0tUJqCyKSsYmGOppwiO0MEjHw&s",
+    specs: {
+      engineType: "Inline 4-Cylinder, liquid-cooled",
+      maxPower: "95.2 PS",
+      torque: "63 Nm",
+      brakes: "Dual 310 mm discs (Front), ABS",
+      curbWeight: "208 kg",
+      fuelTank: "15.4 Litres",
+      mileage: "20-22 kmpl",
+      seatHeight: "810 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 22,
+    price: "₹2,72,000",
+    model: "TVS Apache RR 310",
+    cc: 312,
+    categoryClass: "mid",
+    infoLine: "Riding Modes: 4 | Max Power: 34 PS",
+    tag: "Sport Bike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXcTQ6TmVjMwuY8lxjXKirxmGNvkBz_Duitg&s",
+    specs: {
+      engineType: "Reverse inclined single cylinder",
+      maxPower: "34 PS",
+      torque: "27.3 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "174 kg",
+      fuelTank: "11 Litres",
+      mileage: "33-35 kmpl",
+      seatHeight: "810 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 23,
+    price: "₹2,85,000",
+    model: "Royal Enfield Himalayan 450",
+    cc: 452,
+    categoryClass: "mid",
+    infoLine: "Engine: Sherpa 450 | Travel: Adventure Tourer",
+    tag: "Adventure",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWWOvXHi2bQBk2t3ehaqAtp-JkGK0fTU1tlg&s",
+    specs: {
+      engineType: "Liquid-cooled, Sherpa 450",
+      maxPower: "40.02 PS",
+      torque: "40 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "196 kg",
+      fuelTank: "17 Litres",
+      mileage: "28-32 kmpl",
+      seatHeight: "825 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 24,
+    price: "₹2,40,000",
+    model: "Honda CB300R",
+    cc: 286,
+    categoryClass: "mid",
+    infoLine: "Style: Neo Sports Cafe | Mileage: 30 kmpl",
+    tag: "Street Naked",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt0egsKn35GIfQnBp479YlbBDlvtO2Gu15PQ&s",
+    specs: {
+      engineType: "Liquid-cooled, single-cylinder",
+      maxPower: "31.1 PS",
+      torque: "27.5 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "146 kg",
+      fuelTank: "10 Litres",
+      mileage: "30-32 kmpl",
+      seatHeight: "801 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 25,
+    price: "₹2,30,000",
+    model: "Bajaj Dominar 400",
+    cc: 373,
+    categoryClass: "mid",
+    infoLine: "DOHC Engine | Dual Channel ABS",
+    tag: "Power Cruiser",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYoFWWGgnNM9ZmKxFiF4PF6CsKWhqOCXuCqw&s",
+    specs: {
+      engineType: "Liquid-cooled, DOHC, Triple Spark",
+      maxPower: "40 PS",
+      torque: "35 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "184 kg",
+      fuelTank: "13 Litres",
+      mileage: "26-28 kmpl",
+      seatHeight: "800 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 26,
+    price: "₹4,65,000",
+    model: "Yamaha R3",
+    cc: 321,
+    categoryClass: "mid",
+    infoLine: "Parallel-Twin Engine | Dual Channel ABS",
+    tag: "Sport Bike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRldZcnu-B8JmEGYV2WXIxt9kHL5dDPgAbr5g&s",
+    specs: {
+      engineType: "Liquid-cooled, 4-stroke, DOHC, 4-valve",
+      maxPower: "42 PS",
+      torque: "29.6 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "167 kg",
+      fuelTank: "14 Litres",
+      mileage: "25-28 kmpl",
+      seatHeight: "780 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 27,
+    price: "₹4,10,000",
+    model: "Aprilia RS 457",
+    cc: 457,
+    categoryClass: "mid",
+    infoLine: "Ride-by-Wire | 3 Riding Modes",
+    tag: "Sport Bike",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEb57oiD2g76l9-klZHfxyNhZJPPIMFglKyA&s",
+    specs: {
+      engineType: "Liquid-cooled, Parallel Twin, DOHC",
+      maxPower: "47.6 PS",
+      torque: "43.5 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "175 kg",
+      fuelTank: "13 Litres",
+      mileage: "26-28 kmpl",
+      seatHeight: "800 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 28,
+    price: "₹2,39,000",
+    model: "KTM 250 Duke",
+    cc: 250,
+    categoryClass: "mid",
+    infoLine: "Fuel Tank: 13.4 L | Weight: 169 kg",
+    tag: "Street Naked",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7IT1jKqZlR5ST1UrspOJxI8fk964i8kWHSA&s",
+    specs: {
+      engineType: "Liquid-cooled, single-cylinder",
+      maxPower: "31 PS",
+      torque: "25 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "162 kg",
+      fuelTank: "13.4 Litres",
+      mileage: "30-33 kmpl",
+      seatHeight: "800 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 29,
+    price: "₹2,92,000",
+    model: "Husqvarna Svartpilen 401",
+    cc: 398,
+    categoryClass: "mid",
+    infoLine: "Design: Modern Scrambler | Traction Control",
+    tag: "Scrambler",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6F541vraFAxQ3p0XtBsL4XYm6Q6Rljlww-g&s",
+    specs: {
+      engineType: "Liquid-cooled, single-cylinder",
+      maxPower: "46 PS",
+      torque: "39 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "159 kg",
+      fuelTank: "13 Litres",
+      mileage: "28-30 kmpl",
+      seatHeight: "820 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 30,
+    price: "₹1,49,000",
+    model: "Royal Enfield Hunter 350",
+    cc: 349,
+    categoryClass: "low",
+    infoLine: "Weight: 181 kg | J-Series Engine",
+    tag: "Retro Roadster",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPa-2Est9FV_YNitLcHqnrUjEGo8lMcfUSyA&s",
+    specs: {
+      engineType: "Air-Oil Cooled, J-Series",
+      maxPower: "20.2 HP",
+      torque: "27 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "181 kg",
+      fuelTank: "13 Litres",
+      mileage: "36 kmpl",
+      seatHeight: "790 mm",
+      transmission: "5-Speed"
+    }
+  },
+  {
+    id: 31,
+    price: "₹1,49,000",
+    model: "TVS Ronin",
+    cc: 225,
+    categoryClass: "low",
+    infoLine: "Mileage: 40 kmpl | Digital Cluster",
+    tag: "Scrambler",
+    image: "https://imgd.aeplcdn.com/1280x720/n/cw/ec/198071/ronin-right-side-view.jpeg?isig=0",
+    specs: {
+      engineType: "Oil-cooled, SOHC, Single Cylinder",
+      maxPower: "20.4 HP",
+      torque: "19.93 Nm",
+      brakes: "Single Channel ABS",
+      curbWeight: "160 kg",
+      fuelTank: "14 Litres",
+      mileage: "40-42 kmpl",
+      seatHeight: "795 mm",
+      transmission: "5-Speed"
+    }
+  },
+  {
+    id: 32,
+    price: "₹1,79,000",
+    model: "Hero Karizma XMR",
+    cc: 210,
+    categoryClass: "low",
+    infoLine: "Power: 25.5 PS | Liquid-Cooled",
+    tag: "Sport Tourer",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjsG3YMdDUyW2Pdbjl_--ykwrC-7GzBJpyhg&s",
+    specs: {
+      engineType: "Liquid-cooled, DOHC, 4-valve",
+      maxPower: "25.5 PS",
+      torque: "20.4 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "163.5 kg",
+      fuelTank: "11 Litres",
+      mileage: "35 kmpl",
+      seatHeight: "810 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 33,
+    price: "₹1,47,000",
+    model: "TVS Apache RTR 200 4V",
+    cc: 197,
+    categoryClass: "low",
+    infoLine: "Riding Modes | GTT (Glide Through Technology)",
+    tag: "Street Naked",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhVpWM8JyIYt1iS8oz42jK38GlfHkOZ5Ih0A&s",
+    specs: {
+      engineType: "Oil-cooled, 4-valve, Single cylinder",
+      maxPower: "20.8 PS",
+      torque: "17.25 Nm",
+      brakes: "Dual Channel ABS",
+      curbWeight: "152 kg",
+      fuelTank: "12 Litres",
+      mileage: "38-40 kmpl",
+      seatHeight: "800 mm",
+      transmission: "5-Speed"
+    }
+  },
+  {
+    id: 34,
+    price: "₹1,68,000",
+    model: "Yamaha MT-15 V2",
+    cc: 155,
+    categoryClass: "low",
+    infoLine: "Assist & Slipper Clutch | Delta Box Frame",
+    tag: "Street Naked",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDyuRCJD68mNoH0lYibPG8pCSU4d98Uw3u9Q&s",
+    specs: {
+      engineType: "Liquid-cooled, VVA Technology",
+      maxPower: "18.4 PS",
+      torque: "14.1 Nm",
+      brakes: "Single Channel ABS",
+      curbWeight: "139 kg",
+      fuelTank: "10 Litres",
+      mileage: "48-52 kmpl",
+      seatHeight: "810 mm",
+      transmission: "6-Speed"
+    }
+  },
+  {
+    id: 35,
+    price: "₹97,000",
+    model: "TVS Raider 125",
+    cc: 124,
+    categoryClass: "low",
+    infoLine: "Power: 11.38 PS | 3V Engine",
+    tag: "Commuter",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcbMXCFfnYav0RyF9FKl6CUyXIM0_l0qqyAQ&s",
+    specs: {
+      engineType: "Air-Oil Cooled, 3-valve",
+      maxPower: "11.38 PS",
+      torque: "11.2 Nm",
+      brakes: "Synchronized Braking System",
+      curbWeight: "123 kg",
+      fuelTank: "10 Litres",
+      mileage: "60-65 kmpl",
+      seatHeight: "780 mm",
+      transmission: "5-Speed"
+    }
+  },
+  {
+    id: 36,
+    price: "₹1,24,000",
+    model: "Hero Xtreme 160R",
+    cc: 163,
+    categoryClass: "low",
+    infoLine: "0-60 km/h: 4.2s | Segment First Gear Indicator",
+    tag: "Street Naked",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrdUl3pUZgTGdvDNxgdtX7uO8XvIGHAzkFHg&s",
+    specs: {
+      engineType: "Air-cooled, Single Cylinder",
+      maxPower: "15.2 PS",
+      torque: "14 Nm",
+      brakes: "Single Channel ABS",
+      curbWeight: "138.5 kg",
+      fuelTank: "12 Litres",
+      mileage: "45-48 kmpl",
+      seatHeight: "790 mm",
+      transmission: "5-Speed"
+    }
+  }
+];
+
+    function init() {
+        const container = document.getElementById('bikeContainer');
+        const select = document.getElementById('bikeSelect');
+        select.add(new Option("Choose your machine", ""));
+
+        container.innerHTML = bikes.map(b => `
+            <div class="bike-card">
+                <div class="img-box"><img src="${b.image}" alt="${b.model}"></div>
+                <div class="card-content">
+                    <span style="color:var(--primary); font-size:0.7rem; font-weight:800; letter-spacing:2px; text-transform:uppercase;">${b.tag}</span>
+                    <h3 style="margin: 0.5rem 0;">${b.model}</h3>
+                    <p style="color:var(--text-dim); margin-bottom:1.5rem;">From ${b.price}*</p>
+                    <button class="btn btn-outline" style="width:100%; margin-bottom:10px;" onclick="showDetails(${b.id})">SEE DETAILS</button>
+                    <button class="btn btn-solid" style="width:100%;" onclick="switchView('contact')">BOOK TEST RIDE</button>
+                </div>
+            </div>
+        `).join('');
+
+        bikes.forEach(b => select.add(new Option(b.model, b.model)));
+        init360Effect();
+        initHeroParallax();
+    }
+
+    function showDetails(id) {
+        const bike = bikes.find(b => b.id === id);
+        document.getElementById('modalTitle').innerText = bike.model;
+        document.getElementById('modalTag').innerText = bike.tag;
+        document.getElementById('bikePreviewImage').src = bike.image;
+        const table = document.getElementById('specTable');
+        table.innerHTML = Object.entries(bike.specs).map(([key, val]) => `
+            <tr>
+                <td class="spec-label">${key}</td>
+                <td style="text-align: right; font-weight: 600;">${val}</td>
+            </tr>
+        `).join('');
+        document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function closeModal() { 
+        document.getElementById('detailModal').style.display = 'none'; 
+    }
+
+    function switchView(id) {
+        document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.getElementById('nav-' + id).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function handleBooking(e) {
+        e.preventDefault();
+        const text = `*Booking Request*%0A*Customer:* ${document.getElementById('name').value}%0A*Bike:* ${document.getElementById('bikeSelect').value}%0A*Date:* ${document.getElementById('date').value}`;
+        window.open(`https://wa.me/919022365118?text=${text}`, '_blank');
+    }
+
+    function init360Effect() {
+        const viewer = document.getElementById('viewerArea');
+        const img = document.getElementById('bikePreviewImage');
+        let isDragging = false;
+        let startX;
+
+        viewer.onmousedown = (e) => { isDragging = true; startX = e.pageX; viewer.style.cursor = 'grabbing'; };
+        window.onmouseup = () => { isDragging = false; viewer.style.cursor = 'grab'; img.style.transform = `rotateY(0deg)`; };
+        viewer.onmousemove = (e) => {
+            if (!isDragging) return;
+            const x = e.pageX - startX;
+            img.style.transform = `rotateY(${x * 0.4}deg)`;
+        };
+    }
+
+    function initHeroParallax() {
+        const heroSection = document.querySelector('.hero');
+        const heroContent = document.querySelector('.hero-inner');
+
+        if(heroSection && heroContent) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const { innerWidth, innerHeight } = window;
+                const x = (innerWidth / 2 - e.clientX) / 25;
+                const y = (innerHeight / 2 - e.clientY) / 25;
+                heroContent.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+            });
+
+            heroSection.addEventListener('mouseleave', () => {
+                heroContent.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            });
+        }
+    }
+
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, observerOptions);
+
+    // Observer setup needs to run after bikes are rendered
+    setTimeout(() => {
+        document.querySelectorAll('.bike-card').forEach(card => {
+            card.style.opacity = "0";
+            card.style.transform = "translateY(50px)";
+            card.style.transition = "all 1s cubic-bezier(0.16, 1, 0.3, 1)";
+            observer.observe(card);
+        });
+    }, 100);
+
+    window.onload = init;
+    </script>
+</body>
+</html>
