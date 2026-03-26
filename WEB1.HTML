@@ -1,0 +1,2495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Vrunda Web Sphere</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+   <style>
+/* === PROFESSIONAL NEO-GLASS VARIABLES (DARK MODE DEFAULT) === */
+:root {
+    --bg-base: #0a0a0c; 
+    --bg-glass: rgba(20, 20, 25, 0.4);
+    --bg-glass-heavy: rgba(15, 15, 20, 0.65);
+    --bg-hover: rgba(255, 255, 255, 0.08);
+    --accent-color: #6da5ff; 
+    --accent-dim: rgba(109, 165, 255, 0.15);
+    --text-main: #ffffff;
+    --text-muted: #a0a0a5;
+    --border-thin: 1px solid rgba(255, 255, 255, 0.08);
+    --border-highlight: 1px solid rgba(255, 255, 255, 0.15);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.5);
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+    --radius-pill: 100px;
+    --radius-card: 20px;
+    
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body.light-mode {
+    --bg-base: #f0f2f5; 
+    --bg-glass: rgba(255, 255, 255, 0.6);
+    --bg-glass-heavy: rgba(240, 240, 245, 0.85);
+    --bg-hover: rgba(0, 0, 0, 0.06);
+    --text-main: #1a1a1c;
+    --text-muted: #5f6368;
+    --border-thin: 1px solid rgba(0, 0, 0, 0.1);
+    --border-highlight: 1px solid rgba(0, 0, 0, 0.2);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+body.light-mode #live-background::after {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.9) 100%);
+}
+
+body.light-mode #settings-menu { 
+    background: rgba(255, 255, 255, 0.95); 
+}
+
+body.light-mode .menu-divider { 
+    background: rgba(0,0,0,0.08); 
+}
+
+body.light-mode .menu-profile, 
+body.light-mode .zoom-controls { 
+    background: rgba(0,0,0,0.05); 
+}
+
+body.light-mode .palette-box { 
+    background: rgba(255, 255, 255, 0.95); 
+}
+
+body.light-mode .app-icon img[src*="ffffff"] {
+    filter: brightness(0.1) drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+body.ghost-mode {
+    --accent-color: #e0e0e0; 
+    --accent-dim: rgba(255, 255, 255, 0.1); 
+    --bg-glass: rgba(5, 5, 5, 0.8);
+}
+
+body.ghost-mode #live-background { 
+    filter: grayscale(100%) brightness(0.3); 
+}
+
+body.ghost-mode::before { 
+    content: "INCOGNITO"; 
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    font-weight: 800; 
+    font-size: 12vw; 
+    color: rgba(255,255,255,0.03); 
+    z-index: -1; 
+    pointer-events: none; 
+    letter-spacing: 1vw; 
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    display: flex; 
+    flex-direction: column; 
+    height: 100vh; 
+    background-color: var(--bg-base); 
+    color: var(--text-main);
+    overflow: hidden; 
+    transition: background-color 0.4s ease, color 0.4s ease; 
+}
+
+/* === ULTRA PREMIUM CINEMATIC BACKGROUND === */
+/* === MASTERPIECE INTERACTIVE BACKGROUND === */
+#live-background { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    z-index: -2; 
+    overflow: hidden; 
+    background-color: #050505;
+}
+
+.bg-base-video {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    filter: brightness(0.6) contrast(1.2) saturate(1.1); 
+    z-index: -1;
+}
+
+/* Shifting Aurora Color Overlay */
+.aurora-overlay {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(45deg, rgba(10,10,25,0.8), rgba(109,165,255,0.15), rgba(255,68,150,0.1));
+    background-size: 400% 400%;
+    animation: auroraShift 15s ease infinite;
+    mix-blend-mode: overlay;
+}
+
+@keyframes breatheBg { 
+    0% { transform: scale(1); } 
+    100% { transform: scale(1.05); } 
+}
+
+@keyframes auroraShift { 
+    0% { background-position: 0% 50%; } 
+    50% { background-position: 100% 50%; } 
+    100% { background-position: 0% 50%; } 
+}
+
+#particle-canvas {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    pointer-events: none; 
+    opacity: 0.6;
+    mix-blend-mode: screen;
+}
+
+.giant-vrunda-sphere {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 90vh; 
+    height: 90vh; 
+    opacity: 0.2; 
+    pointer-events: none;
+    filter: drop-shadow(0 0 30px var(--accent-color));
+}
+
+.rotating-sphere { 
+    width: 100%; 
+    height: 100%; 
+    animation: spin3D 50s linear infinite; 
+}
+
+@keyframes spin3D { 
+    0% { transform: rotateZ(0deg) rotateY(0deg) rotateX(0deg); } 
+    100% { transform: rotateZ(360deg) rotateY(360deg) rotateX(180deg); } 
+}
+
+.neon-skills { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    pointer-events: none; 
+}
+
+.n-skill {
+    position: absolute; 
+    display: block; 
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Inter', monospace; 
+    font-weight: 800; 
+    font-size: 1.5rem; 
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color), 0 0 40px var(--accent-color);
+    opacity: 0; 
+    bottom: -10%; 
+    white-space: nowrap; 
+    mix-blend-mode: screen;
+}
+
+.n-skill.s1 { left: 10%; font-size: 2.5rem; animation: floatUp 22s linear infinite; filter: blur(2px); opacity: 0.5; }
+.n-skill.s2 { left: 75%; font-size: 1.2rem; animation: floatUp 18s linear infinite 5s; filter: blur(0px); opacity: 0.8; }
+.n-skill.s3 { left: 25%; font-size: 4.5rem; animation: floatUp 30s linear infinite 2s; filter: blur(6px); opacity: 0.2; }
+.n-skill.s4 { left: 80%; font-size: 2rem; animation: floatUp 25s linear infinite 12s; filter: blur(1px); opacity: 0.7; }
+.n-skill.s5 { left: 20%; font-size: 1.5rem; animation: floatUp 20s linear infinite 8s; filter: blur(0px); opacity: 0.9; }
+.n-skill.s6 { left: 60%; font-size: 3.5rem; animation: floatUp 28s linear infinite 15s; filter: blur(4px); opacity: 0.3; }
+.n-skill.s7 { left: 40%; font-size: 2.2rem; animation: floatUp 24s linear infinite 10s; filter: blur(0px); color: #fff; text-shadow: 0 0 15px #fff, 0 0 30px #fff; opacity: 1; }
+.n-skill.s8 { left: 5%; font-size: 1.8rem; animation: floatUp 26s linear infinite 18s; filter: blur(1px); opacity: 0.6; }
+
+@keyframes floatUp { 
+    0% { transform: translateY(0) scale(0.8); opacity: 0; } 
+    15% { opacity: 1; } 
+    85% { opacity: 1; } 
+    100% { transform: translateY(-110vh) scale(1.1); opacity: 0; } 
+}
+
+#live-background::after { 
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%); 
+    transition: var(--transition-smooth); 
+}
+
+#sidebar { 
+    position: fixed; 
+    top: 20px; 
+    left: 20px; 
+    width: 56px; 
+    height: calc(100vh - 40px); 
+    background: var(--bg-glass-heavy); 
+    backdrop-filter: blur(30px) saturate(150%); 
+    -webkit-backdrop-filter: blur(30px) saturate(150%); 
+    border: var(--border-thin); 
+    border-radius: var(--radius-card); 
+    z-index: 50; 
+    padding-top: 40px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 20px; 
+    transition: var(--transition-smooth); 
+    overflow: hidden; 
+    box-shadow: var(--shadow-float); 
+}
+
+#sidebar:hover { 
+    width: 220px; 
+    border: var(--border-highlight); 
+}
+
+.side-tool { 
+    display: flex; 
+    align-items: center; 
+    width: calc(100% - 16px); 
+    padding: 12px; 
+    margin: 0 8px; 
+    color: var(--text-muted); 
+    cursor: pointer; 
+    transition: var(--transition-smooth); 
+    border-radius: 12px; 
+    white-space: nowrap; 
+}
+
+.side-tool:hover { 
+    background: var(--bg-hover); 
+    color: var(--text-main); 
+}
+
+.side-icon { 
+    font-size: 18px; 
+    min-width: 32px; 
+    display: flex; 
+    justify-content: center; 
+}
+
+.side-text { 
+    font-size: 14px; 
+    font-weight: 500; 
+    opacity: 0; 
+    transition: opacity 0.2s; 
+}
+
+#sidebar:hover .side-text { 
+    opacity: 1; 
+    transition-delay: 0.1s; 
+}
+
+#command-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(12px); 
+    display: flex; 
+    justify-content: center; 
+    align-items: flex-start; 
+    padding-top: 15vh; 
+    z-index: 9999; 
+    opacity: 0; 
+    pointer-events: none; 
+    transition: opacity 0.3s ease; 
+}
+
+#command-overlay.active { 
+    opacity: 1; 
+    pointer-events: auto; 
+}
+
+.palette-box { 
+    width: 100%; 
+    max-width: 640px; 
+    background: rgba(25, 25, 30, 0.85); 
+    backdrop-filter: blur(40px); 
+    border: 1px solid rgba(255,255,255,0.1); 
+    border-radius: 16px; 
+    box-shadow: var(--shadow-float); 
+    transform: scale(0.95) translateY(-10px); 
+    transition: var(--transition-smooth); 
+    overflow: hidden; 
+}
+
+#command-overlay.active .palette-box { 
+    transform: scale(1) translateY(0); 
+}
+
+.palette-input { 
+    width: 100%; 
+    padding: 24px; 
+    border: none; 
+    background: transparent; 
+    color: var(--text-main); 
+    font-size: 20px; 
+    outline: none; 
+    font-weight: 400; 
+}
+
+.palette-footer { 
+    padding: 12px 24px; 
+    background: rgba(0,0,0,0.2); 
+    font-size: 12px; 
+    color: var(--text-muted); 
+    display: flex; 
+    justify-content: space-between; 
+    font-weight: 500;
+}
+
+#browser-chrome { 
+    display: flex; 
+    flex-direction: column; 
+    padding: 12px 20px 0 96px; 
+    z-index: 100; 
+    position: relative; 
+    gap: 8px; 
+}
+
+#tab-bar { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    overflow-x: auto; 
+    padding-bottom: 4px; 
+}
+
+#tab-bar::-webkit-scrollbar { 
+    display: none; 
+}
+
+.tab { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 8px 16px; 
+    color: var(--text-muted); 
+    font-weight: 500; 
+    font-size: 13px; 
+    min-width: 140px; 
+    max-width: 220px; 
+    cursor: pointer; 
+    background: var(--bg-glass); 
+    border-radius: 12px; 
+    border: 1px solid transparent; 
+    transition: var(--transition-smooth); 
+    backdrop-filter: blur(20px); 
+}
+
+.tab:hover { 
+    background: var(--bg-hover); 
+    color: var(--text-main); 
+}
+
+.tab.active { 
+    background: var(--bg-glass-heavy); 
+    color: var(--text-main); 
+    border: 1px solid rgba(255,255,255,0.15); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+}
+
+.tab-title { 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    pointer-events: none; 
+}
+
+.close-tab { 
+    font-size: 16px; 
+    margin-left: 8px; 
+    width: 24px; 
+    height: 24px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 50%; 
+    opacity: 0; 
+    transition: var(--transition-smooth); 
+}
+
+.tab:hover .close-tab, 
+.tab.active .close-tab { 
+    opacity: 1; 
+}
+
+.close-tab:hover { 
+    background: rgba(255,68,68,0.2); 
+    color: #ff4444; 
+}
+
+#new-tab-btn { 
+    background: var(--bg-glass); 
+    border: none; 
+    color: var(--text-main); 
+    width: 32px; 
+    height: 32px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 20px; 
+    font-weight: 300; 
+    cursor: pointer; 
+    transition: var(--transition-smooth); 
+}
+
+#new-tab-btn:hover { 
+    background: var(--bg-hover); 
+    transform: scale(1.05); 
+}
+
+#address-bar-container { 
+    display: flex; 
+    align-items: center; 
+    padding: 8px 16px; 
+    gap: 12px; 
+    background: var(--bg-glass-heavy); 
+    backdrop-filter: blur(30px) saturate(150%); 
+    -webkit-backdrop-filter: blur(30px); 
+    border: var(--border-thin); 
+    border-radius: var(--radius-pill); 
+    box-shadow: var(--shadow-soft); 
+    transition: var(--transition-smooth); 
+}
+
+.nav-btn { 
+    background: none; 
+    border: none; 
+    font-size: 16px; 
+    width: 32px; 
+    height: 32px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: var(--text-muted); 
+    cursor: pointer; 
+    transition: var(--transition-smooth); 
+}
+
+.nav-btn:hover, 
+.nav-btn.active-ghost { 
+    background: var(--bg-hover); 
+    color: var(--text-main); 
+}
+
+#url-input { 
+    flex: 1; 
+    padding: 8px 16px; 
+    border: none; 
+    background: transparent; 
+    color: var(--text-main); 
+    font-size: 14px; 
+    font-weight: 400; 
+    outline: none; 
+    letter-spacing: 0.5px; 
+}
+
+#settings-menu { 
+    position: absolute; 
+    top: 100%; 
+    right: 20px; 
+    width: 320px; 
+    margin-top: 10px; 
+    background: rgba(30, 30, 35, 0.85); 
+    backdrop-filter: blur(40px) saturate(200%); 
+    -webkit-backdrop-filter: blur(40px); 
+    border: 1px solid rgba(255,255,255,0.1); 
+    border-radius: 16px; 
+    box-shadow: var(--shadow-float); 
+    z-index: 1000; 
+    padding: 8px; 
+    opacity: 0; 
+    pointer-events: none; 
+    transform: scale(0.95) translateY(-10px); 
+    transform-origin: top right; 
+    transition: var(--transition-smooth); 
+    font-size: 13px; 
+    font-weight: 500; 
+}
+
+#settings-menu.active { 
+    opacity: 1; 
+    pointer-events: auto; 
+    transform: scale(1) translateY(0); 
+}
+
+.menu-item { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 8px 12px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    color: var(--text-main); 
+    transition: var(--transition-smooth); 
+    gap: 12px;
+}
+
+.menu-item:hover { 
+    background: var(--bg-hover); 
+    transform: translateX(5px); 
+}
+
+.menu-item:active { 
+    transform: translateX(2px) scale(0.98); 
+    background: rgba(255,255,255,0.12); 
+    transition: all 0.1s ease; 
+}
+
+.menu-item-left { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+
+.menu-icon { 
+    font-size: 16px; 
+    color: var(--text-muted); 
+    width: 20px; 
+    text-align: center; 
+}
+
+.menu-shortcut { 
+    color: var(--text-muted); 
+    font-size: 12px; 
+}
+
+.menu-divider { 
+    height: 1px; 
+    background: rgba(255,255,255,0.06); 
+    margin: 6px 0; 
+}
+
+.menu-profile { 
+    background: rgba(255,255,255,0.04); 
+    margin: 4px 0; 
+    padding: 10px 12px; 
+}
+
+.profile-avatar { 
+    width: 30px; 
+    height: 30px; 
+    background: linear-gradient(135deg, #34A853, #228c3d); 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-weight: 600; 
+    color: white; 
+}
+
+.profile-badge { 
+    background: rgba(52, 168, 83, 0.2); 
+    color: #81C995; 
+    padding: 4px 10px; 
+    border-radius: var(--radius-pill); 
+    font-size: 11px; 
+    font-weight: 600;
+}
+
+.zoom-controls { 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+    background: rgba(0,0,0,0.2); 
+    border-radius: var(--radius-pill); 
+    padding: 2px; 
+}
+
+.zoom-btn { 
+    background: transparent; 
+    border: none; 
+    color: var(--text-main); 
+    width: 26px; 
+    height: 26px; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    font-size: 16px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transition: background 0.2s;
+}
+
+.zoom-btn:hover { 
+    background: rgba(255,255,255,0.1); 
+}
+
+#theme-color-picker { 
+    background: transparent; 
+    border: none; 
+    width: 24px; 
+    height: 24px; 
+    cursor: pointer; 
+    border-radius: 50%; 
+    outline: none; 
+    padding: 0; 
+}
+
+#theme-color-picker::-webkit-color-swatch-wrapper { 
+    padding: 0; 
+}
+
+#theme-color-picker::-webkit-color-swatch { 
+    border: 1px solid rgba(255,255,255,0.2); 
+    border-radius: 50%; 
+}
+
+#viewport { 
+    flex: 1; 
+    position: relative; 
+    margin: 12px 20px 20px 96px; 
+    border-radius: var(--radius-card); 
+    overflow: hidden; 
+    background: transparent; 
+    box-shadow: var(--shadow-soft); 
+    transition: var(--transition-smooth);
+} 
+
+.view-content { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    width: 100%; 
+    height: 100%; 
+    border: none; 
+    display: none; 
+    transform-origin: top left; 
+    background: var(--bg-base); 
+    opacity: 0; 
+    transform: translateY(15px) scale(0.99); 
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease; 
+}
+
+.view-content.home-screen { 
+    background: transparent; 
+} 
+
+.view-content.active { 
+    display: block; 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+}
+
+.home-screen { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 8vh 20px; 
+    overflow-y: auto; 
+}
+
+.brand-container { 
+    text-align: left; 
+    width: 100%; 
+    max-width: 860px; 
+    margin: 60px auto 30px auto; 
+    padding-left: 24px; 
+    z-index: 10; 
+}
+
+.live-time { 
+    font-weight: 800; 
+    font-size: 88px; 
+    letter-spacing: -3px; 
+    margin-bottom: 0px; 
+    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.live-date { 
+    font-weight: 500; 
+    font-size: 16px; 
+    color: var(--accent-color); 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    margin-bottom: 8px; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.live-weather { 
+    font-weight: 400; 
+    font-size: 14px; 
+    color: var(--text-main); 
+    opacity: 0.8; 
+}
+
+.live-battery { 
+    font-weight: 400; 
+    font-size: 14px; 
+    color: var(--text-main); 
+    opacity: 0.8; 
+    margin-top: 4px; 
+}
+
+.home-search { 
+    width: 100%; 
+    max-width: 860px; 
+    margin: 0 auto 40px auto; 
+    background: var(--bg-glass-heavy); 
+    backdrop-filter: blur(30px); 
+    border: var(--border-highlight); 
+    border-radius: var(--radius-pill); 
+    box-shadow: var(--shadow-float); 
+    transition: var(--transition-smooth); 
+}
+
+@keyframes pulse-ring { 
+    0% { box-shadow: 0 0 0 0 rgba(109, 165, 255, 0.3); } 
+    100% { box-shadow: 0 0 0 15px transparent; } 
+}
+
+.home-search:focus-within { 
+    transform: scale(1.02); 
+    border-color: var(--accent-color); 
+    box-shadow: 0 16px 48px rgba(109, 165, 255, 0.2); 
+    animation: pulse-ring 2s infinite cubic-bezier(0.16, 1, 0.3, 1); 
+}
+
+.home-search input { 
+    width: 100%; 
+    padding: 20px 30px; 
+    border: none; 
+    background: transparent; 
+    color: var(--text-main); 
+    font-size: 16px; 
+    outline: none; 
+    text-align: left; 
+    font-weight: 400;
+}
+
+.dashboard-container { 
+    width: 100%; 
+    max-width: 860px; 
+    margin: 0 auto; 
+    padding: 40px; 
+    border-radius: 24px; 
+    background: var(--bg-glass); 
+    backdrop-filter: blur(40px) saturate(150%); 
+    border: 1px solid rgba(255,255,255,0.1); 
+    box-shadow: var(--shadow-float); 
+    transition: var(--transition-smooth);
+}
+
+.category-title { 
+    font-size: 13px; 
+    font-weight: 600; 
+    color: var(--text-muted); 
+    letter-spacing: 1px; 
+    text-transform: uppercase; 
+    margin-bottom: 24px; 
+    border-bottom: 1px solid rgba(150,150,150,0.2); 
+    padding-bottom: 12px; 
+    transition: color 0.4s ease;
+}
+
+.app-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); 
+    gap: 24px; 
+    margin-bottom: 40px; 
+}
+
+.app-grid:last-child { 
+    margin-bottom: 0; 
+}
+
+.app-shortcut { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    cursor: pointer; 
+    gap: 12px; 
+    transition: var(--transition-smooth); 
+}
+
+.app-shortcut:hover { 
+    transform: translateY(-6px); 
+}
+
+.app-icon { 
+    width: 64px; 
+    height: 64px; 
+    border-radius: 18px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background: rgba(255,255,255,0.05); 
+    border: 1px solid rgba(150,150,150,0.2); 
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+    color: var(--text-main); 
+    font-size: 24px; 
+    font-weight: 600; 
+    transition: var(--transition-smooth); 
+}
+
+.app-shortcut:hover .app-icon { 
+    background: var(--bg-hover); 
+    border-color: rgba(150,150,150,0.5); 
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2); 
+}
+
+.app-icon img { 
+    width: 32px; 
+    height: 32px; 
+    object-fit: contain; 
+    transition: var(--transition-smooth); 
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); 
+}
+
+.app-shortcut:hover .app-icon img { 
+    transform: scale(1.15); 
+}
+
+.app-shortcut span { 
+    font-size: 12px; 
+    font-weight: 500; 
+    letter-spacing: 0.5px; 
+    color: var(--text-muted); 
+    transition: var(--transition-smooth);
+}
+
+.app-shortcut:hover span { 
+    color: var(--text-main); 
+}
+
+.internal-page { 
+    padding: 60px; 
+    color: var(--text-main); 
+    background: var(--bg-base); 
+    overflow-y: auto;
+}
+
+.internal-page h1 { 
+    font-weight: 700; 
+    font-size: 32px; 
+    margin-bottom: 24px; 
+    color: var(--text-main); 
+}
+
+::-webkit-scrollbar { 
+    width: 8px; 
+    height: 8px; 
+}
+
+::-webkit-scrollbar-track { 
+    background: rgba(0,0,0,0.1); 
+}
+
+::-webkit-scrollbar-thumb { 
+    background: rgba(150,150,150,0.3); 
+    border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb:hover { 
+    background: rgba(150,150,150,0.5); 
+}
+
+/* === NEW UI/UX FEATURES CSS === */
+
+/* 1. Boot Screen */
+#boot-screen { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    background: #050505; 
+    z-index: 999999; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    transition: opacity 0.8s ease, visibility 0.8s; 
+}
+
+#boot-screen.hidden { 
+    opacity: 0; 
+    visibility: hidden; 
+    pointer-events: none; 
+}
+
+.boot-logo { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 20px; 
+    animation: bootPulse 2s infinite alternate; 
+}
+
+.boot-logo h1 { 
+    font-size: 32px; 
+    font-weight: 800; 
+    letter-spacing: 8px; 
+    color: white; 
+    margin: 0; 
+}
+
+.boot-logo span { 
+    color: var(--accent-color); 
+    font-weight: 400; 
+}
+
+.boot-spinner { 
+    animation: spin3D 4s linear infinite; 
+}
+
+.loading-bar { 
+    width: 150px; 
+    height: 4px; 
+    background: rgba(255,255,255,0.1); 
+    border-radius: 4px; 
+    overflow: hidden; 
+    margin-top: 10px; 
+}
+
+.loading-progress { 
+    width: 0%; 
+    height: 100%; 
+    background: var(--accent-color); 
+    animation: loadProgress 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; 
+}
+
+@keyframes bootPulse { 
+    0% { opacity: 0.7; transform: scale(0.98); } 
+    100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 20px var(--accent-dim)); } 
+}
+
+@keyframes loadProgress { 
+    0% { width: 0%; } 
+    50% { width: 70%; } 
+    100% { width: 100%; } 
+}
+
+/* 2. Toast Notifications */
+#toast-container { 
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
+    z-index: 10000; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    pointer-events: none; 
+}
+
+.vrunda-toast { 
+    background: var(--bg-glass-heavy); 
+    backdrop-filter: blur(20px); 
+    border: var(--border-highlight); 
+    border-left: 4px solid var(--accent-color); 
+    padding: 16px 20px; 
+    border-radius: 12px; 
+    color: var(--text-main); 
+    font-size: 14px; 
+    font-weight: 500; 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    box-shadow: var(--shadow-float); 
+    transform: translateX(120%); 
+    animation: slideInToast 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+    pointer-events: auto; 
+}
+
+.vrunda-toast.fade-out { 
+    animation: fadeOutToast 0.4s ease forwards; 
+}
+
+.toast-icon { 
+    font-size: 18px; 
+}
+
+@keyframes slideInToast { 
+    to { transform: translateX(0); } 
+}
+
+@keyframes fadeOutToast { 
+    to { opacity: 0; transform: translateY(-10px) scale(0.95); } 
+}
+
+/* 3. Audio Visualizer */
+.audio-visualizer { 
+    display: flex; 
+    gap: 3px; 
+    height: 15px; 
+    align-items: flex-end; 
+    opacity: 0.5; 
+    transition: opacity 0.3s; 
+}
+
+.audio-visualizer.playing { 
+    opacity: 1; 
+}
+
+.audio-visualizer .bar { 
+    width: 4px; 
+    background: var(--accent-color); 
+    border-radius: 2px; 
+    height: 3px; 
+    transition: height 0.1s ease; 
+}
+
+.audio-visualizer.playing .bar { 
+    animation: soundBars 0.5s infinite alternate ease-in-out; 
+}
+
+.audio-visualizer.playing .bar:nth-child(1) { animation-delay: 0.0s; }
+.audio-visualizer.playing .bar:nth-child(2) { animation-delay: 0.2s; }
+.audio-visualizer.playing .bar:nth-child(3) { animation-delay: 0.4s; }
+.audio-visualizer.playing .bar:nth-child(4) { animation-delay: 0.1s; }
+
+@keyframes soundBars { 
+    0% { height: 3px; } 
+    100% { height: 15px; } 
+}
+
+/* 4. App Ripple & Magnet Effects */
+.app-shortcut { 
+    position: relative; 
+}
+
+.app-shortcut::after { 
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 64px; 
+    height: 64px; 
+    border-radius: 18px; 
+    background: var(--accent-color); 
+    opacity: 0; 
+    transform: scale(0.5); 
+    transition: all 0.3s ease; 
+    z-index: -1; 
+}
+
+.app-shortcut:active::after { 
+    opacity: 0.4; 
+    transform: scale(1.2); 
+    transition: 0s; 
+}
+
+.app-icon { 
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s; 
+}
+
+/* 5. Custom Context Menu */
+#vrunda-context-menu { 
+    position: fixed; 
+    background: var(--bg-glass-heavy); 
+    backdrop-filter: blur(40px) saturate(200%); 
+    border: var(--border-thin); 
+    border-radius: 12px; 
+    padding: 8px; 
+    min-width: 200px; 
+    box-shadow: var(--shadow-float); 
+    z-index: 100000; 
+    opacity: 0; 
+    visibility: hidden; 
+    transform: scale(0.95); 
+    transform-origin: top left; 
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s; 
+}
+
+#vrunda-context-menu.active { 
+    opacity: 1; 
+    visibility: visible; 
+    transform: scale(1); 
+}
+
+/* === DESKTOP UPGRADES CSS === */
+
+/* Spotlight Search */
+.spotlight-results { 
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    width: 100%; 
+    background: var(--bg-glass-heavy); 
+    backdrop-filter: blur(40px); 
+    border: var(--border-thin); 
+    border-radius: 16px; 
+    margin-top: 10px; 
+    box-shadow: var(--shadow-float); 
+    z-index: 100; 
+    overflow: hidden; 
+}
+
+.spotlight-item { 
+    padding: 16px 24px; 
+    cursor: pointer; 
+    color: var(--text-main); 
+    font-weight: 500; 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    transition: var(--transition-smooth); 
+}
+
+.spotlight-item:hover, 
+.spotlight-item.selected { 
+    background: var(--bg-hover); 
+    color: var(--accent-color); 
+}
+
+.spotlight-item-icon { 
+    font-size: 20px; 
+}
+
+/* Sticky Note Widget */
+.desktop-sticky-note { 
+    position: absolute; 
+    width: 220px; 
+    height: 220px; 
+    background: rgba(255, 235, 150, 0.15); 
+    backdrop-filter: blur(20px); 
+    border: 1px solid rgba(255, 235, 150, 0.3); 
+    border-radius: 12px; 
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden; 
+    box-shadow: var(--shadow-float); 
+    top: 100px; 
+    right: 80px; 
+    z-index: 5; 
+    transition: border 0.3s; 
+}
+
+.desktop-sticky-note:hover { 
+    border: 1px solid rgba(255, 235, 150, 0.6); 
+}
+
+.note-header { 
+    padding: 8px 12px; 
+    background: rgba(255, 235, 150, 0.2); 
+    font-size: 12px; 
+    font-weight: 600; 
+    color: #ffd966; 
+    cursor: grab; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.note-header:active { 
+    cursor: grabbing; 
+}
+
+.note-body { 
+    flex: 1; 
+    background: transparent; 
+    border: none; 
+    padding: 12px; 
+    color: var(--text-main); 
+    font-family: inherit; 
+    font-size: 14px; 
+    outline: none; 
+    resize: none; 
+}
+
+/* Taskbar Running Indicators */
+.app-shortcut { 
+    position: relative; 
+}
+
+.app-shortcut.running::before { 
+    content: ''; 
+    position: absolute; 
+    bottom: -12px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 6px; 
+    height: 6px; 
+    border-radius: 50%; 
+    background: var(--accent-color); 
+    box-shadow: 0 0 8px var(--accent-color); 
+    animation: bootPulse 2s infinite alternate; 
+}
+</style>
+</head>
+<body>
+<div id="boot-screen">
+        <div class="boot-logo">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="boot-spinner">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+            </svg>
+            <h1>WELCOME TO <span> VRUNDA WEB SPHERE</span></h1>
+            <div class="loading-bar"><div class="loading-progress"></div></div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+<div id="vrunda-context-menu">
+        <div class="menu-item" onclick="goHome()"><span class="menu-icon">⌂</span> Go to Desktop</div>
+        <div class="menu-item" onclick="toggleThemeMode()"><span class="menu-icon">🌓</span> Toggle Theme</div>
+        <div class="menu-item" onclick="openWallpaperModal()"><span class="menu-icon">🖼️</span> Change Wallpaper</div>
+        <div class="menu-divider"></div>
+        <div class="menu-item" onclick="openVaultLogin()"><span class="menu-icon">🔒</span> Lock System</div>
+    </div>
+
+  <div id="wallpaper-modal" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); backdrop-filter:blur(10px); z-index:999999; display:none; justify-content:center; align-items:center;">
+        <div style="background:var(--bg-glass-heavy); border:var(--border-thin); padding:30px; border-radius:16px; width:450px; box-shadow:var(--shadow-float);">
+            <h3 style="margin-bottom:15px; color:var(--text-main);">Change Background</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:20px;">Paste an image or MP4 video URL.</p>
+            <input type="text" id="bg-url-input" placeholder="https://example.com/video.mp4" style="width:100%; padding:12px; border-radius:8px; border:var(--border-thin); background:rgba(0,0,0,0.3); color:white; outline:none; margin-bottom:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <button onclick="resetWallpaper()" style="padding:8px 16px; background:rgba(255,68,68,0.2); border:1px solid rgba(255,68,68,0.4); border-radius:8px; color:#ff4444; cursor:pointer; font-weight:600;">Reset to Default</button>
+                
+                <div style="display:flex; gap:10px;">
+                    <button onclick="closeWallpaperModal()" style="padding:8px 16px; background:transparent; border:none; color:var(--text-muted); cursor:pointer;">Cancel</button>
+                    <button onclick="applyWallpaper()" style="padding:8px 16px; background:var(--accent-color); border:none; border-radius:8px; color:white; font-weight:600; cursor:pointer;">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+   <div id="live-background">
+    <video class="bg-base-video" id="default-bg-video" autoplay loop muted playsinline>
+        <source src="https://raw.githubusercontent.com/shubhamsanap1092-dot/my-project/main/anime_LTRKHd1T.mp4" type="video/mp4">
+    </video>
+    
+    <div id="custom-wallpaper-layer"></div>
+
+    <div class="aurora-overlay"></div>
+    <canvas id="particle-canvas"></canvas>
+    
+    <div class="giant-vrunda-sphere">
+        <svg viewBox="0 0 100 100" class="rotating-sphere">
+            <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(109, 165, 255, 0.3)" stroke-width="0.3"/>
+            <ellipse cx="50" cy="50" rx="48" ry="15" fill="none" stroke="rgba(109, 165, 255, 0.5)" stroke-width="0.4" transform="rotate(45 50 50)"/>
+            <ellipse cx="50" cy="50" rx="48" ry="15" fill="none" stroke="rgba(109, 165, 255, 0.5)" stroke-width="0.4" transform="rotate(-45 50 50)"/>
+            <ellipse cx="50" cy="50" rx="15" ry="48" fill="none" stroke="rgba(109, 165, 255, 0.5)" stroke-width="0.4"/>
+        </svg>
+    </div>
+
+    <div class="neon-skills">
+        <span class="n-skill s1">VRUNDA WEB SPHERE</span>
+        <span class="n-skill s2">VRUNDA WEB SPHERE</span>
+        <span class="n-skill s3">VRUNDA WEB SPHERE</span>
+        <span class="n-skill s4">VRUNDA WEB SPHERE</span>
+    </div>
+</div>
+    <div id="sidebar">
+        <div class="side-tool" onclick="openInternalPage('Menu', '<p>Main navigation panel.</p>')"><div class="side-icon">≡</div><div class="side-text">Menu</div></div>
+        <div class="side-tool" onclick="openCodePlaygroundApp()"><div class="side-icon">&lt;/&gt;</div><div class="side-text">Code</div></div>
+        <div class="side-tool" onclick="openNotesApp()"><div class="side-text">Notes</div></div>
+        <div class="side-tool" onclick="openTasksApp()"><div class="side-icon">✓</div><div class="side-text">Tasks</div></div>
+        <div class="side-tool" onclick="openSITSPortal()"><div class="side-icon">🎓</div><div class="side-text">Academic Hub</div></div>
+        <div class="side-tool" onclick="triggerAction('Downloads')"><div class="side-icon">↓</div><div class="side-text">Downloads</div></div>
+        <div class="side-tool" onclick="openPomodoroApp()"><div class="side-icon">⏱️</div><div class="side-text">Focus</div></div>
+<div style="margin-top: auto; padding-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <div class="audio-visualizer" id="audio-viz">
+                <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+            <div class="side-text" style="font-size: 10px; white-space: nowrap; max-width: 50px; overflow: hidden; text-overflow: ellipsis;">bawari</div>
+            <audio id="vrunda-audio" loop><source src="https://raw.githubusercontent.com/shubhamsanap1092-dot/love-story/main/Baawri%20by%20Annu%20Patel%20-%20Annu%20Patel.mp3" type="audio/mpeg"></audio>
+            <button id="music-toggle-btn" onclick="toggleVrundaMusic()" style="background: var(--accent-color); border: none; width: 32px; height: 32px; border-radius: 50%; color: white; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 12px rgba(109,165,255,0.4); transition: all 0.3s ease; z-index: 2;">▶</button>
+        </div>
+    </div> <div id="command-overlay">
+        <div class="palette-box">
+            <input type="text" id="palette-input" class="palette-input" placeholder="Type a URL or search query..." autocomplete="off">
+            <div class="palette-footer"><span>Press <strong>Enter</strong> to go</span><span>Press <strong>Esc</strong> to close</span></div>
+        </div>
+    </div>
+
+    <div id="browser-chrome">
+        <div id="tab-bar">
+            <button id="new-tab-btn" onclick="createNewTab()">+</button>
+        </div>
+        
+        <div id="address-bar-container">
+            <button class="nav-btn" onclick="goHome()" title="Dashboard">⌂</button>
+            <button class="nav-btn" id="ghost-toggle" onclick="toggleGhostMode()" title="Incognito Mode">👁</button>
+            <input type="text" id="url-input" placeholder="Search Google or type a URL (Press Ctrl+K)" autocomplete="off">
+            <button class="nav-btn" id="menu-toggle-btn" onclick="toggleMenu(event)" title="Settings">⋮</button>
+
+            <div id="settings-menu">
+                <div class="menu-item" onclick="triggerAction('NewTab')"><div class="menu-item-left"><span class="menu-icon">⊞</span> New tab</div><span class="menu-shortcut">Ctrl+T</span></div>
+                <div class="menu-item" onclick="triggerAction('NewWindow')"><div class="menu-item-left"><span class="menu-icon">❐</span> New window</div><span class="menu-shortcut">Ctrl+N</span></div>
+                <div class="menu-item" onclick="triggerAction('Incognito')"><div class="menu-item-left"><span class="menu-icon">👁</span> New Incognito window</div><span class="menu-shortcut">Ctrl+Shift+N</span></div>
+
+                <div class="menu-divider"></div>
+
+                <div class="menu-item menu-profile" onclick="openInternalPage('Account Settings', '<p>Manage your MySphere account here.</p>')">
+                    <div class="menu-item-left"><div class="profile-avatar">S</div><span>Shubham</span></div>
+                    <div class="menu-item-left"><span class="profile-badge">Signed in</span><span class="menu-shortcut">›</span></div>
+                </div>
+
+                <div class="menu-divider"></div>
+
+                <div class="menu-item" onclick="triggerAction('History')"><div class="menu-item-left"><span class="menu-icon">↺</span> History</div><span class="menu-shortcut">›</span></div>
+                <div class="menu-item" onclick="triggerAction('Downloads')"><div class="menu-item-left"><span class="menu-icon">⤓</span> Downloads</div><span class="menu-shortcut">Ctrl+J</span></div>
+                
+                <div class="menu-divider"></div>
+
+                <div class="menu-item" onclick="toggleThemeMode()">
+                    <div class="menu-item-left">
+                        <span class="menu-icon" id="theme-icon">☀️</span> 
+                        <span id="theme-text">Light Mode</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-left"><span class="menu-icon">🎨</span> Theme Color</div>
+                    <input type="color" id="theme-color-picker" value="#6da5ff" onchange="changeThemeColor(event)">
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-left"><span class="menu-icon">🔍</span> Zoom</div>
+                    <div class="zoom-controls">
+                        <button class="zoom-btn" onclick="triggerAction('ZoomOut')">−</button>
+                        <span id="zoom-level-text" style="width: 36px; text-align: center; font-size: 12px;">100%</span>
+                        <button class="zoom-btn" onclick="triggerAction('ZoomIn')">+</button>
+                        <button class="zoom-btn" style="margin-left: 2px;" onclick="triggerAction('Fullscreen')">⛶</button>
+                    </div>
+                </div>
+
+                <div class="menu-divider"></div>
+
+                <div class="menu-item" onclick="triggerAction('Gemini')"><div class="menu-item-left"><span class="menu-icon" style="color:var(--accent-color);">✨</span> Open Gemini</div></div>
+                <div class="menu-item" onclick="triggerAction('Translate')"><div class="menu-item-left"><span class="menu-icon">🌐</span> Translate...</div></div>
+
+                <div class="menu-divider"></div>
+                <div class="menu-item" onclick="openInternalPage('Help', '<p>Welcome to MySphere Support.</p>')"><div class="menu-item-left"><span class="menu-icon">❓</span> Help</div><span class="menu-shortcut">›</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="viewport"></div>
+ <template id="home-template">
+        <div class="view-content home-screen active" style="position: relative;">
+            
+           <div style="position: absolute; top: 30px; left: 40px; display: flex; align-items: center; gap: 16px; z-index: 10;">
+                <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 12px var(--accent-color)); animation: sphereSpin 20s linear infinite;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                    <path d="M2 12h20"></path>
+                </svg>
+                <div style="display: flex; flex-direction: column; align-items: flex-start; text-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+                    <h1 style="font-size: 36px; font-weight: 800; letter-spacing: 4px; color: var(--text-main); margin: 0; line-height: 1;">VRUNDA</h1>
+                    <span style="font-weight: 600; font-size: 13px; color: var(--accent-color); letter-spacing: 6px;">WEB SPHERE</span>
+                </div>
+            </div>
+            
+           <div class="brand-container">
+                <div class="live-time clock-display">00:00</div>
+                <div class="live-date date-display">Loading...</div>
+                <div class="live-weather">Fetching local weather...</div>
+            </div>
+           <div style="width: 100%; max-width: 860px; margin: 0 auto 12px auto; padding-left: 24px; text-align: left;">
+                <span style="font-size: 12px; font-weight: 700; color: var(--accent-color); letter-spacing: 2px; text-transform: uppercase;">SPOTLIGHT SEARCH</span>
+                <span style="font-size: 12px; font-weight: 500; color: var(--text-muted); letter-spacing: 1px; margin-left: 10px;">— FIND APPS OR WEB</span>
+            </div>
+            
+            <div class="home-search" style="position: relative;">
+                <input type="text" class="page-search-input" placeholder="Search apps, web, or type a URL...">
+                <div class="spotlight-results" style="display: none;"></div>
+            </div>
+
+            <div class="desktop-sticky-note draggable-widget" id="widget-note">
+                <div class="note-header">📌 Quick Note <span style="font-size: 10px; opacity: 0.5;">(Draggable)</span></div>
+                <textarea class="note-body" placeholder="Jot down a quick thought..."></textarea>
+            </div>
+
+            <div class="dashboard-container">
+                <div class="category-title">Local Workspaces</div>
+                <div class="app-grid" id="workspace-grid">
+                    <div class="app-shortcut" data-app="Hospital System" onclick="loadUrlInActiveTab('https://htmlpreview.github.io/?https://github.com/shubhamsanap1092-dot/my-project/blob/main/hospital5.html', 'Hospital System')"><div class="app-icon">🏥</div><span>Hospital System</span></div>
+                    <div class="app-shortcut" data-app="Kanha E-Mart" onclick="loadUrlInActiveTab('https://htmlpreview.github.io/?https://github.com/shubhamsanap1092-dot/my-project/blob/main/SHOP3.HTML', 'Kanha E-Mart')"><div class="app-icon">🛒</div><span>Kanha E-Mart</span></div>
+                    <div class="app-shortcut" data-app="sits" onclick="loadUrlInActiveTab('https://htmlpreview.github.io/?https://github.com/shubhamsanap1092-dot/my-project/blob/main/sits%402.html', 'sits')"><div class="app-icon">🎓</div><span>sits</span></div>
+                    <div class="app-shortcut" data-app="RK Gallery" onclick="loadUrlInActiveTab('https://shubhamsanap1092-dot.github.io/love-story/PHOTOGALLARY5.HTML', 'RK Gallery')"><div class="app-icon">🦚</div><span>RK Gallery</span></div>
+                    <div class="app-shortcut" data-app="bikehouse" onclick="loadUrlInActiveTab('https://htmlpreview.github.io/?https://github.com/shubhamsanap1092-dot/my-project/blob/main/SHUBHBIKEHOUSE.html', 'bikehouse')"><div class="app-icon">🏍️</div><span>bikehouse</span></div>
+                </div>
+
+          <div class="category-title">Communications</div>
+                <div class="app-grid">
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://web.whatsapp.com', 'WhatsApp')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp"></div>
+                        <span>WhatsApp</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://web.telegram.org', 'Telegram')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/telegram/26A5E4" alt="Telegram"></div>
+                        <span>Telegram</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://www.instagram.com', 'Instagram')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram"></div>
+                        <span>Instagram</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://web.snapchat.com', 'Snapchat')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/snapchat/FFFC00" alt="Snapchat"></div>
+                        <span>Snapchat</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://discord.com/app', 'Discord')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/discord/5865F2" alt="Discord"></div>
+                        <span>Discord</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://mail.google.com', 'Gmail')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/gmail/EA4335" alt="Gmail"></div>
+                        <span>Gmail</span>
+                    </div>
+                </div>
+
+                <div class="category-title">Media & Lifestyle</div>
+                <div class="app-grid">
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://open.spotify.com', 'Spotify')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/spotify/1ED760" alt="Spotify"></div>
+                        <span>Spotify</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://www.netflix.com', 'Netflix')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/netflix/E50914" alt="Netflix"></div>
+                        <span>Netflix</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://www.youtube.com/embed/', 'YouTube')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube"></div>
+                        <span>YouTube</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://www.twitch.tv', 'Twitch')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/twitch/9146FF" alt="Twitch"></div>
+                        <span>Twitch</span>
+                    </div>
+                </div>
+
+                <div class="category-title">Developer Tools</div>
+                <div class="app-grid">
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://github.com', 'GitHub')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub"></div>
+                        <span>GitHub</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://stackoverflow.com', 'Stack Overflow')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/stackoverflow/F58025" alt="Stack Overflow"></div>
+                        <span>StackOverflow</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://replit.com', 'Replit')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/replit/F26207" alt="Replit"></div>
+                        <span>Replit</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://docs.python.org/3/', 'Python Docs')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python"></div>
+                        <span>Python</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://www.figma.com', 'Figma')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma"></div>
+                        <span>Figma</span>
+                    </div>
+                </div>
+
+                <div class="category-title">Productivity</div>
+                <div class="app-grid">
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://drive.google.com', 'Google Drive')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/googledrive/4285F4" alt="Drive"></div>
+                        <span>Drive</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://www.notion.so', 'Notion')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/notion/ffffff" alt="Notion"></div>
+                        <span>Notion</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://trello.com', 'Trello')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/trello/0052CC" alt="Trello"></div>
+                        <span>Trello</span>
+                    </div>
+                </div>
+
+                <div class="category-title">Education & News</div>
+                <div class="app-grid">
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://www.coursera.org', 'Coursera')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/coursera/0056D2" alt="Coursera"></div>
+                        <span>Coursera</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://www.udemy.com', 'Udemy')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/udemy/A435F0" alt="Udemy"></div>
+                        <span>Udemy</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://en.wikipedia.org', 'Wikipedia')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/wikipedia/ffffff" alt="Wikipedia"></div>
+                        <span>Wikipedia</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://medium.com', 'Medium')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/medium/ffffff" alt="Medium"></div>
+                        <span>Medium</span>
+                    </div>
+                    <div class="app-shortcut" onclick="loadUrlInActiveTab('https://www.duolingo.com', 'Duolingo')">
+                        <div class="app-icon"><img src="https://cdn.simpleicons.org/duolingo/58CC02" alt="Duolingo"></div>
+                        <span>Duolingo</span>
+                    </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+       window.openSITSPortal = function() {
+            const html = `
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+                    <div style="background:var(--bg-glass); padding:24px; border-radius:16px; border:var(--border-thin);">
+                        <h3 style="margin-bottom: 16px;">SITS Quick Links</h3>
+                        <ul style="list-style:none; line-height:2.5;">
+                            <li><a href="#" style="color:var(--accent-color); text-decoration:none;">ERP / Student Login</a></li>
+                            <li><a href="#" style="color:var(--accent-color); text-decoration:none;">IT Engineering Syllabus PDF</a></li>
+                            <li><a href="#" style="color:var(--accent-color); text-decoration:none;">Current Timetable</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background:var(--bg-glass); padding:24px; border-radius:16px; border:var(--border-thin);">
+                        <h3 style="margin-bottom: 16px;">Semester CGPA Estimator</h3>
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <input type="number" id="current-sgpa" step="0.01" placeholder="Current Sem SGPA (e.g., 8.5)" style="padding:12px; border-radius:8px; border:none; background:rgba(0,0,0,0.2); color:var(--text-main); outline:none;">
+                            <input type="number" id="target-sgpa" step="0.01" placeholder="Target Next Sem SGPA" style="padding:12px; border-radius:8px; border:none; background:rgba(0,0,0,0.2); color:var(--text-main); outline:none;">
+                            <button onclick="window.calculateCGPA()" style="padding:12px; background:var(--accent-color); color:white; font-weight:600; border:none; border-radius:8px; cursor:pointer;">Calculate Estimated CGPA</button>
+                            <div id="cgpa-result" style="margin-top:8px; font-size:18px; font-weight:700; color:var(--accent-color); text-align:center;"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            openInternalPage('Academic Hub', html);
+        };
+
+        window.calculateCGPA = function() {
+            const current = parseFloat(document.getElementById('current-sgpa').value);
+            const target = parseFloat(document.getElementById('target-sgpa').value);
+            const resultDiv = document.getElementById('cgpa-result');
+            
+            if (current && target) {
+                const avg = ((current + target) / 2).toFixed(2);
+                resultDiv.textContent = 'Estimated CGPA: ' + avg;
+            } else {
+                resultDiv.textContent = 'Please enter both values.';
+            }
+        };
+        window.renderTasks = function() {
+            const tasks = JSON.parse(localStorage.getItem('mySphereTasks') || '[]');
+            const container = document.getElementById('task-list-container');
+            if(!container) return;
+            container.innerHTML = tasks.map((t, i) =>
+                `<div style="display:flex; justify-content:space-between; align-items:center; padding:12px; background:var(--bg-glass); margin-bottom:8px; border-radius:8px; border:var(--border-thin); transition:0.2s;">
+                    <span style="text-decoration: ${t.done ? 'line-through' : 'none'}; opacity: ${t.done ? '0.5' : '1'};">${t.text}</span>
+                    <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask(${i})" style="cursor:pointer; width:18px; height:18px; accent-color:var(--accent-color);">
+                </div>`
+            ).join('');
+        };
+
+        window.openTasksApp = function() {
+            const html = `
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <div style="display:flex; gap:12px; margin-bottom: 24px;">
+                        <input type="text" id="new-task-input" placeholder="Add a new bug to fix or assignment..." style="flex:1; padding:14px; border-radius:8px; border:var(--border-thin); background:var(--bg-glass-heavy); color:var(--text-main); outline:none;" onkeypress="if(event.key==='Enter') addTask()">
+                        <button onclick="addTask()" style="padding:0 24px; background:var(--accent-color); color:white; font-weight:600; border:none; border-radius:8px; cursor:pointer;">Add Task</button>
+                    </div>
+                    <div id="task-list-container"></div>
+                </div>
+            `;
+            openInternalPage('Task Manager', html);
+            setTimeout(window.renderTasks, 50);
+        };
+
+        window.addTask = function() {
+            const input = document.getElementById('new-task-input');
+            if(!input.value.trim()) return;
+            const tasks = JSON.parse(localStorage.getItem('mySphereTasks') || '[]');
+            tasks.push({text: input.value, done: false});
+            localStorage.setItem('mySphereTasks', JSON.stringify(tasks));
+            input.value = '';
+            renderTasks();
+        };
+
+        window.toggleTask = function(index) {
+            const tasks = JSON.parse(localStorage.getItem('mySphereTasks') || '[]');
+            tasks[index].done = !tasks[index].done;
+            localStorage.setItem('mySphereTasks', JSON.stringify(tasks));
+            renderTasks();
+        };
+        // --- Tab Management & Memory ---
+        let tabs = [];
+        let closedTabs = []; 
+        let activeTabId = null;
+        let tabCounter = 0;
+        let currentZoom = 100;
+
+        const tabBar = document.getElementById('tab-bar');
+        const viewport = document.getElementById('viewport');
+        const urlInput = document.getElementById('url-input');
+        const newTabBtn = document.getElementById('new-tab-btn');
+        const homeTemplate = document.getElementById('home-template');
+        const zoomText = document.getElementById('zoom-level-text');
+        const settingsMenu = document.getElementById('settings-menu');
+
+        // --- Pomodoro Focus Timer Feature ---
+        let pomodoroInterval;
+        let pomodoroTimeLeft = 1500; // 25 minutes in seconds
+
+        window.openPomodoroApp = function() {
+            const html = `
+                <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height: 60vh; gap: 30px;">
+                    <div style="font-size: 18px; color: var(--text-muted); font-weight: 500; letter-spacing: 2px; text-transform: uppercase;">Deep Work Session</div>
+                    <div id="pomodoro-display" style="font-size: 120px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text-main); text-shadow: 0 8px 32px rgba(0,0,0,0.4);">25:00</div>
+                    <div style="display:flex; gap: 16px;">
+                        <button onclick="startPomodoro(25)" style="padding: 14px 28px; background: var(--accent-color); font-weight: 700; border:none; border-radius:12px; color:white; cursor:pointer; font-size: 16px; box-shadow: 0 4px 16px rgba(109,165,255,0.4);">Code (25m)</button>
+                        <button onclick="startPomodoro(5)" style="padding: 14px 28px; background: var(--bg-glass-heavy); font-weight: 600; border:var(--border-thin); border-radius:12px; color:var(--text-main); cursor:pointer; font-size: 16px;">Rest (5m)</button>
+                        <button onclick="stopPomodoro()" style="padding: 14px 28px; background: rgba(255,68,68,0.2); font-weight: 600; border:1px solid rgba(255,68,68,0.4); border-radius:12px; color:#ff4444; cursor:pointer; font-size: 16px;">Stop</button>
+                    </div>
+                </div>
+            `;
+            openInternalPage('Focus Timer', html);
+        };
+
+        window.startPomodoro = function(minutes) {
+            clearInterval(pomodoroInterval);
+            pomodoroTimeLeft = minutes * 60;
+            updatePomodoroDisplay();
+            pomodoroInterval = setInterval(() => {
+                pomodoroTimeLeft--;
+                updatePomodoroDisplay();
+                if (pomodoroTimeLeft <= 0) {
+                    clearInterval(pomodoroInterval);
+                    alert('Time is up! Great job.');
+                }
+            }, 1000);
+        };
+
+        window.stopPomodoro = function() {
+            clearInterval(pomodoroInterval);
+            pomodoroTimeLeft = 1500;
+            updatePomodoroDisplay();
+        };
+
+        window.updatePomodoroDisplay = function() {
+            const display = document.getElementById('pomodoro-display');
+            if (!display) return;
+            const m = Math.floor(pomodoroTimeLeft / 60).toString().padStart(2, '0');
+            const s = (pomodoroTimeLeft % 60).toString().padStart(2, '0');
+            display.textContent = `${m}:${s}`;
+        };
+
+        // --- THEME ENGINE (Light/Dark Mode) ---
+        function toggleThemeMode() {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            
+            // Save preference to local storage
+            localStorage.setItem('mySphereTheme', isLight ? 'light' : 'dark');
+            
+            // Update menu button text/icon
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            if (themeIcon && themeText) {
+                themeIcon.textContent = isLight ? '🌙' : '☀️';
+                themeText.textContent = isLight ? 'Dark Mode' : 'Light Mode';
+            }
+        }
+
+        // Apply saved theme instantly when page loads
+        if (localStorage.getItem('mySphereTheme') === 'light') {
+            document.body.classList.add('light-mode');
+            document.getElementById('theme-icon').textContent = '🌙';
+            document.getElementById('theme-text').textContent = 'Dark Mode';
+        }
+
+        // --- Settings Menu Core Logic ---
+        function toggleMenu(event) { event.stopPropagation(); settingsMenu.classList.toggle('active'); }
+        function closeMenu() { settingsMenu.classList.remove('active'); }
+        document.addEventListener('click', (event) => { if (!settingsMenu.contains(event.target) && event.target.id !== 'menu-toggle-btn') closeMenu(); });
+
+        function changeThemeColor(event) {
+            const newColor = event.target.value;
+            document.documentElement.style.setProperty('--accent-color', newColor);
+            document.documentElement.style.setProperty('--accent-dim', newColor + '26');
+        }
+
+        function triggerAction(action) {
+            event.stopPropagation();
+            if(action !== 'ZoomIn' && action !== 'ZoomOut') closeMenu();
+
+            switch(action) {
+                case 'NewTab': createNewTab(); break;
+                case 'NewWindow': window.open(window.location.href, '_blank'); break;
+                case 'Incognito': 
+                    if(!document.body.classList.contains('ghost-mode')) toggleGhostMode();
+                    createNewTab('chrome://incognito', 'Ghost Session'); 
+                    break;
+                case 'History': openInternalPage('History', '<p>Your recent browsing history will appear here.</p>'); break;
+                case 'Downloads': openInternalPage('Downloads', '<p>Downloaded files will appear here.</p>'); break;
+                case 'ZoomIn': if(currentZoom < 200) currentZoom += 10; applyZoom(); break;
+                case 'ZoomOut': if(currentZoom > 50) currentZoom -= 10; applyZoom(); break;
+                case 'Fullscreen': 
+                    if (!document.fullscreenElement) document.documentElement.requestFullscreen(); 
+                    else if (document.exitFullscreen) document.exitFullscreen();
+                    break;
+                case 'Gemini': loadUrlInActiveTab('https://gemini.google.com', 'Google Gemini'); break;
+                case 'Translate': 
+                    let query = encodeURIComponent(urlInput.value || 'Hello World');
+                    loadUrlInActiveTab(`https://translate.google.com/?sl=auto&tl=en&text=${query}&op=translate`, 'Translate'); 
+                    break;
+            }
+        }
+
+        window.openNotesApp = function() {
+            const savedNotes = localStorage.getItem('mySphereNotes') || '';
+            const html = `
+                <p style="margin-bottom:15px; color:var(--text-muted);">Your notes are saved automatically to your browser's local storage.</p>
+                <textarea id='persistent-notes' style='width:100%; height:500px; background:var(--bg-glass); color:inherit; border:1px solid rgba(150,150,150,0.5); border-radius:12px; padding:16px; outline:none; font-family:inherit; resize:vertical; font-size:16px;' placeholder='Type your notes here...' onkeyup='localStorage.setItem("mySphereNotes", this.value)'>${savedNotes}</textarea>
+            `;
+            openInternalPage('Persistent Notes', html);
+        };
+
+       window.openCodePlaygroundApp = function() {
+            const html = `
+                <div style="display:flex; height:60vh; gap:20px;">
+                    <div style="flex:1; display:flex; flex-direction:column; gap:10px;">
+                        <textarea id="code-html" placeholder="" style="flex:1; background:#1e1e1e; color:#569cd6; border:none; padding:15px; border-radius:12px; font-family:monospace; resize:none; outline:none;"></textarea>
+                        <textarea id="code-css" placeholder="/* CSS */" style="flex:1; background:#1e1e1e; color:#ce9178; border:none; padding:15px; border-radius:12px; font-family:monospace; resize:none; outline:none;"></textarea>
+                        <textarea id="code-js" placeholder="// JavaScript" style="flex:1; background:#1e1e1e; color:#dcdcaa; border:none; padding:15px; border-radius:12px; font-family:monospace; resize:none; outline:none;"></textarea>
+                    </div>
+                    <div style="flex:1; background:white; border-radius:12px; overflow:hidden; border: 4px solid #1e1e1e;">
+                        <iframe id="code-preview" style="width:100%; height:100%; border:none;"></iframe>
+                    </div>
+                </div>
+                <div style="margin-top:20px; display:flex; gap:12px;">
+                    <button onclick="window.runCodePlayground()" style="padding:12px 24px; border-radius:8px; background:var(--accent-color); color:white; border:none; cursor:pointer; font-weight:700;">▶ Run Code</button>
+                    <button onclick="window.exportCode()" style="padding:12px 24px; border-radius:8px; background:var(--bg-glass-heavy); color:var(--text-main); border:var(--border-thin); cursor:pointer; font-weight:600;">💾 Export to HTML</button>
+                </div>
+            `;
+            openInternalPage('Code Playground', html);
+        };
+
+        window.exportCode = function() {
+            const html = document.getElementById('code-html').value;
+            const css = `<style>\n${document.getElementById('code-css').value}\n</style>`;
+            const js = `<script>\n${document.getElementById('code-js').value}\n<\/script>`;
+            
+            // We split the body and html tags so VS Code Live Server doesn't accidentally inject its reload script here!
+            const fullContent = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>My Exported Project</title>\n${css}\n</head>\n<` + `body>\n${html}\n${js}\n<` + `/body>\n<` + `/html>`;
+
+            const blob = new Blob([fullContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'my-project.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+
+        window.runCodePlayground = function() {
+            const html = document.getElementById('code-html').value;
+            const css = `<style>${document.getElementById('code-css').value}</style>`;
+            const js = `<script>${document.getElementById('code-js').value}<\/script>`;
+            const preview = document.getElementById('code-preview');
+            const doc = preview.contentDocument || preview.contentWindow.document;
+            doc.open(); doc.write(html + css + js); doc.close();
+        };
+
+        function applyZoom() {
+            zoomText.textContent = `${currentZoom}%`;
+            const activeView = document.getElementById(`view-${activeTabId}`);
+            if(activeView) {
+                let scale = currentZoom / 100;
+                activeView.style.transform = `scale(${scale})`;
+                activeView.style.width = `${100 / scale}%`;
+                activeView.style.height = `${100 / scale}%`;
+            }
+        }
+
+        function openInternalPage(title, htmlContent) {
+            tabCounter++;
+            const tabId = 'tab-' + tabCounter;
+            const tabEl = document.createElement('div');
+            tabEl.className = 'tab';
+            tabEl.id = `ui-${tabId}`;
+            tabEl.innerHTML = `<span class="tab-title">⚙ ${title}</span><span class="close-tab" onclick="closeTab(event, '${tabId}')">×</span>`;
+            tabEl.onclick = () => switchTab(tabId);
+            tabBar.insertBefore(tabEl, newTabBtn);
+
+            const viewEl = document.createElement('div');
+            viewEl.className = 'view-content internal-page';
+            viewEl.id = `view-${tabId}`;
+            viewEl.innerHTML = `<h1>${title}</h1><div style="font-size:15px; opacity:0.9;">${htmlContent}</div>`;
+            viewport.appendChild(viewEl);
+            
+            tabs.push({ id: tabId, url: `sphere://${title.toLowerCase().replace(/\s/g, '')}`, title: title });
+            switchTab(tabId);
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+            const dateString = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+            document.querySelectorAll('.live-time').forEach(el => el.textContent = timeString);
+            document.querySelectorAll('.live-date').forEach(el => el.textContent = dateString);
+        }
+        setInterval(updateClock, 1000);
+
+        async function fetchWeather() {
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.1458&longitude=79.0882&current_weather=true');
+                const data = await res.json();
+                document.querySelectorAll('.live-weather').forEach(el => el.textContent = `Currently ${data.current_weather.temperature}°C — Nagpur`);
+            } catch (e) {
+                document.querySelectorAll('.live-weather').forEach(el => el.textContent = `Weather Data Unavailable`);
+            }
+        }
+
+        async function fetchBattery() {
+            if ('getBattery' in navigator) {
+                const battery = await navigator.getBattery();
+                const updateBattery = () => { document.querySelectorAll('.live-battery').forEach(el => { el.textContent = `Battery: ${Math.round(battery.level * 100)}% ${battery.charging ? '⚡ Charging' : ''}`; }); };
+                updateBattery();
+                battery.addEventListener('levelchange', updateBattery);
+                battery.addEventListener('chargingchange', updateBattery);
+            } else {
+                document.querySelectorAll('.live-battery').forEach(el => el.style.display = 'none');
+            }
+        }
+
+        function toggleGhostMode() {
+            document.body.classList.toggle('ghost-mode');
+            const btn = document.getElementById('ghost-toggle');
+            if(document.body.classList.contains('ghost-mode')) {
+                btn.classList.add('active-ghost'); btn.textContent = '✕'; 
+            } else {
+                btn.classList.remove('active-ghost'); btn.textContent = '👁';
+            }
+        }
+
+        const commandOverlay = document.getElementById('command-overlay');
+        const paletteInput = document.getElementById('palette-input');
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); commandOverlay.classList.add('active'); paletteInput.focus(); paletteInput.value = ''; }
+            if (e.key === 'Escape' && commandOverlay.classList.contains('active')) commandOverlay.classList.remove('active');
+            if (e.ctrlKey && e.shiftKey && (e.key === 'T' || e.key === 't')) { e.preventDefault(); const lastTab = closedTabs.pop(); if (lastTab) createNewTab(lastTab.url, lastTab.title); }
+        });
+
+        paletteInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && paletteInput.value.trim() !== '') { loadUrlInActiveTab(paletteInput.value.trim(), ''); commandOverlay.classList.remove('active'); }
+        });
+
+        function createNewTab(url = '', title = 'New Tab') {
+            tabCounter++;
+            const tabId = 'tab-' + tabCounter;
+            const tabEl = document.createElement('div');
+            tabEl.className = 'tab';
+            tabEl.id = `ui-${tabId}`;
+            tabEl.innerHTML = `<span class="tab-title">${title}</span><span class="close-tab" onclick="closeTab(event, '${tabId}')">×</span>`;
+            tabEl.onclick = () => switchTab(tabId);
+            tabBar.insertBefore(tabEl, newTabBtn);
+
+            let viewEl;
+            if (url === '' || url === 'chrome://incognito') {
+                const clone = homeTemplate.content.cloneNode(true);
+                viewEl = clone.querySelector('.view-content');
+                viewEl.id = `view-${tabId}`;
+                const searchInput = viewEl.querySelector('.page-search-input');
+                searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') loadUrlInActiveTab(`https://www.google.com/search?q=${encodeURIComponent(searchInput.value)}`, 'Search'); });
+                viewport.appendChild(viewEl);
+                updateClock(); fetchWeather(); fetchBattery();
+            } else {
+                viewEl = document.createElement('iframe');
+                viewEl.className = 'view-content';
+                viewEl.id = `view-${tabId}`;
+                viewEl.src = url;
+                viewEl.onerror = function() { viewEl.outerHTML = `<div class="view-content active internal-page" id="view-${tabId}"><h1>Connection Refused</h1><p>This website (${url}) does not allow itself to be embedded. <a href="${url}" target="_blank" style="color:var(--accent-color);">Click here to open it in a new window</a>.</p></div>`; };
+                viewport.appendChild(viewEl);
+            }
+            tabs.push({ id: tabId, url: url, title: title });
+            switchTab(tabId);
+        }
+
+        function switchTab(tabId) {
+            activeTabId = tabId;
+            const tabData = tabs.find(t => t.id === tabId);
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`ui-${tabId}`).classList.add('active');
+            document.querySelectorAll('.view-content').forEach(v => v.classList.remove('active'));
+            document.getElementById(`view-${tabId}`).classList.add('active');
+            urlInput.value = tabData.url || '';
+            applyZoom(); 
+        }
+
+        function closeTab(event, tabId) {
+            event.stopPropagation();
+            const tabData = tabs.find(t => t.id === tabId);
+            if(tabData && tabData.url !== '') { closedTabs.push({ url: tabData.url, title: tabData.title }); if(closedTabs.length > 5) closedTabs.shift(); }
+            document.getElementById(`ui-${tabId}`).remove();
+            document.getElementById(`view-${tabId}`).remove();
+            const index = tabs.findIndex(t => t.id === tabId);
+            tabs.splice(index, 1);
+            if (tabs.length === 0) createNewTab();
+            else if (activeTabId === tabId) switchTab(tabs[Math.max(0, index - 1)].id);
+        }
+
+        function loadUrlInActiveTab(url, title) {
+            let finalUrl = url;
+            if (!url.startsWith('http') && !url.startsWith('sphere://')) { finalUrl = `https://www.google.com/search?q=${encodeURIComponent(url)}`; title = `${url} - Search`; }
+            const tabData = tabs.find(t => t.id === activeTabId);
+            tabData.url = finalUrl; tabData.title = title || finalUrl;
+            document.getElementById(`ui-${activeTabId}`).querySelector('.tab-title').textContent = tabData.title;
+            const oldView = document.getElementById(`view-${activeTabId}`);
+            const newIframe = document.createElement('iframe');
+            newIframe.className = 'view-content active'; newIframe.id = `view-${activeTabId}`; newIframe.src = finalUrl;
+            viewport.replaceChild(newIframe, oldView);
+            urlInput.value = finalUrl;
+            applyZoom();
+        }
+
+        function loadUrlFromInput() { loadUrlInActiveTab(urlInput.value.trim(), ''); }
+        urlInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') loadUrlFromInput(); });
+
+        function goHome() {
+            const oldView = document.getElementById(`view-${activeTabId}`);
+            const clone = homeTemplate.content.cloneNode(true);
+            const newHome = clone.querySelector('.view-content');
+            newHome.id = `view-${activeTabId}`; newHome.classList.add('active');
+            newHome.querySelector('.page-search-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') loadUrlInActiveTab(`https://www.google.com/search?q=${encodeURIComponent(e.target.value)}`, 'Search'); });
+            viewport.replaceChild(newHome, oldView);
+            urlInput.value = '';
+            document.getElementById(`ui-${activeTabId}`).querySelector('.tab-title').textContent = 'New Tab';
+            updateClock(); fetchWeather(); fetchBattery(); applyZoom();
+        }
+
+        window.onload = () => createNewTab();
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = (Math.random() * 1) - 0.5;
+                this.speedY = (Math.random() * 1) - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(109, 165, 255, 0.8)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 12000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                
+                // Draw connecting lines
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(109, 165, 255, ${1 - distance/100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                        ctx.closePath();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+        // --- Music Player Logic ---
+        window.toggleVrundaMusic = function() {
+            const audio = document.getElementById('vrunda-audio');
+            const btn = document.getElementById('music-toggle-btn');
+            
+            if (audio.paused) {
+                audio.play();
+                btn.textContent = '⏸';
+                btn.style.boxShadow = '0 0 20px rgba(109, 165, 255, 0.8)';
+            } else {
+                audio.pause();
+                btn.textContent = '▶';
+                btn.style.boxShadow = '0 4px 12px rgba(109,165,255,0.4)';
+            }
+        };
+        // --- Photo Studio App ---
+        window.openPhotoStudioApp = function() {
+            const html = `
+                <div style="display:flex; flex-direction:column; align-items:center; gap:20px; max-width: 800px; margin: 0 auto;">
+                    <p style="color:var(--text-muted);">Paste an image URL below to start editing.</p>
+                    
+                    <input type="text" id="photo-url-input" placeholder="Paste image URL here..." style="width:100%; padding:14px; border-radius:8px; border:var(--border-thin); background:var(--bg-glass-heavy); color:var(--text-main); outline:none;" oninput="document.getElementById('studio-image').src = this.value">
+                    
+                    <div style="width:100%; height:400px; background:rgba(0,0,0,0.2); border-radius:16px; border:var(--border-thin); display:flex; justify-content:center; align-items:center; overflow:hidden;">
+                        <img id="studio-image" src="" alt="Preview" style="max-width:100%; max-height:100%; object-fit:contain; transition: filter 0.2s;">
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px; width:100%; background:var(--bg-glass); padding:24px; border-radius:16px;">
+                        <div>
+                            <label style="font-size:12px; font-weight:600; color:var(--text-muted);">BRIGHTNESS</label>
+                            <input type="range" id="filter-bright" min="0" max="200" value="100" style="width:100%; accent-color:var(--accent-color);" oninput="applyPhotoFilters()">
+                        </div>
+                        <div>
+                            <label style="font-size:12px; font-weight:600; color:var(--text-muted);">CONTRAST</label>
+                            <input type="range" id="filter-contrast" min="0" max="200" value="100" style="width:100%; accent-color:var(--accent-color);" oninput="applyPhotoFilters()">
+                        </div>
+                        <div>
+                            <label style="font-size:12px; font-weight:600; color:var(--text-muted);">GRAYSCALE</label>
+                            <input type="range" id="filter-gray" min="0" max="100" value="0" style="width:100%; accent-color:var(--accent-color);" oninput="applyPhotoFilters()">
+                        </div>
+                        <div>
+                            <label style="font-size:12px; font-weight:600; color:var(--text-muted);">SEPIA (VINTAGE)</label>
+                            <input type="range" id="filter-sepia" min="0" max="100" value="0" style="width:100%; accent-color:var(--accent-color);" oninput="applyPhotoFilters()">
+                        </div>
+                    </div>
+                </div>
+            `;
+            openInternalPage('Photo Studio', html);
+        };
+
+        window.applyPhotoFilters = function() {
+            const img = document.getElementById('studio-image');
+            if(!img) return;
+            const b = document.getElementById('filter-bright').value;
+            const c = document.getElementById('filter-contrast').value;
+            const g = document.getElementById('filter-gray').value;
+            const s = document.getElementById('filter-sepia').value;
+            
+      img.style.filter = `brightness(${b}%) contrast(${c}%) grayscale(${g}%) sepia(${s}%)`;
+        };
+        // --- Encrypted Vault App ---
+        window.openVaultLogin = function() {
+            const html = `
+                <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height: 60vh; gap: 20px;">
+                    <div style="font-size: 48px; text-shadow: 0 0 20px var(--accent-color);">🔒</div>
+                    <h2 style="margin:0; letter-spacing: 2px;">SECURE VAULT</h2>
+                    <p style="color:var(--text-muted); text-align:center;">Enter your 4-digit PIN to access encrypted files.</p>
+                    
+                    <div style="display:flex; gap: 12px; margin-top: 20px;">
+                        <input type="password" id="vault-pin" maxlength="4" style="width: 120px; text-align: center; font-size: 24px; letter-spacing: 8px; padding: 12px; border-radius: 12px; border: var(--border-thin); background: var(--bg-glass-heavy); color: var(--text-main); outline: none;" onkeypress="if(event.key==='Enter') checkVaultPin()">
+                    </div>
+                    <button onclick="checkVaultPin()" style="padding: 12px 32px; background: var(--accent-color); font-weight: 700; border:none; border-radius:12px; color:white; cursor:pointer; font-size: 16px; margin-top: 10px; box-shadow: 0 4px 16px rgba(109,165,255,0.4);">Unlock</button>
+                    <div id="vault-error" style="color: #ff4444; font-size: 13px; font-weight: 600; opacity: 0; transition: 0.3s;">Incorrect PIN. Access Denied.</div>
+                </div>
+            `;
+            openInternalPage('Vault Login', html);
+            
+            // Auto-focus the PIN input for quick typing
+            setTimeout(() => {
+                const pinInput = document.getElementById('vault-pin');
+                if(pinInput) pinInput.focus();
+            }, 100);
+        };
+
+        window.checkVaultPin = function() {
+            const pin = document.getElementById('vault-pin').value;
+            const errorMsg = document.getElementById('vault-error');
+            
+            // CHANGE YOUR PIN HERE! 
+            const SECRET_PIN = '1092'; 
+            
+            if (pin === SECRET_PIN) {
+                openVaultContent();
+            } else {
+                errorMsg.style.opacity = '1';
+                document.getElementById('vault-pin').value = '';
+                setTimeout(() => errorMsg.style.opacity = '0', 3000); // Hide error after 3s
+            }
+        };
+
+        window.openVaultContent = function() {
+            // Save the ID of the login tab so we can close it, leaving no trace
+            const loginTabId = activeTabId;
+            
+            // Fetch secret notes separated from your main notes app
+            const savedSecrets = localStorage.getItem('mySphereVault') || '';
+            
+            const html = `
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: var(--border-highlight); padding-bottom: 20px; margin-bottom: 30px;">
+                        <div>
+                            <h2 style="margin:0; color: #81C995; display:flex; align-items:center; gap: 10px;">🔓 Vault Decrypted</h2>
+                            <p style="color:var(--text-muted); margin-top:5px; font-size:13px;">Secure local storage active. System logs suspended.</p>
+                        </div>
+                        <button onclick="lockVault()" style="padding: 8px 16px; background: rgba(255,68,68,0.2); border: 1px solid rgba(255,68,68,0.4); border-radius: 8px; color: #ff4444; cursor: pointer; font-weight: 600;">Lock Vault</button>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 30px;">
+                        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 16px; border: var(--border-thin);">
+                            <h4 style="margin-bottom: 12px; color: var(--accent-color);">Hidden Workspaces</h4>
+                            <ul style="list-style:none; line-height:2.5; font-size: 14px;">
+                                <li style="cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent-color)'" onmouseout="this.style.color='var(--text-main)'" onclick="loadUrlInActiveTab('http://localhost:5500/romantic-project', 'Siddhi Page')">💖 Siddhi Project Page</li>
+                                <li style="cursor:pointer; transition:0.2s;" onmouseover="this.style.color='var(--accent-color)'" onmouseout="this.style.color='var(--text-main)'" onclick="loadUrlInActiveTab('http://localhost:3000/api/config', 'DB Configs')">🔑 DB Configs & Passwords</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 16px; border: var(--border-thin);">
+                            <h4 style="margin-bottom: 12px; color: var(--accent-color);">Secure Keys</h4>
+                            <textarea id="vault-notes" style="width:100%; height:120px; background:var(--bg-glass-heavy); color:inherit; border:none; border-radius:8px; padding:12px; outline:none; font-family:monospace; resize:none; font-size:13px;" placeholder="Store API keys or secret code snippets here..." onkeyup="localStorage.setItem('mySphereVault', this.value)">${savedSecrets}</textarea>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            openInternalPage('Secure Vault', html);
+            
+            // Instantly close the login tab so nobody can just click back to it
+            setTimeout(() => {
+                const dummyEvent = { stopPropagation: () => {} };
+                closeTab(dummyEvent, loginTabId);
+            }, 50);
+        };
+
+        window.lockVault = function() {
+            // Closes the current vault tab and throws you back out to the login screen
+            const dummyEvent = { stopPropagation: () => {} };
+            closeTab(dummyEvent, activeTabId);
+            openVaultLogin();
+        };
+
+        // === NEW UI/UX JAVASCRIPT LOGIC (YOU MISSED THIS PART!) ===
+
+        // 1. Boot Sequence Logic (This makes the boot screen disappear)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('boot-screen').classList.add('hidden');
+                if(typeof showToast === 'function') showToast('Welcome back, Shubham. System online.', '✨');
+            }, 2600); 
+        });
+
+        // 2. Global Toast Notification System
+        window.showToast = function(message, icon = '🔔') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'vrunda-toast';
+            toast.innerHTML = `<span class="toast-icon">${icon}</span><span>${message}</span>`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('fade-out');
+                setTimeout(() => toast.remove(), 400); 
+            }, 3500); 
+        };
+
+        // 3. Audio Visualizer Sync
+        const originalToggleMusic = window.toggleVrundaMusic;
+        window.toggleVrundaMusic = function() {
+            originalToggleMusic(); 
+            const audio = document.getElementById('vrunda-audio');
+            const viz = document.getElementById('audio-viz');
+            if (!audio.paused) viz.classList.add('playing');
+            else viz.classList.remove('playing');
+        };
+
+        // 4. Custom Context Menu Logic
+        const contextMenu = document.getElementById('vrunda-context-menu');
+        document.addEventListener('contextmenu', (e) => {
+            if (e.target.id === 'live-background' || e.target.classList.contains('home-screen') || e.target.closest('.brand-container')) {
+                e.preventDefault();
+                contextMenu.style.top = `${e.clientY}px`;
+                contextMenu.style.left = `${e.clientX}px`;
+                contextMenu.classList.add('active');
+            }
+        });
+        document.addEventListener('click', () => contextMenu.classList.remove('active'));
+
+        // 5. Update Pomodoro to use Toasts instead of alerts
+        window.startPomodoro = function(minutes) {
+            clearInterval(pomodoroInterval);
+            pomodoroTimeLeft = minutes * 60;
+            updatePomodoroDisplay();
+            pomodoroInterval = setInterval(() => {
+                pomodoroTimeLeft--;
+                updatePomodoroDisplay();
+                if (pomodoroTimeLeft <= 0) {
+                    clearInterval(pomodoroInterval);
+                    if(typeof showToast === 'function') showToast('Time is up! Great job focusing.', '⏱️');
+                }
+            }, 1000);
+        };
+        // === DESKTOP UPGRADES JAVASCRIPT ===
+
+    // --- Dynamic Wallpaper Engine ---
+        window.openWallpaperModal = function() { document.getElementById('wallpaper-modal').style.display = 'flex'; }
+        window.closeWallpaperModal = function() { document.getElementById('wallpaper-modal').style.display = 'none'; }
+        
+        // NEW FUNCTION: Clears memory and restores the original anime video
+        window.resetWallpaper = function() {
+            localStorage.removeItem('vrundaWallpaper'); // Clear browser memory
+            document.getElementById('custom-wallpaper-layer').innerHTML = ''; // Remove custom layers
+            
+            const defaultVideo = document.getElementById('default-bg-video');
+            if(defaultVideo) defaultVideo.style.display = 'block'; // Bring anime video back
+            
+            document.getElementById('bg-url-input').value = '';
+            closeWallpaperModal();
+            if(typeof showToast === 'function') showToast('Restored Original Anime Background', '🔄');
+        };
+
+        window.applyWallpaper = function(url = null) {
+            const bgUrl = url || document.getElementById('bg-url-input').value.trim();
+            const customLayer = document.getElementById('custom-wallpaper-layer');
+            const defaultVideo = document.getElementById('default-bg-video');
+
+            // If left blank, reset to default
+            if(!bgUrl) {
+                window.resetWallpaper();
+                return;
+            }
+
+            localStorage.setItem('vrundaWallpaper', bgUrl);
+            customLayer.innerHTML = ''; 
+            
+            if(defaultVideo) defaultVideo.style.display = 'none';
+
+            if(bgUrl.endsWith('.mp4') || bgUrl.endsWith('.webm')) {
+                customLayer.innerHTML = `<video class="bg-base-video" autoplay loop muted playsinline style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; filter:brightness(0.6) contrast(1.2); z-index:-1;"><source src="${bgUrl}" type="video/mp4"></video>`;
+            } else {
+                customLayer.innerHTML = `<div class="bg-base-img" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; background-image:url('${bgUrl}'); background-size:cover; background-position:center; filter:brightness(0.6) contrast(1.2); z-index:-1;"></div>`;
+            }
+
+            closeWallpaperModal();
+            if(typeof showToast === 'function') showToast('Wallpaper Updated', '🖼️');
+        };
+
+        // Check for saved wallpaper on initial load
+        const savedBg = localStorage.getItem('vrundaWallpaper');
+        if(savedBg) {
+            window.applyWallpaper(savedBg);
+        }
+
+        // 2. Draggable Widget Engine
+        function makeDraggable(el, storageKey) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            const header = el.querySelector('.note-header') || el; // Drag by header if it exists
+            
+            // Load saved position
+            const savedPos = JSON.parse(localStorage.getItem(storageKey));
+            if (savedPos) {
+                el.style.position = 'absolute';
+                el.style.top = savedPos.top;
+                el.style.left = savedPos.left;
+            }
+
+            header.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e.preventDefault();
+                pos3 = e.clientX; pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+                el.style.position = 'absolute';
+                el.style.zIndex = 100;
+            }
+
+            function elementDrag(e) {
+                e.preventDefault();
+                pos1 = pos3 - e.clientX; pos2 = pos4 - e.clientY;
+                pos3 = e.clientX; pos4 = e.clientY;
+                el.style.top = (el.offsetTop - pos2) + "px";
+                el.style.left = (el.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null; document.onmousemove = null; el.style.zIndex = 5;
+                // Save position
+                localStorage.setItem(storageKey, JSON.stringify({ top: el.style.top, left: el.style.left }));
+            }
+        }
+
+        // 3. Spotlight App Search Engine
+        function initSpotlightSearch(viewEl) {
+            const input = viewEl.querySelector('.page-search-input');
+            const resultsBox = viewEl.querySelector('.spotlight-results');
+            if(!input || !resultsBox) return;
+
+            const apps = Array.from(viewEl.querySelectorAll('.app-shortcut')).map(app => {
+                return { name: app.querySelector('span').innerText, icon: app.querySelector('.app-icon').innerHTML, element: app };
+            });
+
+            input.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                resultsBox.innerHTML = '';
+                if(query.length === 0) { resultsBox.style.display = 'none'; return; }
+
+                const matches = apps.filter(app => app.name.toLowerCase().includes(query));
+                
+                if(matches.length > 0) {
+                    resultsBox.style.display = 'block';
+                    matches.forEach(app => {
+                        const div = document.createElement('div');
+                        div.className = 'spotlight-item';
+                        div.innerHTML = `<span class="spotlight-item-icon">${app.icon}</span> ${app.name}`;
+                        div.onclick = () => { app.element.click(); input.value = ''; resultsBox.style.display = 'none'; };
+                        resultsBox.appendChild(div);
+                    });
+                } else {
+                    resultsBox.style.display = 'none';
+                }
+            });
+
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    if (resultsBox.style.display === 'block' && resultsBox.firstChild) resultsBox.firstChild.click();
+                    else loadUrlInActiveTab(`https://www.google.com/search?q=${encodeURIComponent(input.value)}`, 'Search');
+                }
+            });
+        }
+
+        // 4. Taskbar Indicator Engine
+        function updateRunningApps() {
+            const openTitles = tabs.map(t => t.title);
+            document.querySelectorAll('.app-shortcut').forEach(app => {
+                const appName = app.getAttribute('data-app');
+                if(openTitles.includes(appName)) app.classList.add('running');
+                else app.classList.remove('running');
+            });
+        }
+
+        // 5. Override Tab Functions to inject Desktop Magic
+        window.loadUrlInActiveTab = function(url, title) {
+            let finalUrl = url;
+            if (!url.startsWith('http') && !url.startsWith('sphere://')) { finalUrl = `https://www.google.com/search?q=${encodeURIComponent(url)}`; title = `${url} - Search`; }
+            const tabData = tabs.find(t => t.id === activeTabId);
+            tabData.url = finalUrl; tabData.title = title || finalUrl;
+            document.getElementById(`ui-${activeTabId}`).querySelector('.tab-title').textContent = tabData.title;
+            const oldView = document.getElementById(`view-${activeTabId}`);
+            const newIframe = document.createElement('iframe');
+            newIframe.className = 'view-content active'; newIframe.id = `view-${activeTabId}`; newIframe.src = finalUrl;
+            viewport.replaceChild(newIframe, oldView);
+            urlInput.value = finalUrl;
+            applyZoom();
+            updateRunningApps(); // Trigger indicator check
+        }
+
+        window.closeTab = function(event, tabId) {
+            event.stopPropagation();
+            const tabData = tabs.find(t => t.id === tabId);
+            if(tabData && tabData.url !== '') { closedTabs.push({ url: tabData.url, title: tabData.title }); if(closedTabs.length > 5) closedTabs.shift(); }
+            document.getElementById(`ui-${tabId}`).remove();
+            document.getElementById(`view-${tabId}`).remove();
+            const index = tabs.findIndex(t => t.id === tabId);
+            tabs.splice(index, 1);
+            updateRunningApps(); // Trigger indicator check
+            if (tabs.length === 0) createNewTab();
+            else if (activeTabId === tabId) switchTab(tabs[Math.max(0, index - 1)].id);
+        }
+
+        window.goHome = function() {
+            const oldView = document.getElementById(`view-${activeTabId}`);
+            const clone = homeTemplate.content.cloneNode(true);
+            const newHome = clone.querySelector('.view-content');
+            newHome.id = `view-${activeTabId}`; newHome.classList.add('active');
+            
+            // INIT DESKTOP FEATURES
+            initSpotlightSearch(newHome);
+            makeDraggable(newHome.querySelector('#widget-clock'), 'vrundaClockPos2');
+            makeDraggable(newHome.querySelector('#widget-note'), 'vrundaNotePos');
+            
+            // Note Saving Logic
+            const noteInput = newHome.querySelector('.note-body');
+            noteInput.value = localStorage.getItem('vrundaDesktopNote') || '';
+            noteInput.addEventListener('input', (e) => localStorage.setItem('vrundaDesktopNote', e.target.value));
+
+            viewport.replaceChild(newHome, oldView);
+            urlInput.value = '';
+            
+            const tabData = tabs.find(t => t.id === activeTabId);
+            if(tabData) tabData.title = 'Desktop';
+            
+            document.getElementById(`ui-${activeTabId}`).querySelector('.tab-title').textContent = 'Desktop';
+            updateClock(); fetchWeather(); fetchBattery(); applyZoom(); updateRunningApps();
+        }
+
+        window.createNewTab = function(url = '', title = 'Desktop') {
+            tabCounter++;
+            const tabId = 'tab-' + tabCounter;
+            const tabEl = document.createElement('div');
+            tabEl.className = 'tab';
+            tabEl.id = `ui-${tabId}`;
+            tabEl.innerHTML = `<span class="tab-title">${title}</span><span class="close-tab" onclick="closeTab(event, '${tabId}')">×</span>`;
+            tabEl.onclick = () => switchTab(tabId);
+            tabBar.insertBefore(tabEl, newTabBtn);
+
+            let viewEl;
+            if (url === '' || url === 'chrome://incognito') {
+                const clone = homeTemplate.content.cloneNode(true);
+                viewEl = clone.querySelector('.view-content');
+                viewEl.id = `view-${tabId}`;
+                
+                // INIT DESKTOP FEATURES
+              // INIT DESKTOP FEATURES
+                initSpotlightSearch(viewEl);
+                makeDraggable(viewEl.querySelector('#widget-note'), 'vrundaNotePos');
+                // Note Saving Logic
+                const noteInput = viewEl.querySelector('.note-body');
+                noteInput.value = localStorage.getItem('vrundaDesktopNote') || '';
+                noteInput.addEventListener('input', (e) => localStorage.setItem('vrundaDesktopNote', e.target.value));
+
+                viewport.appendChild(viewEl);
+                updateClock(); fetchWeather(); fetchBattery(); updateRunningApps();
+            } else {
+                viewEl = document.createElement('iframe');
+                viewEl.className = 'view-content';
+                viewEl.id = `view-${tabId}`;
+                viewEl.src = url;
+                viewEl.onerror = function() { viewEl.outerHTML = `<div class="view-content active internal-page" id="view-${tabId}"><h1>Connection Refused</h1><p>This website (${url}) does not allow itself to be embedded.</p></div>`; };
+                viewport.appendChild(viewEl);
+            }
+            tabs.push({ id: tabId, url: url, title: title });
+            switchTab(tabId);
+        }
+    </script>
+</body>
+</html>
+   
