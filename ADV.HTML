@@ -1,0 +1,3050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdvocatePro – Legal Practice Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sidebar-w: 260px;
+      --header-h: 64px;
+      --bg: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-sidebar: #0b1629;
+      --bg-sidebar-hover: rgba(255, 255, 255, .06);
+      --primary: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-glow: rgba(29, 78, 216, .15);
+      --accent: #f59e0b;
+      --accent-light: #fffbeb;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --purple: #8b5cf6;
+      --purple-light: #f5f3ff;
+      --text: #0f172a;
+      --text-2: #475569;
+      --text-3: #94a3b8;
+      --border: #e2e8f0;
+      --shadow: 0 1px 3px rgba(0, 0, 0, .07), 0 2px 8px rgba(0, 0, 0, .04);
+      --shadow-lg: 0 8px 30px rgba(0, 0, 0, .10);
+      --radius: 14px;
+      --radius-sm: 9px;
+    }
+
+    body.dark {
+      --bg: #0d1117;
+      --bg-card: #161b27;
+      --bg-sidebar: #060d1a;
+      --bg-sidebar-hover: rgba(255, 255, 255, .05);
+      --text: #e2e8f0;
+      --text-2: #94a3b8;
+      --text-3: #475569;
+      --border: #1e2a3a;
+      --primary-light: rgba(29, 78, 216, .15);
+      --accent-light: rgba(245, 158, 11, .10);
+      --success-light: rgba(16, 185, 129, .10);
+      --danger-light: rgba(239, 68, 68, .10);
+      --purple-light: rgba(139, 92, 246, .10);
+      --shadow: 0 1px 4px rgba(0, 0, 0, .3);
+      --shadow-lg: 0 8px 30px rgba(0, 0, 0, .4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      overflow: hidden;
+      transition: background .3s, color .3s;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 99px;
+    }
+
+    body.dark ::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
+
+    body:not(.logged-in) .sidebar,
+    body:not(.logged-in) .main {
+      display: none !important;
+    }
+
+    /* ==================== LOGIN PAGE STYLES ==================== */
+    .login-wrap {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuPMQEmDYo5KgDujK6NlkRfe3yriVdMWGqYSXYdkHbFw&s=10') center/cover no-repeat fixed;
+      padding: 20px;
+    }
+
+    body:not(.logged-in) .login-wrap {
+      display: flex;
+    }
+
+    .login-container {
+      display: flex;
+      width: 100%;
+      max-width: 1000px;
+      height: 600px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .login-visual {
+      flex: 1;
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1000&auto=format&fit=crop') center/cover no-repeat;
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .login-visual {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+
+    .visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(29, 78, 216, 0.85), rgba(15, 23, 42, 0.9));
+    }
+
+    .visual-content {
+      position: relative;
+      z-index: 1;
+      padding: 50px;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .visual-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visual-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-top: auto;
+      margin-bottom: 16px;
+    }
+
+    .visual-content p {
+      font-size: 15px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .login-form-area {
+      flex: 1;
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #ffffff;
+      max-width: 450px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .form-header {
+      margin-bottom: 30px;
+    }
+
+    .form-header h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .form-header p {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .form-group-login {
+      margin-bottom: 20px;
+    }
+
+    .form-group-login label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    .input-with-icon {
+      position: relative;
+    }
+
+    .input-with-icon i:not(.fa-eye):not(.fa-eye-slash) {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .input-with-icon input {
+      width: 100%;
+      padding: 12px 14px 12px 40px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #0f172a;
+      transition: all 0.2s ease;
+      background: #f8fafc;
+    }
+
+    .input-with-icon input:focus {
+      border-color: var(--primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px var(--primary-glow);
+      outline: none;
+    }
+
+    .toggle-pass {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .toggle-pass:hover {
+      color: var(--primary);
+    }
+
+    .login-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .login-remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #475569;
+      cursor: pointer;
+    }
+
+    .login-remember input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .login-forgot {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .login-forgot:hover {
+      text-decoration: underline;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+    }
+
+    .login-btn:hover {
+      background: #1e40af;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(29, 78, 216, 0.3);
+    }
+
+    .login-error {
+      background: #fef2f2;
+      color: #b91c1c;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #fecaca;
+    }
+
+    .login-error.show {
+      display: flex;
+    }
+
+    /* ==================== FOOTER & HOVER EFFECTS ==================== */
+    .login-foot {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 15px;
+      color: #94a3b8;
+      transition: color 0.3s ease;
+    }
+
+    /* Subtle color shift for the whole text on hover */
+    .login-foot:hover {
+      color: #64748b;
+    }
+
+    /* Developer Name specific styling */
+    .dev-name {
+      font-weight: 600;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    /* The animated underline setup */
+    .dev-name::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--primary);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+      border-radius: 2px;
+    }
+
+    /* Hover effects for the name */
+    .dev-name:hover {
+      text-shadow: 0 0 8px rgba(29, 78, 216, 0.4);
+    }
+
+    /* Trigger the underline animation on hover */
+    .dev-name:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    /* Dark mode adjustments */
+    body.dark .login-foot:hover {
+      color: #cbd5e1;
+    }
+
+    body.dark .dev-name:hover {
+      text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+    }
+
+    /* Dark mode overrides for new login */
+    body.dark .login-wrap { background: #0f172a; }
+    body.dark .login-container { background: var(--bg-card); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
+    body.dark .login-form-area { background: var(--bg-card); }
+    body.dark .form-header h2 { color: var(--text); }
+    body.dark .form-header p { color: var(--text-3); }
+    body.dark .form-group-login label { color: var(--text-2); }
+    body.dark .input-with-icon input { background: var(--bg); border-color: var(--border); color: var(--text); }
+    body.dark .input-with-icon input:focus { border-color: var(--primary); background: var(--bg-card); }
+    body.dark .login-remember { color: var(--text-2); }
+    body.dark .login-error { background: var(--danger-light); border-color: transparent; color: #fca5a5; }
+
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--bg-sidebar);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      z-index: 200;
+      transition: transform .3s;
+      border-right: 1px solid rgba(255, 255, 255, .04);
+    }
+
+    .sidebar-logo {
+      padding: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, .05);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, .4);
+      flex-shrink: 0;
+    }
+
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .logo-name em {
+      color: #60a5fa;
+      font-style: normal;
+    }
+
+    .logo-tag {
+      font-size: 9px;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-top: 1px;
+    }
+
+    .nav-wrap {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 10px;
+    }
+
+    .nav-grp {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .2);
+      padding: 16px 10px 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 12px;
+      border-radius: 9px;
+      color: #7c8ea3;
+      font-size: 13px;
+      font-weight: 500;
+      transition: .18s;
+      margin-bottom: 1px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-item i {
+      width: 18px;
+      text-align: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-sidebar-hover);
+      color: #cbd5e1;
+    }
+
+    .nav-item.active {
+      background: rgba(59, 130, 246, .18);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, .22);
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--danger);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 99px;
+    }
+
+    .sidebar-bottom {
+      padding: 12px;
+      border-top: 1px solid rgba(255, 255, 255, .05);
+    }
+
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .04);
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .sidebar-user:hover {
+      background: rgba(255, 255, 255, .08);
+    }
+
+    .sidebar-user img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, .12);
+      flex-shrink: 0;
+    }
+
+    .su-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    .su-role {
+      font-size: 10px;
+      color: #64748b;
+    }
+
+    .su-logout {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: #4b5563;
+      font-size: 15px;
+      transition: .2s;
+    }
+
+    .su-logout:hover {
+      color: var(--danger);
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .topbar {
+      height: var(--header-h);
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 24px;
+      flex-shrink: 0;
+      box-shadow: 0 1px 0 var(--border);
+      transition: background .3s;
+    }
+
+    .mob-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 19px;
+      color: var(--text-2);
+      padding: 4px;
+    }
+
+    .topbar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .topbar-title span {
+      color: var(--text-3);
+      font-weight: 400;
+      font-size: 13px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 14px;
+      width: 300px;
+      transition: .2s;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--primary);
+      background: var(--bg-card);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .search-box i {
+      color: var(--text-3);
+      font-size: 13px;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 13px;
+      color: var(--text);
+      font-family: inherit;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      border: 1.5px solid var(--border);
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: var(--text-2);
+      position: relative;
+      transition: .2s;
+      flex-shrink: 0;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .notif-dot {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 8px;
+      height: 8px;
+      background: var(--danger);
+      border-radius: 50%;
+      border: 2px solid var(--bg-card);
+    }
+
+    .profile-pill {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 4px 12px 4px 4px;
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      background: var(--bg);
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .profile-pill:hover {
+      border-color: var(--primary);
+    }
+
+    .profile-pill img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+    }
+
+    .pp-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .pp-role {
+      font-size: 10px;
+      color: var(--text-3);
+    }
+
+    .page-area {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page {
+      display: none;
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .page.active-page {
+      display: flex;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      transition: .2s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(29, 78, 216, .25);
+    }
+
+    .btn-primary:hover {
+      background: #1648c0;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .btn-success:hover {
+      background: #059669;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: background .3s, border-color .3s;
+    }
+
+    .card-head {
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-head h3 {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-body {
+      padding: 18px 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .b-blue { background: var(--primary-light); color: #1d4ed8; }
+    .b-warning { background: var(--accent-light); color: #92400e; }
+    .b-success { background: var(--success-light); color: #065f46; }
+    .b-neutral { background: var(--bg); color: var(--text-2); }
+    .b-purple { background: var(--purple-light); color: #5b21b6; }
+    .b-danger { background: var(--danger-light); color: #991b1b; }
+
+    .pdot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .pd-high { background: var(--danger); }
+    .pd-med { background: var(--accent); }
+    .pd-low { background: var(--success); }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--text-2);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 9px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--bg-card);
+      outline: none;
+      transition: .2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+
+    .prog-wrap {
+      background: var(--bg);
+      border-radius: 99px;
+      height: 5px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .prog-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 1s ease;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      padding: 10px 16px;
+      background: var(--bg);
+      color: var(--text-3);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      font-size: 13px;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: var(--bg); }
+
+    .tbl-cn {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .tbl-no {
+      font-size: 11px;
+      color: var(--text-3);
+      margin-top: 2px;
+    }
+
+    .act-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .act-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      border: 1.5px solid var(--border);
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--text-2);
+      transition: .18s;
+    }
+
+    .act-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .act-btn.del:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+      background: var(--danger-light);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s, background .3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .sc-blue::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .sc-orange::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .sc-red::before { background: linear-gradient(90deg, #ef4444, #f87171); }
+    .sc-green::before { background: linear-gradient(90deg, #10b981, #34d399); }
+    .sc-purple::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+
+    .stat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .si-blue { background: var(--primary-light); color: #1d4ed8; }
+    .si-orange { background: var(--accent-light); color: #d97706; }
+    .si-red { background: var(--danger-light); color: #dc2626; }
+    .si-green { background: var(--success-light); color: #059669; }
+    .si-purple { background: var(--purple-light); color: #7c3aed; }
+
+    .stat-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-2);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 5px;
+    }
+
+    .stat-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-foot {
+      font-size: 11px;
+      font-weight: 500;
+      margin-top: 9px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .sf-green { color: var(--success); }
+    .sf-orange { color: #d97706; }
+    .sf-red { color: var(--danger); }
+    .sf-muted { color: var(--text-3); }
+
+    .qa-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .qa-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      padding: 9px 15px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      transition: .2s;
+    }
+
+    .qa-btn i { font-size: 14px; }
+
+    .qa-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 18px;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 16px 20px;
+    }
+
+    .tl-item {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 18px;
+      position: relative;
+    }
+
+    .tl-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .tl-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 52px;
+      top: 28px;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .tl-time {
+      width: 40px;
+      text-align: right;
+      flex-shrink: 0;
+      padding-top: 4px;
+    }
+
+    .tl-time span {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-3);
+    }
+
+    .tl-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+      border: 2px solid var(--bg-card);
+      outline: 2px solid transparent;
+    }
+
+    .tld-blue { background: #3b82f6; outline-color: #3b82f6; }
+    .tld-orange { background: #f59e0b; outline-color: #f59e0b; }
+    .tld-green { background: #10b981; outline-color: #10b981; }
+    .tld-red { background: #ef4444; outline-color: #ef4444; }
+
+    .tl-content {
+      flex: 1;
+      padding-top: 2px;
+    }
+
+    .tl-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .tl-sub {
+      font-size: 11px;
+      color: var(--text-3);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 14px 16px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 9px;
+      background: var(--bg);
+      border: 1.5px solid transparent;
+      transition: .18s;
+      cursor: pointer;
+    }
+
+    .task-item:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .task-cb {
+      width: 17px;
+      height: 17px;
+      border-radius: 5px;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: .18s;
+      font-size: 9px;
+    }
+
+    .task-cb.checked {
+      background: var(--success);
+      border-color: var(--success);
+      color: #fff;
+    }
+
+    .task-name {
+      flex: 1;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .task-name.done {
+      text-decoration: line-through;
+      color: var(--text-3);
+      font-weight: 400;
+    }
+
+    .task-due {
+      font-size: 11px;
+      color: var(--text-3);
+    }
+
+    .tp {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+
+    .tp-h { background: var(--danger-light); color: #991b1b; }
+    .tp-m { background: var(--accent-light); color: #92400e; }
+    .tp-l { background: var(--success-light); color: #065f46; }
+
+    .timer-card {
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 6px 20px rgba(29, 78, 216, .3);
+    }
+
+    .tc-lbl {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .65);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .tc-val {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 3px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .tc-case {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .6);
+      margin-top: 4px;
+    }
+
+    .timer-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .t-btn {
+      background: rgba(255, 255, 255, .18);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .t-btn:hover { background: rgba(255, 255, 255, .28); }
+    .t-btn.stop-btn { background: rgba(239, 68, 68, .4); }
+
+    .cal-wrap { padding: 16px 18px; }
+
+    .cal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .cal-nav h4 {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .cal-nav-btn {
+      background: none;
+      border: none;
+      color: var(--text-3);
+      font-size: 14px;
+      transition: .2s;
+      padding: 3px 7px;
+      border-radius: 6px;
+    }
+
+    .cal-nav-btn:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+
+    .cal-dh {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-3);
+      text-align: center;
+      padding: 3px 0;
+    }
+
+    .cal-d {
+      font-size: 11px;
+      text-align: center;
+      padding: 6px 2px;
+      border-radius: 7px;
+      cursor: pointer;
+      color: var(--text-2);
+      font-weight: 500;
+      transition: .15s;
+      position: relative;
+    }
+
+    .cal-d:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .cal-d.today {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .cal-d.has-ev:not(.today) {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .cal-d.has-ev:not(.today)::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .cal-d.ghost {
+      color: var(--text-3);
+      opacity: .3;
+    }
+
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .client-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      transition: .2s;
+      box-shadow: var(--shadow);
+    }
+
+    .client-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+
+    .cc-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .cc-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .cc-name {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .cc-type {
+      font-size: 11px;
+      color: var(--text-3);
+      margin-top: 2px;
+    }
+
+    .cc-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .cc-stat {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+
+    .cs-val {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .cs-lbl {
+      font-size: 10px;
+      color: var(--text-3);
+      font-weight: 600;
+      margin-top: 1px;
+    }
+
+    .cc-actions {
+      display: flex;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .invoice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px 16px;
+    }
+
+    .invoice-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: 9px;
+      background: var(--bg);
+      border: 1.5px solid transparent;
+      transition: .18s;
+    }
+
+    .invoice-item:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .inv-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .inv-body { flex: 1; }
+    .inv-title { font-size: 13px; font-weight: 700; }
+    .inv-meta { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+    .inv-amount { font-size: 15px; font-weight: 800; text-align: right; }
+    .inv-status { font-size: 10px; font-weight: 700; margin-top: 2px; text-align: right; }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+      gap: 14px;
+    }
+
+    .doc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      transition: .2s;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .doc-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+
+    .doc-icon { font-size: 32px; margin-bottom: 10px; }
+    .doc-name { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .doc-meta { font-size: 10px; color: var(--text-3); }
+    .doc-actions { display: flex; gap: 6px; margin-top: 10px; }
+
+    .bar-chart { padding: 16px 20px; }
+
+    .bc-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .bc-lbl {
+      width: 80px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-2);
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .bc-track {
+      flex: 1;
+      background: var(--bg);
+      border-radius: 99px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .bc-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 1.2s ease;
+    }
+
+    .bc-val {
+      width: 40px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 20px;
+    }
+
+    .donut-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .dl-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .dl-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .setting-row:last-child {
+      border-bottom: none;
+    }
+
+    .sr-label { font-size: 13px; font-weight: 600; }
+    .sr-sub { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+
+    .toggle {
+      width: 40px;
+      height: 22px;
+      border-radius: 99px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: .2s;
+      background: #cbd5e1;
+      flex-shrink: 0;
+    }
+
+    .toggle.on { background: var(--success); }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      transition: .2s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+    }
+
+    .toggle.on::after { left: 21px; }
+
+    .notif-panel {
+      position: fixed;
+      top: var(--header-h);
+      right: 16px;
+      width: 320px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      z-index: 300;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: .2s;
+    }
+
+    .notif-panel.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .np-head {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .np-head h4 { font-size: 13px; font-weight: 700; }
+
+    .np-clear {
+      background: none;
+      border: none;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .ni {
+      display: flex;
+      gap: 10px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .ni:last-child { border-bottom: none; }
+    .ni:hover { background: var(--bg); }
+    .ni.unread { background: var(--primary-light); }
+
+    body.dark .ni.unread { background: rgba(29, 78, 216, .08); }
+
+    .ni-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .ni-title { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+    .ni-time { font-size: 10px; color: var(--text-3); }
+
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .45);
+      z-index: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-bg.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      width: 520px;
+      max-width: 95vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(16px) scale(.98);
+      transition: .25s;
+    }
+
+    .modal-bg.open .modal { transform: none; }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .modal-head h3 { font-size: 17px; font-weight: 700; }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--text-3);
+      transition: .2s;
+    }
+
+    .modal-close:hover { color: var(--danger); }
+
+    .modal-foot {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .toast-wrap {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1e293b;
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .25);
+      transform: translateX(120%);
+      transition: transform .3s ease;
+      min-width: 260px;
+      border-left: 3px solid transparent;
+    }
+
+    .toast.show { transform: translateX(0); }
+    .toast.t-success { border-color: var(--success); }
+    .toast.t-info { border-color: var(--primary); }
+    .toast.t-error { border-color: var(--danger); }
+    .toast.t-success i { color: #34d399; }
+    .toast.t-info i { color: #60a5fa; }
+    .toast.t-error i { color: #f87171; }
+
+    .ph-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .ph-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .ph-sub {
+      font-size: 12px;
+      color: var(--text-3);
+      margin-top: 3px;
+    }
+
+    .ph-actions {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .billing-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .billing-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .billing-val {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    @media(max-width:1200px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .dash-grid { grid-template-columns: 1fr; }
+      .settings-grid { grid-template-columns: 1fr; }
+    }
+
+    @media(max-width:900px) {
+      .form-row { grid-template-columns: 1fr; }
+      .clients-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    }
+
+    @media(max-width:768px) {
+      .sidebar {
+        position: fixed;
+        height: 100%;
+        transform: translateX(-100%);
+      }
+
+      .sidebar.mob-open {
+        transform: translateX(0);
+        box-shadow: 10px 0 40px rgba(0, 0, 0, .35);
+      }
+
+      .mob-toggle { display: block; }
+      .search-box { display: none; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .ph-row { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media(max-width:480px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .page { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-wrap" id="loginWrap">
+    <div class="login-container">
+      <div class="login-visual">
+        <div class="visual-overlay"></div>
+        <div class="visual-content">
+          <div class="visual-logo">
+            <i class="fa-solid fa-scale-balanced"></i> AdvocatePortal
+          </div>
+          <div>
+            <h2 class="visual-quote">Empowering Legal Professionals with Next-Gen Tools.</h2>
+            <p>Manage cases, clients, documents, and billing seamlessly from one secure, unified platform.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="login-form-area">
+        <div class="form-header">
+          <h2>Welcome back</h2>
+          <p>Please enter your credentials to access your dashboard.</p>
+        </div>
+
+        <div class="login-error" id="loginError">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span id="loginErrorMsg">Invalid email or password</span>
+        </div>
+
+        <div class="form-group-login">
+          <label>Email Address</label>
+          <div class="input-with-icon">
+            <i class="fa-regular fa-envelope"></i>
+            <input type="email" id="loginEmail" placeholder="counsel@advocatepro.in" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()" />
+          </div>
+        </div>
+
+        <div class="form-group-login">
+          <label>Password</label>
+          <div class="input-with-icon">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()" />
+            <button type="button" class="toggle-pass" onclick="toggleLoginPass()"><i class="fa-regular fa-eye" id="loginPassIcon"></i></button>
+          </div>
+        </div>
+
+        <div class="login-row">
+          <label class="login-remember"><input type="checkbox" id="loginRemember" /> Remember me</label>
+          <button type="button" class="login-forgot" onclick="showToast('Password reset link sent to your email','info','fa-paper-plane')">Forgot password?</button>
+        </div>
+
+        <button class="login-btn" onclick="doLogin()">Sign In <i class="fa-solid fa-arrow-right-to-bracket" style="margin-left: 6px;"></i></button>
+
+        <div class="login-foot">
+          © 2026 Advocate Portal developed by <span class="dev-name">shubham sanap</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark"><i class="fa-solid fa-scale-balanced"></i></div>
+      <div>
+        <div class="logo-name">Advocate<em>Portal</em></div>
+        <div class="logo-tag">Legal Practice Suite</div>
+      </div>
+    </div>
+    <nav class="nav-wrap">
+      <div class="nav-grp">Overview</div>
+      <button class="nav-item active" onclick="nav(this,'dash')"><i class="fa-solid fa-chart-pie"></i> Dashboard</button>
+      <div class="nav-grp">Practice</div>
+      <button class="nav-item" onclick="nav(this,'cases')"><i class="fa-solid fa-folder-open"></i> Cases <span class="nav-badge">8</span></button>
+      <button class="nav-item" onclick="nav(this,'clients')"><i class="fa-solid fa-users"></i> Clients</button>
+      <button class="nav-item" onclick="nav(this,'calendar-pg')"><i class="fa-solid fa-calendar-days"></i> Calendar</button>
+      <button class="nav-item" onclick="nav(this,'tasks-pg')"><i class="fa-solid fa-list-check"></i> Tasks <span class="nav-badge">5</span></button>
+      <div class="nav-grp">Finance</div>
+      <button class="nav-item" onclick="nav(this,'billing')"><i class="fa-solid fa-file-invoice-dollar"></i> Billing</button>
+      <button class="nav-item" onclick="nav(this,'reports')"><i class="fa-solid fa-chart-bar"></i> Reports</button>
+      <div class="nav-grp">Library</div>
+      <button class="nav-item" onclick="nav(this,'docs')"><i class="fa-solid fa-file-contract"></i> Documents</button>
+      <button class="nav-item" onclick="nav(this,'timelogs')"><i class="fa-solid fa-clock-rotate-left"></i> Time Logs</button>
+      <div class="nav-grp">System</div>
+      <button class="nav-item" onclick="nav(this,'settings')"><i class="fa-solid fa-gear"></i> Settings</button>
+      <button class="nav-item" onclick="showToast('Help center coming soon','info','fa-circle-question')"><i class="fa-solid fa-circle-question"></i> Help & Support</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-user">
+        <img id="sidebarUserAvatar" src="https://ui-avatars.com/api/?name=S+SANAP&background=1d4ed8&color=fff" alt="Profile" />
+        <div>
+          <div class="su-name" id="sidebarUserName">Adv.S M SANAP </div>
+          <div class="su-role">Senior Counsel · Bar #MH-4521</div>
+        </div>
+        <button class="su-logout" title="Logout" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+
+    <header class="topbar">
+      <button class="mob-toggle icon-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+      <div class="topbar-title" id="topbarTitle">Dashboard <span>/ Overview</span></div>
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="searchInput" type="text" placeholder="Search cases, clients, documents…" oninput="globalSearch(this.value)" />
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" title="Toggle Dark Mode" onclick="toggleDark()"><i class="fa-solid fa-moon" id="darkIcon"></i></button>
+        <button class="icon-btn" title="Notifications" id="notifBtn" onclick="toggleNotif()">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-dot" id="notifDot"></span>
+        </button>
+        <button class="icon-btn" title="Add New" onclick="openNewCase()"><i class="fa-solid fa-plus"></i></button>
+        <div class="profile-pill" onclick="nav(document.querySelector('[onclick*=settings]'),'settings')">
+          <img id="topbarUserAvatar" src="https://ui-avatars.com/api/?name=R+Sharma&background=1d4ed8&color=fff" alt="" />
+          <div><div class="pp-name" id="topbarUserName">Adv.S M Sanap</div><div class="pp-role">Senior Counsel</div></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="notif-panel" id="notifPanel">
+      <div class="np-head">
+        <h4><i class="fa-regular fa-bell" style="margin-right:6px"></i>Notifications</h4>
+        <button class="np-clear" onclick="clearNotifs()">Mark all read</button>
+      </div>
+      <div class="ni unread">
+        <div class="ni-icon si-orange"><i class="fa-solid fa-gavel"></i></div>
+        <div><div class="ni-title">Hearing in 45 mins — CR-2023-4412</div><div class="ni-time"><i class="fa-regular fa-clock"></i> Court Room 4, District Court</div></div>
+      </div>
+      <div class="ni unread">
+        <div class="ni-icon si-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div><div class="ni-title">Deadline today — TechCorp merger docs</div><div class="ni-time"><i class="fa-regular fa-clock"></i> Due by 5:00 PM</div></div>
+      </div>
+      <div class="ni">
+        <div class="ni-icon si-green"><i class="fa-solid fa-rupee-sign"></i></div>
+        <div><div class="ni-title">Payment received — Verma retainer ₹25,000</div><div class="ni-time"><i class="fa-regular fa-clock"></i> 2 hours ago</div></div>
+      </div>
+      <div class="ni">
+        <div class="ni-icon si-blue"><i class="fa-solid fa-file-circle-plus"></i></div>
+        <div><div class="ni-title">Client uploaded new document — Singh case</div><div class="ni-time"><i class="fa-regular fa-clock"></i> Yesterday</div></div>
+      </div>
+      <div class="ni">
+        <div class="ni-icon si-purple"><i class="fa-solid fa-calendar-check"></i></div>
+        <div><div class="ni-title">Court date confirmed — Mehta CR-2024-0078</div><div class="ni-time"><i class="fa-regular fa-clock"></i> 3 days ago</div></div>
+      </div>
+    </div>
+
+    <div class="page-area">
+      <div class="page active-page" id="page-dash">
+        <div class="ph-row">
+          <div>
+            <div class="ph-title" id="greetMsg">Good Morning, Counsel.</div>
+            <div class="ph-sub" id="todayDate">Loading…</div>
+          </div>
+          <div class="ph-actions">
+            <button class="btn btn-outline" onclick="exportCasesCSV('casesBody','dashboard-cases')"><i class="fa-solid fa-file-export"></i> Export</button>
+            <button class="btn btn-primary" onclick="openNewCase()"><i class="fa-solid fa-plus"></i> New Case</button>
+          </div>
+        </div>
+
+        <div class="qa-bar">
+          <button class="qa-btn" onclick="openNewCase()"><i class="fa-solid fa-folder-plus" style="color:#1d4ed8"></i> New Case</button>
+          <button class="qa-btn" onclick="openModal('clientModal')"><i class="fa-solid fa-user-plus" style="color:#059669"></i> Add Client</button>
+          <button class="qa-btn" onclick="openModal('hearingModal')"><i class="fa-solid fa-calendar-plus" style="color:#d97706"></i> Schedule Hearing</button>
+          <button class="qa-btn" onclick="openModal('invoiceModal')"><i class="fa-solid fa-file-invoice-dollar" style="color:#7c3aed"></i> Generate Invoice</button>
+          <button class="qa-btn" onclick="startTimer()"><i class="fa-solid fa-stopwatch" style="color:#ef4444"></i> Start Timer</button>
+          <button class="qa-btn" onclick="openModal('taskModal')"><i class="fa-solid fa-list-check" style="color:#0891b2"></i> Add Task</button>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card sc-blue">
+            <div class="stat-top">
+              <div><div class="stat-lbl">Active Cases</div><div class="stat-val" id="statCases">42</div></div>
+              <div class="stat-icon si-blue"><i class="fa-solid fa-briefcase"></i></div>
+            </div>
+            <div class="prog-wrap"><div class="prog-fill" style="width:70%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div>
+            <div class="stat-foot sf-green"><i class="fa-solid fa-arrow-trend-up"></i> +3 new this month</div>
+          </div>
+          <div class="stat-card sc-orange">
+            <div class="stat-top">
+              <div><div class="stat-lbl">Hearings Today</div><div class="stat-val">4</div></div>
+              <div class="stat-icon si-orange"><i class="fa-solid fa-gavel"></i></div>
+            </div>
+            <div class="prog-wrap"><div class="prog-fill" style="width:40%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div>
+            <div class="stat-foot sf-orange"><i class="fa-regular fa-clock"></i> Next hearing in 45 mins</div>
+          </div>
+          <div class="stat-card sc-red">
+            <div class="stat-top">
+              <div><div class="stat-lbl">Pending Tasks</div><div class="stat-val" id="statTasks">12</div></div>
+              <div class="stat-icon si-red"><i class="fa-solid fa-list-check"></i></div>
+            </div>
+            <div class="prog-wrap"><div class="prog-fill" style="width:55%;background:linear-gradient(90deg,#ef4444,#f87171)"></div></div>
+            <div class="stat-foot sf-red"><i class="fa-solid fa-triangle-exclamation"></i> 5 high priority</div>
+          </div>
+          <div class="stat-card sc-green">
+            <div class="stat-top">
+              <div><div class="stat-lbl">Monthly Revenue</div><div class="stat-val">₹1.2L</div></div>
+              <div class="stat-icon si-green"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+            </div>
+            <div class="prog-wrap"><div class="prog-fill" style="width:82%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div>
+            <div class="stat-foot sf-green"><i class="fa-solid fa-arrow-trend-up"></i> +12% vs last month</div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div style="display:flex;flex-direction:column;gap:18px;">
+
+            <div class="timer-card">
+              <div>
+                <div class="tc-lbl"><i class="fa-solid fa-stopwatch"></i> &nbsp;BILLABLE TIME TRACKER</div>
+                <div class="tc-val" id="timerDisp">00:00:00</div>
+                <div class="tc-case" id="timerCase">No active session</div>
+              </div>
+              <div class="timer-controls">
+                <button class="t-btn" id="timerStartBtn" onclick="toggleTimer()">▶ Start</button>
+                <button class="t-btn stop-btn" onclick="resetTimer()">↺ Reset</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-head">
+                <h3><i class="fa-solid fa-folder-open" style="color:var(--primary)"></i> Active Cases</h3>
+                <div style="display:flex;gap:10px;align-items:center;">
+                  <select class="form-control btn-sm" style="width:auto;padding:5px 28px 5px 10px;" onchange="filterCases(this.value)">
+                    <option value="all">All Status</option>
+                    <option value="evidence">Evidence</option>
+                    <option value="drafting">Drafting</option>
+                    <option value="arguments">Arguments</option>
+                    <option value="mediation">Mediation</option>
+                    <option value="urgent">Urgent</option>
+                  </select>
+                  <button class="btn btn-sm btn-outline" onclick="openNewCase()"><i class="fa-solid fa-plus"></i> Add</button>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr><th>Case</th><th>Client</th><th>Court</th><th>Priority</th><th>Status</th><th>Next Hearing</th><th>Actions</th></tr>
+                  </thead>
+                  <tbody id="casesBody">
+                    <tr data-status="evidence">
+                      <td><div class="tbl-cn">Sharma vs. State</div><div class="tbl-no">CR-2023-4412</div></td>
+                      <td>Ramesh Sharma</td><td>District Court</td>
+                      <td><span class="pdot pd-high"></span>High</td>
+                      <td><span class="badge b-warning">Evidence</span></td>
+                      <td style="font-weight:700;color:var(--danger)">Today, 2:30 PM</td>
+                      <td><div class="act-btns">
+                        <button class="act-btn" title="View" onclick="viewCase('Sharma vs. State','CR-2023-4412','Ramesh Sharma','District Court','Today 2:30 PM','₹45,000','Section 302 IPC. Bail pending. Medical certs required.')"><i class="fa-regular fa-eye"></i></button>
+                        <button class="act-btn" title="Edit" onclick="editCase(this,'Sharma vs. State','CR-2023-4412','Ramesh Sharma','District Court','Today 2:30 PM','₹45,000','Section 302 IPC. Bail pending. Medical certs required.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="act-btn del" title="Delete" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                      </div></td>
+                    </tr>
+                    <tr data-status="drafting">
+                      <td><div class="tbl-cn">TechCorp Merger</div><div class="tbl-no">CORP-2024-089</div></td>
+                      <td>TechCorp India</td><td>High Court</td>
+                      <td><span class="pdot pd-med"></span>Medium</td>
+                      <td><span class="badge b-blue">Drafting</span></td>
+                      <td>15 Jun 2026</td>
+                      <td><div class="act-btns">
+                        <button class="act-btn" onclick="viewCase('TechCorp Merger','CORP-2024-089','TechCorp India','High Court','15 Jun 2026','₹80,000','M&A merger agreement drafting. Due diligence ongoing.')"><i class="fa-regular fa-eye"></i></button>
+                        <button class="act-btn" onclick="editCase(this,'TechCorp Merger','CORP-2024-089','TechCorp India','High Court','15 Jun 2026','₹80,000','M&A merger agreement drafting. Due diligence ongoing.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="act-btn del" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                      </div></td>
+                    </tr>
+                    <tr data-status="arguments">
+                      <td><div class="tbl-cn">Verma Property Dispute</div><div class="tbl-no">CV-2022-1102</div></td>
+                      <td>Sunita Verma</td><td>Civil Court</td>
+                      <td><span class="pdot pd-high"></span>High</td>
+                      <td><span class="badge b-success">Arguments</span></td>
+                      <td>18 Jun 2026</td>
+                      <td><div class="act-btns">
+                        <button class="act-btn" onclick="viewCase('Verma Property Dispute','CV-2022-1102','Sunita Verma','Civil Court','18 Jun 2026','₹30,000','Final arguments scheduled. Cross-examination prep needed.')"><i class="fa-regular fa-eye"></i></button>
+                        <button class="act-btn" onclick="editCase(this,'Verma Property Dispute','CV-2022-1102','Sunita Verma','Civil Court','18 Jun 2026','₹30,000','Final arguments scheduled. Cross-examination prep needed.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="act-btn del" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                      </div></td>
+                    </tr>
+                    <tr data-status="mediation">
+                      <td><div class="tbl-cn">Singh Divorce Petition</div><div class="tbl-no">FAM-2024-004</div></td>
+                      <td>Vikram Singh</td><td>Family Court</td>
+                      <td><span class="pdot pd-low"></span>Low</td>
+                      <td><span class="badge b-neutral">Mediation</span></td>
+                      <td>22 Jun 2026</td>
+                      <td><div class="act-btns">
+                        <button class="act-btn" onclick="viewCase('Singh Divorce Petition','FAM-2024-004','Vikram Singh','Family Court','22 Jun 2026','₹20,000','Mutual consent proceedings. Child custody contested.')"><i class="fa-regular fa-eye"></i></button>
+                        <button class="act-btn" onclick="editCase(this,'Singh Divorce Petition','FAM-2024-004','Vikram Singh','Family Court','22 Jun 2026','₹20,000','Mutual consent proceedings. Child custody contested.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="act-btn del" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                      </div></td>
+                    </tr>
+                    <tr data-status="urgent">
+                      <td><div class="tbl-cn">Mehta Insurance Fraud</div><div class="tbl-no">CR-2024-0078</div></td>
+                      <td>Anita Mehta</td><td>Sessions Court</td>
+                      <td><span class="pdot pd-high"></span>High</td>
+                      <td><span class="badge b-danger">Urgent</span></td>
+                      <td style="font-weight:700;color:var(--danger)">Today, 4:00 PM</td>
+                      <td><div class="act-btns">
+                        <button class="act-btn" onclick="viewCase('Mehta Insurance Fraud','CR-2024-0078','Anita Mehta','Sessions Court','Today 4:00 PM','₹55,000','Fraudulent insurance claims. Bail application filed.')"><i class="fa-regular fa-eye"></i></button>
+                        <button class="act-btn" onclick="editCase(this,'Mehta Insurance Fraud','CR-2024-0078','Anita Mehta','Sessions Court','Today 4:00 PM','₹55,000','Fraudulent insurance claims. Bail application filed.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="act-btn del" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                      </div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-head">
+                <h3><i class="fa-solid fa-list-check" style="color:var(--danger)"></i> Today's Tasks</h3>
+                <button class="btn btn-sm btn-outline" onclick="openModal('taskModal')"><i class="fa-solid fa-plus"></i> Add Task</button>
+              </div>
+              <div class="task-list" id="taskList">
+                <div class="task-item" onclick="toggleTask(this)">
+                  <div class="task-cb"><i class="fa-solid fa-check" style="display:none"></i></div>
+                  <div style="flex:1"><div class="task-name">File medical certificates — CR-2023-4412</div><div class="task-due"><i class="fa-regular fa-clock"></i> Due: Today 12:00 PM</div></div>
+                  <span class="tp tp-h">High</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <div class="task-cb"><i class="fa-solid fa-check" style="display:none"></i></div>
+                  <div style="flex:1"><div class="task-name">Review TechCorp merger draft v3</div><div class="task-due"><i class="fa-regular fa-clock"></i> Due: Today 5:00 PM</div></div>
+                  <span class="tp tp-h">High</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <div class="task-cb checked"><i class="fa-solid fa-check"></i></div>
+                  <div style="flex:1"><div class="task-name done">Send engagement letter to new client</div><div class="task-due" style="color:var(--success)"><i class="fa-solid fa-circle-check"></i> Completed</div></div>
+                  <span class="tp tp-l">Done</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <div class="task-cb"><i class="fa-solid fa-check" style="display:none"></i></div>
+                  <div style="flex:1"><div class="task-name">Cross-examination questions — CV-2022-1102</div><div class="task-due"><i class="fa-regular fa-clock"></i> Due: 18 Jun 2026</div></div>
+                  <span class="tp tp-m">Medium</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                  <div class="task-cb"><i class="fa-solid fa-check" style="display:none"></i></div>
+                  <div style="flex:1"><div class="task-name">Generate June invoice — Singh retainer</div><div class="task-due"><i class="fa-regular fa-clock"></i> Due: 25 Jun 2026</div></div>
+                  <span class="tp tp-l">Low</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:18px;">
+
+            <div class="card">
+              <div class="card-head"><h3><i class="fa-regular fa-calendar" style="color:var(--primary)"></i> Calendar</h3></div>
+              <div class="cal-wrap">
+                <div class="cal-nav">
+                  <button class="cal-nav-btn" onclick="prevMonth()"><i class="fa-solid fa-chevron-left"></i></button>
+                  <h4 id="calTitle"></h4>
+                  <button class="cal-nav-btn" onclick="nextMonth()"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="cal-grid" id="calGrid"></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-head"><h3><i class="fa-solid fa-clock" style="color:var(--accent)"></i> Today's Schedule</h3></div>
+              <div class="timeline">
+                <div class="tl-item">
+                  <div class="tl-time"><span>10:30<br>AM</span></div>
+                  <div class="tl-dot tld-blue"></div>
+                  <div class="tl-content"><div class="tl-title">Bail Hearing — CR-2023-4412</div><div class="tl-sub"><i class="fa-solid fa-location-dot"></i> Court Room 4, District Court</div></div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-time"><span>1:00<br>PM</span></div>
+                  <div class="tl-dot tld-orange"></div>
+                  <div class="tl-content"><div class="tl-title">Client Meeting — TechCorp</div><div class="tl-sub"><i class="fa-solid fa-building"></i> Office Conference Room</div></div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-time"><span>2:30<br>PM</span></div>
+                  <div class="tl-dot tld-orange"></div>
+                  <div class="tl-content"><div class="tl-title">Cross Examination — CV-2022-1102</div><div class="tl-sub"><i class="fa-solid fa-location-dot"></i> Court Room 12</div></div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-time"><span>4:00<br>PM</span></div>
+                  <div class="tl-dot tld-red"></div>
+                  <div class="tl-content"><div class="tl-title">Urgent Hearing — CR-2024-0078</div><div class="tl-sub"><i class="fa-solid fa-location-dot"></i> Sessions Court, Room 7</div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-head"><h3><i class="fa-solid fa-indian-rupee-sign" style="color:var(--success)"></i> Billing Overview</h3></div>
+              <div class="card-body">
+                <div class="billing-row"><span class="billing-label">Received</span><span class="billing-val" style="color:var(--success)">₹85,000</span></div>
+                <div class="prog-wrap" style="margin-bottom:14px;"><div class="prog-fill" style="width:71%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div>
+                <div class="billing-row"><span class="billing-label">Pending</span><span class="billing-val" style="color:var(--accent)">₹35,000</span></div>
+                <div class="prog-wrap" style="margin-bottom:14px;"><div class="prog-fill" style="width:29%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div>
+                <div style="border-top:1px solid var(--border);padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-size:11px;color:var(--text-3);font-weight:700;">TOTAL BILLED THIS MONTH</span>
+                  <span style="font-size:20px;font-weight:800;">₹1,20,000</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-head"><h3><i class="fa-solid fa-chart-pie" style="color:var(--purple)"></i> Case Breakdown</h3></div>
+              <div class="donut-wrap">
+                <svg width="90" height="90" viewBox="0 0 36 36">
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--border)" stroke-width="3.5" />
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3b82f6" stroke-width="3.5" stroke-dasharray="35 65" stroke-dashoffset="25" stroke-linecap="round" />
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#10b981" stroke-width="3.5" stroke-dasharray="22 78" stroke-dashoffset="-10" stroke-linecap="round" />
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f59e0b" stroke-width="3.5" stroke-dasharray="18 82" stroke-dashoffset="-32" stroke-linecap="round" />
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#8b5cf6" stroke-width="3.5" stroke-dasharray="15 85" stroke-dashoffset="-50" stroke-linecap="round" />
+                  <text x="18" y="20" text-anchor="middle" font-size="6" font-weight="bold" fill="var(--text)">42</text>
+                </svg>
+                <div class="donut-legend">
+                  <div class="dl-item"><div class="dl-dot" style="background:#3b82f6"></div>Criminal <span style="color:var(--text-3);margin-left:4px">35%</span></div>
+                  <div class="dl-item"><div class="dl-dot" style="background:#10b981"></div>Civil <span style="color:var(--text-3);margin-left:4px">22%</span></div>
+                  <div class="dl-item"><div class="dl-dot" style="background:#f59e0b"></div>Corporate <span style="color:var(--text-3);margin-left:4px">18%</span></div>
+                  <div class="dl-item"><div class="dl-dot" style="background:#8b5cf6"></div>Family <span style="color:var(--text-3);margin-left:4px">15%</span></div>
+                  <div class="dl-item"><div class="dl-dot" style="background:#e2e8f0"></div>Other <span style="color:var(--text-3);margin-left:4px">10%</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div></div></div><div class="page" id="page-cases">
+        <div class="ph-row">
+          <div><div class="ph-title">All Cases</div><div class="ph-sub">Full case register with all details</div></div>
+          <div class="ph-actions">
+            <select class="form-control btn-sm" style="width:auto;padding:8px 30px 8px 12px;" onchange="filterAllCases(this.value)">
+              <option value="all">All Status</option>
+              <option value="evidence">Evidence</option>
+              <option value="drafting">Drafting</option>
+              <option value="arguments">Arguments</option>
+              <option value="mediation">Mediation</option>
+              <option value="urgent">Urgent</option>
+              <option value="discovery">Discovery</option>
+            </select>
+            <button class="btn btn-primary" onclick="openNewCase()"><i class="fa-solid fa-plus"></i> New Case</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Case</th>
+                  <th>Client</th>
+                  <th>Court</th>
+                  <th>Type</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Next Hearing</th>
+                  <th>Fee (₹)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="allCasesBody">
+                <tr data-status="evidence">
+                  <td><div class="tbl-cn">Sharma vs. State</div><div class="tbl-no">CR-2023-4412</div></td>
+                  <td>Ramesh Sharma</td><td>District Court</td><td>Criminal</td><td><span class="pdot pd-high"></span>High</td>
+                  <td><span class="badge b-warning">Evidence</span></td><td style="color:var(--danger);font-weight:700">Today</td><td>₹45,000</td>
+                  <td>
+                    <div class="act-btns">
+                      <button class="act-btn" onclick="viewCase('Sharma vs. State','CR-2023-4412','Ramesh Sharma','District Court','Today 2:30 PM','₹45,000','Section 302 IPC. Bail pending. Medical certs required.')"><i class="fa-regular fa-eye"></i></button>
+                      <button class="act-btn" onclick="editCase(this,'Sharma vs. State','CR-2023-4412','Ramesh Sharma','District Court','Today 2:30 PM','₹45,000','Section 302 IPC. Bail pending. Medical certs required.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button class="act-btn del" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-status="drafting">
+                  <td><div class="tbl-cn">TechCorp Merger</div><div class="tbl-no">CORP-2024-089</div></td>
+                  <td>TechCorp India</td><td>High Court</td><td>Corporate</td><td><span class="pdot pd-med"></span>Med</td>
+                  <td><span class="badge b-blue">Drafting</span></td><td>15 Jun 2026</td><td>₹80,000</td>
+                  <td>
+                    <div class="act-btns">
+                      <button class="act-btn" onclick="viewCase('TechCorp Merger','CORP-2024-089','TechCorp India','High Court','15 Jun 2026','₹80,000','M&A merger agreement drafting.')"><i class="fa-regular fa-eye"></i></button>
+                      <button class="act-btn" onclick="editCase(this,'TechCorp Merger','CORP-2024-089','TechCorp India','High Court','15 Jun 2026','₹80,000','M&A merger agreement drafting.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button class="act-btn del" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-status="arguments">
+                  <td><div class="tbl-cn">Verma Property Dispute</div><div class="tbl-no">CV-2022-1102</div></td>
+                  <td>Sunita Verma</td><td>Civil Court</td><td>Civil</td><td><span class="pdot pd-high"></span>High</td>
+                  <td><span class="badge b-success">Arguments</span></td><td>18 Jun 2026</td><td>₹30,000</td>
+                  <td>
+                    <div class="act-btns">
+                      <button class="act-btn" onclick="viewCase('Verma Property Dispute','CV-2022-1102','Sunita Verma','Civil Court','18 Jun 2026','₹30,000','Final arguments scheduled.')"><i class="fa-regular fa-eye"></i></button>
+                      <button class="act-btn" onclick="editCase(this,'Verma Property Dispute','CV-2022-1102','Sunita Verma','Civil Court','18 Jun 2026','₹30,000','Final arguments scheduled.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button class="act-btn del" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-status="mediation">
+                  <td><div class="tbl-cn">Singh Divorce Petition</div><div class="tbl-no">FAM-2024-004</div></td>
+                  <td>Vikram Singh</td><td>Family Court</td><td>Family</td><td><span class="pdot pd-low"></span>Low</td>
+                  <td><span class="badge b-neutral">Mediation</span></td><td>22 Jun 2026</td><td>₹20,000</td>
+                  <td>
+                    <div class="act-btns">
+                      <button class="act-btn" onclick="viewCase('Singh Divorce Petition','FAM-2024-004','Vikram Singh','Family Court','22 Jun 2026','₹20,000','Mutual consent. Child custody contested.')"><i class="fa-regular fa-eye"></i></button>
+                      <button class="act-btn" onclick="editCase(this,'Singh Divorce Petition','FAM-2024-004','Vikram Singh','Family Court','22 Jun 2026','₹20,000','Mutual consent. Child custody contested.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button class="act-btn del" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-status="urgent">
+                  <td><div class="tbl-cn">Mehta Insurance Fraud</div><div class="tbl-no">CR-2024-0078</div></td>
+                  <td>Anita Mehta</td><td>Sessions Court</td><td>Criminal</td><td><span class="pdot pd-high"></span>High</td>
+                  <td><span class="badge b-danger">Urgent</span></td><td style="color:var(--danger);font-weight:700">Today</td><td>₹55,000</td>
+                  <td>
+                    <div class="act-btns">
+                      <button class="act-btn" onclick="viewCase('Mehta Insurance Fraud','CR-2024-0078','Anita Mehta','Sessions Court','Today 4:00 PM','₹55,000','Fraudulent insurance claims. Bail application filed.')"><i class="fa-regular fa-eye"></i></button>
+                      <button class="act-btn" onclick="editCase(this,'Mehta Insurance Fraud','CR-2024-0078','Anita Mehta','Sessions Court','Today 4:00 PM','₹55,000','Fraudulent insurance claims. Bail application filed.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button class="act-btn del" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-status="discovery">
+                  <td><div class="tbl-cn">Gupta Labour Dispute</div><div class="tbl-no">LAB-2024-015</div></td>
+                  <td>Rajiv Gupta</td><td>Labour Court</td><td>Labour</td><td><span class="pdot pd-med"></span>Med</td>
+                  <td><span class="badge b-purple">Discovery</span></td><td>28 Jun 2026</td><td>₹18,000</td>
+                  <td>
+                    <div class="act-btns">
+                      <button class="act-btn" onclick="viewCase('Gupta Labour Dispute','LAB-2024-015','Rajiv Gupta','Labour Court','28 Jun 2026','₹18,000','Wrongful termination case. Documents under review.')"><i class="fa-regular fa-eye"></i></button>
+                      <button class="act-btn" onclick="editCase(this,'Gupta Labour Dispute','LAB-2024-015','Rajiv Gupta','Labour Court','28 Jun 2026','₹18,000','Wrongful termination case. Documents under review.')"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button class="act-btn del" onclick="delCase(this)"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="page-clients">
+        <div class="ph-row">
+          <div><div class="ph-title">Clients</div><div class="ph-sub">Manage your client relationships</div></div>
+          <div class="ph-actions">
+            <button class="btn btn-outline" onclick="exportClientsCSV()"><i class="fa-solid fa-file-export"></i> Export</button>
+            <button class="btn btn-primary" onclick="openModal('clientModal')"><i class="fa-solid fa-plus"></i> Add Client</button>
+          </div>
+        </div>
+        <div class="clients-grid" id="clientsGrid">
+          <div class="client-card">
+            <div class="cc-top"><div class="cc-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">RS</div><div><div class="cc-name">Ramesh Sharma</div><div class="cc-type">Individual · Criminal</div></div></div>
+            <div class="cc-stats"><div class="cc-stat"><div class="cs-val">3</div><div class="cs-lbl">Active Cases</div></div><div class="cc-stat"><div class="cs-val" style="color:var(--success)">₹45K</div><div class="cs-lbl">Billed</div></div></div>
+            <div class="cc-actions"><button class="btn btn-sm btn-outline" style="flex:1" onclick="showToast('Opening Ramesh Sharma profile','info','fa-user')"><i class="fa-regular fa-eye"></i> View</button><button class="btn btn-sm btn-outline" onclick="showToast('Calling +91 98765 00001','info','fa-phone')"><i class="fa-solid fa-phone"></i></button><button class="btn btn-sm btn-outline" onclick="showToast('Email drafted','info','fa-envelope')"><i class="fa-solid fa-envelope"></i></button></div>
+          </div>
+          <div class="client-card">
+            <div class="cc-top"><div class="cc-avatar" style="background:linear-gradient(135deg,#10b981,#065f46)">TC</div><div><div class="cc-name">TechCorp India Pvt.</div><div class="cc-type">Corporate · M&A</div></div></div>
+            <div class="cc-stats"><div class="cc-stat"><div class="cs-val">1</div><div class="cs-lbl">Active Cases</div></div><div class="cc-stat"><div class="cs-val" style="color:var(--success)">₹80K</div><div class="cs-lbl">Billed</div></div></div>
+            <div class="cc-actions"><button class="btn btn-sm btn-outline" style="flex:1" onclick="showToast('Opening TechCorp profile','info','fa-building')"><i class="fa-regular fa-eye"></i> View</button><button class="btn btn-sm btn-outline" onclick="showToast('Calling TechCorp','info','fa-phone')"><i class="fa-solid fa-phone"></i></button><button class="btn btn-sm btn-outline" onclick="showToast('Email drafted','info','fa-envelope')"><i class="fa-solid fa-envelope"></i></button></div>
+          </div>
+          <div class="client-card">
+            <div class="cc-top"><div class="cc-avatar" style="background:linear-gradient(135deg,#f59e0b,#92400e)">SV</div><div><div class="cc-name">Sunita Verma</div><div class="cc-type">Individual · Property</div></div></div>
+            <div class="cc-stats"><div class="cc-stat"><div class="cs-val">2</div><div class="cs-lbl">Active Cases</div></div><div class="cc-stat"><div class="cs-val" style="color:var(--success)">₹30K</div><div class="cs-lbl">Billed</div></div></div>
+            <div class="cc-actions"><button class="btn btn-sm btn-outline" style="flex:1" onclick="showToast('Opening Sunita Verma profile','info','fa-user')"><i class="fa-regular fa-eye"></i> View</button><button class="btn btn-sm btn-outline" onclick="showToast('Calling Sunita Verma','info','fa-phone')"><i class="fa-solid fa-phone"></i></button><button class="btn btn-sm btn-outline" onclick="showToast('Email drafted','info','fa-envelope')"><i class="fa-solid fa-envelope"></i></button></div>
+          </div>
+          <div class="client-card">
+            <div class="cc-top"><div class="cc-avatar" style="background:linear-gradient(135deg,#8b5cf6,#5b21b6)">VS</div><div><div class="cc-name">Vikram Singh</div><div class="cc-type">Individual · Family</div></div></div>
+            <div class="cc-stats"><div class="cc-stat"><div class="cs-val">1</div><div class="cs-lbl">Active Cases</div></div><div class="cc-stat"><div class="cs-val" style="color:var(--accent)">₹12K</div><div class="cs-lbl">Pending</div></div></div>
+            <div class="cc-actions"><button class="btn btn-sm btn-outline" style="flex:1" onclick="showToast('Opening Vikram Singh profile','info','fa-user')"><i class="fa-regular fa-eye"></i> View</button><button class="btn btn-sm btn-outline" onclick="showToast('Calling Vikram Singh','info','fa-phone')"><i class="fa-solid fa-phone"></i></button><button class="btn btn-sm btn-outline" onclick="showToast('Email drafted','info','fa-envelope')"><i class="fa-solid fa-envelope"></i></button></div>
+          </div>
+          <div class="client-card">
+            <div class="cc-top"><div class="cc-avatar" style="background:linear-gradient(135deg,#ef4444,#991b1b)">AM</div><div><div class="cc-name">Anita Mehta</div><div class="cc-type">Individual · Criminal</div></div></div>
+            <div class="cc-stats"><div class="cc-stat"><div class="cs-val">1</div><div class="cs-lbl">Active Cases</div></div><div class="cc-stat"><div class="cs-val" style="color:var(--success)">₹55K</div><div class="cs-lbl">Billed</div></div></div>
+            <div class="cc-actions"><button class="btn btn-sm btn-outline" style="flex:1" onclick="showToast('Opening Anita Mehta profile','info','fa-user')"><i class="fa-regular fa-eye"></i> View</button><button class="btn btn-sm btn-outline" onclick="showToast('Calling Anita Mehta','info','fa-phone')"><i class="fa-solid fa-phone"></i></button><button class="btn btn-sm btn-outline" onclick="showToast('Email drafted','info','fa-envelope')"><i class="fa-solid fa-envelope"></i></button></div>
+          </div>
+          <div class="client-card">
+            <div class="cc-top"><div class="cc-avatar" style="background:linear-gradient(135deg,#0891b2,#164e63)">RG</div><div><div class="cc-name">Rajiv Gupta</div><div class="cc-type">Individual · Labour</div></div></div>
+            <div class="cc-stats"><div class="cc-stat"><div class="cs-val">1</div><div class="cs-lbl">Active Cases</div></div><div class="cc-stat"><div class="cs-val" style="color:var(--success)">₹18K</div><div class="cs-lbl">Billed</div></div></div>
+            <div class="cc-actions"><button class="btn btn-sm btn-outline" style="flex:1" onclick="showToast('Opening Rajiv Gupta profile','info','fa-user')"><i class="fa-regular fa-eye"></i> View</button><button class="btn btn-sm btn-outline" onclick="showToast('Calling Rajiv Gupta','info','fa-phone')"><i class="fa-solid fa-phone"></i></button><button class="btn btn-sm btn-outline" onclick="showToast('Email drafted','info','fa-envelope')"><i class="fa-solid fa-envelope"></i></button></div>
+          </div>
+          <div class="client-card" style="border:2px dashed var(--border);cursor:pointer;align-items:center;justify-content:center;display:flex;flex-direction:column;gap:8px;min-height:160px;" onclick="openModal('clientModal')">
+            <i class="fa-solid fa-plus" style="font-size:24px;color:var(--text-3)"></i>
+            <span style="font-size:13px;font-weight:600;color:var(--text-3)">Add New Client</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="page-billing">
+        <div class="ph-row">
+          <div><div class="ph-title">Billing & Invoices</div><div class="ph-sub">Track fees and outstanding payments</div></div>
+          <div class="ph-actions">
+            <button class="btn btn-outline" onclick="exportInvoicesCSV()"><i class="fa-solid fa-file-export"></i> Export</button>
+            <button class="btn btn-primary" onclick="openModal('invoiceModal')"><i class="fa-solid fa-plus"></i> New Invoice</button>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+          <div class="stat-card sc-green"><div class="stat-top"><div><div class="stat-lbl">Total Received</div><div class="stat-val">₹2.85L</div></div><div class="stat-icon si-green"><i class="fa-solid fa-circle-check"></i></div></div><div class="stat-foot sf-green"><i class="fa-solid fa-arrow-trend-up"></i> 18 invoices paid</div></div>
+          <div class="stat-card sc-orange"><div class="stat-top"><div><div class="stat-lbl">Pending</div><div class="stat-val">₹68K</div></div><div class="stat-icon si-orange"><i class="fa-regular fa-clock"></i></div></div><div class="stat-foot sf-orange"><i class="fa-solid fa-file-invoice"></i> 4 invoices pending</div></div>
+          <div class="stat-card sc-red"><div class="stat-top"><div><div class="stat-lbl">Overdue</div><div class="stat-val">₹22K</div></div><div class="stat-icon si-red"><i class="fa-solid fa-triangle-exclamation"></i></div></div><div class="stat-foot sf-red"><i class="fa-solid fa-exclamation-circle"></i> 2 invoices overdue</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3><i class="fa-solid fa-file-invoice-dollar" style="color:var(--primary)"></i> Invoice Register</h3></div>
+          <div class="invoice-list">
+            <div class="invoice-item"><div class="inv-icon si-green"><i class="fa-solid fa-check"></i></div><div class="inv-body"><div class="inv-title">INV-2026-042 — Sharma Retainer (May)</div><div class="inv-meta">Ramesh Sharma · Due: 01 Jun 2026</div></div><div><div class="inv-amount">₹15,000</div><div class="inv-status" style="color:var(--success)">✓ Paid</div></div></div>
+            <div class="invoice-item"><div class="inv-icon si-green"><i class="fa-solid fa-check"></i></div><div class="inv-body"><div class="inv-title">INV-2026-041 — TechCorp Advance</div><div class="inv-meta">TechCorp India · Due: 28 May 2026</div></div><div><div class="inv-amount">₹50,000</div><div class="inv-status" style="color:var(--success)">✓ Paid</div></div></div>
+            <div class="invoice-item"><div class="inv-icon si-orange"><i class="fa-regular fa-clock"></i></div><div class="inv-body"><div class="inv-title">INV-2026-043 — Verma Appearance Fees</div><div class="inv-meta">Sunita Verma · Due: 20 Jun 2026</div></div><div><div class="inv-amount">₹18,000</div><div class="inv-status" style="color:var(--accent)">⏳ Pending</div></div></div>
+            <div class="invoice-item"><div class="inv-icon si-red"><i class="fa-solid fa-triangle-exclamation"></i></div><div class="inv-body"><div class="inv-title">INV-2026-039 — Singh Retainer (May)</div><div class="inv-meta">Vikram Singh · Due: 05 Jun 2026</div></div><div><div class="inv-amount">₹12,000</div><div class="inv-status" style="color:var(--danger)">⚠ Overdue</div></div></div>
+            <div class="invoice-item"><div class="inv-icon si-orange"><i class="fa-regular fa-clock"></i></div><div class="inv-body"><div class="inv-title">INV-2026-044 — Mehta Criminal Defense</div><div class="inv-meta">Anita Mehta · Due: 30 Jun 2026</div></div><div><div class="inv-amount">₹25,000</div><div class="inv-status" style="color:var(--accent)">⏳ Pending</div></div></div>
+            <div class="invoice-item"><div class="inv-icon si-red"><i class="fa-solid fa-triangle-exclamation"></i></div><div class="inv-body"><div class="inv-title">INV-2026-037 — Gupta Labour Retainer</div><div class="inv-meta">Rajiv Gupta · Due: 01 Jun 2026</div></div><div><div class="inv-amount">₹10,000</div><div class="inv-status" style="color:var(--danger)">⚠ Overdue</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="page-reports">
+        <div class="ph-row">
+          <div><div class="ph-title">Reports & Analytics</div><div class="ph-sub">Practice performance at a glance</div></div>
+          <div class="ph-actions"><button class="btn btn-outline" onclick="showToast('Exporting PDF report…','info','fa-file-pdf')"><i class="fa-solid fa-file-export"></i> Export PDF</button></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="card">
+            <div class="card-head"><h3><i class="fa-solid fa-chart-bar" style="color:var(--primary)"></i> Monthly Revenue (₹)</h3></div>
+            <div class="bar-chart">
+              <div class="bc-row"><span class="bc-lbl">January</span><div class="bc-track"><div class="bc-fill" style="width:46%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div><span class="bc-val">55K</span></div>
+              <div class="bc-row"><span class="bc-lbl">February</span><div class="bc-track"><div class="bc-fill" style="width:58%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div><span class="bc-val">70K</span></div>
+              <div class="bc-row"><span class="bc-lbl">March</span><div class="bc-track"><div class="bc-fill" style="width:71%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div><span class="bc-val">85K</span></div>
+              <div class="bc-row"><span class="bc-lbl">April</span><div class="bc-track"><div class="bc-fill" style="width:50%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div><span class="bc-val">60K</span></div>
+              <div class="bc-row"><span class="bc-lbl">May</span><div class="bc-track"><div class="bc-fill" style="width:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div><span class="bc-val">1.2L</span></div>
+              <div class="bc-row"><span class="bc-lbl">June (so far)</span><div class="bc-track"><div class="bc-fill" style="width:33%;background:linear-gradient(90deg,#94a3b8,#cbd5e1)"></div></div><span class="bc-val">40K</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><i class="fa-solid fa-gavel" style="color:var(--accent)"></i> Cases Won vs Lost</h3></div>
+            <div class="bar-chart">
+              <div class="bc-row"><span class="bc-lbl">Won</span><div class="bc-track"><div class="bc-fill" style="width:78%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div><span class="bc-val">78%</span></div>
+              <div class="bc-row"><span class="bc-lbl">Settled</span><div class="bc-track"><div class="bc-fill" style="width:14%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div><span class="bc-val">14%</span></div>
+              <div class="bc-row"><span class="bc-lbl">Lost</span><div class="bc-track"><div class="bc-fill" style="width:8%;background:linear-gradient(90deg,#ef4444,#f87171)"></div></div><span class="bc-val">8%</span></div>
+            </div>
+            <div style="padding:0 20px 16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;">
+              <div style="background:var(--success-light);border-radius:9px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:800;color:var(--success)">31</div><div style="font-size:10px;font-weight:700;color:var(--text-3)">WON</div></div>
+              <div style="background:var(--accent-light);border-radius:9px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:800;color:var(--accent)">6</div><div style="font-size:10px;font-weight:700;color:var(--text-3)">SETTLED</div></div>
+              <div style="background:var(--danger-light);border-radius:9px;padding:12px;text-align:center;"><div style="font-size:22px;font-weight:800;color:var(--danger)">3</div><div style="font-size:10px;font-weight:700;color:var(--text-3)">LOST</div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><i class="fa-solid fa-clock" style="color:var(--purple)"></i> Billable Hours (This Month)</h3></div>
+            <div class="bar-chart">
+              <div class="bc-row"><span class="bc-lbl">Week 1</span><div class="bc-track"><div class="bc-fill" style="width:60%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div><span class="bc-val">24h</span></div>
+              <div class="bc-row"><span class="bc-lbl">Week 2</span><div class="bc-track"><div class="bc-fill" style="width:75%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div><span class="bc-val">30h</span></div>
+              <div class="bc-row"><span class="bc-lbl">Week 3</span><div class="bc-track"><div class="bc-fill" style="width:90%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div><span class="bc-val">36h</span></div>
+              <div class="bc-row"><span class="bc-lbl">Week 4</span><div class="bc-track"><div class="bc-fill" style="width:50%;background:linear-gradient(90deg,#94a3b8,#cbd5e1)"></div></div><span class="bc-val">20h</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><i class="fa-solid fa-users" style="color:var(--success)"></i> New Clients Per Month</h3></div>
+            <div class="bar-chart">
+              <div class="bc-row"><span class="bc-lbl">January</span><div class="bc-track"><div class="bc-fill" style="width:40%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div><span class="bc-val">2</span></div>
+              <div class="bc-row"><span class="bc-lbl">February</span><div class="bc-track"><div class="bc-fill" style="width:60%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div><span class="bc-val">3</span></div>
+              <div class="bc-row"><span class="bc-lbl">March</span><div class="bc-track"><div class="bc-fill" style="width:100%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div><span class="bc-val">5</span></div>
+              <div class="bc-row"><span class="bc-lbl">April</span><div class="bc-track"><div class="bc-fill" style="width:60%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div><span class="bc-val">3</span></div>
+              <div class="bc-row"><span class="bc-lbl">May</span><div class="bc-track"><div class="bc-fill" style="width:80%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div><span class="bc-val">4</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="page-docs">
+        <div class="ph-row">
+          <div><div class="ph-title">Documents</div><div class="ph-sub">Case files, contracts and court submissions</div></div>
+          <div class="ph-actions">
+            <button class="btn btn-outline" onclick="showToast('Document search opened','info','fa-magnifying-glass')"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+            <button class="btn btn-primary" onclick="showToast('Upload dialog opened','info','fa-upload')"><i class="fa-solid fa-upload"></i> Upload</button>
+          </div>
+        </div>
+        <div class="docs-grid">
+          <div class="doc-card" onclick="showToast('Opening Bail Application…','info','fa-file-pdf')"><div class="doc-icon">📄</div><div class="doc-name">Bail Application — Sharma</div><div class="doc-meta">PDF · 2.4 MB · 12 Jun 2026</div><div class="doc-actions"><button class="act-btn" title="Download" onclick="event.stopPropagation();showToast('Downloading…','info','fa-download')"><i class="fa-solid fa-download"></i></button><button class="act-btn" title="Share" onclick="event.stopPropagation();showToast('Share link copied','success','fa-share')"><i class="fa-solid fa-share"></i></button><button class="act-btn del" title="Delete" onclick="event.stopPropagation();this.closest('.doc-card').remove();showToast('Document deleted','info','fa-trash-can')"><i class="fa-regular fa-trash-can"></i></button></div></div>
+          <div class="doc-card" onclick="showToast('Opening Merger Draft…','info','fa-file-word')"><div class="doc-icon">📝</div><div class="doc-name">Merger Agreement Draft v3</div><div class="doc-meta">DOCX · 1.1 MB · 10 Jun 2026</div><div class="doc-actions"><button class="act-btn" onclick="event.stopPropagation();showToast('Downloading…','info','fa-download')"><i class="fa-solid fa-download"></i></button><button class="act-btn" onclick="event.stopPropagation();showToast('Share link copied','success','fa-share')"><i class="fa-solid fa-share"></i></button><button class="act-btn del" onclick="event.stopPropagation();this.closest('.doc-card').remove();showToast('Document deleted','info','fa-trash-can')"><i class="fa-regular fa-trash-can"></i></button></div></div>
+          <div class="doc-card" onclick="showToast('Opening FIR Copy…','info','fa-file-pdf')"><div class="doc-icon">📋</div><div class="doc-name">FIR Copy — Verma Property</div><div class="doc-meta">PDF · 800 KB · 08 Jun 2026</div><div class="doc-actions"><button class="act-btn" onclick="event.stopPropagation();showToast('Downloading…','info','fa-download')"><i class="fa-solid fa-download"></i></button><button class="act-btn" onclick="event.stopPropagation();showToast('Share link copied','success','fa-share')"><i class="fa-solid fa-share"></i></button><button class="act-btn del" onclick="event.stopPropagation();this.closest('.doc-card').remove();showToast('Document deleted','info','fa-trash-can')"><i class="fa-regular fa-trash-can"></i></button></div></div>
+          <div class="doc-card" onclick="showToast('Opening Divorce Petition…','info','fa-file-pdf')"><div class="doc-icon">⚖️</div><div class="doc-name">Divorce Petition — Singh</div><div class="doc-meta">PDF · 450 KB · 05 Jun 2026</div><div class="doc-actions"><button class="act-btn" onclick="event.stopPropagation();showToast('Downloading…','info','fa-download')"><i class="fa-solid fa-download"></i></button><button class="act-btn" onclick="event.stopPropagation();showToast('Share link copied','success','fa-share')"><i class="fa-solid fa-share"></i></button><button class="act-btn del" onclick="event.stopPropagation();this.closest('.doc-card').remove();showToast('Document deleted','info','fa-trash-can')"><i class="fa-regular fa-trash-can"></i></button></div></div>
+          <div class="doc-card" onclick="showToast('Opening Chargesheet…','info','fa-file-pdf')"><div class="doc-icon">🔍</div><div class="doc-name">Chargesheet — Mehta Fraud</div><div class="doc-meta">PDF · 3.2 MB · 03 Jun 2026</div><div class="doc-actions"><button class="act-btn" onclick="event.stopPropagation();showToast('Downloading…','info','fa-download')"><i class="fa-solid fa-download"></i></button><button class="act-btn" onclick="event.stopPropagation();showToast('Share link copied','success','fa-share')"><i class="fa-solid fa-share"></i></button><button class="act-btn del" onclick="event.stopPropagation();this.closest('.doc-card').remove();showToast('Document deleted','info','fa-trash-can')"><i class="fa-regular fa-trash-can"></i></button></div></div>
+          <div class="doc-card" onclick="showToast('Opening Engagement Letter…','info','fa-file-word')"><div class="doc-icon">📃</div><div class="doc-name">Engagement Letter Template</div><div class="doc-meta">DOCX · 210 KB · 01 Jun 2026</div><div class="doc-actions"><button class="act-btn" onclick="event.stopPropagation();showToast('Downloading…','info','fa-download')"><i class="fa-solid fa-download"></i></button><button class="act-btn" onclick="event.stopPropagation();showToast('Share link copied','success','fa-share')"><i class="fa-solid fa-share"></i></button><button class="act-btn del" onclick="event.stopPropagation();this.closest('.doc-card').remove();showToast('Document deleted','info','fa-trash-can')"><i class="fa-regular fa-trash-can"></i></button></div></div>
+          <div class="doc-card" style="border:2px dashed var(--border);cursor:pointer;justify-content:center;" onclick="showToast('Upload dialog opened','info','fa-upload')"><div style="font-size:28px;margin-bottom:8px">⬆️</div><div style="font-size:12px;font-weight:700;color:var(--text-3)">Upload Document</div></div>
+        </div>
+      </div>
+
+      <div class="page" id="page-tasks-pg">
+        <div class="ph-row">
+          <div><div class="ph-title">All Tasks</div><div class="ph-sub">Manage deadlines and to-dos</div></div>
+          <div class="ph-actions"><button class="btn btn-primary" onclick="openModal('taskModal')"><i class="fa-solid fa-plus"></i> Add Task</button></div>
+        </div>
+        <div class="card">
+          <div class="task-list" id="allTaskList">
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-cb"><i class="fa-solid fa-check" style="display:none"></i></div><div style="flex:1"><div class="task-name">File medical certificates — CR-2023-4412</div><div class="task-due">Due: Today 12:00 PM · CR-2023-4412</div></div><span class="tp tp-h">High</span></div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-cb"><i class="fa-solid fa-check" style="display:none"></i></div><div style="flex:1"><div class="task-name">Review TechCorp merger draft v3</div><div class="task-due">Due: Today 5:00 PM · CORP-2024-089</div></div><span class="tp tp-h">High</span></div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-cb checked"><i class="fa-solid fa-check"></i></div><div style="flex:1"><div class="task-name done">Send engagement letter to new client</div><div class="task-due" style="color:var(--success)"><i class="fa-solid fa-circle-check"></i> Completed</div></div><span class="tp tp-l">Done</span></div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-cb"><i class="fa-solid fa-check" style="display:none"></i></div><div style="flex:1"><div class="task-name">Cross-examination questions — CV-2022-1102</div><div class="task-due">Due: 18 Jun 2026 · CV-2022-1102</div></div><span class="tp tp-m">Medium</span></div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-cb"><i class="fa-solid fa-check" style="display:none"></i></div><div style="flex:1"><div class="task-name">Generate June invoice — Singh retainer</div><div class="task-due">Due: 25 Jun 2026</div></div><span class="tp tp-l">Low</span></div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-cb"><i class="fa-solid fa-check" style="display:none"></i></div><div style="flex:1"><div class="task-name">Research bail precedents — Mehta case</div><div class="task-due">Due: 14 Jun 2026 · CR-2024-0078</div></div><span class="tp tp-h">High</span></div>
+            <div class="task-item" onclick="toggleTask(this)"><div class="task-cb"><i class="fa-solid fa-check" style="display:none"></i></div><div style="flex:1"><div class="task-name">Client call — TechCorp board update</div><div class="task-due">Due: 17 Jun 2026</div></div><span class="tp tp-m">Medium</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="page-calendar-pg">
+        <div class="ph-row">
+          <div><div class="ph-title">Calendar</div><div class="ph-sub">Hearings, deadlines and meetings</div></div>
+          <div class="ph-actions"><button class="btn btn-primary" onclick="openModal('hearingModal')"><i class="fa-solid fa-plus"></i> Schedule Event</button></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:16px;">
+          <div class="card">
+            <div class="card-head"><h3><i class="fa-regular fa-calendar" style="color:var(--primary)"></i> <span id="calTitle2">June 2026</span></h3></div>
+            <div class="cal-wrap" style="padding:20px;">
+              <div class="cal-nav" style="margin-bottom:16px;">
+                <button class="cal-nav-btn" onclick="prevMonth()"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+                <h4 id="calTitle3" style="font-size:15px;"></h4>
+                <button class="cal-nav-btn" onclick="nextMonth()">Next <i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+              <div class="cal-grid" id="calGrid2" style="gap:4px;"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><i class="fa-solid fa-list" style="color:var(--accent)"></i> Upcoming Events</h3></div>
+            <div class="timeline">
+              <div class="tl-item"><div class="tl-time"><span>13 Jun</span></div><div class="tl-dot tld-red"></div><div class="tl-content"><div class="tl-title">Today — Bail Hearing CR-4412</div><div class="tl-sub"><i class="fa-solid fa-location-dot"></i> Court Room 4</div></div></div>
+              <div class="tl-item"><div class="tl-time"><span>15 Jun</span></div><div class="tl-dot tld-blue"></div><div class="tl-content"><div class="tl-title">TechCorp Merger Hearing</div><div class="tl-sub"><i class="fa-solid fa-location-dot"></i> High Court</div></div></div>
+              <div class="tl-item"><div class="tl-time"><span>18 Jun</span></div><div class="tl-dot tld-orange"></div><div class="tl-content"><div class="tl-title">Final Arguments — CV-1102</div><div class="tl-sub"><i class="fa-solid fa-location-dot"></i> Civil Court, Room 12</div></div></div>
+              <div class="tl-item"><div class="tl-time"><span>22 Jun</span></div><div class="tl-dot tld-green"></div><div class="tl-content"><div class="tl-title">Mediation Session — Singh</div><div class="tl-sub"><i class="fa-solid fa-location-dot"></i> Family Court</div></div></div>
+              <div class="tl-item"><div class="tl-time"><span>28 Jun</span></div><div class="tl-dot tld-blue"></div><div class="tl-content"><div class="tl-title">Gupta Labour Hearing</div><div class="tl-sub"><i class="fa-solid fa-location-dot"></i> Labour Court</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="page-timelogs">
+        <div class="ph-row">
+          <div><div class="ph-title">Time Logs</div><div class="ph-sub">Track billable hours per case</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:4px;">
+          <div class="stat-card sc-blue"><div class="stat-top"><div><div class="stat-lbl">Total This Month</div><div class="stat-val">110h</div></div><div class="stat-icon si-blue"><i class="fa-regular fa-clock"></i></div></div><div class="stat-foot sf-green"><i class="fa-solid fa-arrow-trend-up"></i> +8h vs last month</div></div>
+          <div class="stat-card sc-green"><div class="stat-top"><div><div class="stat-lbl">Billed Hours</div><div class="stat-val">98h</div></div><div class="stat-icon si-green"><i class="fa-solid fa-check-circle"></i></div></div><div class="stat-foot sf-green"><i class="fa-solid fa-indian-rupee-sign"></i> ₹2.94L earned</div></div>
+          <div class="stat-card sc-orange"><div class="stat-top"><div><div class="stat-lbl">Unbilled Hours</div><div class="stat-val">12h</div></div><div class="stat-icon si-orange"><i class="fa-solid fa-clock-rotate-left"></i></div></div><div class="stat-foot sf-orange"><i class="fa-solid fa-triangle-exclamation"></i> Invoice pending</div></div>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Case</th><th>Description</th><th>Duration</th><th>Rate (₹/hr)</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>13 Jun 2026</td><td>CR-2023-4412</td><td>Case file review & strategy session</td><td>2h 30m</td><td>₹3,000</td><td style="font-weight:700;color:var(--success)">₹7,500</td><td><span class="badge b-success">Billed</span></td></tr>
+                <tr><td>12 Jun 2026</td><td>CORP-2024-089</td><td>Merger document drafting</td><td>4h 00m</td><td>₹5,000</td><td style="font-weight:700;color:var(--success)">₹20,000</td><td><span class="badge b-success">Billed</span></td></tr>
+                <tr><td>11 Jun 2026</td><td>CV-2022-1102</td><td>Cross-examination preparation</td><td>1h 45m</td><td>₹3,000</td><td style="font-weight:700;color:var(--success)">₹5,250</td><td><span class="badge b-success">Billed</span></td></tr>
+                <tr><td>10 Jun 2026</td><td>FAM-2024-004</td><td>Client consultation & docs</td><td>1h 00m</td><td>₹2,000</td>
+                <td style="font-weight:700;color:var(--accent)">₹2,000</td><td><span class="badge b-warning">Unbilled</span></td></tr>
+                <tr><td>08 Jun 2026</td><td>LAB-2024-015</td><td>Document review</td><td>2h 15m</td><td>₹2,500</td><td style="font-weight:700;color:var(--accent)">₹5,625</td><td><span class="badge b-warning">Unbilled</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="page-settings">
+        <div class="ph-row">
+          <div><div class="ph-title">Settings</div><div class="ph-sub">Manage your account and preferences</div></div>
+        </div>
+        <div class="settings-grid">
+          <div class="card">
+            <div class="card-head"><h3><i class="fa-solid fa-user-gear" style="color:var(--primary)"></i> Profile Settings</h3></div>
+            <div class="card-body">
+              <div class="form-group"><label class="form-label">Full Name</label><input type="text" class="form-control" value="Adv. S M Sanap"></div>
+              <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-control" value="counsel@advocatepro.in"></div>
+              <div class="form-group"><label class="form-label">Bar Registration Number</label><input type="text" class="form-control" value="MH-4521"></div>
+              <button class="btn btn-primary" onclick="showToast('Profile updated successfully','success','fa-check')">Save Changes</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3><i class="fa-solid fa-sliders" style="color:var(--accent)"></i> Preferences</h3></div>
+            <div class="card-body">
+              <div class="setting-row"><div><div class="sr-label">Dark Mode</div><div class="sr-sub">Toggle dark/light theme</div></div><button class="toggle" id="themeToggle" onclick="toggleDark()"></button></div>
+              <div class="setting-row"><div><div class="sr-label">Email Notifications</div><div class="sr-sub">Receive daily summaries</div></div><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+              <div class="setting-row"><div><div class="sr-label">SMS Alerts</div><div class="sr-sub">Urgent hearing reminders</div></div><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-bg" id="modalBg" onclick="closeModals(event)">
+    
+    <div class="modal" id="caseModal">
+      <div class="modal-head">
+        <h3 id="caseModalTitle">Add New Case</h3>
+        <button class="modal-close" onclick="closeModal('caseModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Case Title</label><input type="text" class="form-control" id="cmTitle" placeholder="e.g. Sharma vs. State"></div>
+          <div class="form-group"><label class="form-label">Case Number</label><input type="text" class="form-control" id="cmNumber" placeholder="e.g. CR-2026-001"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Client Name</label><input type="text" class="form-control" id="cmClient" placeholder="Select or type client name"></div>
+          <div class="form-group"><label class="form-label">Court</label><input type="text" class="form-control" id="cmCourt" placeholder="e.g. District Court"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Case Description / Notes</label><textarea class="form-control" id="cmDesc" placeholder="Enter brief details..."></textarea></div>
+        <div class="modal-foot">
+          <button class="btn btn-outline" onclick="closeModal('caseModal')">Cancel</button>
+          <button class="btn btn-primary" onclick="saveCase()">Save Case</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="clientModal">
+      <div class="modal-head"><h3>Add Client</h3><button class="modal-close" onclick="closeModal('clientModal')"><i class="fa-solid fa-xmark"></i></button></div>
+      <div><p style="margin-bottom:20px;color:var(--text-2);">Client form fields would go here.</p><div class="modal-foot"><button class="btn btn-primary" onclick="closeModal('clientModal');showToast('Client added','success','fa-check')">Save Client</button></div></div>
+    </div>
+    
+    <div class="modal" id="hearingModal">
+      <div class="modal-head"><h3>Schedule Hearing</h3><button class="modal-close" onclick="closeModal('hearingModal')"><i class="fa-solid fa-xmark"></i></button></div>
+      <div><p style="margin-bottom:20px;color:var(--text-2);">Hearing scheduler form would go here.</p><div class="modal-foot"><button class="btn btn-primary" onclick="closeModal('hearingModal');showToast('Hearing scheduled','success','fa-calendar-check')">Schedule</button></div></div>
+    </div>
+
+    <div class="modal" id="invoiceModal">
+      <div class="modal-head"><h3>Generate Invoice</h3><button class="modal-close" onclick="closeModal('invoiceModal')"><i class="fa-solid fa-xmark"></i></button></div>
+      <div><p style="margin-bottom:20px;color:var(--text-2);">Invoice generation tool would go here.</p><div class="modal-foot"><button class="btn btn-primary" onclick="closeModal('invoiceModal');showToast('Invoice drafted','success','fa-file-invoice')">Create Draft</button></div></div>
+    </div>
+
+    <div class="modal" id="taskModal">
+      <div class="modal-head"><h3>Add Task</h3><button class="modal-close" onclick="closeModal('taskModal')"><i class="fa-solid fa-xmark"></i></button></div>
+      <div><p style="margin-bottom:20px;color:var(--text-2);">Task input form would go here.</p><div class="modal-foot"><button class="btn btn-primary" onclick="closeModal('taskModal');showToast('Task added','success','fa-check')">Save Task</button></div></div>
+    </div>
+
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script>
+    // Set Current Date
+    document.addEventListener('DOMContentLoaded', () => {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('todayDate').innerText = new Date().toLocaleDateString('en-IN', options);
+      renderCalendar();
+      checkDarkMode();
+    });
+
+    // --- Authentication ---
+    function doLogin() {
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPassword').value;
+      if(email && pass) {
+        document.body.classList.add('logged-in');
+        showToast('Welcome back, Counsel!', 'success', 'fa-check');
+      } else {
+        document.getElementById('loginError').classList.add('show');
+      }
+    }
+
+    function doLogout() {
+      document.body.classList.remove('logged-in');
+      document.getElementById('loginEmail').value = '';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('loginError').classList.remove('show');
+    }
+
+    function toggleLoginPass() {
+      const passInput = document.getElementById('loginPassword');
+      const icon = document.getElementById('loginPassIcon');
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        passInput.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+
+    // --- Navigation ---
+    function nav(btn, pageId) {
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      if(btn) btn.classList.add('active');
+      
+      document.querySelectorAll('.page').forEach(el => el.classList.remove('active-page'));
+      document.getElementById('page-' + pageId).classList.add('active-page');
+      
+      const titleMap = {
+        'dash': 'Dashboard <span>/ Overview</span>',
+        'cases': 'Cases <span>/ Register</span>',
+        'clients': 'Clients <span>/ Directory</span>',
+        'calendar-pg': 'Calendar <span>/ Schedule</span>',
+        'tasks-pg': 'Tasks <span>/ To-Do</span>',
+        'billing': 'Billing <span>/ Invoices</span>',
+        'reports': 'Reports <span>/ Analytics</span>',
+        'docs': 'Documents <span>/ Library</span>',
+        'timelogs': 'Time Logs <span>/ Tracker</span>',
+        'settings': 'Settings <span>/ Preferences</span>'
+      };
+      document.getElementById('topbarTitle').innerHTML = titleMap[pageId] || 'Dashboard';
+      
+      if(window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('mob-open');
+      }
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('mob-open');
+    }
+
+    // --- UI Toggles ---
+    function toggleDark() {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      const icon = document.getElementById('darkIcon');
+      icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      
+      const tToggle = document.getElementById('themeToggle');
+      if(tToggle) {
+        if(isDark) tToggle.classList.add('on');
+        else tToggle.classList.remove('on');
+      }
+    }
+
+    function checkDarkMode() {
+      if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        toggleDark();
+      }
+    }
+
+    function toggleNotif() {
+      document.getElementById('notifPanel').classList.toggle('open');
+    }
+
+    function clearNotifs() {
+      document.querySelectorAll('.ni.unread').forEach(el => el.classList.remove('unread'));
+      document.getElementById('notifDot').style.display = 'none';
+      showToast('Notifications cleared', 'success', 'fa-check-double');
+      setTimeout(() => toggleNotif(), 500);
+    }
+
+    function toggleTask(el) {
+      const cb = el.querySelector('.task-cb');
+      const icon = cb.querySelector('i');
+      const text = el.querySelector('.task-name');
+      
+      cb.classList.toggle('checked');
+      if(cb.classList.contains('checked')) {
+        icon.style.display = 'block';
+        text.classList.add('done');
+      } else {
+        icon.style.display = 'none';
+        text.classList.remove('done');
+      }
+    }
+
+    // --- Modals ---
+    function openModal(id) {
+      document.getElementById('modalBg').classList.add('open');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closeModal(id) {
+      document.getElementById('modalBg').classList.remove('open');
+      setTimeout(() => {
+        document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+      }, 250);
+    }
+
+    function closeModals(e) {
+      if(e.target.id === 'modalBg') {
+        closeModal('caseModal');
+      }
+    }
+
+    function openNewCase() {
+      document.getElementById('caseModalTitle').innerText = 'Add New Case';
+      document.getElementById('cmTitle').value = '';
+      document.getElementById('cmNumber').value = '';
+      document.getElementById('cmClient').value = '';
+      document.getElementById('cmCourt').value = '';
+      document.getElementById('cmDesc').value = '';
+      openModal('caseModal');
+    }
+
+    function viewCase(title, num, client, court, next, fee, desc) {
+      showToast(`Opening case file: ${num}`, 'info', 'fa-folder-open');
+    }
+
+    function editCase(btn, title, num, client, court, next, fee, desc) {
+      document.getElementById('caseModalTitle').innerText = 'Edit Case: ' + num;
+      document.getElementById('cmTitle').value = title;
+      document.getElementById('cmNumber').value = num;
+      document.getElementById('cmClient').value = client;
+      document.getElementById('cmCourt').value = court;
+      document.getElementById('cmDesc').value = desc;
+      openModal('caseModal');
+    }
+
+    function delCase(btn) {
+      if(confirm('Are you sure you want to delete this case?')) {
+        btn.closest('tr').remove();
+        showToast('Case deleted successfully', 'success', 'fa-trash-can');
+      }
+    }
+
+    function saveCase() {
+      closeModal('caseModal');
+      showToast('Case saved successfully!', 'success', 'fa-check');
+    }
+
+    // --- Timer ---
+    let timerInterval;
+    let seconds = 0;
+    let isTiming = false;
+
+    function updateTimerDisplay() {
+      const h = String(Math.floor(seconds / 3600)).padStart(2, '0');
+      const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+      const s = String(seconds % 60).padStart(2, '0');
+      document.getElementById('timerDisp').innerText = `${h}:${m}:${s}`;
+    }
+
+    function toggleTimer() {
+      const btn = document.getElementById('timerStartBtn');
+      if(isTiming) {
+        clearInterval(timerInterval);
+        btn.innerHTML = '▶ Start';
+        btn.style.background = 'rgba(255, 255, 255, .18)';
+        isTiming = false;
+        document.getElementById('timerCase').innerText = 'Session paused';
+      } else {
+        timerInterval = setInterval(() => { seconds++; updateTimerDisplay(); }, 1000);
+        btn.innerHTML = '⏸ Pause';
+        btn.style.background = 'rgba(245, 158, 11, .8)';
+        isTiming = true;
+        document.getElementById('timerCase').innerText = 'Tracking: TechCorp Merger';
+      }
+    }
+
+    function startTimer() {
+      if(!isTiming) toggleTimer();
+      showToast('Billable timer started', 'info', 'fa-stopwatch');
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      seconds = 0;
+      isTiming = false;
+      updateTimerDisplay();
+      const btn = document.getElementById('timerStartBtn');
+      btn.innerHTML = '▶ Start';
+      btn.style.background = 'rgba(255, 255, 255, .18)';
+      document.getElementById('timerCase').innerText = 'No active session';
+    }
+
+    // --- Utility ---
+    function showToast(msg, type = 'info', icon = 'fa-info-circle') {
+      const wrap = document.getElementById('toastWrap');
+      const t = document.createElement('div');
+      t.className = `toast t-${type}`;
+      t.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${msg}</span>`;
+      wrap.appendChild(t);
+      
+      // Trigger reflow for animation
+      setTimeout(() => t.classList.add('show'), 10);
+      
+      setTimeout(() => {
+        t.classList.remove('show');
+        setTimeout(() => t.remove(), 300);
+      }, 3000);
+    }
+
+    function globalSearch(val) {
+      if(val.length > 2) {
+        // Mock search logic
+        console.log("Searching for: " + val);
+      }
+    }
+
+    function filterCases(status) { showToast('Filtered cases by: ' + status, 'info', 'fa-filter'); }
+    function filterAllCases(status) { showToast('Filtered case register by: ' + status, 'info', 'fa-filter'); }
+    function exportCasesCSV() { showToast('Exporting Cases to CSV...', 'success', 'fa-download'); }
+    function exportClientsCSV() { showToast('Exporting Clients to CSV...', 'success', 'fa-download'); }
+    function exportInvoicesCSV() { showToast('Exporting Invoices to CSV...', 'success', 'fa-download'); }
+
+    // --- Mock Calendar Render ---
+    let curMonth = new Date().getMonth();
+    let curYear = new Date().getFullYear();
+
+    function renderCalendar() {
+      const titles = [document.getElementById('calTitle'), document.getElementById('calTitle3')];
+      const grids = [document.getElementById('calGrid'), document.getElementById('calGrid2')];
+      
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      
+      titles.forEach(t => { if(t) t.innerText = `${monthNames[curMonth]} ${curYear}`; });
+      
+      let html = '<div class="cal-dh">Su</div><div class="cal-dh">Mo</div><div class="cal-dh">Tu</div><div class="cal-dh">We</div><div class="cal-dh">Th</div><div class="cal-dh">Fr</div><div class="cal-dh">Sa</div>';
+      
+      const firstDay = new Date(curYear, curMonth, 1).getDay();
+      const daysInMonth = new Date(curYear, curMonth + 1, 0).getDate();
+      
+      for(let i = 0; i < firstDay; i++) {
+        html += `<div class="cal-d ghost"></div>`;
+      }
+      
+      const today = new Date();
+      for(let i = 1; i <= daysInMonth; i++) {
+        let cls = 'cal-d';
+        if(i === today.getDate() && curMonth === today.getMonth() && curYear === today.getFullYear()) cls += ' today';
+        if(i % 5 === 0) cls += ' has-ev'; // Mock events
+        html += `<div class="${cls}" onclick="showToast('Events for ${i} ${monthNames[curMonth]}', 'info', 'fa-calendar-day')">${i}</div>`;
+      }
+      
+      grids.forEach(g => { if(g) g.innerHTML = html; });
+    }
+
+    function prevMonth() {
+      curMonth--;
+      if(curMonth < 0) { curMonth = 11; curYear--; }
+      renderCalendar();
+    }
+
+    function nextMonth() {
+      curMonth++;
+      if(curMonth > 11) { curMonth = 0; curYear++; }
+      renderCalendar();
+    }
+  </script>
+</body>
+</html>
