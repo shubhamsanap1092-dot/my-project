@@ -1,0 +1,5629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanha FashionTrends | Festive's & Everyday Fashion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1B1B3A;
+  --maroon: #7A2048;
+  --marigold: #E9A23B;
+  --marigold-dark: #CF8A28;
+  --ivory: #FBF6EC;
+  --gold: #C9A227;
+  --charcoal: #2B2620;
+  --cream-card: #FFFDF8;
+  --success: #3E7B4F;
+  --shadow: 0 10px 30px rgba(27,27,58,0.12);
+  --radius: 4px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--ivory);
+  color: var(--charcoal);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Marcellus', serif;
+  font-weight: 400;
+  letter-spacing: .3px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--maroon);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--gold);
+  display: inline-block;
+}
+
+.section-head {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 44px;
+}
+
+.section-head h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--ink);
+}
+
+.section-head p {
+  color: #5c5548;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 30px;
+  border-radius: 2px;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: .3s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--maroon);
+  color: var(--ivory);
+}
+
+.btn-primary:hover {
+  background: var(--ink);
+}
+
+.btn-outline {
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--ink);
+  color: var(--ivory);
+}
+
+.btn-gold {
+  background: var(--marigold);
+  color: var(--ink);
+}
+
+.btn-gold:hover {
+  background: var(--marigold-dark);
+}
+
+.paisley-divider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background: var(--ivory);
+}
+
+.paisley-divider svg {
+  width: 100%;
+  height: 36px;
+  display: block;
+}
+
+.ticker-bar {
+  background: var(--ink);
+  color: var(--marigold);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 9px 0;
+  position: relative;
+  z-index: 60;
+}
+
+.ticker-track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker 22s linear infinite;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.ticker-track span {
+  margin-right: 60px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(251, 246, 236, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(27, 27, 58, 0.08);
+}
+
+.navwrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.logo .name {
+  font-family: 'Marcellus', serif;
+  font-size: 26px;
+  color: var(--ink);
+  letter-spacing: 1px;
+}
+
+.logo .tag {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--maroon);
+  margin-top: 3px;
+}
+
+nav.main-nav {
+  display: flex;
+  gap: 34px;
+}
+
+nav.main-nav a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--charcoal);
+  position: relative;
+  padding: 6px 0;
+}
+
+nav.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--maroon);
+  transition: .3s;
+}
+
+nav.main-nav a:hover::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.icon-btn {
+  position: relative;
+  font-size: 19px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: var(--maroon);
+  color: #fff;
+  font-size: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(27, 27, 58, 0.18);
+  border-radius: 20px;
+  padding: 6px 14px;
+  gap: 8px;
+}
+
+.search-box input {
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 13px;
+  width: 130px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hamburger {
+  display: none;
+  font-size: 22px;
+  color: var(--ink);
+}
+
+.hero {
+  position: relative;
+  height: 78vh;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.1s ease;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(27,27,58,0.72) 10%, rgba(27,27,58,0.25) 60%, rgba(27,27,58,0.05) 100%);
+}
+
+.slide-content {
+  position: relative;
+  z-index: 2;
+  color: var(--ivory);
+  max-width: 560px;
+  padding: 0 60px;
+}
+
+.slide-content .eyebrow {
+  color: var(--marigold);
+}
+
+.slide-content .eyebrow::before {
+  background: var(--marigold);
+}
+
+.slide-content h1 {
+  font-size: clamp(36px, 5.5vw, 64px);
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+
+.slide-content p {
+  font-size: 15px;
+  color: #e9e5d8;
+  margin-bottom: 28px;
+  max-width: 420px;
+}
+
+.hero-dots {
+  position: absolute;
+  bottom: 26px;
+  left: 60px;
+  z-index: 3;
+  display: flex;
+  gap: 10px;
+}
+
+.hero-dots button {
+  width: 26px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.4);
+  transition: .3s;
+}
+
+.hero-dots button.active {
+  background: var(--marigold);
+}
+
+.hero-arrows {
+  position: absolute;
+  bottom: 24px;
+  right: 60px;
+  z-index: 3;
+  display: flex;
+  gap: 10px;
+}
+
+.hero-arrows button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-arrows button:hover {
+  background: var(--marigold);
+  border-color: var(--marigold);
+  color: var(--ink);
+}
+
+.offer-strip {
+  background: var(--cream-card);
+  border-bottom: 1px solid rgba(27, 27, 58, 0.06);
+}
+
+.offer-strip .container {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 24px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.offer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.offer-item .ic {
+  font-size: 22px;
+  color: var(--maroon);
+}
+
+.offer-item .txt strong {
+  display: block;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.offer-item .txt span {
+  font-size: 11.5px;
+  color: #786f5e;
+}
+
+.categories {
+  padding: 90px 0 70px;
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 18px;
+}
+
+.cat-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.cat-card .cat-view {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  font-size: 10.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 14px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: .25s;
+  font-weight: 600;
+}
+
+.cat-card:hover .cat-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cat-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease;
+  filter: saturate(0.95) contrast(1.03);
+}
+
+.cat-card:hover img {
+  transform: scale(1.08);
+}
+
+.cat-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(27,27,58,0.82) 0%, rgba(27,27,58,0.05) 55%);
+}
+
+.cat-label {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+  font-family: 'Marcellus', serif;
+  font-size: 16px;
+  letter-spacing: .5px;
+}
+
+.sale-section {
+  background: var(--ink);
+  color: var(--ivory);
+  padding: 80px 0;
+  position: relative;
+}
+
+.sale-section .eyebrow {
+  color: var(--marigold);
+}
+
+.sale-section .eyebrow::before {
+  background: var(--marigold);
+}
+
+.sale-section .section-head h2 {
+  color: var(--ivory);
+}
+
+.sale-section .section-head p {
+  color: #c9c6da;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 0 auto 46px;
+  flex-wrap: wrap;
+}
+
+.countdown .box {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(233, 162, 59, 0.35);
+  width: 88px;
+  padding: 16px 0;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.countdown .box .num {
+  font-family: 'Marcellus', serif;
+  font-size: 32px;
+  color: var(--marigold);
+}
+
+.countdown .box .lbl {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c9c6da;
+  margin-top: 4px;
+}
+
+.coupon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.coupon-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(233, 162, 59, 0.5);
+  border-radius: 6px;
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.coupon-card .pct {
+  font-family: 'Marcellus', serif;
+  font-size: 30px;
+  color: var(--marigold);
+}
+
+.coupon-card .desc {
+  font-size: 13px;
+  color: #d6d3e3;
+}
+
+.coupon-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 9px 12px;
+  border-radius: 4px;
+}
+
+.coupon-row code {
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  font-size: 13px;
+}
+
+.coupon-row button {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--marigold);
+  font-weight: 600;
+}
+
+.products {
+  padding: 90px 0;
+}
+
+.filter-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 44px;
+  flex-wrap: wrap;
+}
+
+.filter-tabs button {
+  padding: 9px 22px;
+  border: 1px solid rgba(27, 27, 58, 0.2);
+  border-radius: 20px;
+  font-size: 12.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: .25s;
+}
+
+.filter-tabs button.active,
+.filter-tabs button:hover {
+  background: var(--maroon);
+  border-color: var(--maroon);
+  color: #fff;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+}
+
+.product-card {
+  background: var(--cream-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: .3s;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+}
+
+.p-img {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.p-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s;
+}
+
+.product-card:hover .p-img img {
+  transform: scale(1.06);
+}
+
+.p-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--maroon);
+  color: #fff;
+  font-size: 10.5px;
+  padding: 4px 10px;
+  border-radius: 2px;
+  letter-spacing: .5px;
+}
+
+.wish-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--charcoal);
+  transition: .2s;
+}
+
+.wish-btn.active {
+  color: var(--maroon);
+}
+
+.p-info {
+  padding: 16px 16px 18px;
+}
+
+.p-info .cat {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--maroon);
+}
+
+.p-info h4 {
+  font-size: 15.5px;
+  margin: 5px 0 8px;
+  color: var(--ink);
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.price-row .now {
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.price-row .old {
+  text-decoration: line-through;
+  color: #a09985;
+  font-size: 13px;
+}
+
+.price-row .off {
+  font-size: 11.5px;
+  color: var(--success);
+  font-weight: 600;
+}
+
+.add-cart-btn {
+  width: 100%;
+  padding: 10px 0;
+  background: var(--ink);
+  color: var(--ivory);
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 2px;
+  transition: .25s;
+}
+
+.add-cart-btn:hover {
+  background: var(--maroon);
+}
+
+.products-more {
+  text-align: center;
+  margin-top: 48px;
+}
+
+.testimonials {
+  background: var(--cream-card);
+  padding: 90px 0;
+}
+
+.t-track-wrap {
+  overflow: hidden;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.t-track {
+  display: flex;
+  transition: transform .5s ease;
+}
+
+.t-slide {
+  min-width: 100%;
+  text-align: center;
+  padding: 0 30px;
+}
+
+.t-slide .stars {
+  color: var(--marigold);
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.t-slide p {
+  font-size: 17px;
+  font-family: 'Marcellus', serif;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.t-slide .who {
+  font-size: 12.5px;
+  color: var(--maroon);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.t-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 30px;
+}
+
+.t-dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(27, 27, 58, 0.2);
+}
+
+.t-dots button.active {
+  background: var(--maroon);
+}
+
+.t-write-wrap {
+  text-align: center;
+  margin-top: 34px;
+}
+
+.rv-field {
+  margin-bottom: 18px;
+}
+
+.rv-field label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--maroon);
+  margin-bottom: 8px;
+}
+
+.rv-field input,
+.rv-field textarea {
+  width: 100%;
+  border: 1.5px solid rgba(27,27,58,0.15);
+  border-radius: 6px;
+  padding: 11px 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: var(--charcoal);
+  resize: vertical;
+}
+
+.rv-field input:focus,
+.rv-field textarea:focus {
+  outline: none;
+  border-color: var(--marigold);
+}
+
+.rv-star-picker {
+  display: flex;
+  gap: 6px;
+}
+
+.rv-star {
+  font-size: 30px;
+  line-height: 1;
+  color: rgba(27,27,58,0.18);
+  transition: .15s;
+}
+
+.rv-star.filled {
+  color: var(--marigold);
+}
+
+.rv-error {
+  color: #b34747;
+  font-size: 13px;
+  margin: -6px 0 14px;
+  min-height: 16px;
+}
+
+.rv-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.btn.full {
+  width: 100%;
+  justify-content: center;
+}
+
+.dash-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.dash-tabs button {
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  border: 1.5px solid rgba(27,27,58,0.15);
+  color: var(--ink);
+  background: transparent;
+}
+
+.dash-tabs button.active {
+  background: var(--ink);
+  color: var(--ivory);
+  border-color: var(--ink);
+}
+
+.owner-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.owner-product-card {
+  background: var(--cream-card);
+  border: 1px solid rgba(27,27,58,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.owner-product-card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.opc-body {
+  padding: 14px 16px 4px;
+  flex: 1;
+}
+
+.opc-cat {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--maroon);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.opc-name {
+  font-family: 'Marcellus', serif;
+  font-size: 15.5px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.opc-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.opc-price span {
+  font-weight: 400;
+  text-decoration: line-through;
+  color: #a39a86;
+  margin-left: 6px;
+  font-size: 12.5px;
+}
+
+.opc-tag {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  background: var(--marigold);
+  color: var(--ink);
+  padding: 3px 9px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.opc-actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+
+.opc-actions button {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
+
+.owner-offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.owner-offer-card {
+  background: var(--cream-card);
+  border: 1px solid rgba(27,27,58,0.08);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.owner-offer-card .rv-field {
+  margin-bottom: 12px;
+}
+
+.ofc-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.ofc-actions button {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
+
+.newsletter {
+  padding: 80px 0;
+  text-align: center;
+  background: var(--marigold);
+  color: var(--ink);
+}
+
+.newsletter h2 {
+  font-size: clamp(26px, 3.5vw, 36px);
+  margin-bottom: 10px;
+}
+
+.newsletter p {
+  font-size: 14px;
+  margin-bottom: 26px;
+  color: #4a3a12;
+}
+
+.news-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  max-width: 440px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.news-form input {
+  flex: 1;
+  min-width: 220px;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 2px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+}
+
+.news-form button {
+  padding: 13px 24px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 2px;
+  font-size: 12.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.news-form button:hover {
+  background: var(--maroon);
+}
+
+.news-msg {
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 18px;
+}
+
+.gallery {
+  padding: 90px 0;
+}
+
+.gal-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.gal-grid img {
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 3px;
+  filter: saturate(.95);
+  transition: .3s;
+}
+
+.gal-grid img:hover {
+  filter: saturate(1.15) brightness(1.03);
+  transform: scale(1.03);
+}
+
+footer {
+  background: var(--ink);
+  color: #cfcbe0;
+  padding: 70px 0 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-grid h4 {
+  color: #fff;
+  font-size: 15px;
+  margin-bottom: 18px;
+  letter-spacing: .5px;
+}
+
+.footer-grid p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #b1adc4;
+}
+
+.footer-grid ul li {
+  margin-bottom: 10px;
+}
+
+.footer-grid ul li a {
+  font-size: 13px;
+  color: #b1adc4;
+  transition: .2s;
+}
+
+.footer-grid ul li a:hover {
+  color: var(--marigold);
+}
+
+.foot-logo {
+  font-family: 'Marcellus', serif;
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.social-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.social-row a {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #fff;
+  transition: .25s;
+}
+
+.social-row a:hover {
+  background: var(--marigold);
+  border-color: var(--marigold);
+  color: var(--ink);
+}
+
+.bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+  font-size: 12px;
+  color: #8f8ba6;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pay-icons {
+  display: flex;
+  gap: 10px;
+  font-size: 20px;
+}
+
+.float-wa {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  width: 56px;
+  height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 26px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  z-index: 90;
+  transition: .25s;
+}
+
+.float-wa:hover {
+  transform: scale(1.08);
+}
+
+.back-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  background: var(--ink);
+  color: var(--marigold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+}
+
+.back-top.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(27, 27, 58, 0.5);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  max-width: 90vw;
+  height: 100%;
+  background: var(--ivory);
+  z-index: 151;
+  transition: .35s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+}
+
+.cart-drawer.open {
+  right: 0;
+}
+
+.cart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 24px;
+  border-bottom: 1px solid rgba(27, 27, 58, 0.1);
+}
+
+.cart-head h3 {
+  font-size: 19px;
+  color: var(--ink);
+}
+
+.cart-head button {
+  font-size: 20px;
+  color: var(--ink);
+}
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 24px;
+}
+
+.cart-empty {
+  text-align: center;
+  color: #918c7a;
+  margin-top: 60px;
+  font-size: 14px;
+}
+
+.cart-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(27, 27, 58, 0.07);
+}
+
+.cart-item img {
+  width: 64px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.ci-info {
+  flex: 1;
+}
+
+.ci-info h5 {
+  font-size: 13.5px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.ci-info .ci-price {
+  font-size: 12.5px;
+  color: var(--maroon);
+  font-weight: 600;
+}
+
+.qty-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.qty-row button {
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(27, 27, 58, 0.2);
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.qty-row .rm {
+  border: none;
+  color: #b34747;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-left: auto;
+}
+
+.cart-foot {
+  padding: 20px 24px;
+  border-top: 1px solid rgba(27, 27, 58, 0.1);
+}
+
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  margin-bottom: 14px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.cart-foot .btn-primary {
+  width: 100%;
+  justify-content: center;
+}
+
+.view-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 12px;
+  text-align: center;
+  background: linear-gradient(0deg, rgba(27, 27, 58, 0.85), rgba(27, 27, 58, 0));
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: .3s;
+}
+
+.product-card:hover .view-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.qv-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 18, 36, 0.72);
+  z-index: 220;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(3px);
+}
+
+.qv-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.qv-modal {
+  background: var(--ivory);
+  max-width: 920px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  transform: scale(.94) translateY(14px);
+  opacity: 0;
+  transition: .35s cubic-bezier(.2, .8, .3, 1);
+}
+
+.qv-overlay.show .qv-modal {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.qv-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qv-media {
+  position: relative;
+  background: #12112a;
+  min-height: 340px;
+}
+
+.qv-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .45s ease;
+}
+
+.qv-media img.active {
+  opacity: 1;
+}
+
+.qv-toggle {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 20px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.qv-toggle button {
+  padding: 8px 18px;
+  font-size: 11.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #e9e5f2;
+  border-radius: 16px;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.qv-toggle button.active {
+  background: var(--marigold);
+  color: var(--ink);
+}
+
+.qv-tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--maroon);
+  color: #fff;
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 2px;
+  z-index: 4;
+  letter-spacing: .5px;
+}
+
+.qv-info {
+  padding: 38px 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+.qv-info .cat {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--maroon);
+  font-weight: 600;
+}
+
+.qv-info h3 {
+  font-size: 26px;
+  color: var(--ink);
+  margin: 10px 0 12px;
+}
+
+.qv-info .price-row {
+  margin-bottom: 6px;
+}
+
+.qv-note {
+  font-size: 12.5px;
+  color: #8a836f;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qv-desc {
+  font-size: 13.5px;
+  color: #5c5548;
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+
+.qv-block-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.size-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.size-chip {
+  width: 42px;
+  height: 42px;
+  border: 1.5px solid rgba(27, 27, 58, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: .2s;
+}
+
+.size-chip.active,
+.size-chip:hover {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.qv-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.qv-qty-row .qty-row {
+  background: rgba(27, 27, 58, 0.05);
+  padding: 6px 10px;
+  border-radius: 20px;
+}
+
+.qv-qty-row .qty-row button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(27, 27, 58, 0.2);
+}
+
+.qv-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.qv-actions .btn-primary {
+  flex: 1;
+  justify-content: center;
+}
+
+.qv-wish {
+  width: 52px;
+  height: 52px;
+  border: 1.5px solid rgba(27, 27, 58, 0.2);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  color: var(--ink);
+}
+
+.qv-wish.active {
+  color: var(--maroon);
+  border-color: var(--maroon);
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 4px;
+  font-size: 13px;
+  z-index: 9999;
+  transform: translateX(140%);
+  transition: .35s ease;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toast.show {
+  transform: translateX(0);
+}
+
+.toast .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--marigold);
+}
+
+@media (max-width: 1000px) {
+  .cat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .coupon-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .gal-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  nav.main-nav {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: var(--ivory);
+    flex-direction: column;
+    padding: 20px 24px;
+    gap: 0;
+    transform: translateY(-130%);
+    transition: .3s;
+    border-bottom: 1px solid rgba(27, 27, 58, 0.1);
+  }
+  nav.main-nav.open {
+    transform: translateY(0);
+  }
+  nav.main-nav a {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(27, 27, 58, 0.06);
+  }
+  .hamburger {
+    display: block;
+  }
+  .search-box {
+    display: none;
+  }
+  .slide-content {
+    padding: 0 26px;
+  }
+  .offer-strip .container {
+    flex-direction: column;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+#authScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  background: linear-gradient(160deg, var(--ink) 0%, #2b1c3a 45%, var(--maroon) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+#authScreen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 20%, rgba(233,162,59,0.12), transparent 40%), radial-gradient(circle at 80% 80%, rgba(201,162,39,0.12), transparent 40%);
+  pointer-events: none;
+}
+
+.auth-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--cream-card);
+  border-radius: 10px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+  padding: 40px 36px;
+  animation: authIn .5s ease both;
+}
+
+@keyframes authIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-brand {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-brand .name {
+  font-family: 'Marcellus', serif;
+  font-size: 26px;
+  color: var(--maroon);
+  letter-spacing: .5px;
+}
+
+.auth-brand .tag {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-top: 4px;
+}
+
+.auth-step h2 {
+  font-size: 22px;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+
+.auth-step .sub {
+  font-size: 13.5px;
+  color: #786f60;
+  margin-bottom: 24px;
+}
+
+.auth-choice-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.auth-choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1.5px solid rgba(27,27,58,0.15);
+  border-radius: 8px;
+  padding: 16px 18px;
+  text-align: left;
+  background: #fff;
+  transition: .25s;
+  width: 100%;
+}
+
+.auth-choice-btn:hover {
+  border-color: var(--marigold);
+  box-shadow: 0 8px 20px rgba(233,162,59,0.18);
+  transform: translateY(-2px);
+}
+
+.auth-choice-btn .ic {
+  font-size: 22px;
+}
+
+.auth-choice-btn strong {
+  display: block;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.auth-choice-btn span.d {
+  font-size: 12.5px;
+  color: #847a6b;
+}
+
+.auth-field {
+  margin-bottom: 16px;
+}
+
+.auth-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #786f60;
+  margin-bottom: 6px;
+}
+
+.auth-field input,
+.auth-field select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid rgba(27,27,58,0.18);
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.auth-field input:focus,
+.auth-field select:focus {
+  outline: none;
+  border-color: var(--marigold);
+}
+
+.auth-row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 13px;
+  border-radius: 5px;
+  background: var(--maroon);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: .4px;
+  font-size: 14px;
+  margin-top: 6px;
+  transition: .2s;
+}
+
+.auth-submit:hover {
+  background: #5e173a;
+}
+
+.auth-submit.gold {
+  background: var(--marigold-dark);
+}
+
+.auth-submit.gold:hover {
+  background: var(--marigold);
+}
+
+.auth-link-row {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 16px;
+  color: #786f60;
+}
+
+.auth-link-row a {
+  color: var(--maroon);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: #847a6b;
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+
+.auth-back:hover {
+  color: var(--maroon);
+}
+
+.auth-error {
+  background: #fbe3e3;
+  color: #9c2b2b;
+  padding: 9px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  margin-bottom: 14px;
+  display: none;
+}
+
+.auth-error.show {
+  display: block;
+}
+
+.auth-guest-note {
+  font-size: 12px;
+  color: #9a917f;
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+.account-wrap {
+  position: relative;
+}
+
+.account-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 240px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 10px;
+  display: none;
+  z-index: 200;
+  border: 1px solid rgba(27,27,58,0.08);
+}
+
+.account-menu.open {
+  display: block;
+  animation: authIn .2s ease both;
+}
+
+.account-menu .who {
+  padding: 10px 12px 12px;
+  border-bottom: 1px solid rgba(27,27,58,0.08);
+  margin-bottom: 6px;
+}
+
+.account-menu .who strong {
+  display: block;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.account-menu .who span {
+  font-size: 11.5px;
+  color: #928a7a;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.account-menu button,
+.account-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 13.5px;
+  border-radius: 5px;
+  color: var(--ink);
+}
+
+.account-menu button:hover,
+.account-menu a:hover {
+  background: var(--ivory);
+}
+
+.account-menu .logout {
+  color: #9c2b2b;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(27,27,58,0.55);
+  z-index: 4000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal-box {
+  background: #fff;
+  width: 100%;
+  max-width: 560px;
+  border-radius: 10px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 26px;
+  border-bottom: 1px solid rgba(27,27,58,0.08);
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 2;
+}
+
+.modal-head h3 {
+  font-size: 19px;
+  color: var(--ink);
+}
+
+.modal-head button {
+  font-size: 18px;
+  color: #928a7a;
+}
+
+.modal-body {
+  padding: 24px 26px;
+}
+
+.share-box {
+  max-width: 380px;
+}
+
+.share-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px 8px;
+  margin-bottom: 22px;
+}
+
+.share-opt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--ink);
+  text-align: center;
+}
+
+.share-ic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.share-link-row {
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid rgba(27,27,58,0.08);
+  padding-top: 18px;
+}
+
+.share-link-row input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid rgba(27,27,58,0.18);
+  border-radius: 4px;
+  font-size: 12.5px;
+  color: #5c5548;
+  background: var(--ivory);
+}
+
+.share-link-row button {
+  padding: 0 18px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+
+.info-page p {
+  font-size: 14px;
+  color: #5c5548;
+  margin-bottom: 12px;
+}
+
+.info-page h4 {
+  font-size: 15px;
+  color: var(--ink);
+  margin: 18px 0 8px;
+}
+
+.info-page ul {
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+.info-page ul li {
+  font-size: 14px;
+  color: #5c5548;
+  padding: 4px 0 4px 18px;
+  position: relative;
+}
+
+.info-page ul li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--marigold-dark);
+}
+
+.size-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.size-table th,
+.size-table td {
+  border: 1px solid rgba(27,27,58,0.1);
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.size-table th {
+  background: var(--ivory);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(27,27,58,0.08);
+  padding: 12px 0;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-family: 'Marcellus', serif;
+  font-size: 15px;
+  color: var(--ink);
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::before {
+  content: "+";
+  display: inline-block;
+  width: 18px;
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+.faq-item[open] summary::before {
+  content: "−";
+}
+
+.faq-item p {
+  font-size: 13.5px;
+  color: #5c5548;
+  margin: 10px 0 0 18px;
+}
+
+.order-summary-mini {
+  background: var(--ivory);
+  border-radius: 7px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+
+.osm-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  padding: 4px 0;
+  color: #5a5346;
+}
+
+.osm-row.total {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 15px;
+  border-top: 1px dashed rgba(27,27,58,0.15);
+  margin-top: 6px;
+  padding-top: 9px;
+}
+
+.pay-options {
+  display: grid;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.pay-opt {
+  border: 1.5px solid rgba(27,27,58,0.15);
+  border-radius: 7px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 13.5px;
+}
+
+.pay-opt.active {
+  border-color: var(--marigold);
+  background: #FFF8EA;
+}
+
+.pay-opt input {
+  accent-color: var(--maroon);
+}
+
+.dash-shell {
+  display: none;
+  min-height: 100vh;
+  background: var(--ivory);
+}
+
+.dash-shell.open {
+  display: block;
+}
+
+.dash-topbar {
+  background: var(--ink);
+  color: #fff;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dash-topbar .brand {
+  font-family: 'Marcellus', serif;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dash-topbar .brand span.pill {
+  background: var(--marigold);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dash-topbar .right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13.5px;
+}
+
+.dash-topbar button {
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 12.5px;
+}
+
+.dash-topbar button:hover {
+  border-color: #fff;
+}
+
+.dash-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 34px 24px 70px;
+}
+
+.dash-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.dash-head-row h1 {
+  font-size: 26px;
+  color: var(--ink);
+}
+
+.dash-head-row p {
+  font-size: 13.5px;
+  color: #847a6b;
+  margin-top: 4px;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+}
+
+.stat-card .n {
+  font-family: 'Marcellus', serif;
+  font-size: 26px;
+  color: var(--maroon);
+}
+
+.stat-card .l {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #928a7a;
+  margin-top: 4px;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 9px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.oc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(27,27,58,0.07);
+}
+
+.oc-id {
+  font-family: 'Marcellus', serif;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.oc-date {
+  font-size: 12px;
+  color: #928a7a;
+  margin-top: 3px;
+}
+
+.oc-cust {
+  font-size: 12px;
+  color: #5a5346;
+  margin-top: 3px;
+}
+
+.oc-status {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  padding: 5px 13px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.oc-status.st-placed {
+  background: #FFF1D6;
+  color: #9a6a10;
+}
+
+.oc-status.st-confirmed {
+  background: #E4EEFF;
+  color: #2451a8;
+}
+
+.oc-status.st-shipped {
+  background: #EAE1FF;
+  color: #5b31c9;
+}
+
+.oc-status.st-out {
+  background: #FFE6D1;
+  color: #b0530c;
+}
+
+.oc-status.st-delivered {
+  background: #DFF3E2;
+  color: #2c7a3d;
+}
+
+.oc-status.st-cancelled {
+  background: #FBE3E3;
+  color: #9c2b2b;
+}
+
+.oc-body {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 22px;
+}
+
+@media (max-width:720px) {
+  .oc-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.oc-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.oc-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.oc-item img {
+  width: 46px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.oc-item .nm {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.oc-item .mt {
+  color: #928a7a;
+  font-size: 12px;
+}
+
+.oc-side {
+  font-size: 13px;
+  color: #5a5346;
+}
+
+.oc-side .lbl {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: #928a7a;
+  margin-bottom: 3px;
+  margin-top: 12px;
+}
+
+.oc-side .lbl:first-child {
+  margin-top: 0;
+}
+
+.oc-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 6px;
+}
+
+.tk-step {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.tk-step:last-child {
+  padding-bottom: 0;
+}
+
+.tk-step .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d8d2c4;
+  margin-top: 3px;
+  flex: none;
+  position: relative;
+  z-index: 1;
+}
+
+.tk-step.done .dot {
+  background: var(--success);
+}
+
+.tk-step::before {
+  content: "";
+  position: absolute;
+  left: 4.5px;
+  top: 12px;
+  bottom: 0;
+  width: 1px;
+  background: #e3ddd0;
+}
+
+.tk-step:last-child::before {
+  display: none;
+}
+
+.tk-step .txt strong {
+  display: block;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+.tk-step .txt span {
+  font-size: 11px;
+  color: #928a7a;
+}
+
+.oc-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.oc-actions button {
+  font-size: 12.5px;
+  padding: 9px 16px;
+  border-radius: 5px;
+}
+
+.btn-mini-primary {
+  background: var(--maroon);
+  color: #fff;
+}
+
+.btn-mini-primary:hover {
+  background: #5e173a;
+}
+
+.btn-mini-outline {
+  border: 1.5px solid rgba(27,27,58,0.2);
+  color: var(--ink);
+}
+
+.btn-mini-outline:hover {
+  border-color: var(--maroon);
+  color: var(--maroon);
+}
+
+.owner-update-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.owner-update-row select,
+.owner-update-row input {
+  padding: 8px 10px;
+  border: 1.5px solid rgba(27,27,58,0.18);
+  border-radius: 5px;
+  font-size: 12.5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.owner-update-row .full {
+  grid-column: 1 / -1;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 70px 20px;
+  color: #928a7a;
+}
+
+.empty-state .ic {
+  font-size: 44px;
+  margin-bottom: 12px;
+}
+
+.dash-search {
+  padding: 10px 14px;
+  border: 1.5px solid rgba(27,27,58,0.18);
+  border-radius: 6px;
+  font-size: 13px;
+  width: 260px;
+  max-width: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
+#invoiceOverlay .modal-box {
+  max-width: 720px;
+}
+
+.invoice-paper {
+  padding: 34px;
+  background: #fff;
+}
+
+.inv-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2.5px solid var(--ink);
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+}
+
+.inv-brand .name {
+  font-family: 'Marcellus', serif;
+  font-size: 22px;
+  color: var(--maroon);
+}
+
+.inv-brand .meta {
+  font-size: 11.5px;
+  color: #847a6b;
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+.inv-title {
+  text-align: right;
+}
+
+.inv-title h2 {
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+
+.inv-title .num {
+  font-size: 12.5px;
+  color: #847a6b;
+  margin-top: 4px;
+}
+
+.inv-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.inv-meta-grid .b-lbl {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #928a7a;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.inv-meta-grid .b-txt {
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+table.inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 22px;
+}
+
+table.inv-table th {
+  background: var(--ink);
+  color: #fff;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+table.inv-table th.r,
+table.inv-table td.r {
+  text-align: right;
+}
+
+table.inv-table td {
+  padding: 10px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(27,27,58,0.08);
+  color: #3a3527;
+}
+
+.inv-totals {
+  margin-left: auto;
+  width: 260px;
+}
+
+.inv-totals .row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 6px 0;
+  color: #5a5346;
+}
+
+.inv-totals .row.grand {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink);
+  border-top: 2px solid var(--ink);
+  margin-top: 6px;
+  padding-top: 10px;
+}
+
+.inv-foot {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(27,27,58,0.2);
+  font-size: 11.5px;
+  color: #928a7a;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.inv-actions {
+  display: flex;
+  gap: 10px;
+  padding: 0 26px 24px;
+}
+
+.inv-paid-badge {
+  display: inline-block;
+  background: #DFF3E2;
+  color: #2c7a3d;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-top: 8px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #invoiceOverlay,
+  #invoiceOverlay * {
+    visibility: visible;
+  }
+  #invoiceOverlay {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    z-index: 99999;
+    padding: 0;
+    margin: 0;
+    display: block !important;
+  }
+  #invoiceOverlay .modal-box {
+    box-shadow: none;
+    max-width: 100%;
+    max-height: none;
+  }
+  .inv-actions,
+  .modal-head {
+    display: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"><span class="dot"></span><span id="toastMsg">Added to cart</span></div>
+
+<div id="storeApp">
+  <div class="ticker-bar">
+    <div class="ticker-track">
+      <span>✦ FESTIVE SALE — FLAT 40% OFF ON ETHNIC WEAR</span>
+      <span>✦ FREE SHIPPING ON ORDERS ABOVE ₹1499</span>
+      <span>✦ NEW ARRIVALS EVERY FRIDAY</span>
+      <span>✦ USE CODE KANHA10 FOR EXTRA 10% OFF</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="navwrap">
+      <button class="hamburger" id="hamburger">☰</button>
+      <a href="#" class="logo">
+        <span class="name">Kanha Fashion Trends</span>
+        <span class="tag">DESIGNED BY SHUBHAM SANAP</span>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="#categories">Shop</a>
+        <a href="#sale">Offers</a>
+        <a href="#products">New Arrivals</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#footer">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="search-box">
+          <span>⌕</span>
+          <input type="text" placeholder="Search kurtis, sarees...">
+        </div>
+        
+        <div class="account-wrap" id="accountIcon">
+          <button class="icon-btn" title="Account">👤</button>
+          <div class="account-menu" id="accountMenu">
+            <div class="who">
+              <strong id="acctWho">User</strong>
+              <span id="acctWhoTag">Email</span>
+            </div>
+            <button id="menuMyOrders">🛍️ My Orders</button>
+            <button id="menuLogout" class="logout">🚪 Logout</button>
+          </div>
+        </div>
+
+        <button class="icon-btn" id="wishIcon">♡<span class="badge" id="wishCount">0</span></button>
+        <button class="icon-btn" id="cartIcon">🛍<span class="badge" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=1600&auto=format&fit=crop')">
+    <div class="slide-content">
+      <div class="eyebrow">Summer Breeze</div>
+      <h1>Linen & Lightweight</h1>
+      <p>Beat the heat in our breathable, sun-ready styles featuring vibrant prints and pastel hues.</p>
+      <a href="#summer" class="btn btn-gold">Shop Summer</a>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1600&auto=format&fit=crop')">
+    <div class="slide-content">
+      <div class="eyebrow">Autumn / Winter</div>
+      <h1>Layer Up In Style</h1>
+      <p>Discover cozy knitwear, tailored trench coats, and premium leather jackets for the colder days.</p>
+      <a href="#outerwear" class="btn btn-gold">Explore Outerwear</a>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1518310383802-640c2de311b2?q=80&w=1600&auto=format&fit=crop')">
+    <div class="slide-content">
+      <div class="eyebrow">Performance Gear</div>
+      <h1>Move Without Limits</h1>
+      <p>High-performance activewear and athleisure designed to take you from the gym to the streets.</p>
+      <a href="#activewear" class="btn btn-gold">Shop Activewear</a>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1600&auto=format&fit=crop')">
+    <div class="slide-content">
+      <div class="eyebrow">The Office Edit</div>
+      <h1>Power Dressing, Redefined</h1>
+      <p>Sharp suits, elegant blouses, and tailored trousers to help you command the boardroom.</p>
+      <a href="#workwear" class="btn btn-gold">Shop Formal</a>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1604176354204-9268737828e4?q=80&w=1600&auto=format&fit=crop')">
+    <div class="slide-content">
+      <div class="eyebrow">Conscious Choice</div>
+      <h1>Fashion That Cares</h1>
+      <p>100% organic cotton and recycled materials. Look good while being kind to the planet.</p>
+      <a href="#sustainable" class="btn btn-gold">Discover Eco-Wear</a>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1615233500808-8f6834d8cc38?q=80&w=1600&auto=format&fit=crop')">
+    <div class="slide-content">
+      <div class="eyebrow">Weekend Comfort</div>
+      <h1>Lounge Like A Pro</h1>
+      <p>Ultra-soft pajamas, oversized tees, and cozy matching sets for your days off.</p>
+      <a href="#lounge" class="btn btn-gold">Shop Loungewear</a>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1600&auto=format&fit=crop')">
+    <div class="slide-content">
+      <div class="eyebrow">Complete The Look</div>
+      <h1>Details That Matter</h1>
+      <p>Elevate your outfit with our curated collection of statement bags, belts, and luxury footwear.</p>
+      <a href="#accessories" class="btn btn-gold">Shop Accessories</a>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=1600&auto=format&fit=crop')">
+    <div class="slide-content">
+      <div class="eyebrow">Little Trendsetters</div>
+      <h1>Playful & Practical</h1>
+      <p>Durable, comfortable, and adorable outfits designed to keep up with their daily adventures.</p>
+      <a href="#kids" class="btn btn-gold">Shop Kids</a>
+    </div>
+  </div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1596450514735-111a2fe02935?q=80&w=1600&auto=format&fit=crop')">
+    <div class="slide-content">
+      <div class="eyebrow">The Wedding Boutique</div>
+      <h1>Unforgettable Elegance</h1>
+      <p>Exquisite lehengas, bespoke gowns, and luxury ethnic wear for your grandest moments.</p>
+      <a href="#wedding" class="btn btn-gold">Explore Bridal</a>
+    </div>
+  </div>
+    <div class="hero-dots" id="heroDots"></div>
+  <div class="hero-arrows">
+    <button id="heroPrev">←</button>
+    <button id="heroNext">→</button>
+  </div>
+  </section>
+
+  <div class="offer-strip">
+    <div class="container">
+      <div class="offer-item"><span class="ic">🚚</span><div class="txt"><strong>Free Shipping</strong><span>On orders above ₹1499</span></div></div>
+      <div class="offer-item"><span class="ic">↺</span><div class="txt"><strong>Easy 7-Day Returns</strong><span>No questions asked</span></div></div>
+      <div class="offer-item"><span class="ic">✓</span><div class="txt"><strong>100% Authentic</strong><span>Quality checked fabrics</span></div></div>
+      <div class="offer-item"><span class="ic">🔒</span><div class="txt"><strong>Secure Payments</strong><span>UPI, Cards & COD</span></div></div>
+    </div>
+  </div>
+
+  <div class="paisley-divider"><svg viewBox="0 0 1200 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 18 Q 25 2, 50 18 T 100 18 T 150 18 T 200 18 T 250 18 T 300 18 T 350 18 T 400 18 T 450 18 T 500 18 T 550 18 T 600 18 T 650 18 T 700 18 T 750 18 T 800 18 T 850 18 T 900 18 T 950 18 T 1000 18 T 1050 18 T 1100 18 T 1150 18 T 1200 18" fill="none" stroke="#C9A227" stroke-width="1.5" opacity="0.55"/></svg></div>
+
+  <section class="categories" id="categories">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow" style="justify-content:center;">Shop By Category</div>
+        <h2>Find Your Fit</h2>
+        <p>From festive drapes to everyday basics — six worlds, one wardrobe.</p>
+      </div>
+      <div class="cat-grid" id="catGrid">
+        <div class="cat-card" data-filter="women"><img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=500&auto=format&fit=crop" alt="Women Ethnic"><span class="cat-view">Shop Women</span><div class="cat-label">Women Ethnic</div></div>
+        <div class="cat-card" data-filter="women"><img src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?q=80&w=500&auto=format&fit=crop" alt="Women Western"><span class="cat-view">Shop Women</span><div class="cat-label">Women Western</div></div>
+        <div class="cat-card" data-filter="men"><img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=500&auto=format&fit=crop" alt="Men Kurta"><span class="cat-view">Shop Men</span><div class="cat-label">Men Ethnic</div></div>
+        <div class="cat-card" data-filter="men"><img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=500&auto=format&fit=crop" alt="Men Casual"><span class="cat-view">Shop Men</span><div class="cat-label">Men Casual</div></div>
+        <div class="cat-card" data-filter="kids"><img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Lehenga%20Choli.jpg" alt="Kids"><span class="cat-view">Shop Kids</span><div class="cat-label">Kids Wear</div></div>
+        <div class="cat-card" data-filter="accessories"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=500&auto=format&fit=crop" alt="Accessories"><span class="cat-view">Shop Now</span><div class="cat-label">Accessories</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sale-section" id="sale">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow" style="justify-content:center;">Limited Time</div>
+        <h2>The Festive Sale Ends Soon</h2>
+        <p>Stack these codes at checkout — our biggest offers of the season.</p>
+      </div>
+      <div class="countdown" id="countdown">
+        <div class="box"><div class="num" id="cd-days">00</div><div class="lbl">Days</div></div>
+        <div class="box"><div class="num" id="cd-hours">00</div><div class="lbl">Hours</div></div>
+        <div class="box"><div class="num" id="cd-mins">00</div><div class="lbl">Mins</div></div>
+        <div class="box"><div class="num" id="cd-secs">00</div><div class="lbl">Secs</div></div>
+      </div>
+      <div class="coupon-grid" id="couponGrid"></div>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow" style="justify-content:center;">New Arrivals</div>
+        <h2>Handpicked For You</h2>
+        <p>Fresh drops across ethnic and western lines, updated every week.</p>
+      </div>
+      <div class="filter-tabs" id="filterTabs">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="women">Women</button>
+        <button data-filter="men">Men</button>
+        <button data-filter="kids">Kids</button>
+        <button data-filter="accessories">Accessories</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+      <div class="products-more"><button class="btn btn-outline">Load More Styles</button></div>
+    </div>
+  </section>
+
+  <div class="paisley-divider"><svg viewBox="0 0 1200 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 18 Q 25 34, 50 18 T 100 18 T 150 18 T 200 18 T 250 18 T 300 18 T 350 18 T 400 18 T 450 18 T 500 18 T 550 18 T 600 18 T 650 18 T 700 18 T 750 18 T 800 18 T 850 18 T 900 18 T 950 18 T 1000 18 T 1050 18 T 1100 18 T 1150 18 T 1200 18" fill="none" stroke="#7A2048" stroke-width="1.5" opacity="0.4"/></svg></div>
+
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow" style="justify-content:center;">Customer Love</div>
+        <h2>What Our Customers Say</h2>
+      </div>
+      <div class="t-track-wrap">
+        <div class="t-track" id="tTrack"></div>
+      </div>
+      <div class="t-dots" id="tDots"></div>
+      <div class="t-write-wrap">
+        <button class="btn btn-outline" id="writeReviewBtn">✍️ Write a Review</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="reviewOverlay">
+    <div class="modal-box">
+      <div class="modal-head"><h3>Share Your Experience</h3><button id="closeReview">✕</button></div>
+      <div class="modal-body">
+        <form id="reviewForm">
+          <div class="rv-field">
+            <label>Your Rating</label>
+            <div class="rv-star-picker" id="rvStarPicker">
+              <button type="button" class="rv-star" data-val="1">★</button>
+              <button type="button" class="rv-star" data-val="2">★</button>
+              <button type="button" class="rv-star" data-val="3">★</button>
+              <button type="button" class="rv-star" data-val="4">★</button>
+              <button type="button" class="rv-star" data-val="5">★</button>
+            </div>
+          </div>
+          <div class="rv-field">
+            <label for="rvName">Your Name</label>
+            <input type="text" id="rvName" placeholder="e.g. Priya Sharma" required>
+          </div>
+          <div class="rv-field">
+            <label for="rvCity">Your City</label>
+            <input type="text" id="rvCity" placeholder="e.g. Pune" required>
+          </div>
+          <div class="rv-field">
+            <label for="rvText">Your Review</label>
+            <textarea id="rvText" rows="4" placeholder="Tell other shoppers what you loved..." required></textarea>
+          </div>
+          <div class="rv-error" id="rvError"></div>
+          <button type="submit" class="btn btn-primary full">Submit Review</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <section class="newsletter">
+    <div class="container">
+      <h2>Join The kanha Family</h2>
+      <p>Subscribe for early access to sales, new drops and style edits.</p>
+      <form class="news-form" id="newsForm">
+        <input type="email" placeholder="Enter your email" required id="newsEmail">
+        <button type="submit">Subscribe</button>
+      </form>
+      <div class="news-msg" id="newsMsg"></div>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow" style="justify-content:center;">@kanhafashiontrends</div>
+        <h2>Styled By You</h2>
+      </div>
+      <div class="gal-grid">
+        <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Embroidered%20Anarkali%20Suit.webp">
+        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=300&auto=format&fit=crop">
+        <img src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?q=80&w=300&auto=format&fit=crop">
+        <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=300&auto=format&fit=crop">
+        <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Lehenga%20Choli.jpg">
+        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=300&auto=format&fit=crop">
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <span class="foot-logo">Kanha Fasion Trends</span>
+          <p>Rooted in craft, styled for today. Kanha Fashion Trends brings you ethnic and western fashion made to be worn and remembered.</p>
+          <div class="social-row">
+            <a href="https://facebook.com/kanhafashiontrends" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><a href="https://linkedin.com/company/kanhafashiontrends" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a><a href="https://instagram.com/kanhafashiontrends" target="_blank" rel="noopener noreferrer" aria-label="Instagram">ig</a><a href="https://youtube.com/@kanhafashiontrends" target="_blank" rel="noopener noreferrer" aria-label="YouTube">yt</a>
+          </div>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#categories">Women Ethnic</a></li>
+            <li><a href="#categories">Men Ethnic</a></li>
+            <li><a href="#categories">Western Wear</a></li>
+            <li><a href="#categories">Kids Wear</a></li>
+            <li><a href="#categories">Accessories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Help</h4>
+          <ul>
+            <li><a href="javascript:void(0)" onclick="openTrackOrder()">Track Order</a></li>
+            <li><a href="javascript:void(0)" onclick="openInfoPage('shipping')">Shipping Policy</a></li>
+            <li><a href="javascript:void(0)" onclick="openInfoPage('returns')">Returns & Exchange</a></li>
+            <li><a href="javascript:void(0)" onclick="openInfoPage('sizeGuide')">Size Guide</a></li>
+            <li><a href="javascript:void(0)" onclick="openInfoPage('faqs')">FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Get In Touch</h4>
+          <p>Shop No. 14, Fashion Street Market<br>Mumbai, Maharashtra, India</p>
+          <p style="margin-top:10px;">+91 9022365118<br>support@kanhafashiontrends.com</p>
+        </div>
+      </div>
+      <div class="bottom-bar">
+        <span>© 2026 Kanha Fashion Trends. All rights reserved.</span>
+        <div class="pay-icons"><span>💳</span><span>📱</span><span>🏦</span><span>💵</span></div>
+      </div>
+    </div>
+  </footer>
+</div> 
+
+<a class="float-wa" href="https://wa.me/919022365118" target="_blank" title="Chat on WhatsApp">☎</a>
+<button class="back-top" id="backTop" title="Back to top">↑</button>
+
+
+<div id="authScreen" style="display: none;">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="name">Kanha Fashion Trends</div>
+      <span class="tag">DESIGNED BY SHUBHAM SANAP</span>
+    </div>
+    
+    <div id="stepCustomerChoice" class="auth-step">
+      <h2>Welcome</h2>
+      <div class="sub">Log in or continue as a guest to shop.</div>
+      <div class="auth-choice-grid">
+        <button class="auth-choice-btn" id="btnGoCustomerLogin">
+          <span class="ic">👤</span>
+          <div><strong>Customer Login</strong><span class="d">Access your orders & saved items</span></div>
+        </button>
+        <button class="auth-choice-btn" id="btnGoSignup">
+          <span class="ic">✨</span>
+          <div><strong>Create Account</strong><span class="d">Join the Kanha Fashion Trends Family</span></div>
+        </button>
+        <button class="auth-choice-btn" id="btnGoGuest">
+          <span class="ic">🛍️</span>
+          <div><strong>Continue as Guest</strong><span class="d">Quick checkout</span></div>
+        </button>
+        <button class="auth-choice-btn" id="btnGoOwner" style="margin-top: 15px; border-color: var(--maroon);">
+          <span class="ic">🔑</span>
+          <div><strong>Store Owner Login</strong><span class="d">Manage orders & inventory</span></div>
+        </button>
+      </div>
+    </div>
+
+    <div id="stepOwner" class="auth-step" style="display: none;">
+      <span class="auth-back" data-back="stepCustomerChoice">← Back</span>
+      <h2>Owner Portal</h2>
+      <div class="sub">Secure login for store management.</div>
+      <div id="ownerError" class="auth-error">Invalid owner credentials.</div>
+      <form id="ownerLoginForm">
+        <div class="auth-field"><label>Email</label><input type="email" id="ownerEmail" required value="kanhafashiontrends@gmail.com"></div>
+        <div class="auth-field"><label>Password</label><input type="password" id="ownerPassword" required></div>
+        <button type="submit" class="auth-submit gold">Login to Dashboard</button>
+      </form>
+    </div>
+
+    <div id="stepCustomerLogin" class="auth-step" style="display: none;">
+      <span class="auth-back" data-back="stepCustomerChoice">← Back</span>
+      <h2>Customer Login</h2>
+      <div id="custLoginError" class="auth-error">Invalid email or password.</div>
+      <form id="customerLoginForm">
+        <div class="auth-field"><label>Email</label><input type="email" id="clEmail" required></div>
+        <div class="auth-field"><label>Password</label><input type="password" id="clPassword" required></div>
+        <button type="submit" class="auth-submit">Login</button>
+      </form>
+    </div>
+
+    <div id="stepSignup" class="auth-step" style="display: none;">
+      <span class="auth-back" data-back="stepCustomerChoice">← Back</span>
+      <h2>Create Account</h2>
+      <div id="signupError" class="auth-error"></div>
+      <form id="signupForm">
+        <div class="auth-field"><label>Full Name</label><input type="text" id="suName" required></div>
+        <div class="auth-field"><label>Email</label><input type="email" id="suEmail" required></div>
+        <div class="auth-field"><label>Phone Number</label><input type="tel" id="suPhone" required pattern="[0-9]{10}"></div>
+        <div class="auth-field"><label>Password</label><input type="password" id="suPassword" required></div>
+        <button type="submit" class="auth-submit">Sign Up</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" id="checkoutOverlay">
+  <div class="modal-box">
+    <div class="modal-head"><h3>Secure Checkout</h3><button id="closeCheckout">✕</button></div>
+    <div class="modal-body">
+      <div id="checkoutSummary" class="order-summary-mini"></div>
+      <div id="checkoutError" class="auth-error"></div>
+      
+      <form id="checkoutForm">
+        
+        <div class="auth-field" style="margin-bottom: 24px;">
+          <label>Coupon Code (Optional)</label>
+          <div style="display: flex; gap: 10px;">
+            <input type="text" id="coCoupon" placeholder="Enter coupon code" style="flex:1;">
+            <button type="button" id="applyCouponBtn" class="btn btn-outline" style="padding: 8px 16px;">Apply</button>
+          </div>
+        </div>
+
+        <div class="auth-row2">
+          <div class="auth-field"><label>Full Name</label><input type="text" id="coName" required></div>
+          <div class="auth-field"><label>Phone (10 digits)</label><input type="tel" id="coPhone" required pattern="[0-9]{10}"></div>
+        </div>
+        <div class="auth-field"><label>Address</label><input type="text" id="coAddress" required></div>
+        <div class="auth-row2">
+          <div class="auth-field"><label>City</label><input type="text" id="coCity" required></div>
+          <div class="auth-field"><label>State</label><input type="text" id="coState" required></div>
+        </div>
+        <div class="auth-field"><label>Pincode</label><input type="text" id="coPincode" required></div>
+        
+        <div class="auth-field" style="margin-top: 20px;">
+          <label>Payment Method</label>
+          <div class="pay-options">
+            <label class="pay-opt active"><input type="radio" name="payMethod" value="Prepaid" checked> UPI / Credit / Debit Card</label>
+            <label class="pay-opt"><input type="radio" name="payMethod" value="COD"> Cash on Delivery</label>
+          </div>
+        </div>
+
+       <div id="onlinePaymentDetails" style="margin-top: 15px; padding: 20px; border: 1px dashed var(--marigold); border-radius: 5px; background: #FFF8EA; text-align: center;">
+  <p style="font-size: 14px; margin-bottom: 12px; font-weight: 600; color: var(--ink);">Scan QR to Pay</p>
+  
+  <img src="https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/WhatsApp%20Image%202026-08-01%20at%202.43.33%20PM.jpeg" alt="Custom QR Scanner" style="width: 150px; height: 150px; margin: 0 auto; display: block; border: 2px solid var(--ink); border-radius: 4px; padding: 4px; background: #fff; object-fit: contain;">
+  
+  <div class="auth-field" style="margin-top: 18px; text-align: left;">
+    <label>Attach Payment Screenshot <span style="color:#b34747">*</span></label>
+    <input type="file" id="coScreenshot" accept="image/*" required style="background: #fff;">
+  </div>
+</div>
+
+        <button type="submit" class="auth-submit gold" style="margin-top: 20px;">Place Order</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="dash-shell" id="ownerShell">
+  <div class="dash-topbar">
+    <div class="brand">Kanha Fashion Trends <span class="pill">Owner</span></div>
+    <div class="right"><button id="ownerLogout">Logout</button></div>
+  </div>
+  <div class="dash-wrap">
+    <div class="dash-tabs" id="ownerTabs">
+      <button class="active" data-tab="Orders">📦 Orders</button>
+      <button data-tab="Products">👗 Products</button>
+      <button data-tab="Offers">🏷️ Offers</button>
+    </div>
+
+    <div class="owner-panel" id="ownerPanelOrders">
+      <div class="dash-head-row">
+        <div><h1>Store Dashboard</h1><p>Manage orders, update tracking, and generate invoices.</p></div>
+        <input type="text" id="ownerSearch" class="dash-search" placeholder="Search orders, phone...">
+      </div>
+      <div class="stat-row" id="ownerStats"></div>
+      <div id="ownerOrdersList"></div>
+    </div>
+
+    <div class="owner-panel" id="ownerPanelProducts" style="display:none;">
+      <div class="dash-head-row">
+        <div><h1>Manage Products</h1><p>Add new styles or remove products from the storefront.</p></div>
+        <button class="btn btn-primary" id="addProductBtn">+ Add Product</button>
+      </div>
+      <div class="stat-row" id="productStats"></div>
+      <input type="text" id="productSearch" class="dash-search" placeholder="Search products by name..." style="margin-bottom:22px;">
+      <div class="owner-product-grid" id="ownerProductGrid"></div>
+    </div>
+
+    <div class="owner-panel" id="ownerPanelOffers" style="display:none;">
+      <div class="dash-head-row">
+        <div><h1>Manage Offers</h1><p>Edit the sale coupons customers see on the storefront.</p></div>
+        <button class="btn btn-primary" id="addOfferBtn">+ Add Offer</button>
+      </div>
+      <div class="owner-offers-grid" id="ownerOffersGrid"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="shareOverlay">
+  <div class="modal-box share-box">
+    <div class="modal-head"><h3>Share via</h3><button id="closeShare">✕</button></div>
+    <div class="modal-body">
+      <div class="share-grid">
+        <button class="share-opt" data-type="whatsapp">
+          <span class="share-ic" style="background:#25D366;">💬</span>
+          <span>WhatsApp</span>
+        </button>
+        <button class="share-opt" data-type="facebook">
+          <span class="share-ic" style="background:#1877F2;">f</span>
+          <span>Facebook</span>
+        </button>
+        <button class="share-opt" data-type="twitter">
+          <span class="share-ic" style="background:#000;">𝕏</span>
+          <span>X</span>
+        </button>
+        <button class="share-opt" data-type="telegram">
+          <span class="share-ic" style="background:#229ED9;">✈</span>
+          <span>Telegram</span>
+        </button>
+        <button class="share-opt" data-type="email">
+          <span class="share-ic" style="background:#928a7a;">✉</span>
+          <span>Email</span>
+        </button>
+        <button class="share-opt" data-type="more" id="shareMoreOpt" style="display:none;">
+          <span class="share-ic" style="background:var(--maroon);">⋯</span>
+          <span>More</span>
+        </button>
+      </div>
+      <div class="share-link-row">
+        <input type="text" id="shareLinkInput" readonly>
+        <button id="copyShareLink">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="productModal">
+  <div class="modal-box">
+    <div class="modal-head"><h3 id="productModalTitle">Add Product</h3><button id="closeProductModal">✕</button></div>
+    <div class="modal-body">
+      <form id="productForm">
+        <div class="rv-field">
+          <label for="pfName">Product Name</label>
+          <input type="text" id="pfName" placeholder="e.g. Banarasi Silk Saree" required>
+        </div>
+        <div class="rv-field">
+          <label for="pfCat">Category</label>
+          <select id="pfCat" required>
+            <option value="women">Women</option>
+            <option value="men">Men</option>
+            <option value="kids">Kids</option>
+            <option value="accessories">Accessories</option>
+          </select>
+        </div>
+        <div class="rv-field-row">
+          <div class="rv-field">
+            <label for="pfPrice">Selling Price (₹)</label>
+            <input type="number" id="pfPrice" min="1" required>
+          </div>
+          <div class="rv-field">
+            <label for="pfOld">Original Price (₹)</label>
+            <input type="number" id="pfOld" min="1" required>
+          </div>
+        </div>
+        <div class="rv-field">
+          <label for="pfTag">Badge / Tag</label>
+          <input type="text" id="pfTag" placeholder="e.g. NEW, BESTSELLER, 40% OFF">
+        </div>
+        <div class="rv-field">
+          <label for="pfImg">Product Image URL</label>
+          <input type="url" id="pfImg" placeholder="https://..." required>
+        </div>
+        <div class="rv-field">
+          <label for="pfModelImg">Try-On / Model Image URL (optional)</label>
+          <input type="url" id="pfModelImg" placeholder="https://...">
+        </div>
+        <div class="rv-field">
+          <label for="pfDesc">Description</label>
+          <textarea id="pfDesc" rows="3" placeholder="Short product description..." required></textarea>
+        </div>
+        <div class="rv-error" id="pfError"></div>
+        <button type="submit" class="btn btn-primary full" id="pfSubmitBtn">Add Product</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="dash-shell" id="myOrdersShell">
+  <div class="dash-topbar">
+    <div class="brand">Kanha Fashion Trends</div>
+    <div class="right"><span id="moUserName">User</span> <button id="moLogout">Logout</button></div>
+  </div>
+  <div class="dash-wrap">
+    <div class="dash-head-row">
+      <div><h1>My Orders</h1><p>Track your purchases and view order history.</p></div>
+      <button id="moBackToStore" class="btn btn-outline">← Back to Store</button>
+    </div>
+    <div id="myOrdersList"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="invoiceOverlay">
+  <div class="modal-box">
+    <div class="modal-head"><h3>Invoice</h3><button id="closeInvoice">✕</button></div>
+    <div class="invoice-paper" id="invoicePaper"></div>
+    <div class="inv-actions">
+      <button class="btn btn-primary" id="printInvoice">Print / PDF</button>
+      <button class="btn btn-outline" id="closeInvoice2">Close</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="qv-overlay" id="qvOverlay">
+  <div class="qv-modal" id="qvModal">
+    <button class="qv-close" id="qvClose">✕</button>
+    <div class="qv-media">
+      <span class="qv-tag" id="qvTag">NEW</span>
+      <img id="qvImgProduct" class="active" src="" alt="Product">
+      <img id="qvImgModel" src="" alt="On model">
+      <div class="qv-toggle">
+        <button id="qvTabProduct" class="active">Product</button>
+        <button id="qvTabModel">How It Looks On</button>
+      </div>
+    </div>
+    <div class="qv-info">
+      <div class="cat" id="qvCat">Women</div>
+      <h3 id="qvName">Product Name</h3>
+      <div class="price-row">
+        <span class="now" id="qvPrice">₹0</span>
+        <span class="old" id="qvOld">₹0</span>
+        <span class="off" id="qvOff">0% off</span>
+      </div>
+      <div class="qv-note">✓ <span>Free shipping · Easy 7-day returns</span></div>
+      <p class="qv-desc" id="qvDesc">Crafted with care using premium fabric, designed to look just as good on you as it does on the hanger. Tap "How It Looks On" to preview the fit and drape before you buy.</p>
+      <div class="qv-block-label">Select Size</div>
+      <div class="size-row" id="qvSizes">
+        <div class="size-chip">S</div>
+        <div class="size-chip active">M</div>
+        <div class="size-chip">L</div>
+        <div class="size-chip">XL</div>
+      </div>
+      <div class="qv-block-label">Quantity</div>
+      <div class="qv-qty-row">
+        <div class="qty-row">
+          <button id="qvDec">−</button>
+          <span id="qvQty">1</span>
+          <button id="qvInc">+</button>
+        </div>
+      </div>
+      <div class="qv-actions">
+        <button type="button" class="qv-wish" id="qvWish">♡</button>
+        <button type="button" class="qv-wish" id="qvShare" title="Share">📤</button>
+        <button class="btn btn-primary" id="qvAddCart">Add to Bag</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h3>Your Bag</h3>
+    <button id="closeCart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">Your bag is empty. Start adding some trends!</div>
+  </div>
+  <div class="cart-foot">
+    <div class="cart-total-row"><span>Subtotal</span><span id="cartTotal">₹0</span></div>
+    <button class="btn btn-primary">Proceed to Checkout</button>
+  </div>
+</div>
+
+<div class="cart-drawer" id="wishDrawer">
+  <div class="cart-head">
+    <h3>Your Wishlist</h3>
+    <button id="closeWish">✕</button>
+  </div>
+  <div class="cart-items" id="wishItems">
+    <div class="cart-empty">Your wishlist is empty. Tap the ♡ on any product to save it here.</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="infoOverlay">
+  <div class="modal-box" style="max-width: 640px;">
+    <div class="modal-head"><h3 id="infoTitle">Info</h3><button id="closeInfo">✕</button></div>
+    <div class="modal-body" id="infoBody"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="trackOrderOverlay">
+  <div class="modal-box">
+    <div class="modal-head"><h3>Track Your Order</h3><button id="closeTrackOrder">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:13.5px; color:#5c5548; margin-bottom:18px;">Enter your Order ID and the phone number used while placing the order.</p>
+      <form id="trackOrderForm">
+        <div class="auth-field"><label>Order ID</label><input type="text" id="trkOrderId" placeholder="e.g. AT10234" required></div>
+        <div class="auth-field" style="margin-top:12px;"><label>Phone Number</label><input type="tel" id="trkPhone" placeholder="10-digit mobile number" required></div>
+        <div class="auth-error" id="trkError">We couldn't find an order with those details. Please check and try again.</div>
+        <button type="submit" class="auth-submit gold" style="margin-top:16px;">Track Order</button>
+      </form>
+      <div id="trkResult" style="margin-top:22px;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SEED_PRODUCTS = [
+  {
+    id: 1, name: "Banarasi Silk Saree", cat: "women", price: 2499, old: 3999, tag: "40% OFF",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Banarasi%20Silk%20Saree.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Banarasi%20Silk%20Saree.jpg",
+    desc: "A rich Banarasi weave with a zari border, draped the traditional way. Falls beautifully for weddings and festive evenings."
+  },
+  {
+    id: 2, name: "Embroidered Anarkali Suit", cat: "women", price: 1899, old: 2999, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Embroidered%20Anarkali%20Suit.webp", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Embroidered%20Anarkali%20Suit.webp",
+    desc: "Flared Anarkali silhouette with delicate thread embroidery on the yoke. Comes with matching dupatta and churidar."
+  },
+  {
+    id: 3, name: "Floral Co-ord Set", cat: "women", price: 1299, old: 1899, tag: "BESTSELLER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Floral%20Co-ord%20Set.webp", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Floral%20Co-ord%20Set.webp",
+    desc: "A breezy top and skirt set in soft floral print, cut for an easy, relaxed fit. Perfect for brunch or travel days."
+  },
+  {
+    id: 4, name: "Printed Palazzo Set", cat: "women", price: 1099, old: 1599, tag: "31% OFF",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Printed%20Palazzo%20Set.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Printed%20Palazzo%20Set.jpg",
+    desc: "A printed kurta and palazzo set with side pockets, made for long days that move from desk to dinner."
+  },
+  {
+    id: 5, name: "Chiffon Maxi Dress", cat: "women", price: 1499, old: 2199, tag: "TRENDING",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Chiffon%20Maxi%20Dress.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Chiffon%20Maxi%20Dress.jpg",
+    desc: "Lightweight chiffon maxi dress featuring a cinched waist and tiered skirt for effortless elegance."
+  },
+  {
+    id: 6, name: "Cotton A-Line Kurta", cat: "women", price: 799, old: 1299, tag: "SALE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Cotton%20A-Line%20Kurta.webp", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Cotton%20A-Line%20Kurta.webp",
+    desc: "Everyday comfort redefined with this breathable cotton A-line kurta in soothing pastel hues."
+  },
+  {
+    id: 7, name: "Georgette Lehenga Choli", cat: "women", price: 3499, old: 5999, tag: "FESTIVE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Georgette%20Lehenga%20Choli.webp", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Georgette%20Lehenga%20Choli.webp",
+    desc: "Stunning georgette lehenga with intricate mirror work on the blouse. Includes a sheer net dupatta."
+  },
+  {
+    id: 8, name: "High-Waist Denim Jeans", cat: "women", price: 1299, old: 1999, tag: "ESSENTIAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/High-Waist%20Denim%20Jeans.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/High-Waist%20Denim%20Jeans.jpg",
+    desc: "Classic high-waisted denim with a slight stretch for all-day comfort and a flattering fit."
+  },
+  {
+    id: 9, name: "Satin Slip Dress", cat: "women", price: 1599, old: 2499, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Satin%20Slip%20Dress.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Satin%20Slip%20Dress.jpg",
+    desc: "Sleek and minimalist satin slip dress. Layer it over a tee or wear it solo for evening events."
+  },
+  {
+    id: 10, name: "Kalamkari Print Saree", cat: "women", price: 1899, old: 2799, tag: "TRADITIONAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kalamkari%20Print%20Saree.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kalamkari%20Print%20Saree.jpg",
+    desc: "Authentic Kalamkari block prints on soft cotton fabric, combining tradition with modern grace."
+  },
+  {
+    id: 11, name: "Oversized Graphic T-Shirt", cat: "women", price: 599, old: 999, tag: "CASUAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Oversized%20Graphic%20T-Shirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Oversized%20Graphic%20T-Shirt.jpg",
+    desc: "Relaxed oversized fit with a vintage-inspired graphic print. Perfect for laid-back weekends."
+  },
+  {
+    id: 12, name: "Linen Wide-Leg Trousers", cat: "women", price: 1199, old: 1799, tag: "33% OFF",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Linen%20Wide-Leg%20Trousers.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Linen%20Wide-Leg%20Trousers.jpg",
+    desc: "Breezy linen trousers tailored with a wide leg and elasticated back for maximum comfort."
+  },
+  {
+    id: 13, name: "Sequined Party Gown", cat: "women", price: 4599, old: 6999, tag: "PREMIUM",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Sequined%20Party%20Gown.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Sequined%20Party%20Gown.jpg",
+    desc: "Turn heads in this fully sequined floor-length gown featuring a sweetheart neckline."
+  },
+  {
+    id: 14, name: "Handloom Cotton Dupatta", cat: "women", price: 499, old: 799, tag: "ACCESSORY",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Handloom%20Cotton%20Dupatta.webp", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Handloom%20Cotton%20Dupatta.webp",
+    desc: "Woven by artisans, this soft cotton dupatta adds a pop of color to any solid kurta."
+  },
+  {
+    id: 15, name: "Pleated Midi Skirt", cat: "women", price: 999, old: 1499, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Pleated%20Midi%20Skirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Pleated%20Midi%20Skirt.jpg",
+    desc: "Elegant accordion pleats that move with you. Pair with a tucked-in blouse or casual tee."
+  },
+  {
+    id: 16, name: "Ribbed Turtleneck Sweater", cat: "women", price: 1099, old: 1699, tag: "WINTER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Ribbed%20Turtleneck%20Sweater.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Ribbed%20Turtleneck%20Sweater.jpg",
+    desc: "Cozy ribbed knit turtleneck that hugs the body. An essential layering piece for cooler months."
+  },
+  {
+    id: 17, name: "Bandhani Print Kurti", cat: "women", price: 699, old: 1199, tag: "41% OFF",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Bandhani%20Print%20Kurti.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Bandhani%20Print%20Kurti.jpg",
+    desc: "Vibrant Bandhani patterns on a straight-cut kurti. Ideal for casual outings and daily wear."
+  },
+  {
+    id: 18, name: "Tailored Office Blazer", cat: "women", price: 2199, old: 3499, tag: "WORKWEAR",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Tailored%20Office%20Blazer.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Tailored%20Office%20Blazer.jpg",
+    desc: "Sharp, structured blazer with subtle shoulder pads to elevate your professional wardrobe."
+  },
+  {
+    id: 19, name: "Velvet Sharara Suit", cat: "women", price: 2999, old: 4599, tag: "FESTIVE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Velvet%20Sharara%20Suit.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Velvet%20Sharara%20Suit.jpg",
+    desc: "Plush velvet fabric adorned with zari work. Includes a peplum short kurta and flared sharara."
+  },
+  {
+    id: 20, name: "Bohemian Wrap Dress", cat: "women", price: 1399, old: 2099, tag: "BESTSELLER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Bohemian%20Wrap%20Dress.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Bohemian%20Wrap%20Dress.jpg",
+    desc: "Flattering true-wrap silhouette featuring a deep V-neck and ruffled hemline in a boho print."
+  },
+  {
+    id: 21, name: "Cropped Puffer Jacket", cat: "women", price: 1899, old: 2899, tag: "WINTER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Cropped%20Puffer%20Jacket.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Cropped%20Puffer%20Jacket.jpg",
+    desc: "Stay warm and stylish with this insulated cropped puffer jacket featuring a stand collar."
+  },
+  {
+    id: 22, name: "Chikankari Kurta Set", cat: "women", price: 1799, old: 2599, tag: "TRADITIONAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Chikankari%20Kurta%20Set.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Chikankari%20Kurta%20Set.jpg",
+    desc: "Intricate hand-embroidered Chikankari work from Lucknow on a breathable pastel base."
+  },
+  {
+    id: 23, name: "Athleisure Joggers", cat: "women", price: 899, old: 1399, tag: "ACTIVE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Athleisure%20Joggers.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Athleisure%20Joggers.jpg",
+    desc: "Moisture-wicking fabric with a tapered fit. Perfect for workouts or lounging at home."
+  },
+  {
+    id: 24, name: "Off-Shoulder Peasant Top", cat: "women", price: 749, old: 1199, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Off-Shoulder%20Peasant%20Top.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Off-Shoulder%20Peasant%20Top.jpg",
+    desc: "Smocked off-shoulder neckline with billowy sleeves for a romantic, vintage-inspired look."
+  },
+  {
+    id: 25, name: "Silk Blend Nightwear Set", cat: "women", price: 1299, old: 1999, tag: "LOUNGE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Silk%20Blend%20Nightwear%20Set.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Silk%20Blend%20Nightwear%20Set.jpg",
+    desc: "Luxuriously soft silk-blend shirt and shorts set for ultimate nighttime comfort."
+  },
+  
+  {
+    id: 26, name: "Men's Silk Kurta Set", cat: "men", price: 1699, old: 2399, tag: "FESTIVE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Men's%20Silk%20Kurta%20Set.webp", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Men's%20Silk%20Kurta%20Set.webp",
+    desc: "Pure silk-blend kurta with a mandarin collar, paired with a matching churidar pyjama. Festive-ready in one set."
+  },
+  {
+    id: 27, name: "Slim Fit Denim Jacket", cat: "men", price: 1999, old: 2699, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Slim%20Fit%20Denim%20Jacket.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Slim%20Fit%20Denim%20Jacket.jpg",
+    desc: "A washed denim jacket with a slim, tailored cut. Layers easily over tees and shirts for everyday wear."
+  },
+  {
+    id: 28, name: "Casual Linen Shirt", cat: "men", price: 999, old: 1499, tag: "33% OFF",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Casual%20Linen%20Shirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Casual%20Linen%20Shirt.jpg",
+    desc: "Breathable linen shirt in a relaxed fit, perfect for warm days at the office or weekends out."
+  },
+  {
+    id: 29, name: "Men's Nehru Jacket", cat: "men", price: 1599, old: 2199, tag: "FESTIVE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Men's%20Nehru%20Jacket.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Men's%20Nehru%20Jacket.jpg",
+    desc: "A tailored Nehru jacket that layers over kurtas or shirts, adding festive polish in seconds."
+  },
+  {
+    id: 30, name: "Classic Polo T-Shirt", cat: "men", price: 699, old: 1099, tag: "ESSENTIAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Classic%20Polo%20T-Shirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Classic%20Polo%20T-Shirt.jpg",
+    desc: "Pique cotton polo with a classic ribbed collar and cuffs. A versatile wardrobe staple."
+  },
+  {
+    id: 31, name: "Slim Fit Chino Pants", cat: "men", price: 1199, old: 1899, tag: "BESTSELLER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Slim%20Fit%20Chino%20Pants.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Slim%20Fit%20Chino%20Pants.jpg",
+    desc: "Stretch-cotton chinos tailored for a modern slim fit. Easily transitions from work to weekend."
+  },
+  {
+    id: 32, name: "Faux Leather Biker Jacket", cat: "men", price: 2499, old: 3999, tag: "TRENDING",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Faux%20Leather%20Biker%20Jacket.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Faux%20Leather%20Biker%20Jacket.jpg",
+    desc: "Rugged faux leather jacket featuring asymmetric zip closure and metallic hardware details."
+  },
+  {
+    id: 33, name: "Checked Flannel Shirt", cat: "men", price: 899, old: 1399, tag: "CASUAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Checked%20Flannel%20Shirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Checked%20Flannel%20Shirt.jpg",
+    desc: "Soft brushed flannel with a classic check pattern. Ideal for layering over plain t-shirts."
+  },
+  {
+    id: 34, name: "Formal Oxford Shoes", cat: "men", price: 1899, old: 2999, tag: "FOOTWEAR",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Formal%20Oxford%20Shoes.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Formal%20Oxford%20Shoes.jpg",
+    desc: "Genuine leather Oxford shoes with a polished finish and cushioned footbed for all-day wear."
+  },
+  {
+    id: 35, name: "Tapered Cargo Pants", cat: "men", price: 1399, old: 2099, tag: "STREETWEAR",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Tapered%20Cargo%20Pants.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Tapered%20Cargo%20Pants.jpg",
+    desc: "Utility-inspired cargo pants with deep side pockets and elasticated cuffs at the ankle."
+  },
+  {
+    id: 36, name: "Embroidered Sherwani", cat: "men", price: 5999, old: 8999, tag: "WEDDING",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Embroidered%20Sherwani.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Embroidered%20Sherwani.jpg",
+    desc: "Opulent sherwani with heavy zari and bead embroidery. Perfect for grooms and close family."
+  },
+  {
+    id: 37, name: "Crew Neck Sweatshirt", cat: "men", price: 999, old: 1599, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Crew%20Neck%20Sweatshirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Crew%20Neck%20Sweatshirt.jpg",
+    desc: "Fleece-lined sweatshirt with a comfortable crew neck and ribbed trims for a snug fit."
+  },
+  {
+    id: 38, name: "Tailored Formal Suit", cat: "men", price: 4599, old: 6999, tag: "PREMIUM",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Tailored%20Formal%20Suit.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Tailored%20Formal%20Suit.jpg",
+    desc: "Two-piece suit featuring a single-breasted blazer and flat-front trousers in a premium wool blend."
+  },
+  {
+    id: 39, name: "Graphic Print Hoodie", cat: "men", price: 1299, old: 1999, tag: "WINTER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Graphic%20Print%20Hoodie.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Graphic%20Print%20Hoodie.jpg",
+    desc: "Cozy pullover hoodie with an eye-catching graphic print on the back and a kangaroo pocket."
+  },
+  {
+    id: 40, name: "Khadi Cotton Kurta", cat: "men", price: 799, old: 1299, tag: "TRADITIONAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Khadi%20Cotton%20Kurta.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Khadi%20Cotton%20Kurta.jpg",
+    desc: "Handspun Khadi cotton kurta offering unmatched breathability and a distinct rustic texture."
+  },
+  {
+    id: 41, name: "Athletic Track Pants", cat: "men", price: 849, old: 1299, tag: "ACTIVE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Athletic%20Track%20Pants.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Athletic%20Track%20Pants.jpg",
+    desc: "Lightweight track pants with contrast side stripes and zipper pockets for secure storage."
+  },
+  {
+    id: 42, name: "Mandarin Collar Shirt", cat: "men", price: 1099, old: 1699, tag: "SMART CASUAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Mandarin%20Collar%20Shirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Mandarin%20Collar%20Shirt.jpg",
+    desc: "Contemporary shirt with a mandarin collar. Easily dressed up with chinos or down with jeans."
+  },
+  {
+    id: 43, name: "Winter Trench Coat", cat: "men", price: 3499, old: 4999, tag: "PREMIUM",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Winter%20Trench%20Coat.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Winter%20Trench%20Coat.jpg",
+    desc: "Classic double-breasted trench coat tailored in a heavy wool blend to shield against the cold."
+  },
+  {
+    id: 44, name: "Printed Resort Shirt", cat: "men", price: 799, old: 1199, tag: "VACATION",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Printed%20Resort%20Shirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Printed%20Resort%20Shirt.jpg",
+    desc: "Short-sleeve shirt in a relaxed fit featuring vibrant tropical prints for your next getaway."
+  },
+  {
+    id: 45, name: "Chunky Knit Sweater", cat: "men", price: 1499, old: 2299, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Chunky%20Knit%20Sweater.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Chunky%20Knit%20Sweater.jpg",
+    desc: "Heavyweight chunky knit sweater with a classic cable pattern. Perfect for extreme cold."
+  },
+  {
+    id: 46, name: "Distressed Denim Jeans", cat: "men", price: 1399, old: 2199, tag: "STREETWEAR",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Distressed%20Denim%20Jeans.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Distressed%20Denim%20Jeans.jpg",
+    desc: "Edgy distressed jeans with ripped knee details and a faded wash for a worn-in look."
+  },
+  {
+    id: 47, name: "Men's Pathani Suit", cat: "men", price: 1799, old: 2699, tag: "FESTIVE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Men's%20Pathani%20Suit.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Men's%20Pathani%20Suit.jpg",
+    desc: "Traditional Pathani suit with a relaxed silhouette and classic collared neckline."
+  },
+  {
+    id: 48, name: "Performance Running Tee", cat: "men", price: 599, old: 899, tag: "ACTIVE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Performance%20Running%20Tee.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Performance%20Running%20Tee.jpg",
+    desc: "Quick-dry synthetic t-shirt engineered with mesh panels for optimal ventilation during workouts."
+  },
+  {
+    id: 49, name: "Suede Chelsea Boots", cat: "men", price: 2199, old: 3299, tag: "FOOTWEAR",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Suede%20Chelsea%20Boots.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Suede%20Chelsea%20Boots.jpg",
+    desc: "Timeless Chelsea boots crafted from premium suede with elasticated side panels for easy wear."
+  },
+  {
+    id: 50, name: "Reversible Bomber Jacket", cat: "men", price: 1899, old: 2899, tag: "VERSATILE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Reversible%20Bomber%20Jacket.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Reversible%20Bomber%20Jacket.jpg",
+    desc: "Two looks in one. A classic bomber jacket that reverses from solid olive to sleek black."
+  },
+  {
+    id: 51, name: "Kids Ethnic Sherwani Set", cat: "kids", price: 1199, old: 1799, tag: "FESTIVE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Ethnic%20Sherwani%20Set.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Ethnic%20Sherwani%20Set.jpg",
+    desc: "A mini sherwani set with delicate embroidery, made for little ones to twin with the grown-ups this festive season."
+  },
+  {
+    id: 52, name: "Kids Party Frock", cat: "kids", price: 899, old: 1299, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Party%20Frock.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Party%20Frock.jpg",
+    desc: "A twirly party frock with a soft tulle layer underneath, built for comfort through a full day of celebrations."
+  },
+  {
+    id: 53, name: "Dinosaur Print T-Shirt", cat: "kids", price: 399, old: 599, tag: "PLAYWEAR",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Dinosaur%20Print%20T-Shirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Dinosaur%20Print%20T-Shirt.jpg",
+    desc: "100% cotton tee featuring a fun and vibrant dinosaur graphic that kids will love."
+  },
+  {
+    id: 54, name: "Girls Denim Dungarees", cat: "kids", price: 849, old: 1299, tag: "BESTSELLER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Denim%20Dungarees.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Denim%20Dungarees.jpg",
+    desc: "Sturdy yet soft denim dungarees with adjustable straps and multiple pockets for little explorers."
+  },
+  {
+    id: 55, name: "Boys Kurta Pajama", cat: "kids", price: 799, old: 1199, tag: "TRADITIONAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boys%20Kurta%20Pajama.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boys%20Kurta%20Pajama.jpg",
+    desc: "Comfortable cotton kurta set designed specifically for active kids during festive occasions."
+  },
+  {
+    id: 56, name: "Unicorn Sequin Dress", cat: "kids", price: 1099, old: 1599, tag: "MAGIC",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Unicorn%20Sequin%20Dress.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Unicorn%20Sequin%20Dress.jpg",
+    desc: "Magical dress with reversible sequins that change color, paired with a fluffy tulle skirt."
+  },
+  {
+    id: 57, name: "Fleece Winter Hoodie", cat: "kids", price: 699, old: 999, tag: "WINTER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Fleece%20Winter%20Hoodie.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Fleece%20Winter%20Hoodie.jpg",
+    desc: "Super soft fleece-lined hoodie to keep your child warm and cozy during outdoor play."
+  },
+  {
+    id: 58, name: "Infant Romper Suit", cat: "kids", price: 499, old: 799, tag: "BABY",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Infant%20Romper%20Suit.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Infant%20Romper%20Suit.jpg",
+    desc: "Breathable organic cotton romper with snap-button closures for hassle-free diaper changes."
+  },
+  {
+    id: 59, name: "Girls Ruffle Top", cat: "kids", price: 449, old: 699, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Ruffle%20Top.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Ruffle%20Top.jpg",
+    desc: "Cute top featuring layered ruffles and a back keyhole closure. Easy to pair with jeans or skirts."
+  },
+  {
+    id: 60, name: "Boys Chino Shorts", cat: "kids", price: 549, old: 899, tag: "SUMMER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boys%20Chino%20Shorts.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boys%20Chino%20Shorts.jpg",
+    desc: "Smart casual chino shorts with an adjustable elastic waistband to accommodate growing kids."
+  },
+  {
+    id: 61, name: "Printed Sleepwear Set", cat: "kids", price: 599, old: 899, tag: "NIGHTWEAR",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Printed%20Sleepwear%20Set.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Printed%20Sleepwear%20Set.jpg",
+    desc: "Comfortable two-piece pajama set with fun all-over prints to make bedtime exciting."
+  },
+  {
+    id: 62, name: "Girls Lehenga Choli", cat: "kids", price: 1299, old: 1999, tag: "FESTIVE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Lehenga%20Choli.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Lehenga%20Choli.jpg",
+    desc: "Miniature lehenga choli with soft lining to prevent itching, designed for comfort and style."
+  },
+  {
+    id: 63, name: "Kids Puffer Vest", cat: "kids", price: 799, old: 1199, tag: "LAYERING",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Puffer%20Vest.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Puffer%20Vest.jpg",
+    desc: "Sleeveless insulated vest perfect for transitional weather. Zips up easily for instant warmth."
+  },
+  {
+    id: 64, name: "Waterproof Raincoat", cat: "kids", price: 649, old: 999, tag: "MONSOON",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Waterproof%20Raincoat.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Waterproof%20Raincoat.jpg",
+    desc: "Brightly colored, fully waterproof raincoat with a fun character hood to brighten gloomy days."
+  },
+  {
+    id: 65, name: "Boys Plaid Shirt", cat: "kids", price: 499, old: 749, tag: "CASUAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boys%20Plaid%20Shirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boys%20Plaid%20Shirt.jpg",
+    desc: "Classic button-down plaid shirt tailored from soft cotton for everyday wear."
+  },
+  {
+    id: 66, name: "Girls Leggings Set (Pack of 2)", cat: "kids", price: 699, old: 1099, tag: "ESSENTIAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Leggings%20Set%20(Pack%20of%202).jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Leggings%20Set%20(Pack%20of%202).jpg",
+    desc: "Stretchy and durable cotton leggings in versatile solid colors. A wardrobe must-have."
+  },
+  {
+    id: 67, name: "Kids Light-up Sneakers", cat: "kids", price: 1099, old: 1699, tag: "FOOTWEAR",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Light-up%20Sneakers.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Light-up%20Sneakers.jpg",
+    desc: "Fun sneakers featuring LED lights in the sole that flash with every step. Velcro fastening."
+  },
+  {
+    id: 68, name: "Boys Nehru Jacket Set", cat: "kids", price: 1499, old: 2199, tag: "WEDDING",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boys%20Nehru%20Jacket%20Set.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boys%20Nehru%20Jacket%20Set.jpg",
+    desc: "Three-piece ethnic set comprising a kurta, pyjama, and a structured Nehru jacket."
+  },
+  {
+    id: 69, name: "Girls Floral Jumpsuit", cat: "kids", price: 799, old: 1299, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Floral%20Jumpsuit.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Floral%20Jumpsuit.jpg",
+    desc: "Easy-to-wear jumpsuit with a vibrant floral print and elasticated waist for unrestricted movement."
+  },
+  {
+    id: 70, name: "Kids Track Suit", cat: "kids", price: 999, old: 1499, tag: "SPORTS",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Track%20Suit.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Track%20Suit.jpg",
+    desc: "Matching zip-up jacket and jogger pants made from breathable, sweat-wicking fabric."
+  },
+  {
+    id: 71, name: "Infant Booties (Pack of 3)", cat: "kids", price: 299, old: 499, tag: "BABY",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Infant%20Booties%20(Pack%20of%203).jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Infant%20Booties%20(Pack%20of%203).jpg",
+    desc: "Soft knitted booties with ribbed cuffs to keep tiny feet warm and secure."
+  },
+  {
+    id: 72, name: "Girls Tutu Skirt", cat: "kids", price: 599, old: 899, tag: "PARTY",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Tutu%20Skirt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Tutu%20Skirt.jpg",
+    desc: "Voluminous layered tulle skirt with a sparkly elastic waistband."
+  },
+  {
+    id: 73, name: "Boys Denim Jacket", cat: "kids", price: 899, old: 1399, tag: "TRENDING",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boys%20Denim%20Jacket.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boys%20Denim%20Jacket.jpg",
+    desc: "Classic denim jacket scaled down for kids. Durable and stylish for all seasons."
+  },
+  {
+    id: 74, name: "Kids Bathrobe", cat: "kids", price: 749, old: 1099, tag: "HOME",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Bathrobe.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kids%20Bathrobe.jpg",
+    desc: "Ultra-absorbent plush cotton bathrobe with a tie belt and large front pockets."
+  },
+  {
+    id: 75, name: "Girls Tiered Maxi Dress", cat: "kids", price: 949, old: 1499, tag: "SUMMER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Tiered%20Maxi%20Dress.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Girls%20Tiered%20Maxi%20Dress.jpg",
+    desc: "Breezy tiered maxi dress with spaghetti straps, ideal for summer vacations and beach days."
+  },
+  {
+    id: 76, name: "Oxidised Jhumka Earrings", cat: "accessories", price: 449, old: 699, tag: "TRENDING",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Oxidised%20Jhumka%20Earrings.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Oxidised%20Jhumka%20Earrings.jpg",
+    desc: "Statement oxidised jhumkas that dress up any saree or kurta set instantly. Lightweight for all-day wear."
+  },
+  {
+    id: 77, name: "Embellished Potli Bag", cat: "accessories", price: 699, old: 999, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Embellished%20Potli%20Bag.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Embellished%20Potli%20Bag.jpg",
+    desc: "A hand-embellished potli bag, roomy enough for the essentials and finished to match festive outfits."
+  },
+  {
+    id: 78, name: "Genuine Leather Belt", cat: "accessories", price: 899, old: 1299, tag: "ESSENTIAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Genuine%20Leather%20Belt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Genuine%20Leather%20Belt.jpg",
+    desc: "Classic men's leather belt with a brushed metal buckle. Reversible black and brown design."
+  },
+  {
+    id: 79, name: "Polarized Aviator Sunglasses", cat: "accessories", price: 1299, old: 1999, tag: "BESTSELLER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Polarized%20Aviator%20Sunglasses.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Polarized%20Aviator%20Sunglasses.jpg",
+    desc: "Timeless aviator frames with polarized lenses providing 100% UV protection and glare reduction."
+  },
+  {
+    id: 80, name: "Silk Blend Scarf", cat: "accessories", price: 599, old: 899, tag: "ELEGANT",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Silk%20Blend%20Scarf.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Silk%20Blend%20Scarf.jpg",
+    desc: "Luxurious printed silk-blend scarf. Tie it around your neck, bag, or use it as a hair accessory."
+  },
+  {
+    id: 81, name: "Minimalist Wrist Watch", cat: "accessories", price: 2499, old: 3999, tag: "PREMIUM",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Minimalist%20Wrist%20Watch.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Minimalist%20Wrist%20Watch.jpg",
+    desc: "Sleek analog watch featuring a matte black dial and a genuine leather strap."
+  },
+  {
+    id: 82, name: "Kundan Choker Necklace", cat: "accessories", price: 1599, old: 2499, tag: "WEDDING",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kundan%20Choker%20Necklace.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Kundan%20Choker%20Necklace.jpg",
+    desc: "Exquisite Kundan choker set with matching earrings. The perfect traditional jewelry piece."
+  },
+  {
+    id: 83, name: "Canvas Tote Bag", cat: "accessories", price: 499, old: 799, tag: "ECO-FRIENDLY",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Canvas%20Tote%20Bag.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Canvas%20Tote%20Bag.jpg",
+    desc: "Durable canvas tote featuring a minimalist graphic print. Spacious enough for groceries or books."
+  },
+  {
+    id: 84, name: "Men's Silk Tie Set", cat: "accessories", price: 799, old: 1199, tag: "FORMAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Men's%20Silk%20Tie%20Set.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Men's%20Silk%20Tie%20Set.jpg",
+    desc: "Matching pure silk tie, pocket square, and cufflinks set packaged in an elegant gift box."
+  },
+  {
+    id: 85, name: "Chunky Knit Beanie", cat: "accessories", price: 349, old: 599, tag: "WINTER",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Chunky%20Knit%20Beanie.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Chunky%20Knit%20Beanie.jpg",
+    desc: "Cozy ribbed knit beanie that provides maximum warmth and adds a stylish touch to winter outfits."
+  },
+  {
+    id: 86, name: "Women's Crossbody Sling", cat: "accessories", price: 1199, old: 1799, tag: "CHIC",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Women's%20Crossbody%20Sling.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Women's%20Crossbody%20Sling.jpg",
+    desc: "Compact faux-leather crossbody bag with gold-tone hardware and an adjustable strap."
+  },
+  {
+    id: 87, name: "Gold-Plated Bangle Set", cat: "accessories", price: 899, old: 1499, tag: "TRADITIONAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Gold-Plated%20Bangle%20Set.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Gold-Plated%20Bangle%20Set.jpg",
+    desc: "Set of 12 intricately textured gold-plated bangles to complete your ethnic ensemble."
+  },
+  {
+    id: 88, name: "Blue Light Blocking Glasses", cat: "accessories", price: 699, old: 999, tag: "WORKWEAR",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Blue%20Light%20Blocking%20Glasses.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Blue%20Light%20Blocking%20Glasses.jpg",
+    desc: "Stylish transparent frames fitted with anti-glare lenses to protect your eyes during screen time."
+  },
+  {
+    id: 89, name: "Leather Wallet", cat: "accessories", price: 749, old: 1199, tag: "ESSENTIAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Leather%20Wallet.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Leather%20Wallet.jpg",
+    desc: "Slim bifold genuine leather wallet with multiple card slots and an RFID-blocking lining."
+  },
+  {
+    id: 90, name: "Pearl Drop Earrings", cat: "accessories", price: 399, old: 599, tag: "ELEGANT",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Pearl%20Drop%20Earrings.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Pearl%20Drop%20Earrings.jpg",
+    desc: "Classic faux pearl teardrop earrings that bring subtle sophistication to evening gowns."
+  },
+  {
+    id: 91, name: "Unisex Cotton Cap", cat: "accessories", price: 299, old: 499, tag: "CASUAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Unisex%20Cotton%20Cap.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Unisex%20Cotton%20Cap.jpg",
+    desc: "Breathable cotton baseball cap featuring an adjustable back strap and a curved brim."
+  },
+  {
+    id: 92, name: "Woven Macrame Belt", cat: "accessories", price: 549, old: 899, tag: "BOHO",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Woven%20Macrame%20Belt.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Woven%20Macrame%20Belt.jpg",
+    desc: "Handwoven macrame belt finished with a wooden buckle. Perfect for cinching breezy dresses."
+  },
+  {
+    id: 93, name: "Hair Scrunchie Set (Pack of 5)", cat: "accessories", price: 199, old: 399, tag: "VALUE",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Hair%20Scrunchie%20Set%20(Pack%20of%205).jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Hair%20Scrunchie%20Set%20(Pack%20of%205).jpg",
+    desc: "Gentle satin scrunchies in assorted pastel colors that prevent hair breakage and creasing."
+  },
+  {
+    id: 94, name: "Men's Suspenders", cat: "accessories", price: 449, old: 699, tag: "RETRO",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Men's%20Suspenders.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Men's%20Suspenders.jpg",
+    desc: "Adjustable Y-back suspenders with strong metal clips to elevate your formal suiting."
+  },
+  {
+    id: 95, name: "Boho Layered Necklace", cat: "accessories", price: 499, old: 799, tag: "TRENDING",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boho%20Layered%20Necklace.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Boho%20Layered%20Necklace.jpg",
+    desc: "Multi-layered gold-tone necklace featuring coin and crescent moon pendants."
+  },
+  {
+    id: 96, name: "Laptop Backpack", cat: "accessories", price: 1499, old: 2299, tag: "UTILITY",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Laptop%20Backpack.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Laptop%20Backpack.jpg",
+    desc: "Water-resistant backpack with a padded laptop sleeve and ergonomic shoulder straps."
+  },
+  {
+    id: 97, name: "Bridal Maang Tikka", cat: "accessories", price: 699, old: 1099, tag: "WEDDING",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Bridal%20Maang%20Tikka.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Bridal%20Maang%20Tikka.jpg",
+    desc: "Elaborate Kundan and pearl maang tikka designed to beautifully rest on the forehead."
+  },
+  {
+    id: 98, name: "Ankle Socks (Pack of 6)", cat: "accessories", price: 399, old: 699, tag: "ESSENTIAL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Ankle%20Socks%20(Pack%20of%206).jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Ankle%20Socks%20(Pack%20of%206).jpg",
+    desc: "Breathable combed cotton ankle socks with reinforced heels and toes for durability."
+  },
+  {
+    id: 99, name: "Travel Toiletry Bag", cat: "accessories", price: 599, old: 899, tag: "TRAVEL",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Travel%20Toiletry%20Bag.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Travel%20Toiletry%20Bag.jpg",
+    desc: "Spacious and water-resistant hanging toiletry bag to keep all your essentials organized on the go."
+  },
+  {
+    id: 100, name: "Statement Cuff Bracelet", cat: "accessories", price: 749, old: 1199, tag: "NEW",
+    img: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Statement%20Cuff%20Bracelet.jpg", modelImg: "https://raw.githubusercontent.com/shubhamsanap1092-dot/fashion-trends/main/Statement%20Cuff%20Bracelet.jpg",
+    desc: "Bold metallic cuff with intricate hammered detailing. A standout piece for bare arms."
+  }
+
+];
+
+let products = [];
+let currentProductFilter = 'all';
+
+function db_getExtraProducts(){ return JSON.parse(localStorage.getItem('at_extra_products') || '[]'); }
+function db_saveExtraProducts(p){ localStorage.setItem('at_extra_products', JSON.stringify(p)); }
+function db_getRemovedProductIds(){ return JSON.parse(localStorage.getItem('at_removed_products') || '[]'); }
+function db_saveRemovedProductIds(ids){ localStorage.setItem('at_removed_products', JSON.stringify(ids)); }
+function nextProductId(){
+  const all = SEED_PRODUCTS.concat(db_getExtraProducts());
+  return all.length ? Math.max(...all.map(p => p.id)) + 1 : 1;
+}
+function rebuildProducts(){
+  const removed = db_getRemovedProductIds();
+  products = SEED_PRODUCTS.filter(p => !removed.includes(p.id)).concat(db_getExtraProducts());
+}
+rebuildProducts();
+
+let cart = [];
+let wishlist = new Set();
+let discountAmount = 0; 
+
+const grid = document.getElementById('productGrid');
+function renderProducts(filter){
+  grid.innerHTML = '';
+  const list = filter==='all' ? products : products.filter(p=>p.cat===filter);
+  list.forEach(p=>{
+    const off = Math.round((1 - p.price/p.old)*100);
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <div class="p-img" data-id="${p.id}">
+        <img src="${p.img}" alt="${p.name}">
+        <span class="p-tag">${p.tag}</span>
+        <button class="wish-btn" data-id="${p.id}">♡</button>
+        <div class="view-hint">👗 Tap to see how it looks on</div>
+      </div>
+      <div class="p-info">
+        <div class="cat">${p.cat}</div>
+        <h4>${p.name}</h4>
+        <div class="price-row">
+          <span class="now">₹${p.price}</span>
+          <span class="old">₹${p.old}</span>
+          <span class="off">${off}% off</span>
+        </div>
+        <button class="add-cart-btn" data-id="${p.id}">Add to Bag</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+renderProducts('all');
+
+document.getElementById('filterTabs').addEventListener('click', e=>{
+  if(e.target.tagName==='BUTTON'){
+    document.querySelectorAll('#filterTabs button').forEach(b=>b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentProductFilter = e.target.dataset.filter;
+    renderProducts(currentProductFilter);
+  }
+});
+
+grid.addEventListener('click', e=>{
+  if(e.target.classList.contains('add-cart-btn')){
+    addToCart(parseInt(e.target.dataset.id));
+    return;
+  }
+  if(e.target.classList.contains('wish-btn')){
+    toggleWish(parseInt(e.target.dataset.id), e.target);
+    return;
+  }
+  const imgWrap = e.target.closest('.p-img');
+  if(imgWrap){
+    openQuickView(parseInt(imgWrap.dataset.id));
+  }
+});
+
+document.getElementById('catGrid').addEventListener('click', e=>{
+  const card = e.target.closest('.cat-card');
+  if(!card) return;
+  const filter = card.dataset.filter;
+  document.querySelectorAll('#filterTabs button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.filter===filter);
+  });
+  renderProducts(filter);
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+});
+
+function toggleWish(id, btn){
+  if(wishlist.has(id)){
+    wishlist.delete(id);
+    btn.classList.remove('active');
+    btn.textContent = '♡';
+    showToast('Removed from wishlist');
+  } else {
+    wishlist.add(id);
+    btn.classList.add('active');
+    btn.textContent = '♥';
+    showToast('Added to wishlist');
+  }
+  document.getElementById('wishCount').textContent = wishlist.size;
+  renderWishlist();
+}
+
+const wishDrawer = document.getElementById('wishDrawer');
+document.getElementById('wishIcon').addEventListener('click', ()=>{
+  renderWishlist();
+  wishDrawer.classList.add('open'); overlay.classList.add('show');
+});
+document.getElementById('closeWish').addEventListener('click', closeWishDrawer);
+function closeWishDrawer(){ wishDrawer.classList.remove('open'); overlay.classList.remove('show'); }
+
+function renderWishlist(){
+  const wrap = document.getElementById('wishItems');
+  if(!wrap) return;
+  if(wishlist.size===0){
+    wrap.innerHTML = '<div class="cart-empty">Your wishlist is empty. Tap the ♡ on any product to save it here.</div>';
+    return;
+  }
+  const items = products.filter(p=>wishlist.has(p.id));
+  wrap.innerHTML = items.map(p=>`
+   <div class="cart-item" data-id="${p.id}">
+      <img src="${p.img}" alt="${p.name}">
+      <div class="ci-info">
+        <h5>${p.name}</h5>
+        <div class="ci-price">₹${p.price}</div>
+        <div class="qty-row">
+          <button class="wl-move">Add to Bag</button>
+          <button class="rm wl-remove">Remove</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('wishItems').addEventListener('click', e=>{
+  const itemEl = e.target.closest('.cart-item');
+  if(!itemEl) return;
+  const id = parseInt(itemEl.dataset.id);
+
+  if(e.target.classList.contains('wl-remove') || e.target.classList.contains('wl-move')){
+    if(e.target.classList.contains('wl-move')) addToCart(id);
+    wishlist.delete(id);
+    document.getElementById('wishCount').textContent = wishlist.size;
+    const gridBtn = grid.querySelector(`.wish-btn[data-id="${id}"]`);
+    if(gridBtn){ gridBtn.classList.remove('active'); gridBtn.textContent = '♡'; }
+    if(qvCurrentId===id){
+      const qvWishBtn = document.getElementById('qvWish');
+      qvWishBtn.classList.remove('active'); qvWishBtn.textContent = '♡';
+    }
+    renderWishlist();
+    if(e.target.classList.contains('wl-remove')) showToast('Removed from wishlist');
+  }
+});
+
+function addToCart(id){
+  const product = products.find(p=>p.id===id);
+  const cartId = id + '-Default'; 
+  const existing = cart.find(c=>c.cartId===cartId);
+  
+  if(existing){ 
+      existing.qty++; 
+  } else { 
+      cart.push({...product, cartId, qty:1, size: '-'}); 
+  }
+  
+  renderCart();
+  showToast(`${product.name} added to bag`);
+}
+function renderCart(){
+  const wrap = document.getElementById('cartItems');
+  const totalEl = document.getElementById('cartTotal');
+  const countEl = document.getElementById('cartCount');
+  const totalQty = cart.reduce((a,c)=>a+c.qty,0);
+  countEl.textContent = totalQty;
+  if(cart.length===0){
+    wrap.innerHTML = '<div class="cart-empty">Your bag is empty. Start adding some trends!</div>';
+    totalEl.textContent = '₹0';
+    return;
+  }
+  wrap.innerHTML = cart.map(c=>`
+   <div class="cart-item" data-cart-id="${c.cartId}">
+      <img src="${c.img}" alt="${c.name}">
+      <div class="ci-info">
+      <h5>${c.name}${c.size && c.size !== '-' ? ` <span style="color:#a09985;font-weight:400;">(${c.size})</span>` : ''}</h5>
+        <div class="ci-price">₹${c.price} x ${c.qty}</div>
+        <div class="qty-row">
+          <button class="dec">−</button>
+          <span>${c.qty}</span>
+          <button class="inc">+</button>
+          <button class="rm">Remove</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  const total = cart.reduce((a,c)=>a+c.price*c.qty,0);
+  totalEl.textContent = '₹'+total.toLocaleString('en-IN');
+}
+
+document.getElementById('cartItems').addEventListener('click', e=>{
+  const itemEl = e.target.closest('.cart-item');
+  if(!itemEl) return;
+  const cartId = itemEl.dataset.cartId;
+  const item = cart.find(c=>c.cartId===cartId);
+  
+  if(e.target.classList.contains('inc')) item.qty++;
+  if(e.target.classList.contains('dec')) item.qty = Math.max(1, item.qty-1);
+  if(e.target.classList.contains('rm')) cart = cart.filter(c=>c.cartId!==cartId);
+  
+  renderCart();
+});
+
+const qvOverlay = document.getElementById('qvOverlay');
+const qvImgProduct = document.getElementById('qvImgProduct');
+const qvImgModel = document.getElementById('qvImgModel');
+const qvTabProduct = document.getElementById('qvTabProduct');
+const qvTabModel = document.getElementById('qvTabModel');
+let qvCurrentId = null;
+let qvQty = 1;
+
+function openQuickView(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  qvCurrentId = id;
+  qvQty = 1;
+  document.getElementById('qvQty').textContent = qvQty;
+  document.getElementById('qvTag').textContent = p.tag;
+  document.getElementById('qvCat').textContent = p.cat.charAt(0).toUpperCase()+p.cat.slice(1);
+  document.getElementById('qvName').textContent = p.name;
+  document.getElementById('qvPrice').textContent = '₹'+p.price;
+  document.getElementById('qvOld').textContent = '₹'+p.old;
+  document.getElementById('qvOff').textContent = Math.round((1-p.price/p.old)*100)+'% off';
+  document.getElementById('qvDesc').textContent = p.desc;
+  qvImgProduct.src = p.img;
+  qvImgModel.src = p.modelImg;
+  showProductTab();
+  document.querySelectorAll('.size-chip').forEach((c,i)=>c.classList.toggle('active', i===1));
+  const wishBtn = document.getElementById('qvWish');
+  wishBtn.classList.toggle('active', wishlist.has(id));
+  wishBtn.textContent = wishlist.has(id) ? '♥' : '♡';
+  qvOverlay.classList.add('show');
+}
+function closeQuickView(){ qvOverlay.classList.remove('show'); }
+function showProductTab(){
+  qvImgProduct.classList.add('active'); qvImgModel.classList.remove('active');
+  qvTabProduct.classList.add('active'); qvTabModel.classList.remove('active');
+}
+function showModelTab(){
+  qvImgModel.classList.add('active'); qvImgProduct.classList.remove('active');
+  qvTabModel.classList.add('active'); qvTabProduct.classList.remove('active');
+}
+document.getElementById('qvClose').addEventListener('click', closeQuickView);
+qvOverlay.addEventListener('click', e=>{ if(e.target===qvOverlay) closeQuickView(); });
+qvTabProduct.addEventListener('click', showProductTab);
+qvTabModel.addEventListener('click', showModelTab);
+
+document.getElementById('qvSizes').addEventListener('click', e=>{
+  if(e.target.classList.contains('size-chip')){
+    document.querySelectorAll('.size-chip').forEach(c=>c.classList.remove('active'));
+    e.target.classList.add('active');
+  }
+});
+document.getElementById('qvInc').addEventListener('click', ()=>{
+  qvQty++; document.getElementById('qvQty').textContent = qvQty;
+});
+document.getElementById('qvDec').addEventListener('click', ()=>{
+  qvQty = Math.max(1, qvQty-1); document.getElementById('qvQty').textContent = qvQty;
+});
+document.getElementById('qvWish').addEventListener('click', function(e){
+  e.preventDefault();
+  e.stopPropagation();
+  if(qvCurrentId===null || qvCurrentId===undefined) return;
+  if(wishlist.has(qvCurrentId)){
+    wishlist.delete(qvCurrentId);
+    this.classList.remove('active'); this.textContent = '♡';
+    showToast('Removed from wishlist');
+  } else {
+    wishlist.add(qvCurrentId);
+    this.classList.add('active'); this.textContent = '♥';
+    showToast('Added to wishlist');
+  }
+  document.getElementById('wishCount').textContent = wishlist.size;
+  const gridBtn = grid.querySelector(`.wish-btn[data-id="${qvCurrentId}"]`);
+  if(gridBtn){
+    gridBtn.classList.toggle('active', wishlist.has(qvCurrentId));
+    gridBtn.textContent = wishlist.has(qvCurrentId) ? '♥' : '♡';
+  }
+  renderWishlist();
+});
+
+function getProductShareUrl(p){
+  const url = new URL(window.location.href);
+  url.hash = '';
+  url.searchParams.set('product', p.id);
+  return url.toString();
+}
+
+const shareOverlay = document.getElementById('shareOverlay');
+let shareContext = null;
+
+function openShareModal(p){
+  const shareUrl = getProductShareUrl(p);
+  shareContext = {
+    p,
+    url: shareUrl,
+    text: `Check out ${p.name} for ₹${p.price} on Kanha Fashion Trends!`
+  };
+  document.getElementById('shareLinkInput').value = shareUrl;
+  document.getElementById('shareMoreOpt').style.display = navigator.share ? 'flex' : 'none';
+  shareOverlay.classList.add('open');
+}
+function closeShareModal(){ shareOverlay.classList.remove('open'); }
+
+document.getElementById('qvShare').addEventListener('click', function(e){
+  e.preventDefault();
+  e.stopPropagation();
+  const p = products.find(x=>x.id===qvCurrentId);
+  if(!p) return;
+  openShareModal(p);
+});
+
+document.getElementById('closeShare').addEventListener('click', closeShareModal);
+shareOverlay.addEventListener('click', e=>{ if(e.target===shareOverlay) closeShareModal(); });
+
+document.querySelector('.share-grid').addEventListener('click', async e=>{
+  const btn = e.target.closest('.share-opt');
+  if(!btn || !shareContext) return;
+  const { url, text, p } = shareContext;
+  const encodedUrl = encodeURIComponent(url);
+  const encodedText = encodeURIComponent(text);
+  switch(btn.dataset.type){
+    case 'whatsapp':
+      window.open(`https://wa.me/?text=${encodedText}%20${encodedUrl}`, '_blank');
+      break;
+    case 'facebook':
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, '_blank');
+      break;
+    case 'twitter':
+      window.open(`https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`, '_blank');
+      break;
+    case 'telegram':
+      window.open(`https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`, '_blank');
+      break;
+    case 'email':
+      window.location.href = `mailto:?subject=${encodeURIComponent(p.name)}&body=${encodedText}%20${encodedUrl}`;
+      break;
+    case 'more':
+      if(navigator.share){
+        try{ await navigator.share({ title: p.name, text, url }); }
+        catch(err){ /* user cancelled */ }
+      }
+      break;
+  }
+  closeShareModal();
+});
+
+document.getElementById('copyShareLink').addEventListener('click', async ()=>{
+  if(!shareContext) return;
+  try{
+    await navigator.clipboard.writeText(shareContext.url);
+    showToast('Product link copied to clipboard');
+  }catch(err){
+    document.getElementById('shareLinkInput').select();
+    document.execCommand('copy');
+    showToast('Product link copied to clipboard');
+  }
+});
+
+document.getElementById('qvAddCart').addEventListener('click', ()=>{
+  const p = products.find(x=>x.id===qvCurrentId);
+  const size = document.querySelector('.size-chip.active').textContent;
+  const cartId = qvCurrentId + '-' + size;
+  const existing = cart.find(c=>c.cartId===cartId);
+  
+  if(existing){ 
+      existing.qty += qvQty; 
+  } else { 
+      cart.push({...p, cartId, qty:qvQty, size}); 
+  }
+  
+  renderCart();
+  showToast(`${p.name} (${size}) added to bag`);
+  closeQuickView();
+});
+
+const cartDrawer = document.getElementById('cartDrawer');
+const overlay = document.getElementById('overlay');
+document.getElementById('cartIcon').addEventListener('click', ()=>{
+  cartDrawer.classList.add('open'); overlay.classList.add('show');
+});
+document.getElementById('closeCart').addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
+function closeDrawer(){ cartDrawer.classList.remove('open'); overlay.classList.remove('show'); }
+
+function showToast(msg){
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(()=>toast.classList.remove('show'), 2200);
+}
+
+function copyCode(code, btn){
+  navigator.clipboard.writeText(code).then(()=>{
+    if (btn.textContent === 'Copied!') return; 
+    const original = btn.textContent;
+    btn.textContent = 'Copied!';
+    showToast(`Code ${code} copied`);
+    setTimeout(()=>btn.textContent = original, 1500);
+  });
+}
+
+const SEED_OFFERS = [
+  { id: 1, label: 'Flat 40%', desc: 'On all ethnic wear including sarees, lehengas & kurta sets.', code: 'KANHA40', discountPct: 40 },
+  { id: 2, label: 'Extra 10%', desc: 'On your first order, applicable across the entire store.', code: 'KANHA10', discountPct: 10 },
+  { id: 3, label: 'Buy 2 Get 1', desc: 'Free on all western tops, tees and co-ord sets.', code: 'KANHA2GET1', discountPct: 0 }
+];
+
+function db_getOffers(){
+  const raw = localStorage.getItem('at_offers');
+  if(raw) return JSON.parse(raw);
+  db_saveOffers(SEED_OFFERS);
+  return JSON.parse(JSON.stringify(SEED_OFFERS));
+}
+function db_saveOffers(o){ localStorage.setItem('at_offers', JSON.stringify(o)); }
+function nextOfferId(offers){ return offers.length ? Math.max(...offers.map(o=>o.id)) + 1 : 1; }
+
+function renderCouponGrid(){
+  const grid = document.getElementById('couponGrid');
+  if(!grid) return;
+  const offers = db_getOffers();
+  if(offers.length === 0){
+    grid.innerHTML = `<p style="text-align:center;color:#5c5548;grid-column:1/-1;">No active offers right now. Check back soon!</p>`;
+    return;
+  }
+  grid.innerHTML = offers.map(o => `
+    <div class="coupon-card">
+      <div class="pct">${o.label}</div>
+      <div class="desc">${o.desc}</div>
+      <div class="coupon-row"><code>${o.code}</code><button onclick="copyCode('${o.code}', this)">Copy Code</button></div>
+    </div>
+  `).join('');
+}
+renderCouponGrid();
+
+function renderOwnerOffers(){
+  const grid = document.getElementById('ownerOffersGrid');
+  const offers = db_getOffers();
+  if(offers.length === 0){
+    grid.innerHTML = `<div class="empty-state"><div class="ic">🏷️</div><p>No offers yet. Add one to show it on the storefront.</p></div>`;
+    return;
+  }
+  grid.innerHTML = offers.map(o => `
+    <div class="owner-offer-card" data-id="${o.id}">
+      <div class="rv-field"><label>Label</label><input type="text" class="ofLabel" value="${o.label}"></div>
+      <div class="rv-field"><label>Description</label><textarea class="ofDesc" rows="2">${o.desc}</textarea></div>
+      <div class="rv-field-row">
+        <div class="rv-field"><label>Coupon Code</label><input type="text" class="ofCode" value="${o.code}"></div>
+        <div class="rv-field"><label>Discount % at Checkout</label><input type="number" class="ofPct" min="0" max="100" value="${o.discountPct || 0}"></div>
+      </div>
+      <div class="ofc-actions">
+        <button type="button" class="btn-mini-primary saveOfferBtn">Save</button>
+        <button type="button" class="btn-mini-primary deleteOfferBtn" style="background:#b34747;border-color:#b34747;">Delete</button>
+      </div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.owner-offer-card').forEach(card => {
+    const id = parseInt(card.dataset.id, 10);
+    card.querySelector('.saveOfferBtn').addEventListener('click', () => {
+      const label = card.querySelector('.ofLabel').value.trim();
+      const desc = card.querySelector('.ofDesc').value.trim();
+      const code = card.querySelector('.ofCode').value.trim().toUpperCase();
+      const discountPct = Math.max(0, Math.min(100, parseInt(card.querySelector('.ofPct').value, 10) || 0));
+      if(!label || !desc || !code){
+        showToast('Please fill in label, description and code');
+        return;
+      }
+      const all = db_getOffers();
+      const off = all.find(x => x.id === id);
+      if(off) Object.assign(off, { label, desc, code, discountPct });
+      db_saveOffers(all);
+      renderCouponGrid();
+      showToast('Offer updated on storefront');
+    });
+    card.querySelector('.deleteOfferBtn').addEventListener('click', () => {
+      if(!confirm('Remove this offer from the storefront?')) return;
+      const all = db_getOffers().filter(x => x.id !== id);
+      db_saveOffers(all);
+      renderOwnerOffers();
+      renderCouponGrid();
+      showToast('Offer removed');
+    });
+  });
+}
+
+document.getElementById('addOfferBtn').addEventListener('click', () => {
+  const all = db_getOffers();
+  all.push({ id: nextOfferId(all), label: 'New Offer', desc: 'Describe this offer...', code: 'NEWCODE', discountPct: 0 });
+  db_saveOffers(all);
+  renderOwnerOffers();
+  renderCouponGrid();
+});
+
+const slides = document.querySelectorAll('.slide');
+const heroDots = document.getElementById('heroDots');
+let heroIndex = 0;
+slides.forEach((_,i)=>{
+  const dot = document.createElement('button');
+  if(i===0) dot.classList.add('active');
+  dot.addEventListener('click', ()=>goToSlide(i));
+  heroDots.appendChild(dot);
+});
+function goToSlide(i){
+  slides[heroIndex].classList.remove('active');
+  heroDots.children[heroIndex].classList.remove('active');
+  heroIndex = i;
+  slides[heroIndex].classList.add('active');
+  heroDots.children[heroIndex].classList.add('active');
+}
+document.getElementById('heroNext').addEventListener('click', ()=>goToSlide((heroIndex+1)%slides.length));
+document.getElementById('heroPrev').addEventListener('click', ()=>goToSlide((heroIndex-1+slides.length)%slides.length));
+setInterval(()=>goToSlide((heroIndex+1)%slides.length), 5500);
+
+const SEED_REVIEWS = [
+  { name:'Priya Sharma', city:'Pune', rating:5, text:"The saree I ordered for my sister's wedding looked even better in person. Fabric quality is outstanding." },
+  { name:'Rohit Verma', city:'Delhi', rating:5, text:"Fast delivery and the kurta set fit perfectly. kanha fashion Trends is my go-to for festive shopping now." },
+  { name:'Ananya Iyer', city:'Bengaluru', rating:4, text:"Loved the co-ord set for the price. Customer support helped me exchange the size within a day." }
+];
+
+function db_getReviews(){ return JSON.parse(localStorage.getItem('at_reviews') || '[]'); }
+function db_saveReviews(r){ localStorage.setItem('at_reviews', JSON.stringify(r)); }
+
+function starString(n){ return '★★★★★'.slice(0,n) + '☆☆☆☆☆'.slice(0, 5-n); }
+
+const tTrack = document.getElementById('tTrack');
+const tDots = document.getElementById('tDots');
+let tIndex = 0;
+let tAutoTimer = null;
+
+function getAllReviews(){
+  return [...db_getReviews()].reverse().concat(SEED_REVIEWS);
+}
+
+function renderTestimonials(jumpToIndex){
+  const reviews = getAllReviews();
+  tTrack.innerHTML = reviews.map(r => `
+    <div class="t-slide">
+      <div class="stars">${starString(r.rating)}</div>
+      <p>"${r.text}"</p>
+      <div class="who">— ${r.name}${r.city ? ', ' + r.city : ''}</div>
+    </div>
+  `).join('');
+
+  tDots.innerHTML = '';
+  reviews.forEach((_, i) => {
+    const dot = document.createElement('button');
+    if(i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goToTestimonial(i));
+    tDots.appendChild(dot);
+  });
+
+  tIndex = typeof jumpToIndex === 'number' ? jumpToIndex : 0;
+  tTrack.style.transform = `translateX(-${tIndex*100}%)`;
+  [...tDots.children].forEach((d, idx) => d.classList.toggle('active', idx === tIndex));
+
+  if(tAutoTimer) clearInterval(tAutoTimer);
+  tAutoTimer = setInterval(() => goToTestimonial((tIndex+1) % reviews.length), 4500);
+}
+
+function goToTestimonial(i){
+  const total = tDots.children.length;
+  tIndex = ((i % total) + total) % total;
+  tTrack.style.transform = `translateX(-${tIndex*100}%)`;
+  [...tDots.children].forEach((d, idx) => d.classList.toggle('active', idx === tIndex));
+}
+
+renderTestimonials(0);
+
+const reviewOverlay = document.getElementById('reviewOverlay');
+const reviewForm = document.getElementById('reviewForm');
+const rvStarPicker = document.getElementById('rvStarPicker');
+const rvError = document.getElementById('rvError');
+let rvRating = 5;
+
+function paintStarPicker(){
+  [...rvStarPicker.children].forEach(btn => {
+    btn.classList.toggle('filled', Number(btn.dataset.val) <= rvRating);
+  });
+}
+paintStarPicker();
+
+rvStarPicker.addEventListener('click', (e) => {
+  const btn = e.target.closest('.rv-star');
+  if(!btn) return;
+  rvRating = Number(btn.dataset.val);
+  paintStarPicker();
+});
+
+function openReviewModal(){
+  rvError.textContent = '';
+  reviewForm.reset();
+  rvRating = 5;
+  paintStarPicker();
+  const session = db_getSession();
+  if(session && session.type === 'customer' && session.name){
+    document.getElementById('rvName').value = session.name;
+  }
+  reviewOverlay.classList.add('open');
+}
+function closeReviewModal(){ reviewOverlay.classList.remove('open'); }
+
+document.getElementById('writeReviewBtn').addEventListener('click', openReviewModal);
+document.getElementById('closeReview').addEventListener('click', closeReviewModal);
+reviewOverlay.addEventListener('click', (e) => { if(e.target === reviewOverlay) closeReviewModal(); });
+
+reviewForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('rvName').value.trim();
+  const city = document.getElementById('rvCity').value.trim();
+  const text = document.getElementById('rvText').value.trim();
+
+  if(!name || !city || !text){
+    rvError.textContent = 'Please fill in all fields.';
+    return;
+  }
+  if(!rvRating){
+    rvError.textContent = 'Please select a star rating.';
+    return;
+  }
+
+  const reviews = db_getReviews();
+  reviews.push({ name, city, rating: rvRating, text, date: new Date().toISOString() });
+  db_saveReviews(reviews);
+
+  closeReviewModal();
+  renderTestimonials(0);
+  showToast('Thank you! Your review is now live for everyone to see.');
+});
+
+const saleEnd = new Date();
+saleEnd.setDate(saleEnd.getDate()+5);
+function updateCountdown(){
+  const now = new Date();
+  let diff = saleEnd - now;
+  if(diff<0) diff=0;
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor((diff/(1000*60*60))%24);
+  const m = Math.floor((diff/(1000*60))%60);
+  const s = Math.floor((diff/1000)%60);
+  document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+document.getElementById('hamburger').addEventListener('click', ()=>{
+  document.getElementById('mainNav').classList.toggle('open');
+});
+document.querySelectorAll('#mainNav a').forEach(a=>{
+  a.addEventListener('click', ()=>document.getElementById('mainNav').classList.remove('open'));
+});
+
+document.getElementById('newsForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const email = document.getElementById('newsEmail').value;
+  document.getElementById('newsMsg').textContent = `Thanks! A confirmation has been sent to ${email}.`;
+  e.target.reset();
+});
+
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', ()=>{
+  backTop.classList.toggle('show', window.scrollY > 500);
+});
+backTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+
+const OWNER_EMAIL = "kanhafashiontrends@gmail.com";
+const OWNER_PASSWORD = "kanha123";
+const TAX_RATE = 0.05; 
+const SHIP_THRESHOLD = 1499;
+const SHIP_FEE = 79;
+
+const STATUS_FLOW = ["Order Placed", "Confirmed", "Shipped", "Out for Delivery", "Delivered"];
+const STATUS_CLASS = {
+  "Order Placed": "st-placed",
+  "Confirmed": "st-confirmed",
+  "Shipped": "st-shipped",
+  "Out for Delivery": "st-out",
+  "Delivered": "st-delivered",
+  "Cancelled": "st-cancelled"
+};
+
+function db_getUsers(){ return JSON.parse(localStorage.getItem('at_users') || '[]'); }
+function db_saveUsers(u){ localStorage.setItem('at_users', JSON.stringify(u)); }
+function db_getOrders(){ return JSON.parse(localStorage.getItem('at_orders') || '[]'); }
+function db_saveOrders(o){ localStorage.setItem('at_orders', JSON.stringify(o)); }
+function db_getSession(){ return JSON.parse(localStorage.getItem('at_session') || 'null'); }
+function db_saveSession(s){ localStorage.setItem('at_session', JSON.stringify(s)); }
+function db_clearSession(){ localStorage.removeItem('at_session'); }
+
+function money(n){ return '₹' + Number(n).toLocaleString('en-IN'); }
+function genOrderId(){
+  const orders = db_getOrders();
+  const num = 1001 + orders.length;
+  return 'AT' + num;
+}
+function genInvoiceNo(order){ return 'INV-' + order.id.replace('AT','') + '-' + new Date(order.placedAt).getFullYear(); }
+function fmtDate(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }) + ' · ' +
+         d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+}
+
+const authScreen = document.getElementById('authScreen');
+const storeApp = document.getElementById('storeApp');
+const ownerShell = document.getElementById('ownerShell');
+const myOrdersShell = document.getElementById('myOrdersShell');
+
+function showAuthStep(id){
+  document.querySelectorAll('.auth-step').forEach(s => s.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
+
+document.getElementById('btnGoOwner').addEventListener('click', () => showAuthStep('stepOwner'));
+document.getElementById('btnGoCustomerLogin').addEventListener('click', () => showAuthStep('stepCustomerLogin'));
+document.getElementById('btnGoSignup').addEventListener('click', () => showAuthStep('stepSignup'));
+document.getElementById('btnGoGuest').addEventListener('click', () => loginAsGuest());
+
+document.querySelectorAll('[data-back]').forEach(el => {
+  el.addEventListener('click', () => {
+    const target = el.dataset.back;
+    if(target === 'stepCustomerLogin_via_signup'){ showAuthStep('stepCustomerLogin'); return; }
+    showAuthStep(target);
+  });
+});
+
+document.getElementById('ownerLoginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const email = document.getElementById('ownerEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('ownerPassword').value;
+  const err = document.getElementById('ownerError');
+  if(email === OWNER_EMAIL && pass === OWNER_PASSWORD){
+    err.classList.remove('show');
+    db_saveSession({ type:'owner', email: OWNER_EMAIL, name:'Owner' });
+    enterApp();
+  } else {
+    err.classList.add('show');
+  }
+});
+
+document.getElementById('signupForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('suName').value.trim();
+  const email = document.getElementById('suEmail').value.trim().toLowerCase();
+  const phone = document.getElementById('suPhone').value.trim();
+  const password = document.getElementById('suPassword').value;
+  const err = document.getElementById('signupError');
+
+  const users = db_getUsers();
+  if(users.find(u => u.email === email)){
+    err.textContent = 'An account with this email already exists. Please login instead.';
+    err.classList.add('show');
+    return;
+  }
+  const newUser = { name, email, phone, password, address:null };
+  users.push(newUser);
+  db_saveUsers(users);
+  db_saveSession({ type:'customer', email, name });
+  enterApp();
+});
+
+document.getElementById('customerLoginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const email = document.getElementById('clEmail').value.trim().toLowerCase();
+  const password = document.getElementById('clPassword').value;
+  const err = document.getElementById('custLoginError');
+  const users = db_getUsers();
+  const user = users.find(u => u.email === email && u.password === password);
+  if(user){
+    err.classList.remove('show');
+    db_saveSession({ type:'customer', email: user.email, name: user.name });
+    enterApp();
+  } else {
+    err.classList.add('show');
+  }
+});
+
+function loginAsGuest(){
+  db_saveSession({ type:'guest', email:null, name:'Guest' });
+  enterApp();
+}
+function enterApp(){
+  const session = db_getSession();
+  authScreen.style.display = 'none';
+  ownerShell.classList.remove('open');
+  myOrdersShell.classList.remove('open');
+  storeApp.style.display = 'none';
+
+  if(!session){
+    authScreen.style.display = 'flex';
+    return;
+  }
+  if(session.type === 'owner'){
+    ownerShell.classList.add('open');
+    renderOwnerDashboard();
+  } else {
+    storeApp.style.display = 'block';
+    updateAccountMenu();
+    openSharedProductIfPresent();
+  }
+}
+
+function openSharedProductIfPresent(){
+  const params = new URLSearchParams(window.location.search);
+  const sharedId = parseInt(params.get('product'));
+  if(!sharedId) return;
+  const p = products.find(x=>x.id===sharedId);
+  if(p){
+    openQuickView(sharedId);
+  }
+}
+
+function logout(){
+  db_clearSession();
+  cart = [];
+  if(typeof renderCart === 'function') renderCart();
+  location.reload();
+}
+
+function updateAccountMenu(){
+  const session = db_getSession();
+  const who = document.getElementById('acctWho');
+  const whoSpan = document.getElementById('acctWhoTag');
+  if(!session) return;
+  who.textContent = session.type === 'guest' ? 'Guest User' : session.name;
+  whoSpan.textContent = session.type === 'guest' ? 'Shopping as guest' : session.email;
+}
+
+document.getElementById('accountIcon').addEventListener('click', (e) => {
+  e.stopPropagation();
+  document.getElementById('accountMenu').classList.toggle('open');
+});
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('accountMenu');
+  if(menu.classList.contains('open') && !menu.contains(e.target) && e.target.id !== 'accountIcon'){
+    menu.classList.remove('open');
+  }
+});
+document.getElementById('menuMyOrders').addEventListener('click', () => {
+  document.getElementById('accountMenu').classList.remove('open');
+  storeApp.style.display = 'none';
+  myOrdersShell.classList.add('open');
+  renderMyOrders();
+});
+document.getElementById('menuLogout').addEventListener('click', logout);
+document.getElementById('moBackToStore').addEventListener('click', () => {
+  myOrdersShell.classList.remove('open');
+  storeApp.style.display = 'block';
+});
+document.getElementById('moLogout').addEventListener('click', logout);
+document.getElementById('ownerLogout').addEventListener('click', logout);
+
+const checkoutOverlay = document.getElementById('checkoutOverlay');
+
+document.getElementById('applyCouponBtn').addEventListener('click', () => {
+  const code = document.getElementById('coCoupon').value.trim().toUpperCase();
+  const offer = db_getOffers().find(o => o.code === code && o.discountPct > 0);
+  if (offer) {
+    discountAmount = offer.discountPct / 100;
+    showToast(`${offer.discountPct}% Discount Applied!`);
+  } else {
+    discountAmount = 0;
+    showToast('Invalid or expired coupon code');
+  }
+  openCheckout(); 
+});
+
+function cartTotals(){
+  const rawSubtotal = cart.reduce((a,c) => a + c.price * c.qty, 0);
+  const subtotal = rawSubtotal - (rawSubtotal * discountAmount); 
+  const shipping = (subtotal === 0 || subtotal >= SHIP_THRESHOLD) ? 0 : SHIP_FEE;
+  const tax = Math.round(subtotal * TAX_RATE);
+  const total = subtotal + shipping + tax;
+  return { subtotal, shipping, tax, total, rawSubtotal };
+}
+
+function openCheckout(){
+  if(cart.length === 0){ showToast('Your bag is empty'); return; }
+  const session = db_getSession();
+  const t = cartTotals();
+  
+  document.getElementById('checkoutSummary').innerHTML = `
+    <div class="osm-row"><span>${cart.reduce((a,c)=>a+c.qty,0)} item(s)</span><span>${money(t.rawSubtotal)}</span></div>
+    ${discountAmount > 0 ? `<div class="osm-row" style="color:var(--success);"><span>Discount</span><span>-${money(t.rawSubtotal * discountAmount)}</span></div>` : ''}
+    <div class="osm-row"><span>Shipping</span><span>${t.shipping===0?'FREE':money(t.shipping)}</span></div>
+    <div class="osm-row"><span>Tax (GST 5%)</span><span>${money(t.tax)}</span></div>
+    <div class="osm-row total"><span>Total</span><span>${money(t.total)}</span></div>
+  `;
+  document.getElementById('checkoutError').classList.remove('show');
+
+  if(session && session.type === 'customer'){
+    const user = db_getUsers().find(u => u.email === session.email);
+    document.getElementById('coName').value = user.name || '';
+    document.getElementById('coPhone').value = (user.address && user.address.phone) || '';
+    if(user.address){
+      document.getElementById('coAddress').value = user.address.line || '';
+      document.getElementById('coCity').value = user.address.city || '';
+      document.getElementById('coState').value = user.address.state || '';
+      document.getElementById('coPincode').value = user.address.pincode || '';
+    }
+  }
+
+  const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+  togglePaymentScanner(payMethod);
+
+  closeDrawer();
+  checkoutOverlay.classList.add('open');
+}
+function closeCheckoutModal(){ checkoutOverlay.classList.remove('open'); }
+document.getElementById('closeCheckout').addEventListener('click', closeCheckoutModal);
+
+function togglePaymentScanner(method) {
+  const onlineDetails = document.getElementById('onlinePaymentDetails');
+  const screenshotInput = document.getElementById('coScreenshot');
+  if (method === 'Prepaid') {
+    onlineDetails.style.display = 'block';
+    screenshotInput.required = true;
+  } else {
+    onlineDetails.style.display = 'none';
+    screenshotInput.required = false;
+    screenshotInput.value = ""; 
+  }
+}
+
+document.querySelectorAll('.pay-opt input[name="payMethod"]').forEach(radio => {
+  radio.addEventListener('change', (e) => {
+    document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('active'));
+    e.target.closest('.pay-opt').classList.add('active');
+    togglePaymentScanner(e.target.value);
+  });
+});
+
+document.getElementById('checkoutForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  
+  const phone = document.getElementById('coPhone').value.trim();
+  if(!/^[0-9]{10}$/.test(phone)){
+    const err = document.getElementById('checkoutError');
+    err.textContent = 'Please enter a valid 10-digit phone number.';
+    err.classList.add('show');
+    return;
+  }
+
+  const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+  const screenshotInput = document.getElementById('coScreenshot');
+
+  if (payMethod === 'Prepaid' && screenshotInput.files.length > 0) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      finalizeOrder(evt.target.result);
+    };
+    reader.readAsDataURL(screenshotInput.files[0]);
+  } else {
+    finalizeOrder(null);
+  }
+});
+
+function finalizeOrder(screenshotData) {
+  const session = db_getSession();
+  const name = document.getElementById('coName').value.trim();
+  const phone = document.getElementById('coPhone').value.trim();
+  const address = document.getElementById('coAddress').value.trim();
+  const city = document.getElementById('coCity').value.trim();
+  const state = document.getElementById('coState').value.trim();
+  const pincode = document.getElementById('coPincode').value.trim();
+  const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+
+  const t = cartTotals();
+  const order = {
+    id: genOrderId(),
+    customerEmail: session && session.type === 'customer' ? session.email : null,
+    customerType: session ? session.type : 'guest',
+    customerName: name,
+    phone, address, city, state, pincode,
+    payMethod,
+    screenshot: screenshotData, 
+    items: cart.map(c => ({ id:c.id, name:c.name, price:c.price, qty:c.qty, size:c.size||'-', img:c.img })),
+    subtotal: t.subtotal, shipping: t.shipping, tax: t.tax, total: t.total,
+    status: 'Order Placed',
+    location: city,
+    placedAt: new Date().toISOString(),
+    timeline: [{ status:'Order Placed', location: city, time: new Date().toISOString() }]
+  };
+
+  const orders = db_getOrders();
+  orders.push(order);
+  db_saveOrders(orders);
+
+  if(session && session.type === 'customer'){
+    const users = db_getUsers();
+    const u = users.find(x => x.email === session.email);
+    if(u){ u.address = { line:address, city, state, pincode, phone }; db_saveUsers(users); }
+  }
+
+  cart = [];
+  discountAmount = 0; 
+  document.getElementById('coCoupon').value = '';
+  document.getElementById('coScreenshot').value = '';
+  
+  renderCart();
+  closeCheckoutModal();
+  showToast(`Order ${order.id} placed successfully!`);
+  storeApp.style.display = 'none';
+  myOrdersShell.classList.add('open');
+  renderMyOrders();
+}
+
+document.querySelector('.cart-foot .btn-primary').addEventListener('click', openCheckout);
+
+function renderMyOrders(){
+  const session = db_getSession();
+  document.getElementById('moUserName').textContent = session ? (session.type==='guest' ? 'Guest' : session.name) : '';
+  const orders = db_getOrders();
+  let mine;
+  if(session && session.type === 'customer'){
+    mine = orders.filter(o => o.customerEmail === session.email);
+  } else {
+    const guestIds = JSON.parse(sessionStorage.getItem('at_guest_orders') || '[]');
+    mine = orders.filter(o => guestIds.includes(o.id));
+  }
+  mine.sort((a,b) => new Date(b.placedAt) - new Date(a.placedAt));
+
+  const list = document.getElementById('myOrdersList');
+  if(mine.length === 0){
+    list.innerHTML = `<div class="empty-state"><div class="ic">🛍️</div><p>No orders yet. Head back to the store to start shopping!</p></div>`;
+    return;
+  }
+  list.innerHTML = mine.map(o => orderCardHTML(o, false)).join('');
+  attachOrderCardEvents(list, false);
+}
+
+function rememberGuestOrder(id){
+  const arr = JSON.parse(sessionStorage.getItem('at_guest_orders') || '[]');
+  arr.push(id);
+  sessionStorage.setItem('at_guest_orders', JSON.stringify(arr));
+}
+
+function renderOwnerDashboard(filter){
+  const orders = db_getOrders().slice().sort((a,b) => new Date(b.placedAt) - new Date(a.placedAt));
+  const stats = document.getElementById('ownerStats');
+  const total = orders.length;
+  const pending = orders.filter(o => !['Delivered','Cancelled'].includes(o.status)).length;
+  const delivered = orders.filter(o => o.status === 'Delivered').length;
+  const revenue = orders.filter(o => o.status !== 'Cancelled').reduce((a,o) => a + o.total, 0);
+  stats.innerHTML = `
+    <div class="stat-card"><div class="n">${total}</div><div class="l">Total Orders</div></div>
+    <div class="stat-card"><div class="n">${pending}</div><div class="l">In Progress</div></div>
+    <div class="stat-card"><div class="n">${delivered}</div><div class="l">Delivered</div></div>
+    <div class="stat-card"><div class="n">${money(revenue)}</div><div class="l">Total Revenue</div></div>
+  `;
+
+  let shown = orders;
+  if(filter){
+    const f = filter.toLowerCase();
+    shown = orders.filter(o => o.id.toLowerCase().includes(f) || o.customerName.toLowerCase().includes(f) || o.phone.includes(f));
+  }
+
+  const list = document.getElementById('ownerOrdersList');
+  if(shown.length === 0){
+    list.innerHTML = `<div class="empty-state"><div class="ic">📦</div><p>No orders ${filter ? 'match your search' : 'yet'}. New customer orders will appear here.</p></div>`;
+    return;
+  }
+  list.innerHTML = shown.map(o => orderCardHTML(o, true)).join('');
+  attachOrderCardEvents(list, true);
+}
+
+document.getElementById('ownerSearch').addEventListener('input', (e) => renderOwnerDashboard(e.target.value));
+
+document.getElementById('ownerTabs').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-tab]');
+  if(!btn) return;
+  document.querySelectorAll('#ownerTabs button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.owner-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('ownerPanel' + btn.dataset.tab).style.display = 'block';
+  if(btn.dataset.tab === 'Products') renderOwnerProducts(document.getElementById('productSearch').value);
+  if(btn.dataset.tab === 'Offers') renderOwnerOffers();
+});
+
+function renderOwnerProducts(filterText){
+  const search = (filterText || '').toLowerCase();
+  const list = products.filter(p => p.name.toLowerCase().includes(search));
+
+  document.getElementById('productStats').innerHTML = `
+    <div class="stat-card"><div class="n">${products.length}</div><div class="l">Total Products</div></div>
+  `;
+
+  const grid = document.getElementById('ownerProductGrid');
+  if(list.length === 0){
+    grid.innerHTML = `<div class="empty-state"><div class="ic">👗</div><p>No products ${filterText ? 'match your search' : 'yet'}.</p></div>`;
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="owner-product-card" data-id="${p.id}">
+      <img src="${p.img}" alt="${p.name}">
+      <div class="opc-body">
+        <div class="opc-cat">${p.cat}</div>
+        <div class="opc-name">${p.name}</div>
+        <div class="opc-price">₹${p.price}<span>₹${p.old}</span></div>
+        <div class="opc-tag">${p.tag}</div>
+      </div>
+      <div class="opc-actions">
+        <button type="button" class="btn-mini-outline editProductBtn">Edit</button>
+        <button type="button" class="btn-mini-primary removeProductBtn" style="background:#b34747;border-color:#b34747;">Remove</button>
+      </div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.owner-product-card').forEach(card => {
+    const id = parseInt(card.dataset.id, 10);
+    card.querySelector('.editProductBtn').addEventListener('click', () => openProductModal(id));
+    card.querySelector('.removeProductBtn').addEventListener('click', () => removeProduct(id));
+  });
+}
+
+function removeProduct(id){
+  const p = products.find(x => x.id === id);
+  if(!p) return;
+  if(!confirm(`Remove "${p.name}" from the store? This can't be undone.`)) return;
+
+  const extra = db_getExtraProducts();
+  if(extra.find(x => x.id === id)){
+    db_saveExtraProducts(extra.filter(x => x.id !== id));
+  } else {
+    const removed = db_getRemovedProductIds();
+    if(!removed.includes(id)) removed.push(id);
+    db_saveRemovedProductIds(removed);
+  }
+
+  rebuildProducts();
+  renderProducts(currentProductFilter);
+  renderOwnerProducts(document.getElementById('productSearch').value);
+  showToast(`"${p.name}" removed from store`);
+}
+
+document.getElementById('productSearch').addEventListener('input', (e) => renderOwnerProducts(e.target.value));
+
+const productModal = document.getElementById('productModal');
+const productForm = document.getElementById('productForm');
+const pfError = document.getElementById('pfError');
+let editingProductId = null;
+
+function openProductModal(id){
+  editingProductId = id || null;
+  pfError.textContent = '';
+  productForm.reset();
+  document.getElementById('productModalTitle').textContent = id ? 'Edit Product' : 'Add Product';
+  document.getElementById('pfSubmitBtn').textContent = id ? 'Save Changes' : 'Add Product';
+
+  if(id){
+    const p = products.find(x => x.id === id);
+    if(p){
+      document.getElementById('pfName').value = p.name;
+      document.getElementById('pfCat').value = p.cat;
+      document.getElementById('pfPrice').value = p.price;
+      document.getElementById('pfOld').value = p.old;
+      document.getElementById('pfTag').value = p.tag;
+      document.getElementById('pfImg').value = p.img;
+      document.getElementById('pfModelImg').value = p.modelImg || '';
+      document.getElementById('pfDesc').value = p.desc;
+    }
+  }
+  productModal.classList.add('open');
+}
+function closeProductModal(){ productModal.classList.remove('open'); }
+
+document.getElementById('addProductBtn').addEventListener('click', () => openProductModal(null));
+document.getElementById('closeProductModal').addEventListener('click', closeProductModal);
+productModal.addEventListener('click', (e) => { if(e.target === productModal) closeProductModal(); });
+
+productForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('pfName').value.trim();
+  const cat = document.getElementById('pfCat').value;
+  const price = parseInt(document.getElementById('pfPrice').value, 10);
+  const old = parseInt(document.getElementById('pfOld').value, 10);
+  const tag = document.getElementById('pfTag').value.trim() || 'NEW';
+  const img = document.getElementById('pfImg').value.trim();
+  const modelImg = document.getElementById('pfModelImg').value.trim() || img;
+  const desc = document.getElementById('pfDesc').value.trim();
+
+  if(!name || !cat || !price || !old || !img || !desc){
+    pfError.textContent = 'Please fill in all required fields.';
+    return;
+  }
+  if(price > old){
+    pfError.textContent = 'Selling price should not be higher than the original price.';
+    return;
+  }
+
+  const extra = db_getExtraProducts();
+  if(editingProductId){
+    const idxExtra = extra.findIndex(x => x.id === editingProductId);
+    if(idxExtra > -1){
+      extra[idxExtra] = { id: editingProductId, name, cat, price, old, tag, img, modelImg, desc };
+    } else {
+      extra.push({ id: editingProductId, name, cat, price, old, tag, img, modelImg, desc });
+      const removed = db_getRemovedProductIds();
+      if(!removed.includes(editingProductId)) removed.push(editingProductId);
+      db_saveRemovedProductIds(removed);
+    }
+    db_saveExtraProducts(extra);
+    showToast(`"${name}" updated`);
+  } else {
+    const id = nextProductId();
+    extra.push({ id, name, cat, price, old, tag, img, modelImg, desc });
+    db_saveExtraProducts(extra);
+    showToast(`"${name}" added to the store`);
+  }
+
+  rebuildProducts();
+  renderProducts(currentProductFilter);
+  renderOwnerProducts(document.getElementById('productSearch').value);
+  closeProductModal();
+});
+
+function orderCardHTML(o, isOwner){
+  const cls = STATUS_CLASS[o.status] || 'st-placed';
+  const itemsHTML = o.items.map(it => `
+    <div class="oc-item">
+      <img src="${it.img}" alt="${it.name}">
+      <div>
+        <div class="nm">${it.name}${it.size && it.size!=='-' ? ' ('+it.size+')' : ''}</div>
+        <div class="mt">Qty ${it.qty} × ${money(it.price)}</div>
+      </div>
+    </div>
+  `).join('');
+
+  const trackHTML = STATUS_FLOW.map((s, i) => {
+    const currentIdx = STATUS_FLOW.indexOf(o.status);
+    const done = o.status !== 'Cancelled' && i <= currentIdx;
+    const stepData = o.timeline.find(t => t.status === s);
+    return `<div class="tk-step ${done?'done':''}">
+      <div class="dot"></div>
+      <div class="txt"><strong>${s}</strong><span>${stepData ? fmtDate(stepData.time) + (stepData.location ? ' · '+stepData.location : '') : 'Pending'}</span></div>
+    </div>`;
+  }).join('');
+
+  const ownerControls = isOwner ? `
+    <div class="owner-update-row">
+      <select class="statusSelect">
+        ${STATUS_FLOW.concat('Cancelled').map(s => `<option value="${s}" ${s===o.status?'selected':''}>${s}</option>`).join('')}
+      </select>
+      <input type="text" class="locationInput" placeholder="Current location / city" value="${o.location || ''}">
+      <button class="btn-mini-primary full saveUpdateBtn">Update Status &amp; Location</button>
+    </div>
+  ` : '';
+
+  const paymentInfo = o.payMethod === 'COD'
+    ? 'Cash on Delivery'
+    : `Prepaid (UPI/Card)${o.screenshot ? ` <br><span onclick="viewScreenshot('${o.id}')" style="color:#2451a8; font-size:11px; text-decoration:underline; cursor:pointer;">View Screenshot</span>` : ''}`;
+
+  const rejectBtnHtml = (isOwner && o.payMethod === 'Prepaid' && o.status !== 'Cancelled' && o.screenshot) 
+    ? `<button class="btn-mini-primary rejectFakeBtn" style="background: #b34747; border-color: #b34747; width: 100%; margin-top: 10px;">Reject Order - Fake Payment</button>` 
+    : '';
+
+  return `
+  <div class="order-card" data-id="${o.id}">
+    <div class="oc-top">
+      <div>
+        <div class="oc-id">Order ${o.id}</div>
+        <div class="oc-date">${fmtDate(o.placedAt)}</div>
+        ${isOwner ? `<div class="oc-cust">${o.customerName} · ${o.phone} · ${o.customerType==='guest'?'Guest':(o.customerEmail||'')}</div>` : ''}
+      </div>
+      <span class="oc-status ${cls}">${o.status}</span>
+    </div>
+    <div class="oc-body">
+      <div class="oc-items">${itemsHTML}</div>
+      <div class="oc-side">
+        <div class="lbl">Deliver To</div>
+        <div>${o.customerName}, ${o.address}, ${o.city}, ${o.state} - ${o.pincode}</div>
+        <div class="lbl">Payment</div>
+        <div>${paymentInfo}</div>
+        <div class="lbl">Current Location</div>
+        <div>${o.location || o.city}</div>
+        <div class="lbl">Order Total</div>
+        <div><strong>${money(o.total)}</strong></div>
+        <div class="oc-track">${trackHTML}</div>
+      </div>
+    </div>
+    ${ownerControls}
+    ${rejectBtnHtml}
+    <div class="oc-actions">
+      <button class="btn-mini-outline invoiceBtn">🧾 View / Download Invoice</button>
+    </div>
+  </div>`;
+}
+
+function attachOrderCardEvents(container, isOwner){
+  container.querySelectorAll('.order-card').forEach(card => {
+    const id = card.dataset.id;
+    card.querySelector('.invoiceBtn').addEventListener('click', () => openInvoice(id));
+    if(isOwner){
+      card.querySelector('.saveUpdateBtn').addEventListener('click', () => {
+        const status = card.querySelector('.statusSelect').value;
+        const location = card.querySelector('.locationInput').value.trim();
+        updateOrder(id, status, location);
+      });
+      
+      const rejectBtn = card.querySelector('.rejectFakeBtn');
+      if (rejectBtn) {
+        rejectBtn.addEventListener('click', () => {
+          if (confirm(`Are you sure you want to reject Order ${id} due to a fake payment screenshot?`)) {
+            updateOrder(id, 'Cancelled', 'System/Owner Rejected');
+            showToast('Order Rejected (Fake Payment)');
+          }
+        });
+      }
+    }
+  });
+}
+
+function updateOrder(id, status, location){
+  const orders = db_getOrders();
+  const o = orders.find(x => x.id === id);
+  if(!o) return;
+  o.status = status;
+  o.location = location || o.location;
+  if(!o.timeline.find(t => t.status === status)){
+    o.timeline.push({ status, location: o.location, time: new Date().toISOString() });
+  } else {
+    const t = o.timeline.find(t => t.status === status);
+    t.location = o.location;
+    t.time = new Date().toISOString();
+  }
+  db_saveOrders(orders);
+  showToast(`Order ${id} updated to "${status}"`);
+  renderOwnerDashboard(document.getElementById('ownerSearch').value);
+}
+
+const invoiceOverlay = document.getElementById('invoiceOverlay');
+
+function openInvoice(orderId){
+  const order = db_getOrders().find(o => o.id === orderId);
+  if(!order) return;
+
+  const itemsRows = order.items.map(it => `
+    <tr>
+      <td>${it.name}${it.size && it.size!=='-' ? ' ('+it.size+')' : ''}</td>
+      <td class="r">${it.qty}</td>
+      <td class="r">${money(it.price)}</td>
+      <td class="r">${money(it.price * it.qty)}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('invoicePaper').innerHTML = `
+    <div class="inv-head">
+      <div class="inv-brand">
+        <div class="name">Kanha Fashion Trends</div>
+        <div class="meta">
+          Festive &amp; Everyday Fashion<br>
+          Pune, Maharashtra, India — 411001<br>
+          kanhafashiontrends@gmail.com &nbsp;|&nbsp; GSTIN: 27KANHAT1234F1Z5
+        </div>
+      </div>
+      <div class="inv-title">
+        <h2>Invoice</h2>
+        <div class="num">${genInvoiceNo(order)}</div>
+        <div class="num">Order ${order.id}</div>
+        <div class="inv-paid-badge">${order.payMethod==='COD' ? 'Pay on Delivery' : 'Paid'}</div>
+      </div>
+    </div>
+    <div class="inv-meta-grid">
+      <div>
+        <div class="b-lbl">Billed To</div>
+        <div class="b-txt">
+          ${order.customerName}<br>
+          ${order.address}<br>
+          ${order.city}, ${order.state} - ${order.pincode}<br>
+          Phone: ${order.phone}
+        </div>
+      </div>
+      <div>
+        <div class="b-lbl">Order Details</div>
+        <div class="b-txt">
+          Order Date: ${fmtDate(order.placedAt)}<br>
+          Payment Method: ${order.payMethod === 'COD' ? 'Cash on Delivery' : 'UPI / Card'}<br>
+          Order Status: ${order.status}<br>
+          Current Location: ${order.location || order.city}
+        </div>
+      </div>
+    </div>
+    <table class="inv-table">
+      <thead><tr><th>Item</th><th class="r">Qty</th><th class="r">Price</th><th class="r">Amount</th></tr></thead>
+      <tbody>${itemsRows}</tbody>
+    </table>
+    <div class="inv-totals">
+      <div class="row"><span>Subtotal</span><span>${money(order.subtotal)}</span></div>
+      <div class="row"><span>Shipping</span><span>${order.shipping === 0 ? 'FREE' : money(order.shipping)}</span></div>
+      <div class="row"><span>GST (5%)</span><span>${money(order.tax)}</span></div>
+      <div class="row grand"><span>Total</span><span>${money(order.total)}</span></div>
+    </div>
+    <div class="inv-foot">
+      This is a computer generated invoice from Kanha Fashion Trends and does not require a signature.<br>
+      Thank you for shopping with us — Weave Your Story.
+    </div>
+  `;
+  invoiceOverlay.classList.add('open');
+}
+document.getElementById('closeInvoice').addEventListener('click', () => invoiceOverlay.classList.remove('open'));
+document.getElementById('closeInvoice2').addEventListener('click', () => invoiceOverlay.classList.remove('open'));
+document.getElementById('printInvoice').addEventListener('click', () => window.print());
+
+const INFO_PAGES = {
+  shipping: {
+    title: 'Shipping Policy',
+    body: '<div class="info-page">'
+      + '<p>We dispatch every order within 24-48 hours of confirmation, straight from our Mumbai facility.</p>'
+      + '<h4>Delivery Timelines</h4>'
+      + '<ul><li>Metro cities: 2-4 business days</li><li>Rest of India: 4-7 business days</li><li>Remote / North-East locations: 7-10 business days</li></ul>'
+      + '<h4>Shipping Charges</h4>'
+      + '<p>Free shipping on all prepaid orders above ₹999. A flat ₹79 shipping fee applies below that, and on all Cash on Delivery orders.</p>'
+      + '<h4>Order Tracking</h4>'
+      + '<p>Once your order ships, you can track it any time using the "Track Order" link in the footer with your Order ID and registered phone number.</p>'
+      + '</div>'
+  },
+  returns: {
+    title: 'Returns & Exchange',
+    body: '<div class="info-page">'
+      + '<p>We want you to love what you ordered. If something isn\'t right, we\'re here to help.</p>'
+      + '<h4>Return Window</h4>'
+      + '<p>Returns and exchanges are accepted within 7 days of delivery, provided the item is unused, unwashed, and has all original tags attached.</p>'
+      + '<h4>How to Initiate</h4>'
+      + '<ul><li>Go to your Orders section and select the item</li><li>Or reach out to us at support@kanhafashiontrends.com / +91 9022365118 with your Order ID</li></ul>'
+      + '<h4>Refunds</h4>'
+      + '<p>Once the returned item passes quality check, refunds are processed to the original payment method within 5-7 business days. COD orders are refunded via bank transfer or store credit.</p>'
+      + '<p><strong>Note:</strong> Innerwear, accessories, and items marked "Final Sale" are not eligible for return.</p>'
+      + '</div>'
+  },
+  sizeGuide: {
+    title: 'Size Guide',
+    body: '<div class="info-page">'
+      + '<p>All measurements are in inches. For the best fit, measure a similar garment you already own and compare with the chart below.</p>'
+      + '<table class="size-table"><thead><tr><th>Size</th><th>Bust/Chest</th><th>Waist</th><th>Hip</th></tr></thead>'
+      + '<tbody><tr><td>S</td><td>34</td><td>28</td><td>36</td></tr>'
+      + '<tr><td>M</td><td>36</td><td>30</td><td>38</td></tr>'
+      + '<tr><td>L</td><td>38</td><td>32</td><td>40</td></tr>'
+      + '<tr><td>XL</td><td>40</td><td>34</td><td>42</td></tr></tbody></table>'
+      + '<p style="margin-top:14px;">Between sizes? We recommend sizing up for a relaxed fit, especially for structured ethnic wear.</p>'
+      + '</div>'
+  },
+  faqs: {
+    title: 'Frequently Asked Questions',
+    body: '<div class="info-page">'
+      + '<details class="faq-item" open><summary>How long does delivery take?</summary><p>Most orders arrive within 2-7 business days depending on your location. You\'ll get status updates on the Track Order page.</p></details>'
+      + '<details class="faq-item"><summary>Do you offer Cash on Delivery?</summary><p>Yes, COD is available on all orders.</p></details>'
+      + '<details class="faq-item"><summary>Can I exchange an item for a different size?</summary><p>Yes, exchanges are available within 7 days of delivery, subject to stock availability. See our Returns & Exchange policy for details.</p></details>'
+      + '<details class="faq-item"><summary>How do I track my order?</summary><p>Use the "Track Order" link in the footer and enter your Order ID with the phone number used at checkout.</p></details>'
+      + '<details class="faq-item"><summary>Is Cash on Delivery available everywhere?</summary><p>COD is available across most pin codes in India. If it\'s unavailable for your area, only prepaid options will show at checkout.</p></details>'
+      + '</div>'
+  }
+};
+
+const infoOverlay = document.getElementById('infoOverlay');
+function openInfoPage(key){
+  const page = INFO_PAGES[key];
+  if(!page) return;
+  document.getElementById('infoTitle').textContent = page.title;
+  document.getElementById('infoBody').innerHTML = page.body;
+  infoOverlay.classList.add('open');
+}
+document.getElementById('closeInfo').addEventListener('click', () => infoOverlay.classList.remove('open'));
+infoOverlay.addEventListener('click', (e) => { if(e.target === infoOverlay) infoOverlay.classList.remove('open'); });
+
+const trackOrderOverlay = document.getElementById('trackOrderOverlay');
+function openTrackOrder(){
+  document.getElementById('trackOrderForm').reset();
+  document.getElementById('trkError').classList.remove('show');
+  document.getElementById('trkResult').innerHTML = '';
+  trackOrderOverlay.classList.add('open');
+}
+document.getElementById('closeTrackOrder').addEventListener('click', () => trackOrderOverlay.classList.remove('open'));
+trackOrderOverlay.addEventListener('click', (e) => { if(e.target === trackOrderOverlay) trackOrderOverlay.classList.remove('open'); });
+
+document.getElementById('trackOrderForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const idInput = document.getElementById('trkOrderId').value.trim().toUpperCase();
+  const phoneInput = document.getElementById('trkPhone').value.trim();
+  const errEl = document.getElementById('trkError');
+  const resultEl = document.getElementById('trkResult');
+  const order = db_getOrders().find(o => o.id.toUpperCase() === idInput && o.phone === phoneInput);
+  if(!order){
+    errEl.classList.add('show');
+    resultEl.innerHTML = '';
+    return;
+  }
+  errEl.classList.remove('show');
+  resultEl.innerHTML = orderCardHTML(order, false);
+  attachOrderCardEvents(resultEl, false);
+});
+
+function viewScreenshot(orderId) {
+  const order = db_getOrders().find(o => o.id === orderId);
+  if (!order || !order.screenshot) return;
+
+  const htmlContent = '<!DOCTYPE html><html><head><title>Payment Screenshot - '
+    + orderId
+    + '</title></head><body style="margin:0; display:flex; justify-content:center; align-items:center; background:#1b1b3a; height:100vh;">'
+    + '<img src="' + order.screenshot + '" style="max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">'
+    + '</body></html>';
+
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+  const blobUrl = URL.createObjectURL(blob);
+  const imageWindow = window.open(blobUrl, '_blank');
+
+  if (!imageWindow) {
+    URL.revokeObjectURL(blobUrl);
+    showToast('Please allow pop-ups for this site to view the screenshot');
+    return;
+  }
+
+  setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
+}
+
+(function init(){
+  const session = db_getSession();
+  if(session){
+    enterApp();
+  } else {
+    authScreen.style.display = 'flex';
+    storeApp.style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>
